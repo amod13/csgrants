@@ -1,0 +1,509 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int sn = 1;
+    string CName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string AName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
+    string DefaultClass1 = "btn btn-info btn-sm";
+    string DefaultClass2 = "btn btn-info btn-sm";
+    string DefaultClass3 = "btn btn-info btn-sm";
+    string DefaultClass4 = "btn btn-info btn-sm";
+    string DefaultClass5 = "btn btn-info btn-sm";
+    string DefaultClass6 = "btn btn-info btn-sm";
+    string DefaultClass7 = "btn btn-info btn-sm";
+    string DefaultClass8 = "btn btn-info btn-sm";
+
+    if (CName == "SubProgramSetup" && AName == "ProgramPriority")
+    {
+        DefaultClass7 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "Edit")
+    {
+        DefaultClass1 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListAction")
+    {
+        DefaultClass2 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListActionUpload")
+    {
+        DefaultClass3 = "btn btn-danger btn-sm";
+    }
+    if (CName == "GrantRequestForm" && AName == "ProposalValuation")
+    {
+        DefaultClass4 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ViewDetails")
+    {
+        DefaultClass5 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "FifteenYojana")
+    {
+        DefaultClass6 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ProgramPriority")
+    {
+        DefaultClass7 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ReqDocUploads")
+    {
+        DefaultClass8 = "btn btn-danger btn-sm";
+    }
+
+    int ConditionCount = Model.ProgramConditionsViewModelList.Count();
+    int FifteenYojana = Model.FifteenYojanaDetailsList.Count();
+
+
+}
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">विवरण</li>
+        </ul>
+    </div>
+</div>
+<style>
+    .btn-toolbar {
+        display: inline !important;
+    }
+</style>
+
+
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">विवरण</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                @if (ViewBag.Mode == "Edit")
+                {
+
+                <div class="btn-toolbar">
+                    @Html.ActionLink("१. मुख्य विवरण", "Edit", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass1 })
+                    @Html.ActionLink("२. अनिवार्य कागजातहरू", "ReqDocUploads", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass8 })
+                    @Html.ActionLink("३. शर्त घोषणा पृष्ठ", "CheckListAction", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass2 })
+                    @Html.ActionLink("४. शर्त घोषणा कागजात", "CheckListActionUpload", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass4 })
+                    @Html.ActionLink("५. थप विवरण", "ProposalValuation", "GrantRequestForm", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass3 })
+                    @Html.ActionLink("६. राष्ट्रिय उदेश्यसँग सामञ्जस्यता", "FifteenYojana", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass6 })
+                    @Html.ActionLink("७. प्राथमिकता क्रम", "ProgramPriority", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass7 })
+                    @Html.ActionLink("८. समिक्षा", "ViewDetails", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass5 })
+
+                </div>
+                }
+
+                <div class="clearfix"></div>
+                <hr />
+
+
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h4 style="color:#0991f3;">
+                            <i class="fa fa-check"></i>
+                            विवरण
+                        </h4>
+                        <br />
+
+
+                    </div>
+                    <div>
+                        @if (Model.Status == 1)
+                        {
+                            <span>नोटः पेश गर्नु अघि एकपटक सम्पूर्ण विवरण चेक गर्नुहोस । सच्चाउनु परेमा माथि भएको मेनुमा गएर जुन शिर्षकको विवरण सच्चाउनु पर्ने हो सोहि मेनु क्लिक गर्नुहोस । पेश गरिसकेपछि विवरण सच्चाउन मिल्दैन ।)</span>
+                        }
+                    </div>
+
+
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 form-group"><b>मुलभुत क्षेत्र:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@GrantApp.Areas.Admin.FunctionClass.GetMainSectionNameByMainSectionid(Model.MainSectionId)</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>आधार/क्षेत्र:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@CommontUtilities.GetProgramNameById(Model.ProgramId)</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>आयोजना/कार्यक्रमको नाम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.SubProgramTitle</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>कूल लागत:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TotalBudget</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>लाभान्वित सम्भाब्य जनसंख्या:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ProbableBenefitedPopulation</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>अवधि (वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TimeDurationYear</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.AmountProvinceVdc</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>सहकारी तथा अन्य गैर सरकारीले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.NGOINGOAmount</div>
+                            @*<div class="col-lg-4 col-md-3 form-group"><b>नेपाल सरकारले व्यहोर्ने रकम:</b></div>
+            <div class="col-lg-8 col-md-9 form-group">@Model.GovnNepalAmount</div>*@
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+                        <div class="row">
+                            @if (!string.IsNullOrEmpty(Model.FinalDocumentsUrl))
+                            {
+
+                                if (!string.IsNullOrEmpty(Model.FinalDocumentsUrl))
+                                {
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>शर्त घोषणा कागजात</label>
+                                        <a href="~/RequiredDocs/@Model.FinalDocumentsUrl" target="_blank">
+                                            <div class="col-md-4">
+
+                                                <img src="~/RequiredDocs/@Model.FinalDocumentsUrl" height="100" width="100" />
+                                                <label>फोटो-१</label>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+
+
+                            }
+                        </div>
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+
+                                <h4>
+                                    अनिवार्य कागजातहरू
+                                </h4>
+
+                            </div>
+                            <table class="table table-bordered" style="width:75%;">
+                                <thead>
+                                    <tr>
+                                        <td>क्रस</td>
+                                        <td>शिर्षक</td>
+                                        <td>अपलोड गरीएको फाईल</td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.DocumentsRequirementsViewModel)
+                                {
+                                    <tr>
+                                        <td>@sn</td>
+                                        <td>@item.DocTitleFileStr</td>
+                                        <td>@item.UploadFileUrl</td>
+                                    </tr>
+                                    sn++;
+                                }
+
+                            </table>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+                                @if (ConditionCount > 0)
+                                {
+                                    <h4 style="color:#0991f3;">
+                                        <i class="fa fa-check"></i>&nbsp; शर्त घोषणा
+                                    </h4>
+                                }
+                                else
+                                {
+                                    <h4 style="color:#ff6a00;">
+                                        <i class="fa fa-times"></i>&nbsp; शर्त घोषणा
+                                    </h4>
+                                }
+                            </div>
+                            <table class="table table-bordered" style="width:75%;">
+                                <thead>
+                                    <tr>
+                                        <td>क्रस</td>
+                                        <td></td>
+                                        <td>शर्त</td>
+                                        @*<td>अपलोड गरीएको फाईल</td>*@
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.ProgramConditionsViewModelList)
+                                {
+                                    <tr>
+                                        <td>@sn</td>
+                                        <td>@Html.CheckBox("CBName", item.IsCheck, new { @disabled = "disabled" })</td>
+                                        <td>@item.ConditionsTitle</td>
+                                        @*<td>@item.UploadFileUrl</td>*@
+                                    </tr>
+                                    sn++;
+                                }
+
+                            </table>
+                        </div>
+                        <hr />
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+                                @if (Model.IsPointInsertedIntoVarialbesTable)
+                                {
+                                    <h4 style="color:#0991f3;">
+                                        <i class="fa fa-check"></i>&nbsp; थप विवरण
+                                    </h4>
+                                }
+                                else
+                                {
+                                    <h4 style="color:#ff6a00;">
+                                        <i class="fa fa-times"></i>&nbsp; थप विवरण
+                                    </h4>
+                                }
+
+
+                            </div>
+
+                            @for (int i = 0; i < Model.ValuationBasisModelList.Count; i++)
+                            {
+                                string cls = "css" + Model.ValuationBasisModelList[i].VariableId;
+                                if (Model.ValuationBasisModelList[i].VariableBasis != null)
+                                {
+
+
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>@Html.DisplayFor(m => Model.ValuationBasisModelList[i].VariableBasis)</label>
+
+                                    </div>
+                                }
+                                <div class="col-md-1 col-sm-6 form-group">
+                                    <label>
+                                        @Html.CheckBoxFor(m => Model.ValuationBasisModelList[i].IsChecked, new { @class = cls, @disabled = "disabled" })
+                                        @Html.DisplayFor(m => Model.ValuationBasisModelList[i].SerialNep)
+                                    </label>
+                                </div>
+
+                                <div class="col-md-11 col-sm-6 form-group">
+                                    @Html.HiddenFor(m => Model.ValuationBasisModelList[i].VariableId)
+                                    @Html.HiddenFor(m => Model.ValuationBasisModelList[i].VariableDetailid)
+                                    @Html.DisplayFor(m => Model.ValuationBasisModelList[i].VariableDetailBasis, new { @class = "form-control form-control sm" })
+                                </div>
+                            }
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+                                @if (FifteenYojana > 0)
+                                {
+                                    <h4 style="color:#0991f3;">
+                                        <i class="fa fa-check"></i>&nbsp;राष्ट्रिय उदेश्यसँग सामञ्जस्यता
+                                    </h4>
+                                }
+                                else
+                                {
+                                    <h4 style="color:#ff6a00;">
+                                        <i class="fa fa-times"></i>&nbsp;राष्ट्रिय उदेश्यसँग सामञ्जस्यता
+                                    </h4>
+                                }
+
+
+                            </div>
+                            @for (int i = 0; i < Model.FifteenYojanaDetailsList.Count; i++)
+                            {
+                                <div class="col-md-12 col-sm-6 form-group">
+                                    <label>@Model.FifteenYojanaDetailsList[i].OptionValue</label>
+                                    @Html.CheckBoxFor(m => Model.FifteenYojanaDetailsList[i].IsChecked, new { @disabled = "disabled" })
+                                    @Html.DisplayFor(m => Model.FifteenYojanaDetailsList[i].YojanaTitle)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].OptionValue)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].SubProgramId)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].RefGrantVariableId)
+
+                                </div>
+                            }
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+                                @if (Model.ProgramPirority > 0)
+                                {
+                                    <h4 style="color:#0991f3;">
+                                        <i class="fa fa-check"></i>&nbsp; प्राथमिकता क्रम
+                                    </h4>
+                                }
+                                else
+                                {
+                                    <h4 style="color:#ff6a00;">
+                                        <i class="fa fa-times"></i>&nbsp; प्राथमिकता क्रम
+                                    </h4>
+                                }
+
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 form-group"><b>प्राथमिकता क्रम नंम्बर:</b></div>
+                            <div class="col-lg-3 col-md-9 form-group">@Model.ProgramPirority</div>
+
+                        </div>
+
+
+
+
+
+                        @using (Html.BeginForm("RequestGrant", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ProgramId)
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.OfficeId)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+
+
+
+
+                                @if (Model.Status == 1)
+                                {
+                                    <span style="font-weight:bold;font-size:10px;">(नोटः पेश गर्नु अघि एकपटक सम्पूर्ण विवरण चेक गर्नुहोस । सच्चाउनु परेमा माथि भएको मेनुमा गएर जुन शिर्षकको विवरण सच्चाउनु पर्ने हो सोहि मेनु क्लिक गर्नुहोस । पेश गरिसकेपछि विवरण सच्चाउन मिल्दैन ।)</span>
+                                    @*<span style="font-weight:bold;font-size:10px;">(फाराम भर्ने मिति समाप्त भैसकेको छ ।)</span>*@
+
+                                    if (!Model.TermsAndCondtions)
+                                    {
+                                        <span style="font-weight:bold;font-size:10px;">(नोटः घोषणा गरेको कागजात अपलोड गर्नु भएको छैन । पेश गर्नु अघि कागजात अपलोड गर्नुहोस ।)</span>
+                                        <div class="form-group">
+                                            @*<span>फाराम भर्ने मिति समाप्त भैसकेको छ ।</span>*@
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="DisplayErrorMessage()"><i class="fa fa-floppy-o">&nbsp;</i>प्रस्ताव पेश गर्नुहोस</button>
+                                            @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                            @*<span>फाराम भर्ने मिति समाप्त भैसकेको छ ।</span>*@
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>प्रस्ताव पेश गर्नुहोस</button>
+                                            @*<button type="button" class="btn btn-primary btn-sm" onclick="DisplayErrorMessage()"><i class="fa fa-floppy-o">&nbsp;</i>प्रस्ताव पेश गर्नुहोस</button>*@
+                                            @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+                                        </div>
+                                    }
+
+
+                                }
+
+
+                                else
+
+                                {
+                                    if (Model.ApprovedStatus.HasValue)
+                                    {
+                                        if (Model.ApprovedStatus == true)
+                                        {
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>यो स्वीकृत आयोजना हो ।</button>
+                                                @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> प्रमाणिकरणको प्रकिया मा छ ।</button>
+                                                @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> प्रमाणिकरणको प्रकिया मा छ ।</button>
+                                            @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                        </div>
+                                    }
+
+                                }
+
+
+                            </fieldset>
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["RequestGrantNotifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    function DisplayErrorMessage() {
+
+        var TotalCoditionCount =@Model.ProgramConditionsViewModelList.Count();
+        var IfPointVariableInserted = @Model.IsPointInsertedIntoVarialbesTable.ToString().ToLower();
+        var TermsAndCondtionDtl = @Model.TermsAndCondtions.ToString().ToLower();
+        var TotalFifteenYojanaCount = @Model.FifteenYojanaDetailsList.Count();
+        var alertMessage ="";
+        if(TotalCoditionCount<=0)
+        {
+            alertMessage+=" कृपया शर्त घोषणा भर्नुहोस ।";
+        }
+        else
+        {
+
+        }
+        if(!IfPointVariableInserted)
+        {
+            alertMessage+=" कृपया थप विवरण भर्नुहोस ।";
+        }
+        else
+        {
+
+        }
+        if(TotalFifteenYojanaCount<=0)
+        {
+            alertMessage+="कृपया राष्ट्रिय उदेश्यसँग सामञ्जस्यताको विवरण भर्नुहोस ।";
+        }
+        else
+        {
+
+        }
+        if(!TermsAndCondtionDtl)
+        {
+            alertMessage+=" शर्त घोषणा को कागजात अपलोड गर्नुहोस ।";
+        }
+        else
+        {
+
+        }
+
+        alert(alertMessage);
+    };
+
+</script>

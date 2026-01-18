@@ -1,0 +1,120 @@
+﻿
+@model GrantApp.Models.SubProgramMaster
+
+@{
+    int i = 1;
+}
+
+
+<div class="table-responsive m_table">
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+
+                <th>क्रम</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>कार्यविधी क्षेत्र</th>
+                <th>आयोजना कार्यक्रम</th>
+                <th>कार्यालय</th>
+                @if (Model.ViewBagCurrentLoginUserUserTypeId == 4)
+                {
+                    <th>जिल्ला</th>
+                    <th>गापा/नपा कोड</th>
+                    <th>गापा/नपा</th>
+                }
+                <th>कूल लागत</th>
+                <th>सम्बन्धित तहले व्यहोर्ने</th>
+                <th>अनुदान माग गरिएको रकम</th>
+                <th>आयोजनाको अवधि</th>
+                <th>१</th>
+                <th>२</th>
+                <th>३</th>
+                <th>४</th>
+                <th>५</th>
+                <th>६</th>
+                <th>७</th>
+                <th>जम्मा</th>
+
+                <th>पू.वि.</th>
+                <th>छनौट</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ValuationBasisModelList)
+            {
+
+            <tr>
+
+                <th scope="row">@i</th>
+                <td>@item.MainSection</td>
+                <td>@item.ProgramName</td>
+                <td>@item.SubProgram</td>
+                <td>@item.OfficeName</td>
+                @if (Model.ViewBagCurrentLoginUserUserTypeId == 4)
+                {
+                    <td>@item.DistrictNameEng</td>
+                    <td>@item.VDCMUNCode</td>
+                    <td>@item.VdcMunNameEng</td>
+                }
+                <td>@item.TotalBudget</td>
+                <td>@item.ProvinceNGOINGOAmount</td>
+                <td>@item.AnudhanAmount</td>
+                <td>@item.TimeDurationYear</td>
+                @*<td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 11)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 12)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 13)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 14)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 16)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 18)</td>
+                <td>@GrantApp.Areas.Admin.FunctionClass.GetVariableValue(item.SubProgramId, 19)</td>*@
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+
+                <td>@item.Valuation</td>
+                <td>
+                    @Html.ActionLink(" ", "ViewDeatilsListForResult", "Reports", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+
+                </td>
+                @if (Model.PhaseStatus == 4)
+                {
+                    if (item.IsSelected)
+                    {
+                        <td>
+                            <span onclick="AddProgramInFinalList(@item.SubProgramId)" style="cursor:pointer;"><i class="fa fa-check-circle GreenCL"></i></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span onclick="AddProgramInFinalList(@item.SubProgramId)" style="cursor:pointer;">
+                                <i class="fa fa-times-circle RedCL"></i>
+                            </span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+
+
+            </tr>
+                ++i;
+            }
+
+
+
+
+
+        </tbody>
+    </table>
+</div>

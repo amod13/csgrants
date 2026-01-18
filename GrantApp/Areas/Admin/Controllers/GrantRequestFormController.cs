@@ -1,0 +1,216 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using GrantApp.Models;
+using GrantApp.Services;
+using System.IO;
+using GrantApp.Areas.Admin.Models;
+
+namespace GrantApp.Areas.Admin.Controllers
+{
+    [Authorize]
+    public class GrantRequestFormController : Controller
+    {
+
+        SubProgramServices SubProgramServices = new SubProgramServices();
+        SubProgramMaster SubProgramModel = new SubProgramMaster();
+        // GET: Admin/GrantRequestForm
+
+        public ActionResult Index()
+        {
+            SubProgramModel.SubProgramListModelForAdminList = SubProgramServices.PopulateSubProgramListForAdmin(1);
+            SubProgramModel.ViewbagGrantTypeId = 1;
+            return View(SubProgramModel);
+
+        }
+        public ActionResult IndexComplementary()
+        {
+            SubProgramModel.SubProgramListModelForAdminList = SubProgramServices.PopulateSubProgramListForAdmin(2);
+            SubProgramModel.ViewbagGrantTypeId = 2;
+            return View(SubProgramModel);
+
+        }
+
+
+        public ActionResult ViewDeatils(int id, int id1)
+        {
+            SubProgramMaster model = new SubProgramMaster();
+            model = SubProgramServices.PopulateSubProgram(id1).SingleOrDefault(x => x.SubProgramId == id);
+            model.ObjSupportingDocumentsModel = SubProgramServices.PopulateSubProgramSupportingDoc(id).SingleOrDefault();
+            int UserTypeId = GrantApp.Areas.Admin.FunctionClass.GetUsertypeFromOfficeId(model.OfficeId);
+
+            model.ProgramConditionsViewModelList = SubProgramServices.PopulateProgramConditionsListForEdit(id,UserTypeId);
+            model.ViewbagGrantTypeId = id1;
+            bool IfCheckListInserted = SubProgramServices.CheckIfAlreadyInsertedInCondictionDetails(id);
+            int OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            model.IsPointInsertedIntoVarialbesTable = ObjService.CheckIfProgramValuationBasisExist(id, id1, OfficeId);
+            ViewBag.Mode = "Edit";
+
+            //prastap mulyankan
+            // ProgramPointsServices ObjService = new ProgramPointsServices();
+
+            model.ValuationBasisModelList = ObjService.PopulateVariableBasisDetailEdit(id, model.ViewbagGrantTypeId).Where(x => x.IsSystemGenerated == false).ToList();
+            ViewBag.Mode = "Edit";
+            model.FifteenYojanaDetailsList = SubProgramServices.PopulateFifteenYojana(id);
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult SavePoints(SubProgramMaster model)
+        {
+            ProgramPointsServices pointService = new ProgramPointsServices();
+            string msg = pointService.InsertProgramPoints(model);
+            return RedirectToAction("ViewDeatils", new { id = model.SubProgramId, id1 = model.GrantTypeId });
+        }
+
+
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/RequiredDocs/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
+
+
+        public ActionResult ProposalValuation(int id, int id1)
+        {
+            SubProgramMaster _Model = new SubProgramMaster();
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            _Model.GrantTypeId = id1;
+            _Model.SubProgramId = id;
+
+            if (ObjService.CheckIfProgramValuationBasisExist(_Model.SubProgramId, _Model.GrantTypeId, 0))
+            {
+
+                _Model.ValuationBasisModelList = ObjService.PopulateVariableBasisDetailEdit(_Model.SubProgramId, _Model.GrantTypeId);
+            }
+            else
+            {
+                _Model.ValuationBasisModelList = ObjService.PopulateVariableBasisDetail(id, id1);
+            }
+
+            return View(_Model);
+        }
+        [HttpPost]
+        public ActionResult ProposalValuation(SubProgramMaster _Model)
+        {
+            if (_Model.ValuationBasisModelList.Count > 0)
+            {
+
+                ProgramPointsServices ObjService = new ProgramPointsServices();
+                ObjService.InsertSubProgramVariableBasis(_Model);
+                _Model.ValuationBasisModelList = ObjService.PopulateVariableBasisDetailEdit(_Model.SubProgramId, _Model.GrantTypeId);
+            }
+            return RedirectToAction("ProposalValuation", new { id = _Model.SubProgramId, id1 = _Model.GrantTypeId });
+        }
+
+        public ActionResult ProposalValuationList(int id)
+        {
+            SubProgramMaster _Model = new SubProgramMaster();
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            _Model.ValuationBasisModelList = ObjService.PopulateProposalValuationList(0, id, 0);
+            return View(_Model);
+        }
+
+
+        public ActionResult ProposalValuationResultList(int id)
+        {
+            SubProgramMaster _Model = new SubProgramMaster();
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            //_Model.ValuationBasisModelList = ObjService.PopulateProposalValuationResultList(id);
+            _Model.ViewBagCurrentLoginUserUserTypeId = id;
+            _Model.ObjValuationBasisModel.ProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+
+            return View(_Model);
+        }
+
+
+        [HttpPost]
+        public ActionResult ProposalValuationResultList(SubProgramMaster _Model)
+        {
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            _Model.ValuationBasisModelList = ObjService.PopulateProposalValuationResultList(1, _Model.ObjValuationBasisModel.ProvinceIdSearch, _Model.ObjValuationBasisModel.DistrictIdSearch, _Model.ObjValuationBasisModel.VDCMUNIdSearch, _Model.ViewBagCurrentLoginUserUserTypeId, _Model.ObjValuationBasisModel.ProgramPhaseNumber);
+            _Model.PhaseStatus = _Model.ObjValuationBasisModel.ProgramPhaseNumber;
+            return PartialView("_PartialValuationResultList", _Model);
+        }
+
+
+
+        public ActionResult ProposalValuationResultListGrantTypeII(int id)
+        {
+            SubProgramMaster _Model = new SubProgramMaster();
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            _Model.ViewBagCurrentLoginUserUserTypeId = id;
+            // _Model.ValuationBasisModelList = ObjService.PopulateProposalValuationResultList(id, 0, 0, 0);
+            _Model.ObjValuationBasisModel.ProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+
+            return View(_Model);
+        }
+        [HttpPost]
+        public ActionResult ProposalValuationResultListGrantTypeII(SubProgramMaster _Model)
+        {
+
+            ProgramPointsServices ObjService = new ProgramPointsServices();
+            _Model.ValuationBasisModelList = ObjService.PopulateProposalValuationResultList(2, _Model.ObjValuationBasisModel.ProvinceIdSearch, _Model.ObjValuationBasisModel.DistrictIdSearch, _Model.ObjValuationBasisModel.VDCMUNIdSearch, _Model.ViewBagCurrentLoginUserUserTypeId, _Model.ObjValuationBasisModel.ProgramPhaseNumber);
+            _Model.PhaseStatus = _Model.ObjValuationBasisModel.ProgramPhaseNumber;
+            return PartialView("_PartialValuationResultListII", _Model);
+        }
+
+        public ActionResult DeleteSubProgram(int id)
+        {
+            SubProgramMaster _Model = new SubProgramMaster();
+            return RedirectToAction("Index");
+
+
+        }
+
+
+        public ActionResult AddRemoveProgramFromFinalList(string ProgramID)
+        {
+            int SubprogramId = 0;
+            if (!string.IsNullOrEmpty(ProgramID))
+            {
+                SubprogramId = Convert.ToInt32(ProgramID);
+            }
+
+            DashboardModel model = new DashboardModel();
+            model.ObjGetSubprogramDetailByIdViewModel = new GetSubprogramDetailByIdViewModel();
+            DashboardServices DS = new DashboardServices();
+            model.ObjGetSubprogramDetailByIdViewModel = DS.SP_GetSubprogramDetailByIDForSearch(SubprogramId);
+            if (model.ObjGetSubprogramDetailByIdViewModel.SubProgramId > 0)
+            {
+                int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+                CommonServices CS = new CommonServices();
+                CS.SP_PrepareFinalListFromAdmin(SubprogramId, 0, CurrentPhaseNumber,0);//Current PhaseNumber
+                //Change ProgramStatus
+                return Json("T");
+            }
+            else
+            {
+                //Error
+                return Json("F");
+            }
+
+            //if (result != null && result.Rows.Count > 0)
+            //{
+            //    return Json("T");
+            //}
+            //else
+            //{
+            //    return Json("F");
+            //}
+
+        }
+
+
+
+
+
+
+
+
+    }
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

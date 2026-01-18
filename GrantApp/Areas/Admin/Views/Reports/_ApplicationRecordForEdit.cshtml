@@ -1,0 +1,62 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int i = 1;
+}
+
+
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>कोड</th>
+                <th>स्थानिय तहको नाम</th>
+                <th>जिल्ला</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>सम्बन्धित तहले व्यहोर्ने</th>
+                <th>आयोजनाको अवधि</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                <tr>
+                    <td scope="row">@i</td>
+                    <td>@item.VDCMUNCode</td>
+                    <td>@item.OfficeName</td>
+                    <td>@item.DistrictName</td>
+                    <td>@item.SectionName</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TotalBudget</td>
+                    <td>@item.AmountProvinceVdc</td>
+                    <td>@item.TimeDurationYear</td>
+
+                    <td>
+                        @Html.ActionLink("अवधि परिवर्तन गर्नुहोस", "ChangeSubProgramDetailById", new { @id = item.SubProgramId, @id1 = item.OfficeId,@id2=item.GrantTypeId }, new { @class = "" })
+                    </td>
+
+
+
+
+                </tr>
+
+
+
+                ++i;
+            }
+
+
+
+        </tbody>
+    </table>
+
+
+</div>
+

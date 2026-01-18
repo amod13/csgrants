@@ -1,0 +1,181 @@
+﻿@model GrantApp.Models.VDCMUNVIewModel
+
+@{
+    ViewBag.Title = "UpdateMunTitle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .toast-top-center {
+        top: 12px;
+        left: 50%;
+        margin: 0 0 0 -150px;
+    }
+
+    .table td, .table th {
+        font-size: 12px !important;
+    }
+</style>
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">गापा/नपा को नाम परिवर्तन</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="clearfix"></div>
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("UpdateMunTitle", "AdminHome", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                        {
+
+
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>प्रदेश </label>
+                                        @Html.DropDownListFor(m => m.ProvinceId, GrantApp.Areas.Admin.FunctionClass.GetProvincesDD(), new { @id = "dll_province", @class = "form-control form-control sm", @required = "required", @onchange = "GetDistrictListDD()" })
+                                        @Html.ValidationMessageFor(m => m.ProvinceId)
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>जिल्ला</label>
+                                        @Html.DropDownListFor(m => m.DistrictCode, GrantApp.Areas.Admin.FunctionClass.GetDistrictByStateIdDD(Model.ProvinceId), new { @id = "dll_district", @class = "form-control form-control sm", @required = "required", @onchange = "GetVDCMUNListDD()" })
+                                        @Html.ValidationMessageFor(m => m.DistrictCode)
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>हालको गापा/नपा को नाम</label>
+                                        @Html.DropDownListFor(m => m.VDCMUNCode, GrantApp.Areas.Admin.FunctionClass.GetRuralMunicipalitybyDistrictDDDefault(""), new { @id = "dll_vdcmun", @class = "form-control form-control sm", @required = "required" })
+                                        @Html.ValidationMessageFor(m => m.VDCMUNCode)
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>नयाँ गापा/नपा नाम</label>
+                                        @Html.TextBoxFor(m => m.NewVDCName, new { @id = "newname", @class = "form-control form-control sm", @required = "required" })
+                                        @Html.ValidationMessageFor(m => m.NewVDCName)
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+
+                                    @*@Html.ActionLink("मुख्य सुचिमा जानुहोस", "Index", "ApplicationForm", new { @class = "btn btn-info btn-sm" })*@
+
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+
+
+<script src="~/Scripts/jquery-ui-1.11.2.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.options = {
+                positionClass: "toast-bottom-right", "progressBar": true,
+            };
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+    });
+
+
+
+</script>
+
+<script type="text/javascript">
+    function GetDistrictListDD() {
+        var value = $("#dll_province option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetDistrictDDByProvinceIdWithSelectValue", "AjaxRequest", new { @area="Admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_district").html(items);
+                optionText = '--Select--';
+                optionValue = '0';
+                $("#dll_vdcmun").html(`<option value="${optionValue}"> ${optionText}</option>`);
+            }
+        })
+    };
+
+    function GetVDCMUNListDD() {
+        var value = $("#dll_district option:selected").val();
+        var OfficeLevelId = $("#OfficeLevelId option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetVDCMUNDDByDistrictIdWithDefault", "AjaxRequest", new { @area="Admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                GetVDCMUNDDByDistrictId
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_vdcmun").html(items);
+            }
+        })
+    };
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

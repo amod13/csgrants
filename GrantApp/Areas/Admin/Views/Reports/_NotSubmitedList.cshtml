@@ -1,0 +1,76 @@
+﻿@model GrantApp.Models.ComplementryReportViewModel
+@{
+    int i = 1;
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+}
+
+<div class="table-responsive m_table" id="NotSubmitedListDivId">
+    <table class="table table-hover" id="NotSubmitedListTable">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>प्रदेश</th>
+                <th>कार्यलयको नाम</th>
+                <th>कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>आयोजनाको अवधि</th>
+                <th></th>
+
+                @if (Usertype == 5)
+                {
+
+                    <th></th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget;
+                decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.ProvinceName</td>
+                <td>@item.OfficeName</td>
+                <td>@item.SubProgramId</td>
+                <th>@item.SubProgramTitle</th>
+                <td>@item.TotalBudget</td>
+                <td>@item.TimeDurationYear</td>
+                <td>
+                    @Html.ActionLink(" ", "ViewDeatilsList", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                </td>
+
+                @if (Usertype == 5)
+                {
+                    if (item.PhaseStatus == Model.ProgramPhaseNumber)
+                    {
+                        <td>
+                            <span onclick="ChangeProgramSubmitStatus(@item.SubProgramId)" style="cursor:pointer;" title="सुरक्छित गर्नुहोस"><i class="fa fa-check-circle GreenCL"></i></span>
+                        </td>
+                    }
+                    else
+                    {
+                        
+                    }
+
+                }
+
+
+
+
+            </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+
+

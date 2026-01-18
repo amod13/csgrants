@@ -1,0 +1,146 @@
+﻿@model GrantApp.Models.OfficeDetailsViewModel
+
+@{
+    ViewBag.Title = "IdleUserList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<style>
+    .wrapper1, .wrapper2 {
+        width: 1000px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .wrapper1 {
+        height: 30px;
+    }
+
+    .wrapper2 {
+        height: 900px;
+    }
+
+    .div1 {
+        width: 1200px;
+        height: 100px;
+    }
+
+    .div2 {
+        width: 1200px;
+        height: 900px;
+        
+        overflow: auto;
+    }
+</style>
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">हाल सम्म आयोजना माग नगरेका स्थानिय तह हरूको विवरण</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="wrapper1">
+                            <div class="div1"></div>
+                        </div>
+                        <div class="wrapper2">
+                            <div class="div2">
+
+
+                                <div class="table-responsive m_table">
+
+                                    <table class="table table-hover" id="IdleUserlisttable">
+                                        <thead>
+                                            <tr>
+                                                <th>क्रम</th>
+                                                <th>कार्यलयको नाम</th>
+                                                <th>ठेगाना</th>
+                                                <th>प्रदेश</th>
+                                                <th>जिल्ला</th>
+                                                <th>गापा/नपा</th>
+                                                <th>कोड</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.OfficeDetailsViewModelList)
+                                            {
+
+
+                                                <tr>
+                                                    <th scope="row">@i</th>
+                                                    <th>@item.OfficeName</th>
+                                                    <td>@item.Address</td>
+                                                    <td>@item.ProvinceTitleEng</td>
+                                                    <td>@item.DistrictNameEng</td>
+                                                    <td>@item.VdcMunNameEng</td>
+                                                    <td>@item.VDCMUNCode</td>
+                                                </tr>
+                                                ++i;
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#IdleUserlisttable").table2excel({
+                filename: "IdelUserList.xls"
+            });
+        });
+    });
+</script>
+
+
+<script>
+    $(function () {
+        $(".wrapper1").scroll(function () {
+            $(".wrapper2").scrollLeft($(".wrapper1").scrollLeft());
+        });
+        $(".wrapper2").scroll(function () {
+            $(".wrapper1").scrollLeft($(".wrapper2").scrollLeft());
+        });
+    });
+</script>

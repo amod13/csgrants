@@ -1,0 +1,129 @@
+﻿@model GrantApp.Models.ReportModel
+
+@{
+    ViewBag.Title = "ComplementryIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+
+
+
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">अनुसूची २: आर्थिक वर्ष अनुसार का लागि स्थानीय तहबाट कार्यान्वयन गर्न विशेष अनुदानको लागि सिफारिस गरिएका क्रमागत आयोजना र कार्यक्रमको  विवरण र  बजेट सिमा </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>
+                                            प्रदेश कोड
+                                        </th>
+                                        <th>प्रदेश</th>
+                                        <th>
+                                            जिल्ला कोड
+                                        </th>
+                                        <th>स्थानिय तह कोड</th>
+                                        <th>जिल्ला</th>
+                                        <th>स्थानिय तहको नाम</th>
+                                        <th>मुलभुत क्षेत्र</th>
+
+                                        <th>आयोजनाको कोड</th>
+                                        <th>आयोजनाको नाम</th>
+                                        <th>आयोजनाको अवधि</th>
+                                        <th>कूल लागत(रू लाखमा)</th>
+                                        <td>चालु तर्फ विनियोजन</td>
+                                        <td>पुँजीगत तर्फ विनियोजन<th>
+                                        विनियोजित रकम(रू लाखमा)</th>
+                                        <th>कैफियत</th>
+                                        <th>LMBIS CODES</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.AnusuchiOneViewModelForFMList)
+                                    {
+
+
+                                        <tr>
+                                            <td scope="row">@i</td>
+                                            <td>@item.PhaseTitle</td>
+                                            <td>@item.ProvinceId</td>
+                                            <td>@item.ProvinceTitleNep</td>
+                                            <td>@item.DistrcitCode</td>
+                                            <td>@item.VdcMunCode</td>
+                                            <td>@item.DistrictNameNep</td>
+                                            <td>@item.VdcMunNameNep</td>
+                                            <td>@item.SectionName</td>
+                                            <td>@item.SubProgramId</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@item.TotalBudget</td>
+                                            <td>@item.ChaluTotal</td>
+                                            <td>@item.PujigatTotal</td>
+                                            <td>@item.ApprovedBudget</td>
+                                            <td>@item.Remarks</td>
+                                            <td>@item.LMBISCODE</td>
+                                        </tr>
+
+                                        ++i;
+                                    }
+
+
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#DetailsReportsID").table2excel({
+                filename: "dtlReports.xls"
+            });
+        });
+    });
+</script>
+

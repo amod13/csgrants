@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "ViabilityFundProject";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आयोजना प्रस्ताव फारम</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .file-upload {
+            margin-top: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <h2 class="text-center mt-5">निजी क्षेत्रसँगको साझेदारी/सार्वजनिक निजी साझेदारी  MOU</h2>
+        <form action="/submit-proposal" method="POST" enctype="multipart/form-data">
+            <!-- 1. आयोजना वा कार्यक्रमको कूल लागत -->
+            <div class="form-section">
+                <label for="total_cost" class="form-heading">१. आयोजना वा कार्यक्रमको नाम:</label>
+                <input type="number" class="form-control" id="total_cost" name="total_cost" required>
+            </div>
+
+            <div class="form-section">
+                <label for="total_cost" class="form-heading">२. आयोजना वा कार्यक्रमको प्रमुख क्षेत्र:</label>
+                <input type="number" class="form-control" id="total_cost" name="total_cost" required>
+            </div>
+            <div class="form-section">
+                <label for="total_cost" class="form-heading">३. आयोजना वा कार्यक्रमको कूल लागत (रु. लाखमा):</label>
+                <input type="number" class="form-control" id="total_cost" name="total_cost" required>
+            </div>
+
+            <!-- 2. प्रदेश वा स्थानीय तहले व्यहोर्ने रकम --> 
+            <div class="form-section">
+                <label for="state_contribution" class="form-heading">४. प्रदेश वा स्थानीय तहले व्यहोर्ने रकम (रु. लाखमा):</label>
+                <input type="number" class="form-control" id="state_contribution" name="state_contribution" required>
+            </div>
+
+            <!-- 3. निजी क्षेत्रले व्यहोर्ने रकम -->
+            <div class="form-section">
+                <label for="private_contribution" class="form-heading">५. निजी क्षेत्रले व्यहोर्ने रकम (रु. लाखमा):</label>
+                <input type="number" class="form-control" id="private_contribution" name="private_contribution" required>
+            </div>
+
+            <!-- 4. सम्भाव्यता न्यून परिपूरक कोष (VGF) रकम -->
+            <div class="form-section">
+                <label for="vgf_fund" class="form-heading">६. सम्भाव्यता न्यून परिपूरक कोष (VGF) रकम (रु. लाखमा):</label>
+                <input type="number" class="form-control" id="vgf_fund" name="vgf_fund" required>
+            </div>
+
+            <!-- 5. संघ सरकारसँग माग गरिएको रकम -->
+            <div class="form-section">
+                <label for="requested_amount" class="form-heading">७. संघ सरकारसँग माग गरिएको रकम (रु. लाखमा):</label>
+                <input type="number" class="form-control" id="requested_amount" name="requested_amount" required>
+                <small class="form-text text-muted">50% of VGF</small>
+            </div>
+
+            <!-- 6. आयोजना सम्भाव्यता अध्ययन र ड्रइङ, डिजाइन -->
+            <div class="form-section">
+                <label for="feasibility_study" class="form-heading">८. आयोजना सम्भाव्यता अध्ययन र ड्रइङ, डिजाइन, स्पेसिफिकेशन सहितको विस्तृत विवरणको लागत अनुमान:</label>
+                <div class="file-upload">
+                    <input type="file" class="form-control" id="feasibility_study" name="feasibility_study" required>
+                </div>
+                <small class="form-text text-muted">(दश करोड भन्दा माथि लागत भएको परियोजना का लागि विस्तृत परियोजना प्रतिवेदन आवश्यक)</small>
+            </div>
+
+            <!-- 7. वातावरणीय अध्ययन प्रतिवेदन -->
+            <div class="form-section">
+                <label for="environmental_report" class="form-heading">९. वातावरणीय अध्ययन प्रतिवेदन वा पुष्ट्याई:</label>
+                <div class="file-upload">
+                    <input type="file" class="form-control" id="environmental_report" name="environmental_report" required>
+                </div>
+            </div>
+
+            <!-- 8. आयोजना प्राथमिकता सहितको विवरण -->
+            <div class="form-section">
+                <label for="priority_details" class="form-heading">१०. आयोजना प्राथमिकता सहितको विवरण:</label>
+                <div class="file-upload">
+                    <input type="file" class="form-control" id="priority_details" name="priority_details" required>
+                </div>
+            </div>
+
+            <!-- 9. स्थानीय तह र प्रदेश सरकारका निर्णय -->
+            <div class="form-section">
+                <label for="local_govt_decision" class="form-heading">११. स्थानीय तहको निर्णय र प्रदेश सरकार निर्णय:</label>
+                <div class="file-upload">
+                    <input type="file" class="form-control" id="local_govt_decision" name="local_govt_decision" required>
+                </div>
+            </div>
+
+            <!-- 10. अनुसूची-२ बमोजिमको ढाँचामा शर्तनामा घोषणा -->
+            <div class="form-section">
+                <label for="declaration_schedule2" class="form-heading">१२. अनुसूची-२ बमोजिमको ढाँचामा शर्तनामा घोषणा:</label>
+                <div class="file-upload">
+                    <input type="file" class="form-control" id="declaration_schedule2" name="declaration_schedule2" required>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-section text-center">
+                <button type="submit" class="btn btn-primary">फारम पेश गर्नुहोस्</button>
+            </div>
+        </form>
+    </div>
+
+
+

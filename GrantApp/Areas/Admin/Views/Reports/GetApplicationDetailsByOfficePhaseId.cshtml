@@ -1,0 +1,106 @@
+﻿@model GrantApp.Models.ViewApplicationDetailsByOfficeIdModel
+
+@{
+    ViewBag.Title = "GetApplicationDetailsByOfficePhaseId";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">स्वीकृत आयोजनाहरूको विवरण</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+
+                            <table class="table table-hover" id="IdleUserlisttable">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आ.व.</th>
+                                        <th>प्रकार</th>
+                                        <th>मुलभुत क्षेत्र</th>
+                                        <th>शिर्षक</th>
+                                        <th>कुल लागत</th>
+                                        <th>अवधि</th>
+                                        <th></th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ViewApplicationDetailsByOfficeIdModelList)
+                                    {
+
+
+                                    <tr>
+                                        <td scope="row">@i</td>
+                                        <td>@item.PhaseTitle</td>
+                                        <td>@item.GrantTypeName</td>
+                                        <td>@item.SectionName</td>
+                                        <td>@item.SubProgramTitle</td>
+                                        <td>@item.TotalBudget</td>
+                                        <td>@item.TimeDurationYear</td>
+                                        <td>
+                                            @Html.ActionLink(" ", "ViewDeatilsApprovedRejectedOfficeFYWise", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye", target = "_blank" })
+                                        </td>
+
+                                    </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+
+
+                    @Html.ActionLink(" पहिलाको पृष्ठमा जानुहोस", "ApprovedRejectedOfficeFYWise", "Reports", new { @class = "btn btn-info btn-sm fa fa-home" })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#IdleUserlisttable").table2excel({
+                filename: "IdelUserList.xls"
+            });
+        });
+    });
+</script>
+
+
+
+

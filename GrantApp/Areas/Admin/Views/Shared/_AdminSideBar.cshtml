@@ -1,0 +1,596 @@
+﻿@{
+    int CurrentUserType = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+
+    string CName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string AName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
+
+    string ShowHideapprejAppDtlsClass = "collapse list-unstyled";
+    string viewAllSifarish = string.Empty;
+
+
+
+    string showHideviewApprovedDiv = "collapse list-unstyled";
+    string viewAllApprovedAppProWise = string.Empty;
+    string viewAllApprovedAppVDCWise = string.Empty;
+    if (CName == "Reports" && (AName == "SearchReportProvinceWise"))
+    {
+        showHideviewApprovedDiv = "collapse list-unstyled show";
+        viewAllApprovedAppProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "DetailsSearchReport"))
+    {
+        showHideviewApprovedDiv = "collapse list-unstyled show";
+        viewAllApprovedAppVDCWise = "SelectedHighlightColor";
+    }
+
+
+
+    string showHideDraftMashDiv = "collapse list-unstyled";
+    string showHideDraftMashProWise = string.Empty;
+    string showHideDraftMashVdcWise = string.Empty;
+    string showrequestButNotApprovedAll = string.Empty;
+    if (CName == "Reports" && (AName == "NotSubmitedListForProvince"))
+    {
+        showHideDraftMashDiv = "collapse list-unstyled show";
+        showHideDraftMashProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "NotSubmitedListForLocalLevel"))
+    {
+        showHideDraftMashDiv = "collapse list-unstyled show";
+        showHideDraftMashVdcWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "OfficesNotApprovedTill"))
+    {
+        showHideDraftMashDiv = "collapse list-unstyled show";
+        showrequestButNotApprovedAll = "SelectedHighlightColor";
+    }
+
+
+    string runningDiv = "collapse list-unstyled";
+    string runningProWise = string.Empty;
+    string runningVDCWise = string.Empty;
+    string runningNotRequested = string.Empty;
+    if (CName == "Reports" && (AName == "SearchGrantAmountRequestProvinceWise"))
+    {
+        runningDiv = "collapse list-unstyled show";
+        runningProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "DetailsSearchGrantRequestAmount"))
+    {
+        runningDiv = "collapse list-unstyled show";
+        runningVDCWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "GetCanceledApplicationList"))
+    {
+        runningDiv = "collapse list-unstyled show";
+        runningNotRequested = "SelectedHighlightColor";
+    }
+
+
+
+    string officesDiv = "collapse list-unstyled";
+    string officesProWise = string.Empty;
+    string officesVdcWise = string.Empty;
+    if (CName == "Reports" && (AName == "OfficeDetailsByProvince"))
+    {
+        officesDiv = "collapse list-unstyled show";
+        officesProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "OfficeDetailsByLocalLevel"))
+    {
+        officesDiv = "collapse list-unstyled show";
+        officesVdcWise = "SelectedHighlightColor";
+    }
+
+
+
+    string approvedRejectedAppDetailsProwise = string.Empty;
+    string approvedRejectedAppDetailsVDCwise = string.Empty;
+
+    if (CName == "Reports" && (AName == "ViewAllSifarish"))
+    {
+        viewAllSifarish = "SelectedHighlightColor";
+    }
+
+    if (CName == "Reports" && (AName == "ViewAllDetailsProvinceWise"))
+    {
+        ShowHideapprejAppDtlsClass = "collapse list-unstyled show";
+        approvedRejectedAppDetailsProwise = "SelectedHighlightColor";
+    }
+
+    if (CName == "Reports" && (AName == "ViewAllDetailsVDCWise"))
+    {
+        ShowHideapprejAppDtlsClass = "collapse list-unstyled show";
+        approvedRejectedAppDetailsVDCwise = "SelectedHighlightColor";
+    }
+
+
+    string approvedRejectedWorkDiv = "collapse list-unstyled";
+    string approvedRejectedWorkProWise = string.Empty;
+    string approvedRejectedWorkVdcWise = string.Empty;
+    if (CName == "Reports" && (AName == "ProvicneApprovedActionList"))
+    {
+        approvedRejectedWorkDiv = "collapse list-unstyled show";
+        approvedRejectedWorkProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "LocalevelApprovedActionList"))
+    {
+        approvedRejectedWorkDiv = "collapse list-unstyled show";
+        approvedRejectedWorkVdcWise = "SelectedHighlightColor";
+    }
+
+    string approvedOrRejecttedProgramList = string.Empty;
+    if (CName == "Reports" && (AName == "ApprovedRejectedOfficeFYWise"))
+    {
+        approvedOrRejecttedProgramList = "SelectedHighlightColor";
+    }
+
+    string submitedNotSubmitedList = string.Empty;
+    if (CName == "Reports" && (AName == "IdleUserListFYWise"))
+    {
+        submitedNotSubmitedList = "SelectedHighlightColor";
+    }
+
+
+    //Progress reportdiv
+
+    string progressReportsDiv = "collapse list-unstyled";
+    string progressReportsDivProWise = string.Empty;
+    string progressReportsDivVdcWise = string.Empty;
+    string progressReportsDivProWiseNew = string.Empty;
+    string progressReportsDivVDCWiseNew = string.Empty;
+
+    if (CName == "Reports" && (AName == "SearchProgressRptProvinceWise"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        progressReportsDivProWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "DetailsSearchProgressReport"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        progressReportsDivVdcWise = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "SearchProgressRptProvinceWiseDetails"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        progressReportsDivProWiseNew = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "DetailsSearchProgressReportAll"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        progressReportsDivVDCWiseNew = "SelectedHighlightColor";
+    }
+
+    string PRDivProQuadWiseNew = string.Empty;
+    string PRDivVDCQuadWiseNew = string.Empty;
+    if (CName == "Reports" && (AName == "ProgressRptProvinceQuardWise"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        PRDivProQuadWiseNew = "SelectedHighlightColor";
+    }
+    if (CName == "Reports" && (AName == "DetailsSearchProgressReportQuardWise"))
+    {
+        progressReportsDiv = "collapse list-unstyled show";
+        PRDivVDCQuadWiseNew = "SelectedHighlightColor";
+    }
+
+
+
+
+    string showHideAnusuchiReport= "collapse list-unstyled";
+    if (CName == "Reports" && (AName == "AnusuchiOne" || AName== "AnusuchiTwo" || AName== "AnusuchiThree" || AName== "AnusuchiFour" || AName== "AnusuchiFive" || AName== "AnusuchiSix"))
+    {
+
+        showHideAnusuchiReport = "collapse list-unstyled show";
+    }
+
+    string reportAnusuchi1 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiOne"))
+    {
+
+        reportAnusuchi1 = "SelectedHighlightColor";
+    }
+
+    string reportAnusuchi2 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiTwo"))
+    {
+
+        reportAnusuchi2 = "SelectedHighlightColor";
+    }
+
+
+    string reportAnusuchi3 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiThree"))
+    {
+
+        reportAnusuchi3 = "SelectedHighlightColor";
+    }
+
+
+    string reportAnusuchi4 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiFour"))
+    {
+
+        reportAnusuchi4 = "SelectedHighlightColor";
+    }
+
+
+    string reportAnusuchi5 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiFive"))
+    {
+
+        reportAnusuchi5 = "SelectedHighlightColor";
+    }
+
+
+
+    string reportAnusuchi6 = string.Empty;
+
+    if (CName == "Reports" && (AName == "AnusuchiSix"))
+    {
+
+        reportAnusuchi6 = "SelectedHighlightColor";
+    }
+
+
+    string completedProgramProvince = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListWorkCompletedAayojana"))
+    {
+
+        completedProgramProvince = "SelectedHighlightColor";
+    }
+    string completedProgramVDC = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListWorkCompletedAayojanaVDC"))
+    {
+
+        completedProgramVDC = "SelectedHighlightColor";
+    }
+
+
+    string notCompletedProgramProvince = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListWorkNotCompletedAayojana"))
+    {
+
+        notCompletedProgramProvince = "SelectedHighlightColor";
+    }
+    string notCompletedProgramVDC = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListWorkNotCompletedAayojanaVDCWise"))
+    {
+
+        notCompletedProgramVDC = "SelectedHighlightColor";
+    }
+
+
+    string droppedAaayojaProvince = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListDroppedAayojana"))
+    {
+
+        droppedAaayojaProvince = "SelectedHighlightColor";
+    }
+
+
+    string droppedAaayojaVDC = string.Empty;
+
+    if (CName == "Reports" && (AName == "ListDroppedAayojanaVDC"))
+    {
+
+        droppedAaayojaVDC = "SelectedHighlightColor";
+    }
+
+
+
+}
+<style>
+    .SelectedHighlightColor {
+        color: yellow;
+        background: #ff8a00 !important;
+    }
+</style>
+
+<nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+            <!-- User Info-->
+            <div class="sidenav-header-inner text-center">
+                <img src="~/AdminResources/img/photos/250px-Emblem_of_Nepal.svg.png" alt="Logo" class="img-fluid">
+                <!--<h2 class="h5">4pix Solutions</h2> <span>Smart Solutions</span>-->
+            </div>
+            <!-- Small Brand information, appears on minimized sidebar-->
+            <div class="sidenav-header-logo"><a href="~/Admin/AdminHome/Dashboard" class="brand-small text-center"> <strong>M</strong><strong class="text-primary">P</strong></a></div>
+        </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+            <!--<h5 class="sidenav-heading">Main</h5>-->
+            <ul id="side-main-menu" class="side-menu list-unstyled">
+                <li>
+                    <a href="~/Admin/AdminHome/Dashboard"> <i class="icon-home"></i>Home</a>
+                </li>
+                @*<li><a href="~/Admin/ProgramSetup/ListGrantType"> <i class="icon-form"></i>अनुदान प्रदान गरिने क्षेत्र र आधार</a></li>*@
+
+
+                @if (CurrentUserType == 5)
+                {
+                    <li>
+                        <a href="#Resultlist" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>मूल्यांकन नतिजा</a>
+                        <ul id="Resultlist" class="collapse list-unstyled ">
+
+                            <li>@Html.ActionLink("विशेष प्रस्ताव मूल्यांकन प्रदेश", "ProposalValuationResultList", "GrantRequestForm", new { @area = "Admin", @id = 2 }, null)</li>
+                            <li>@Html.ActionLink("समपूरक प्रस्ताव मूल्यांकन प्रदेश", "ProposalValuationResultListGrantTypeII", "GrantRequestForm", new { @area = "Admin", @id = 2 }, null)</li>
+
+                            <li>@Html.ActionLink("विशेष प्रस्ताव मूल्यांकन स्थानीय तह", "ProposalValuationResultList", "GrantRequestForm", new { @area = "Admin", @id = 4 }, null)</li>
+                            <li>@Html.ActionLink("समपूरक प्रस्ताव मूल्यांकन स्थानीय तह", "ProposalValuationResultListGrantTypeII", "GrantRequestForm", new { @area = "Admin", @id = 4 }, null)</li>
+
+                            <li>@Html.ActionLink("अन्तिम मूल्यांकन सूची प्रदेश", "ListFinalResultProvinceWise", "Reports", new { @area = "Admin" }, null)</li>
+                            <li>@Html.ActionLink("अन्तिम मूल्यांकन सूची स्थानीय तह", "ListFinalResultVDCWise", "Reports", new { @area = "Admin" }, null)</li>
+
+                            <li>@Html.ActionLink("अन्तिम छनैाट सूची स्थानीय तह", "ListAllSelectedProgram", "Reports", new { @area = "Admin" }, null)</li>
+
+
+
+
+                            @*<li>@Html.ActionLink("विशेष प्रस्ताव मूल्यांकन गापा/नपा ", "ProposalValuationResultList", "GrantRequestForm", new { @area = "Admin", @id = 4 }, null)</li>
+                    <li>@Html.ActionLink("समपूरक प्रस्ताव मूल्यांकन स्थानिय तह", "ProposalValuationResultListGrantTypeII", "GrantRequestForm", new { @area = "Admin", @id = 4 }, null)</li>*@
+
+                        </ul>
+                    </li>
+
+                   
+                }
+
+
+                @*<li>
+            <a href="#GrantRequestForm" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>नयाँ आयोजना/कार्यक्रम</a>
+            <ul id="GrantRequestForm" class="collapse list-unstyled ">
+                <li>@Html.ActionLink("नयाँ सूची-समपूरक अनुदान", "IndexComplementary", "GrantRequestForm", new { @area = "Admin" }, null)</li>
+                <li>@Html.ActionLink("नयाँ सूची-विशेष अनुदान", "Index", "GrantRequestForm", new { @area = "Admin" }, null)</li>
+
+                <li>@Html.ActionLink("विशेष अनुदान सूची", "ProposalValuationList", "GrantRequestForm", new { @area = "Admin", @id = 1 }, null)</li>
+                <li>@Html.ActionLink("समपूरक अनुदान सूची", "ProposalValuationList", "GrantRequestForm", new { @area = "Admin", @id = 2 }, null)</li>
+                <li>@Html.ActionLink("विशेष प्रस्ताव मूल्यांकन", "ProposalValuationResultList", "GrantRequestForm", new { @area = "Admin", @id = 1 }, null)</li>
+                <li>@Html.ActionLink("समपूरक प्रस्ताव मूल्यांकन", "ProposalValuationResultList", "GrantRequestForm", new { @area = "Admin", @id = 2 }, null)</li>
+
+            </ul>
+
+
+        </li>*@
+
+
+                @if (CurrentUserType == 5 || CurrentUserType == 1)
+                {
+                    <li>
+                        <a href="#UserManagement" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>सेटअप</a>
+                        <ul id="UserManagement" class="collapse list-unstyled ">
+
+                            <li>
+                            <li>@Html.ActionLink("आयोजनाको अवधि परिवर्तन", "GetApplicationDetailForEdit", "Reports", new { @area = "Admin" }, null)</li>
+
+                        </ul>
+
+
+                    </li>
+                }
+
+                <li>
+                    <ul>
+
+                        <li>
+
+
+
+                        <li class="@viewAllSifarish">@Html.ActionLink("हाल सम्मको सिफारिस-स्थानीय तह ", "ViewAllSifarish", "Reports", new { @area = "Admin" }, null)</li>
+                        <li>
+                            <a href="#approvedDisApprovedDiv" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>स्वीकृत/अस्वीकृत विवरण </a>
+                            <ul id="approvedDisApprovedDiv" class="@ShowHideapprejAppDtlsClass">
+                                <li class="@approvedRejectedAppDetailsProwise">@Html.ActionLink("प्रदेश अनुसार", "ViewAllDetailsProvinceWise", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@approvedRejectedAppDetailsVDCwise">@Html.ActionLink("स्थानीय तह अनुसार", "ViewAllDetailsVDCWise", "Reports", new { @area = "Admin" }, null)</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#newApplictionRequestDiv" aria-expanded="false" data-toggle="collapse">
+                                <i class="icon-interface-windows"></i>नयाँ आयोजना माग विवरण
+                            </a>
+                            <ul id="newApplictionRequestDiv" class="@showHideviewApprovedDiv">
+                                <li class="@viewAllApprovedAppProWise">@Html.ActionLink("प्रदेश अनुसार ", "SearchReportProvinceWise", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@viewAllApprovedAppVDCWise">@Html.ActionLink("स्थानीय तह अनुसार ", "DetailsSearchReport", "Reports", new { @area = "Admin" }, null)</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#ResultAdhuro" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>विशेष व्यवस्था</a>
+                            <ul id="ResultAdhuro" class="collapse list-unstyled ">
+
+                                <li class="@viewAllApprovedAppProWise">@Html.ActionLink("अधुरो अपुरो ", "AdhuroApuroList", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@viewAllApprovedAppProWise">@Html.ActionLink("दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था", "RemainingBhuktaniList", "Reports", new { @area = "Admin" }, null)</li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#draftApplicationDd" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Draft/मस्यैादामा भएका आयोजना विवरण</a>
+                            <ul id="draftApplicationDd" class="@showHideDraftMashDiv ">
+                                <li class="@showHideDraftMashProWise">@Html.ActionLink("प्रदेश अनुसार", "NotSubmitedListForProvince", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@showHideDraftMashVdcWise">@Html.ActionLink("स्थानीह तह अनुसार", "NotSubmitedListForLocalLevel", "Reports", new { @area = "Admin" }, null)</li>
+
+                                <li class="@showrequestButNotApprovedAll">@Html.ActionLink("आयोजना माग गरेको तर हाल सम्म नपाएका स्थानिय तहहरूको विवरण", "OfficesNotApprovedTill", "Reports", new { @area = "Admin" }, null)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#RequestGrantAmountDiv" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>क्रमागत आयोजना विवरण</a>
+                            <ul id="RequestGrantAmountDiv" class="@runningDiv ">
+
+                                <li class="@runningProWise">@Html.ActionLink("अनुदान माग (प्रदेश)", "SearchGrantAmountRequestProvinceWise", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@runningVDCWise">@Html.ActionLink("अनुदान माग (स्थानिय तह)", "DetailsSearchGrantRequestAmount", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@runningNotRequested">@Html.ActionLink("रकम चाहिदैन विवरण पेश", "GetCanceledApplicationList", "Reports", new { @area = "Admin" }, null)</li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#officeDetailsListDD" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>कार्यालयहरूको विवरण</a>
+                            <ul id="officeDetailsListDD" class="@officesDiv ">
+
+                                <li class="@officesProWise">@Html.ActionLink("प्रदेश अनुसार", "OfficeDetailsByProvince", "Reports", new { @area = "Admin" }, null)</li>
+                                <li class="@officesVdcWise">@Html.ActionLink("स्थानिय तह अनुसार", "OfficeDetailsByLocalLevel", "Reports", new { @area = "Admin" }, null)</li>
+
+                            </ul>
+                        </li>
+
+                        @if (CurrentUserType == 5 || CurrentUserType == 1)
+                        {
+
+                            <li>
+                                <a href="#makeProgramApprovedRejectDiv" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>स्वीकृत/अस्वीकृत कार्य </a>
+                                <ul id="makeProgramApprovedRejectDiv" class="@approvedRejectedWorkDiv ">
+
+                                    <li class="@approvedRejectedWorkProWise">@Html.ActionLink("प्रदेश अनुसार", "ProvicneApprovedActionList", "Reports", new { @area = "Admin" }, null)</li>
+                                    <li class="@approvedRejectedWorkVdcWise">@Html.ActionLink("स्थानिय तह अनुसार", "LocalevelApprovedActionList", "Reports", new { @area = "Admin" }, null)</li>
+
+                                </ul>
+                            </li>
+                        }
+
+
+                        <li class="@approvedOrRejecttedProgramList">@Html.ActionLink("आयोजना स्वीकृत भए/नभएका स्थानिय तहहरूको विवरण", "ApprovedRejectedOfficeFYWise", "Reports", new { @area = "Admin" }, null)</li>
+
+
+                        @*<li>@Html.ActionLink("दोहोरिएको कार्यक्रमको विवरण", "DuplicateSubProgramList", "Reports", new { @area = "Admin" }, null)</li>*@
+                        <li class="@submitedNotSubmitedList">@Html.ActionLink("आवेदन पेश गर्ने/नगर्ने स्थानिय तहहरू(आ.व. अनुसार)", "IdleUserListFYWise", "Reports", new { @area = "Admin" }, null)</li>
+                        @*<li>@Html.ActionLink("क्रमागत र चालु ", "GetAllRunningApplicationList", "Reports", new { @area = "Admin" }, null)</li>*@
+
+                        @*<li>@Html.ActionLink("आयोजना माग गरेको तर नपाएका स्थानीय तहहरुको बिबरण (स्वीकृत रकम अनुसार)", "GetNotGrantedOfficeDetails", "Reports", new { @area = "Admin" }, null)</li>*@
+                        @*<li>@Html.ActionLink("हाल सम्म आयोजना माग नगरेका स्थानिय तहहरूको विवरण", "IdleUserList", "Reports", new { @area = "Admin" }, null)</li>*@
+
+                    </ul>
+
+
+                </li>
+
+                @if (CurrentUserType == 11)
+                {
+
+
+                    <li>
+                        <a href="#ResultlistAmountWise" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>स्वीकृत रकम प्रतिवेदन</a>
+                        <ul id="ResultlistAmountWise" class="collapse list-unstyled ">
+
+                            <li>@Html.ActionLink("स्वीकृत रकम (प्रदेश)", "SearchReportProvinceAmountWise", "Reports", new { @area = "Admin" }, null)</li>
+                            <li>@Html.ActionLink("स्वीकृत रकम (स्थानिय तह)", "DetailsSearchReportAmountWise", "Reports", new { @area = "Admin" }, null)</li>
+                            <li>@Html.ActionLink("पासवर्ड परिवर्तन", "ChangePassword", "AdminHome", new { @area = "Admin" }, null)</li>
+
+                        </ul>
+                    </li>
+
+
+                }
+
+
+
+
+                <li>
+                    <a href="#ProgressReportDtl" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>प्रगति विवरण प्रतिवेदन</a>
+                    <ul id="ProgressReportDtl" class="@progressReportsDiv ">
+                        <li class="@progressReportsDivProWise">@Html.ActionLink("प्रदेश अनुसार ", "SearchProgressRptProvinceWise", "Reports", new { @area = "Admin" }, null)</li>
+                        <li class="@progressReportsDivVdcWise">@Html.ActionLink("स्थानिय तह अनुसार ", "DetailsSearchProgressReport", "Reports", new { @area = "Admin" }, null)</li>
+
+                        <li class="@progressReportsDivProWiseNew">@Html.ActionLink("प्रदेश अनुसार (वार्षिक)", "SearchProgressRptProvinceWiseDetails", "Reports", new { @area = "Admin" }, null)</li>
+                        <li class="@progressReportsDivVDCWiseNew">@Html.ActionLink("स्थानिय तह अनुसार (वार्षिक)", "DetailsSearchProgressReportAll", "Reports", new { @area = "Admin" }, null)</li>
+
+
+                        <li class="@PRDivProQuadWiseNew">@Html.ActionLink("प्रदेश अनुसार (चौमासिक)", "ProgressRptProvinceQuardWise", "Reports", new { @area = "Admin" }, null)</li>
+                        <li class="@PRDivVDCQuadWiseNew">@Html.ActionLink("स्थानिय तह अनुसार (चौमासिक)", "DetailsSearchProgressReportQuardWise", "Reports", new { @area = "Admin" }, null)</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#anusuchireportDiv" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>अनुसुचि प्रतिवेदनहरू</a>
+                    <ul id="anusuchireportDiv" class="@showHideAnusuchiReport">
+                        <li class="@reportAnusuchi1">
+                            <a href="~/Admin/Reports/AnusuchiOne"> <i class="icon-interface-windows"></i>अनुसुचि-१ (क्रमागत आयोजना -स्थानिय तह)</a>
+                        </li>
+
+
+                        <li class="@reportAnusuchi2">
+                            <a href="~/Admin/Reports/AnusuchiTwo"> <i class="icon-interface-windows"></i>अनुसुचि-२ (नयाँ आयोजना -स्थानिय तह)</a>
+                        </li>
+                        <li class="@reportAnusuchi3">
+                            <a href="~/Admin/Reports/AnusuchiThree"> <i class="icon-interface-windows"></i>अनुसुचि-३(क्रमागत तर माग नभएका -स्थानिय तह )</a>
+                        </li>
+                        <li class="@reportAnusuchi4">
+                            <a href="~/Admin/Reports/AnusuchiFour"> <i class="icon-interface-windows"></i>अनुसुचि-४ (क्रमागत आयोजना- प्रादेशिक)</a>
+
+                        </li>
+                        <li class="@reportAnusuchi5">
+                            <a href="~/Admin/Reports/AnusuchiFive"> <i class="icon-interface-windows"></i>अनुसुचि-५ (नयाँ आयोजना - प्रादेशिक)</a>
+                        </li>
+                        <li class="@reportAnusuchi6">
+                            <a href="~/Admin/Reports/AnusuchiSix"> <i class="icon-interface-windows"></i>अनुसुचि-६ (क्रमागत तर माग नभएका- प्रादेशिक)</a>
+                        </li>
+                        <li class="">
+                            <a href="~/Admin/Reports/ArthaAnusuchiTwo"> <i class="icon-interface-windows"></i>अर्थ मन्त्रालय अनुसुचि-२ (विशेष -स्थानिय तह)</a>
+                        </li>
+                        <li class="">
+                            <a href="~/Admin/Reports/ArthaAnusuchiOne"> <i class="icon-interface-windows"></i>अर्थ मन्त्रालय अनुसुचि-४ (समपुरक आयोजना -स्थानिय तह)</a>
+                        </li>
+
+                        <li class="">
+                            <a href="~/Admin/Reports/ArthaAnusuchiOne8283"> <i class="icon-interface-windows"></i>अर्थ मन्त्रालय अनुसुचि-४ ८२।८३ (समपुरक आयोजना -स्थानिय तह)</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
+
+
+                <li class="@completedProgramProvince">
+                    <a href="~/Admin/Reports/ListWorkCompletedAayojana"> <i class="icon-interface-windows"></i> सम्पन्न भएका आयोजना/कार्यक्रमहरु (प्रदेश)</a>
+                </li>
+                <li class="@completedProgramVDC">
+                    <a href="~/Admin/Reports/ListWorkCompletedAayojanaVDC"> <i class="icon-interface-windows"></i> सम्पन्न भएका आयोजना/कार्यक्रमहरु (स्थानीय तह)</a>
+                </li>
+                <li class="@notCompletedProgramProvince">
+                    <a href="~/Admin/Reports/ListWorkNotCompletedAayojana"> <i class="icon-interface-windows"></i> सम्पन्न नभएका आयोजना/कार्यक्रमहरु (प्रदेश अनुसार)</a>
+                </li>
+                <li class="@notCompletedProgramVDC">
+                    <a href="~/Admin/Reports/ListWorkNotCompletedAayojanaVDCWise"> <i class="icon-interface-windows"></i> सम्पन्न नभएका आयोजना/कार्यक्रमहरु (स्थानीय तह अनुसार)</a>
+                </li>
+                <li class="@droppedAaayojaProvince">
+                    <a href="~/Admin/Reports/ListDroppedAayojana"> <i class="icon-interface-windows"></i>रद्द (Dropped) आयोजना/कार्यक्रमहरु (प्रदेश)</a>
+                </li>
+                <li class="@droppedAaayojaVDC">
+                    <a href="~/Admin/Reports/ListDroppedAayojanaVDC"> <i class="icon-interface-windows"></i>रद्द (Dropped) आयोजना/कार्यक्रमहरु (स्थानीय तह)</a>
+                </li>
+
+
+
+
+                @if (CurrentUserType == 5)
+                {
+                    <li>
+                        <a href="~/Admin/AdminHome/UpdateMunTitle"> <i class="icon-interface-windows"></i>स्थानिय तह को नाम परिवर्तन</a>
+                    </li>
+                    <li>
+                        <a href="~/Admin/AdminHome/ListLetter"> <i class="icon-interface-windows"></i>पत्र (Letter)</a>
+                    </li>
+                    <li>@Html.ActionLink("पासवर्ड परिवर्तन", "ChangePassword", "AdminHome", new { @area = "Admin" }, null)</li>
+                }
+
+
+
+            </ul>
+        </div>
+
+    </div>
+</nav>

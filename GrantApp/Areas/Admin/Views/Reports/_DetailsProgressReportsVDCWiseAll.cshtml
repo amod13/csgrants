@@ -1,0 +1,247 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<style>
+    .Running {
+        color: blue;
+        text-align: left;
+    }
+
+    .NotRunning {
+        color: red;
+        text-align: left;
+    }
+</style>
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+
+                <th>स्थानिय तहको नाम</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>शुरू आ.व.</th>
+                <th>कूल लागत</th>
+                <th>आयोजनाको अवधि</th>
+                <th>२०७६/७७</th>
+                <th>२०७७/७८</th>
+                <th>२०७८/७९</th>
+                <th>२०७९/८०</th>
+                <th>२०८०/८१</th>
+                @*<th>ठेक्का </th>
+                    <th>निकासा</th>
+                    <th>खर्च</th>*@
+                <th>का.स.अवस्था</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget;
+                decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+
+                GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+                GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+
+                string isRunning1 = "X";
+                string cssClass1 = "";
+                string isRunning2 = "X";
+                string cssClass2 = "";
+                string isRunning3 = "X";
+                string cssClass3 = "";
+                string isRunning4 = "X";
+                string cssClass4 = "";
+                string isRunning5 = "X";
+                string cssClass5 = "";
+
+                if (item.FY207677.HasValue)
+                {
+                    if (item.FY207677 == 2)
+                    {
+                        isRunning1 = @"कार्यान्वयन नभएको";
+                        cssClass1 = "NotRunning";
+                    }
+                    else
+                    {
+                        isRunning1 = @"कार्यान्वयन भएको";
+                        cssClass1 = "Running";
+                    }
+                }
+                if (item.FY207778.HasValue)
+                {
+                    if (item.FY207778 == 2)
+                    {
+                        isRunning2 = @"कार्यान्वयन नभएको";
+                        cssClass2 = "NotRunning";
+                    }
+                    else
+                    {
+                        isRunning2 = @"कार्यान्वयन भएको";
+                        cssClass2 = "Running";
+                    }
+                }
+                if (item.FY207879.HasValue)
+                {
+                    if (item.FY207879 == 2)
+                    {
+                        isRunning3 = @"कार्यान्वयन नभएको";
+                        cssClass3 = "NotRunning";
+                    }
+                    else
+                    {
+                        isRunning3 = @"कार्यान्वयन भएको";
+                        cssClass3 = "Running";
+                    }
+                }
+                if (item.FY207980.HasValue)
+                {
+                    if (item.FY207980 == 2)
+                    {
+                        isRunning4 = @"कार्यान्वयन नभएको";
+                        cssClass4 = "NotRunning";
+                    }
+                    else
+                    {
+                        isRunning4 = @"कार्यान्वयन भएको";
+                        cssClass4 = "Running";
+                    }
+                }
+                if (item.FY208081.HasValue)
+                {
+                    if (item.FY208081 == 2)
+                    {
+                        isRunning5 = @"कार्यान्वयन नभएको";
+                        cssClass5 = "NotRunning";
+                    }
+                    else
+                    {
+                        isRunning5 = @"कार्यान्वयन भएको";
+                        cssClass5 = "Running";
+                    }
+                }
+
+
+
+
+            <tr>
+                <td scope="row">@i</td>
+                <td>@item.OfficeName</td>
+                <td>@item.SubProgramId</td>
+                <td>@item.SubProgramTitle</td>
+                <td>@item.PhaseTitle</td>
+                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalBudget)</td>
+
+                <td>@item.TimeDurationYear</td>
+                @*<td>
+            @Html.ActionLink(isRunning1, "ViewDetailProgressReport", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = item.QuadrimesterReportsDetailId, @id3 = 2 }, new { @class = "edits fa fa-eye" })
+        </td>*@
+                @if (item.PhaseStatus == 1 && item.TimeDurationYear >= 1)
+                {
+
+                    <td>
+                        @Html.ActionLink(isRunning1, "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 1 }, new { @class = cssClass1, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण हेर्न क्लिक गर्नुहोस" })
+                    </td>
+                }
+                else
+                {
+                    <td>X</td>
+                }
+                @if ((item.PhaseStatus == 2 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 1 && item.TimeDurationYear > 1))
+                {
+
+                    <td>
+                        @Html.ActionLink(isRunning2, "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 11 }, new { @class = cssClass2, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                    </td>
+                }
+                else
+                {
+                    <td>X</td>
+                }
+
+                @if ((item.PhaseStatus == 3 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 2 && item.TimeDurationYear > 1) || (item.PhaseStatus == 1 && item.TimeDurationYear > 2))
+                {
+
+                    <td>
+                        @Html.ActionLink(isRunning3, "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 13 }, new { @class = cssClass3, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                    </td>
+                }
+                else
+                {
+                    <td>X</td>
+                }
+                @if ((item.PhaseStatus == 4 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 2 && item.TimeDurationYear > 2) || (item.PhaseStatus == 3 && item.TimeDurationYear >= 2))
+                {
+
+                    <td>
+                        @Html.ActionLink(isRunning4, "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 14 }, new { @class = cssClass4, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                    </td>
+                }
+
+                else
+                {
+                    <td>X</td>
+                }
+
+                @if (item.PhaseStatus == 5 && item.TimeDurationYear >= 1 || (item.PhaseStatus == 3 && item.TimeDurationYear > 2) || (item.PhaseStatus == 4 && item.TimeDurationYear >= 2))
+                {
+
+                    <td>
+                        @Html.ActionLink(isRunning5, "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 15 }, new { @class = cssClass5, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+
+
+                @*<td class=@cssClass1>@isRunning1</td>*@
+                @*<td class=@cssClass2>@isRunning2</td>*@
+                @*<td class=@cssClass3>@isRunning3</td>*@
+                @*<td class=@cssClass4>@isRunning4</td>*@
+                @*<td class=@cssClass5>@isRunning5</td>*@
+
+                @*<td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalContractAmount)</td>
+        <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalNikashaRamam)</td>
+        <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalAmountUsed)</td>*@
+                @*<th>@item.CompletionStatus</th>*@
+                    <td style="width:290px;">
+                        @if (!string.IsNullOrEmpty(item.CompletionStatus))
+                        {
+                            @Html.ActionLink(item.CompletionStatus, "ApplicationStatusDetails", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "editsnew", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+
+                        }
+
+                    </td>
+                <td>
+                    @Html.ActionLink(" ", "ViewDetailProgressReport", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = item.QuadrimesterReportsDetailId, @id3 = 2 }, new { @class = "edits fa fa-eye" })
+                </td>
+
+            </tr>
+
+                ++i;
+            }
+
+            @*<tr style="font-weight:bold;">
+                    <td colspan="8">जम्मा रकम</td>
+                    <td>@GrandTotalAmount</td>
+                    <td>@GrandVDCMUNAmount</td>
+                    <td>@GrandTotalRequestAmt</td>
+                </tr>*@
+
+
+        </tbody>
+    </table>
+
+
+</div>

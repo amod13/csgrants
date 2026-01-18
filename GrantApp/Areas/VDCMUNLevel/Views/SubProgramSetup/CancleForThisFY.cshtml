@@ -1,0 +1,188 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "CancleForThisFY";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">आयोजना/कार्यक्रमको नाम : @Model.SubProgramTitle</h1>
+            @*<h5>प्राथमिकीरण नंम्बर : @Model.ProgramPirority</h5>*@
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h1>
+                            क्रमागत आयोजनाका लागि रकम माग नगरिएको अवस्थामा आयोजना सम्पन्न गर्ने दायित्व सम्बन्धित तहको हुनेछ र त्यस्तो आयोजना वा कार्यक्रम आगामी आ.व.हरुमा अनुदानका लागि माग गर्न सकिने छैन, साथै त्यस्तो आयोजना वा कार्यक्रम सम्पन्न गरी प्रगति विवरण राष्ट्रिय योजना आयोगमा पेश गर्नुपर्नेछ
+
+                        </h1>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("CancleForThisFY", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                        {
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.CanceledDocUrl)
+                            @*@Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                                @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)*@
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <label>सम्बन्धित आयोजनाका लागि आगामी आ.व.मा रकम माग नगर्ने सम्बन्धी कार्यपालिका/मन्त्रिपरिषदको निर्णयको सम्बन्धमा कारण तथा पुष्ट्याई (*)</label>
+                                        @Html.TextAreaFor(m => m.CancelledRemarks, new { @class = "form-control form-control sm", @required = "required" })
+
+                                    </div>
+
+                                    @if (ViewBag.Mode == "Old")
+                                    {
+
+                                        <div class="row" style="margin-top:25px;font-size:10px;">
+                                            <div class="col-md-12" style="font-size:14px">अपलोड गरिएका फाईलहरूको विवरण</div>
+                                            @if (!string.IsNullOrEmpty(Model.CanceledDocUrl))
+                                            {
+
+                                                <div class="col-md-3 col-sm-12 form-group">
+                                                    <label>सम्बन्धित आयोजना वा कार्यक्रमका लागि आगामी आ.व.मा रकम माग नगर्ने सम्बन्धी कार्यपालिका/मन्त्रिपरिषदको निर्णय: (*) </label>
+                                                    @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.CanceledDocUrl }, new { @class = "fa fa-download" })
+                                                </div>
+
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(Model.CanceledDocUrl1))
+                                            {
+
+                                                <div class="col-md-3 col-sm-12 form-group">
+                                                    <label> सम्बन्धित आयोजना  वा कार्यक्रमका लागि आगामी आ.व.मा रकम माग नगर्ने सम्बन्धी कार्यपालिका/ मन्त्रिपरिषदको निर्णयको सम्बन्धमा कारण तथा पुष्ट्याई सहित प्रमुख प्रशासकीय अधिकृत / प्रमुख सचिवको पत्र : (*)</label>
+
+                                                    @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.CanceledDocUrl1 }, new { @class = "fa fa-download" })
+                                                </div>
+
+                                            }
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-4 col-sm-4 form-group">
+                                            <label>सम्बन्धित आयोजना  वा कार्यक्रमका लागि आगामी आ.व.मा रकम माग नगर्ने सम्बन्धी कार्यपालिका/मन्त्रिपरिषदको निर्णय: (*) </label>
+
+                                            <input type="file" name="file" id="file" required />
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4 form-group">
+                                            <label> सम्बन्धित आयोजना  वा कार्यक्रमका लागि आगामी आ.व.मा रकम माग नगर्ने सम्बन्धी कार्यपालिका/ मन्त्रिपरिषदको निर्णयको सम्बन्धमा कारण तथा पुष्ट्याई सहित प्रमुख प्रशासकीय अधिकृत / प्रमुख सचिवको पत्र : (*)</label>
+                                            <input type="file" name="file1" id="file1" required />
+                                        </div>
+
+
+                                    }
+
+
+
+                                </div>
+                                <div class="form-group" style="margin-top:15px;">
+
+                                    <button type="button" id="confirmSubmit" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-floppy-o">&nbsp;</i> सुरक्षित  गर्नुहोस
+                                    </button>
+                                    @Html.ActionLink("मुख्य सुचिमा जानुहोस", "PreviousSubProgramList", "SubProgramSetup", new { @id = 0 }, new { @class = "btn btn-info btn-sm", @id = "redirectLink" })
+
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#confirmSubmit").click(function () {
+            var file1 = $("#file").val();
+            var file2 = $("#file1").val();
+            var remarks = $("#CancelledRemarks").val().trim();
+            if (remarks === "") {
+                Swal.fire({
+                    title: "त्रुटि!",
+                    text: "कृपया रकम माग नगर्ने सम्बन्धी  कारण लेख्नुहोला ।",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+            if (file1 === "" || file2 === "" ) {
+                Swal.fire({
+                    title: "त्रुटि!",
+                    text: "कृपया दुबै फाइल अपलोड गर्नुहोस्।",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+       
+
+
+            Swal.fire({
+                title: "के तपाई कार्यपालिका/मन्त्रिपरिषदको निर्णय बमोजिम आयोजना वा कार्यक्रम को लागि रकम माग नगर्ने सम्बन्धी  कार्य गर्दै हुनुहुन्छ?",
+                text: "आयोजना वा कार्यक्रम रद्द भए पश्चात पुन सच्चयाउन सकिने छैन ।",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "हो, सुरक्षित गर्नु चाहन्छु!",
+                cancelButtonText: "पुनरविचार गर्नु चाहन्छु!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#GrantFormID").submit(); // Submit the form
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Redirect if canceled
+                    window.location.href = $("#redirectLink").attr("href");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["PriorityMessage"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+    });
+
+</script>
+
+

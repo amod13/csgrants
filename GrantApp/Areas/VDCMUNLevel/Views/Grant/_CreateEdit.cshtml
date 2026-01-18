@@ -1,0 +1,504 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+
+
+@{
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+    GrantApp.Models.GrantGroupInfo groupInfo = new GrantApp.Models.GrantGroupInfo();
+    groupInfo = GrantApp.CommontUtilities.GetGrantGroupInfo(CurrentLoginOfficeId);
+    int contributionpercent = (int)(groupInfo?.ContributionPercent ?? 100);
+
+}
+<div class="row">
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>प्रमुख ‍क्षत्र</label>
+            @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDD(Model.ViewbagGrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+        </div>
+    }
+    else
+
+    {
+        @*<div class="col-md-12 col-sm-12 form-group">
+                <label>प्रमुख ‍क्षत्र</label>
+                @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDDUpdated(Model.ViewbagGrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+            </div>*@
+
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>प्रमुख ‍क्षेत्र</label>
+            @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDDUpdated(Model.ViewbagGrantTypeId),
+            new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+        </div>
+
+    }
+
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>कार्यविधि बमोजिम क्षेत्र</label>
+            <div id="programMultiSelect" class="border p-2 rounded" style="max-height: 200px; overflow-y: auto;">
+                @foreach (var program in Model.AvailablePrograms)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input"
+                               id="program_@program.Value"
+                               name="SelectedProgramIds"
+                               value="@program.Value"
+                               @(Model.SelectedProgramIds.Contains(int.Parse(program.Value)) ? "checked" : "")>
+                        <label class="form-check-label" for="program_@program.Value">@program.Text</label>
+                    </div>
+                }
+            </div>
+
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.SelectedPrograms)</span>
+
+            <!-- "Others" Textbox (Initially Hidden) -->
+            <div id="otherProgramInputContainer" class="mt-2">
+                <label for="otherProgramInput">अन्य क्षेत्रहरु भए उल्लेख गर्नुहोस्</label>
+                <input type="text" id="otherProgramInput" name="OtherProgram" class="form-control" value="@Model.OtherProgram">
+            </div>
+        </div>
+
+
+
+    }
+
+    else
+    {
+
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>कार्यविधि बमोजिम क्षेत्र</label>
+            <div id="programMultiSelect" class="border p-2 rounded" style="max-height: 200px; overflow-y: auto;">
+                <!-- Programs will be loaded dynamically here -->
+            </div>
+
+            <!-- "Others" Textbox (Initially Hidden) -->
+            <div id="otherProgramInputContainer" class="mt-2">
+                <label for="otherProgramInput">अन्य क्षेत्रहरु भए उल्लेख गर्नुहोस्</label>
+                <input type="text" id="otherProgramInput" name="OtherProgram" class="form-control">
+            </div>
+
+
+            @*<input type="hidden" id="SelectedPrograms" name="SelectedProgramIds" />*@
+
+            @Html.ValidationMessageFor(m => m.SelectedPrograms)
+        </div>
+
+
+
+    }
+
+
+
+
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>आयोजना वा कार्यक्रमको नाम (कृपया नेपाली युनिकोडमा लेख्नुहोस ।)</label>
+        @Html.TextBoxFor(m => m.SubProgramTitle, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
+        @Html.ValidationMessageFor(m => m.SubProgramTitle)
+    </div>
+
+
+
+    <div class="col-md-12 col-sm-12 form-group">
+        <label>
+            आयोजना संचालन हुने स्थान (जिल्ला, स्थानीय तह, वडा, टोल/बस्ती):
+        </label>
+        @Html.TextBoxFor(m => m.AyojanaAddress, new { @class = "form-control form-control sm", @required = "required", @id = "AyojanaAddress" })
+        @Html.ValidationMessageFor(m => m.AyojanaAddress)
+
+    </div>
+
+
+    @*<div class="col-md-6 col-sm-6 form-group">
+            <label>टोल</label>
+            @Html.TextBoxFor(m => m.SubProgramTitle, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
+            @Html.ValidationMessageFor(m => m.SubProgramTitle)
+        </div>*@
+
+
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>आयोजनाको प्राथमिकीकरण</label>
+        @Html.DropDownListFor(m => m.ProgramPirority, GrantApp.Areas.Admin.FunctionClass.GetProgramPriorityDD(), new { @id = "ppId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>लाभान्वित सम्भाब्य जनसंख्या</label>
+        @Html.TextBoxFor(m => m.ProbableBenefitedPopulation, new { @class = "form-control form-control sm", @required = "required" })
+        @Html.ValidationMessageFor(m => m.ProbableBenefitedPopulation)
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>अवधि (वर्ष)</label>
+        @Html.DropDownListFor(m => m.TimeDurationYear, GrantApp.Areas.Admin.FunctionClass.GetProgramYearList(), new { @class = "form-control form-control sm", @id = "dll_TimeDurationYearID", @required = "required", @onChange = "GetYearWiseDivVal()" })
+        @Html.ValidationMessageFor(m => m.TimeDurationYear)
+    </div>
+
+    @if (Model.ViewbagGrantTypeId == 2)
+    {
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>कुल लागत रू (लाखमा)</label>
+            @Html.TextBoxFor(m => m.TotalBudget, new { @id = "TotalBudget", @class = "form-control form-control sm", @onChange = "FillBreakdownDivVal()" })
+            @Html.ValidationMessageFor(m => m.TotalBudget)
+        </div>
+    }
+    else if (Model.ViewbagGrantTypeId == 1)
+    {
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>कुल लागत रू (लाखमा)</label>
+            @Html.TextBoxFor(m => m.TotalBudgetBisesh, new { @id = "TotalBudget", @class = "form-control form-control sm", @onChange = "FillBreakdownDivVal()" })
+            @Html.ValidationMessageFor(m => m.TotalBudgetBisesh)
+        </div>
+        
+        
+            }
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+
+        if (Model.TimeDurationYear == 2)
+        {
+            <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (प्रथम वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+            </div>
+
+
+            <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (दोस्रो वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+            </div>
+
+            <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount" style="display:none;">
+                <label>नेपाल सरकारसँग माग गरिएको रकम (तेस्रो वर्ष) रु लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+            </div>
+        }
+        else if (Model.TimeDurationYear == 3)
+        {
+            <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (प्रथम वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+            </div>
+
+            <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (दोस्रो वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+            </div>
+
+
+            <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (तेस्रो वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm", @required = "required" })
+                @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount">
+                <label>नेपाल सरकारसँग माग गरिएको रकम रू (प्रथम वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+            </div>
+
+            <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount" style="display:none;">
+                <label>नेपाल सरकारसँग माग गरिएको रकम  (दोस्रो वर्ष) रु लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm", @onChange = "AdjustBudget(false)" })
+                @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+            </div>
+
+            <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount" style="display:none;">
+                <label>नेपाल सरकारसँग माग गरिएको रकम (तेस्रो वर्ष) रु लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+            </div>
+
+        }
+
+    }
+    else
+    {
+        <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount" style="display:none;">
+            <label>नेपाल सरकारसँग माग गरिएको रकम (प्रथम बर्ष) रु. लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm", @onChange = "AdjustBudget(true)" })
+            @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount" style="display:none;">
+            <label>नेपाल सरकारसँग माग गरिएको रकम  (दोस्रो वर्ष) रु लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm", @onChange = "AdjustBudget(false)" })
+            @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount" style="display:none;">
+            <label>नेपाल सरकारसँग माग गरिएको रकम (तेस्रो वर्ष) रु लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm" })
+            @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+        </div>
+
+    }
+
+
+
+    <div class="clearfix"></div>
+
+    @if (Model.ViewbagGrantTypeId == 2)
+    {
+
+
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम (रू. लाखमा)</label>
+            @Html.TextBoxFor(m => m.AmountProvinceVdc, new { @id = "AmountProvinceVdc", @class = "form-control form-control sm", @required = "required" })
+        </div>
+
+        @*<div class="col-md-4 col-sm-6 form-group">
+                <label>अन्य श्रोत (रु लाखमा)</label>
+                @Html.TextBoxFor(m => m.NGOINGOAmount, new { @id = "NGOINGOAmount", @class = "form-control form-control sm", @required = "required" })
+
+            </div>*@
+
+
+
+
+
+    }
+
+
+
+
+
+</div>
+
+
+<script type="text/javascript">
+
+
+
+   
+    function GetYearWiseDivVal() {
+        debugger;
+        var value = $("#dll_TimeDurationYearID option:selected").val();
+        if (value == 2) {
+            $("#FirstYearAmount").show();
+            $("#SecondYearAmount").show();
+            $("#ThirdYearAmount").hide();
+        }
+        else if (value == 3) {
+            $("#FirstYearAmount").show();
+            $("#SecondYearAmount").show();
+            $("#ThirdYearAmount").show();
+        }
+        else if (value == 1) {
+            $("#FirstYearAmount").show();
+            $("#SecondYearAmount").hide();
+            $("#ThirdYearAmount").hide();
+        }
+
+    }
+
+    function FillBreakdownDivVal() {
+        var value = $("#dll_TimeDurationYearID option:selected").val();
+        var totalBudget = $("#TotalBudget").val();
+
+        var costShare = @contributionpercent;
+        var shareAmount = (totalBudget * costShare) / 100;
+        //var distributeAmount = 0;
+        //var firstYearAmount = (totalBudget - shareAmount) * 0.3;
+        //var secondYearAmount = totalBudget-shareAmount - firstYearAmount;
+        //if (value == 2) {
+        //    distributeAmount = (totalBudget - shareAmount) / 2;
+        //    $("#FirstYearAmount").show();
+        //    $("#TotalBudgetFirstYear").val(firstYearAmount);
+
+        //    $("#SecondYearAmount").show();
+        //    $("#TotalBudgetSecondYear").val(secondYearAmount);
+        //    $("#ThirdYearAmount").hide();
+        //}
+        //else if (value == 3) {
+        //    distributeAmount = (totalBudget - shareAmount) / 3;
+        //    $("#FirstYearAmount").show();
+        //    $("#TotalBudgetFirstYear").val(distributeAmount);
+        //    $("#SecondYearAmount").show();
+        //    $("#TotalBudgetSecondYear").val(distributeAmount);
+        //    $("#ThirdYearAmount").show();
+        //    $("#TotalBudgetThirdYear").val(distributeAmount);
+        //}
+        //else if (value == 1) {
+
+        //    $("#FirstYearAmount").show();
+        //    $("#SecondYearAmount").hide();
+        //    $("#ThirdYearAmount").hide();
+        //}
+        $("#AmountProvinceVdc").val(shareAmount);
+    }
+</script>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        $("#FirstYearAmount").show();
+        var otherProgram = '@(Model.OtherProgram ?? "")'; // Ensures it's a valid string
+
+        if (otherProgram.trim() === "") {
+            $("#otherProgramInputContainer").hide();
+        } else {
+            $("#otherProgramInputContainer").show();
+            $("#otherProgramInput").val(otherProgram); // Populate if already filled
+        }
+
+        var timeduration = @Model.TimeDurationYear; // Razor outputs an integer directly
+
+        //if (timeduration === 1) {
+        //    $("#FirstYearAmount").show();
+        //    $("#SecondYearAmount").hide();
+        //    $("#ThirdYearAmount").hide();
+        //} else if (timeduration === 2) {
+        //    $("#FirstYearAmount").show();
+        //    $("#SecondYearAmount").show();
+        //    $("#ThirdYearAmount").hide();
+        //} else if (timeduration === 3) {
+        //    $("#FirstYearAmount").show();
+        //    $("#FirstYearAmount").show();
+        //    $("#ThirdYearAmount").show();
+        //}
+
+
+
+
+
+   // / Initially hide "Others" input field
+
+    $("#dll_MainSectionId").change(function () {
+        $("#otherProgramInput").val("");
+        $("#otherProgramCheckbox").prop("checked", false);
+        $("#otherProgramInputContainer").hide();
+                    GetProgramListByMainSectionId();
+                });
+
+                function GetProgramListByMainSectionId() {
+                    var value = $("#dll_MainSectionId").val();
+        $.ajax({
+                    url: "@Url.Action("GetProgramListByMainSectionId", "AjaxRequest", new { @area="admin" })",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                            alert("An error occurred.");
+                        },
+            success: function (data) {
+                            var items = "";
+
+                $.each(data, function (i, item) {
+                                items += `<div class="form-check">
+                                <input type="checkbox" class="form-check-input program-checkbox" name="SelectedProgramIds" value="${item.Value}">
+                                <label class="form-check-label">${item.Text}</label>
+                              </div>`;
+                });
+
+    // Append "Others" option at the end
+    items += `<div class="form-check">
+
+                <input type="checkbox" class="form-check-input" id="otherProgramCheckbox" name="SelectedProgramIds" value="9999">
+
+                <label class="form-check-label" for="otherProgramCheckbox">अन्य</label>
+
+              </div>`;
+
+                $("#programMultiSelect").html(items); // Update program list
+
+                // Attach event listener for "Others" option dynamically
+                $("#otherProgramCheckbox").change(function () {
+        if ($(this).is(":checked")) {
+                        $("#otherProgramInputContainer").show();
+        } else {
+                        $("#otherProgramInput").val("");
+                        $("#otherProgramInputContainer").hide();
+        }
+        // updateSelectedPrograms();
+    });
+
+                // Attach event listener for all checkboxes dynamically
+               // $(".program-checkbox, #otherProgramCheckbox").change(updateSelectedPrograms);
+            }
+        });
+    }
+    // Ensure "Others" input triggers update when typing
+    //$("#otherProgramInput").on("input", updateSelectedPrograms);
+});
+
+
+</script>
+
+
+<script>
+
+    function AdjustBudget(isFirstYearChanged) {
+    
+    }
+
+ 
+ @*function AdjustBudget(isFirstYearChanged) {
+        debugger;
+    var totalBudget = parseInt($("#TotalBudget").val()) || 0;
+    var costShare = @contributionpercent;
+    var shareAmount = Math.round((totalBudget * costShare) / 100);
+    var remainingBudget = totalBudget - shareAmount;
+
+    var minFirstYear = Math.round(remainingBudget * 0.3);
+    var maxFirstYear = Math.round(remainingBudget * 0.5);
+    var minSecondYear = Math.round(remainingBudget * 0.5);
+    var maxSecondYear = Math.round(remainingBudget * 0.7);
+
+    var firstYearInput = $("#TotalBudgetFirstYear");
+    var secondYearInput = $("#TotalBudgetSecondYear");
+
+    var firstYearAmount = parseInt(firstYearInput.val()) || 0;
+    var secondYearAmount = parseInt(secondYearInput.val()) || 0;
+
+     if (isFirstYearChanged) {
+        if (firstYearAmount < minFirstYear) {
+            firstYearAmount = minFirstYear;
+            secondYearAmount = maxSecondYear;
+        } else if (firstYearAmount > maxFirstYear) {
+            firstYearAmount = maxFirstYear;
+            secondYearAmount = minSecondYear;
+        } else {
+            secondYearAmount = remainingBudget - firstYearAmount;
+        }
+    } else {
+        if (secondYearAmount < minSecondYear) {
+            secondYearAmount = minSecondYear;
+            firstYearAmount = maxFirstYear;
+        } else if (secondYearAmount > maxSecondYear) {
+            secondYearAmount = maxSecondYear;
+            firstYearAmount = minFirstYear;
+        } else {
+            firstYearAmount = remainingBudget - secondYearAmount;
+        }
+    }
+
+     firstYearInput.val(Math.floor(firstYearAmount));
+     secondYearInput.val(Math.floor(secondYearAmount));
+
+}*@
+
+
+
+
+
+</script>

@@ -1,0 +1,232 @@
+﻿@model GrantApp.Models.ReportModel
+
+@{
+    ViewBag.Title = "ComplementryIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">अनुदान रकम विवरण-प्रदेश अनुसार</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        @using (Ajax.BeginForm("AdminReportGrantedAmountProWise", "Reports", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "DetailsReportsID",
+                            LoadingElementId = "loader"
+                        }))
+                        {
+                            <fieldset>
+                                <div class="row">
+
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>आर्थिक वर्ष</label>
+                                        @Html.DropDownListFor(m => m.ProgramPhaseNumber, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "dll_ProgramphaseNumber"})
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>प्रदेश</label>
+                                        @Html.DropDownListFor(m => m.ProvinceIdSearch, GrantApp.Areas.Admin.FunctionClass.GetProvincesDD(), new { @class = "form-control form-control sm", @id = "dll_province", @onchange = "GetDistrictListDD()" })
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>अनुदान प्रकार</label>
+                                        @Html.DropDownListFor(m => m.GrantTypeIdSearch, GrantApp.Areas.Admin.FunctionClass.GetGrantType(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId", @onchange = "ShowHideSearchDiv()" })
+
+                                    </div>
+                                    @*<div class="col-md-3 col-sm-6 form-group">
+                                            <label>कार्यक्रमको संख्या</label>
+                                            @Html.DropDownListFor(m => m.ProgramCountIdSearch, GrantApp.CommontUtilities.CountVariableListInReportDD(), new { @class = "form-control form-control sm" })
+
+                                        </div>*@
+
+                                </div>
+                                @*<div class="row" id="GrantTypeIDOne">
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>आयोजना कार्यान्वयन गर्नुपर्ने आवश्यकता</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Two, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>वार्षिक कार्यक्रम तथा बजेटमा परेको</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Five, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>विस्तृत प्रतिवेदन, ड्रईंग, डिजाईन, स्केच</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Seven, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>आयोजनाको सम्भाव्यता अध्ययन</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Eight, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>वातावरणीय प्रभाव मूल्यांकन</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Nine, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>आयोजनाको प्रस्ताव</label>
+                                            @Html.DropDownListFor(m => m.GrantType1Ten, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <div class="row" id="GrantTypeIdTwo" style="display:none;">
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>आयोजनाको सारांश</label>
+                                            @Html.DropDownListFor(m => m.GrantType2TwentyTwo, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>वार्षिक कार्यक्रम तथा बजेटमा परेको</label>
+                                            @Html.DropDownListFor(m => m.GrantType2TwentySix, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>विस्तृत प्रतिवेदन, ड्रईंग, डिजाईन, स्केच</label>
+                                            @Html.DropDownListFor(m => m.GrantType2Thirty, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>सम्भाव्यता अध्ययन</label>
+                                            @Html.DropDownListFor(m => m.GrantType2ThirtyOne, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>वातावरणीय मूल्यांकन</label>
+                                            @Html.DropDownListFor(m => m.GrantType2ThirtyTwo, GrantApp.CommontUtilities.YesNoUploadFileDetails(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+
+
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>सम्बन्धित तहले व्यहोर्ने</label>
+                                            @Html.DropDownListFor(m => m.ProvinceVDCAmountTotalBudget, GrantApp.CommontUtilities.TotalBudgetSearchDD(), new { @class = "form-control form-control sm" })
+
+                                        </div>
+
+                                    </div>*@
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>खोज्नुहोस</button>
+                            </fieldset>
+                        }
+                        <div id="loader" class=" aletr" style="display:none">
+                            Loading...
+                            <img src="~/AdminResources/img/ajax-loader.gif" />
+                        </div>
+
+                        <div id="DetailsReportsID"></div>
+
+                        @*<div class="table-responsive m_table">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>क्रम</th>
+                                            <th>आयोजनाको नाम</th>
+                                            <th>तह</th>
+                                            <th>तहको नाम</th>
+                                            <th>कूल लागत</th>
+                                            <th>सम्बन्धित तहले व्यहोर्ने</th>
+                                            <th>अनुदान माग गरिएको रकम</th>
+                                            <th>आयोजनाको अवधि</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.ComplementryReportViewModelList)
+                                        {
+
+                                            decimal TotalBudgetAmt = item.TotalBudget;
+                                            decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                                            decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                                            <tr>
+                                                <th scope="row">@i</th>
+                                                <th>@item.SubProgramTitle</th>
+                                                <td>@CommontUtilities.GetUserTypeNameByID(item.UserType)</td>
+                                                <td>@item.OfficeName</td>
+                                                <td>@item.TotalBudget</td>
+                                                <td>@item.AmountProvinceVdc</td>
+                                                <td></td>
+                                                <td>@item.TimeDurationYear</td>
+                                                <td>
+
+
+                                            </tr>
+                                            ++i;
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+
+    function ShowHideSearchDiv() {
+        var value = $("#GrantTypeDDDivId option:selected").val();
+
+        if (value == 1) {
+            $("#GrantTypeIDOne").show();
+            $("#GrantTypeIdTwo").hide();
+        }
+        else {
+            $("#GrantTypeIDOne").hide();
+            $("#GrantTypeIdTwo").show();
+        }
+    };
+</script>
+
+
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#DetailsReportsID").table2excel({
+                filename: "dtlReportsAmountProvince.xls"
+            });
+        });
+    });
+</script>

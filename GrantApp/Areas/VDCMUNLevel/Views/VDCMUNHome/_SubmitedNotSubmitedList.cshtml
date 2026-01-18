@@ -1,0 +1,64 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+@{
+    int i = 1;
+}
+<div class="table-responsive m_table" id="NotSubmitedListDivId">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>पेश गरे/नगरेको</th>
+                <th>स्वीकृत/अस्वीकृत</th>
+                <th>आ.व.</th>
+                <th>प्रकार</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>कोड</th>
+                <th>शिर्षक</th>
+                <th>कुल लागत</th>
+                <th>समय अवधि</th>
+                <th>विवरण</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllProgramListOfClientViewModelList)
+            {
+                string Submitedornot = @"पेश गरेको";
+                string ApprovedOrNot = @"प्रकियामा";
+                if(item.ProgramPhaseNumberId!=5)
+                {
+                    if(item.ApprovedStatus==true)
+                    {
+                        ApprovedOrNot = @"स्वीकृत";
+
+                    }
+                    else
+                    {
+                        ApprovedOrNot = @"अस्वीकृत";
+                    }
+
+                }
+                if (item.SubmitStatus == 1)
+                {
+                    Submitedornot = @"पेश नगरेको";
+                }
+
+                <tr>
+                    <td>@i</td>
+                    <td>@Submitedornot</td>
+                    <td>@ApprovedOrNot</td>
+                    <td>@item.PhaseTitle</td>
+                    <td>@item.GrantTypeName</td>
+                    <td>@item.SectionName</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TotalBudget</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@Html.ActionLink(" ", "ReportViewDetailById", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण हेर्नुहोस" })</td>
+                </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>

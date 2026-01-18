@@ -1,0 +1,68 @@
+﻿@model GrantApp.Areas.Admin.Models.DashboardModel
+<div class="row">
+    <div class="col-lg-4">
+        आर्थिक वर्ष :@Model.ObjGetSubprogramDetailByIdViewModel.PhaseTitle
+    </div>
+    <div class="col-lg-8">
+        कार्यलयको नाम : @Model.ObjGetSubprogramDetailByIdViewModel.OfficeName
+    </div>
+
+    <div class="col-lg-4">
+        अुनदाक प्रकार :@Model.ObjGetSubprogramDetailByIdViewModel.GrantTypeName
+    </div>
+    <div class="col-lg-4">
+        आयोजना को कोड :@Model.ObjGetSubprogramDetailByIdViewModel.SubProgramId
+    </div>
+    <div class="col-lg-4">
+        कार्य अवधि :@Model.ObjGetSubprogramDetailByIdViewModel.TimeDurationYear
+    </div>
+    <div class="col-lg-12">
+        आयोजना को नाम :@Model.ObjGetSubprogramDetailByIdViewModel.SubProgramTitle
+    </div>
+    <div class="col-lg-4">
+        पेश गरे/नगरेको :@if (@Model.ObjGetSubprogramDetailByIdViewModel.Status == 1)
+        {
+            <span>नगरेको</span>
+        }
+        else
+        {
+            <span>गरेको</span>
+        }
+
+    </div>
+    <div class="col-lg-4">
+        स्वीकृत अवस्था :@if (Model.ObjGetSubprogramDetailByIdViewModel.ApprovedStatus)
+        {
+        <span>स्वीकृत भएको</span>
+        }
+        else
+        {
+        <span>अस्वीकृत भएको</span>
+        }
+    </div>
+
+
+
+</div>
+
+@if (Model.ObjGetSubprogramDetailByIdViewModel.ApprovedStatus)
+{
+    @*<div class="row">
+
+        <div class="col-lg-4">
+            स्वीकृत रकम (पहिलो) :@Model.ObjGetSubprogramDetailByIdViewModel.GrantedAmountFirst
+        </div>
+
+
+        <div class="col-lg-4">
+            स्वीकृत रकम (दोस्रो) :@Model.ObjGetSubprogramDetailByIdViewModel.GrantedAmountSecond
+        </div>
+
+
+        <div class="col-lg-4">
+            स्वीकृत रकम (तेस्रो) :@Model.ObjGetSubprogramDetailByIdViewModel.GrantedAmountThird
+        </div>
+
+    </div>*@
+}
+

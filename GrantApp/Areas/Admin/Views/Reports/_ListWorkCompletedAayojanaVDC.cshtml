@@ -1,0 +1,90 @@
+﻿@model GrantApp.Models.ApplicationCompletionStatusVM
+@{
+    int SN = 1;
+
+}
+<div class="table-responsive" style="margin-top:50px;">
+    <table class="table table-bordered cell-border" id="droppedAayojanaTable">
+        <thead>
+            <tr>
+                <th>क्रस</th>
+                <th>शुरु आ.व.</th>
+                <th>अनुदान प्रकार</th>
+                <th>प्रदेश</th>
+                <th>जिल्ला</th>
+                <th>कार्यालय</th>
+                <th>आयोजना/कार्यक्रम</th>
+                <th>पूर्ण/आंशिक सम्पन्न</th>
+                <th>अन्तिम भुक्तानी भैाचर वा निर्माण व्यवसायि लाई दिईएको कार्यसम्पन्न प्रमाण पत्र वा पत्र</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ApplicationCompletionStatusVMList)
+            {
+                string FullOrPartialText = @"आंशिक सम्पन्न";
+                if (item.CompleteOrParitalCompleteStatusId == 1)
+                {
+                    FullOrPartialText = @"पूर्ण सम्पन्न";
+                }
+                <tr>
+                    <td>@SN</td>
+                    <td>@item.PhaseTitle</td>
+                    <td>@item.GrantTypeName</td>
+
+                    <td>@item.ProvinceTitleNep</td>
+                    <td>@item.DistrictNameNep</td>
+                    <td>@item.OfficeName</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@FullOrPartialText</td>
+                    <td>
+                        @if (item.UploadFileUrl != "")
+                        {
+                            @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.UploadFileUrl }, new { @class = "fa fa-download" })
+
+                        }
+                        else
+                        {
+
+                        }
+                    </td>
+
+
+
+                </tr>
+                SN++;
+            }
+
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/AdminResources/DataTables/datatables.min.js"></script>
+<script src="~/AdminResources/DataTables/Buttons-2.3.6/js/buttons.colVis.js"></script>
+<script>
+
+    var dtjquery = $.noConflict();
+    dtjquery(document).ready(function () {
+        dtjquery('#droppedAayojanaTable').DataTable({
+            pageLength: 100,
+            dom: 'Bfrtip',
+            buttons: [
+
+                {
+                    extend: 'excelHtml5',
+                    title: 'ReportsCompletedAayojana',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+                //'colvis'
+            ]
+        });
+    });
+
+
+
+</script>

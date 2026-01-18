@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/ProvinceLevel/Views/Shared/_ProvinceLayout.cshtml";
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+}
+
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-bill"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase"> विशेष अनुदान </strong><span> हाल सम्म</span>
+                        <div class="count-number">@GrantApp.CommontUtilities.TotalSpecialProgramCountByOfficeId(CurrentLoginOfficeId)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-check"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase"> समपुरक अनुदान </strong><span> हाल सम्म</span>
+                        <div class="count-number"> @GrantApp.CommontUtilities.TotalComplementryProgramCountByOfficeId(CurrentLoginOfficeId)</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+

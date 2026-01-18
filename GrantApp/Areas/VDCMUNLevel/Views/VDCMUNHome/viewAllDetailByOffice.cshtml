@@ -1,0 +1,171 @@
+﻿@model GrantApp.Models.ReportModel
+
+@{
+    ViewBag.Title = "viewAllDetailByOffice";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int j = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">विस्तृत विवरण</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="DetailsReportsID">
+
+
+
+                            <div class="col-md-4" style="margin:10px;">
+                                <h6>मुख्य विवरण</h6>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>स्वीकृत/अस्वीकृत</th>
+                                        <th>आ.व.</th>
+                                        <th>कार्यक्रम कोड</th>
+                                        <th>अनुदान प्रकार</th>
+                                        <th>कार्यक्रमको नाम</th>
+                                        <th>अवधि</th>
+                                        <th>कुल लागत</th>
+                                        <th>माग प्रथम वर्ष</th>
+                                        <th>माग दोस्रो वर्ष</th>
+                                        <th>माग तेस्रो वर्ष</th>
+                                        <th>माग रकम प्रथम वर्ष</th>
+                                        <th>अनुमोदित प्रथम वर्ष</th>
+                                        <th>माग रकम दोस्रो वर्ष</th>
+                                        <th>अनुमोदित दोस्रो वर्ष</th>
+                                        <th>माग रकम तेस्रो वर्ष</th>
+                                        <th>अनुमोदित तेस्रो वर्ष</th>
+                                        <th>प्रगति विवरण</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ViewAllDetailsOfOfficeViewModelList)
+                                    {
+                                        string ApprovedStr = @"अस्वीकृत";
+                                        if (item.ApprovedStatus)
+                                        {
+                                            ApprovedStr‍‍‍ = @"स्वीकृत";
+                                        }
+
+                                        if (item.ViewBagPhaseNumber == 5)
+                                        {
+                                            ApprovedStr‍‍‍ = @"प्रक्रियामा छ";
+                                        }
+
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <th>@ApprovedStr‍‍‍</th>
+                                            <th>@item.PhaseTitle</th>
+                                            <td>@item.SubProgramID</td>
+                                            <td>@item.GrantTypeName</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@item.TotalBudget</td>
+                                            <td>@item.BudgetForFirstYear</td>
+                                            <td>@item.BudgetForSecondYear</td>
+                                            <td>@item.BudgetForThirdYear</td>
+                                            <td>@item.RequestAmountIst</td>
+                                            <td>@item.Ist</td>
+                                            <td>@item.RequestAmountIInd</td>
+                                            <td>@item.IInd</td>
+                                            <td>@item.RequestAmountIIIrd</td>
+                                            <td>@item.IIIrd</td>
+
+                                            @if (item.ApprovedStatus)
+                                            {
+                                                <td>
+                                                    @Html.ActionLink(" ", "ViewDetailProgressReportForAll", new { @id = item.SubProgramID, @id1 = item.GrantTypeId, @id2 = 0, @id3 = 1 }, new { @class = "edits fa fa-eye", target = "_blank" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+                            @*<h6>प्रगति विवरण</h6>
+
+                                <table class="table table-danger">
+                                    <thead>
+                                        <tr>
+                                            <th>क्रम</th>
+                                            <th>आ.व.</th>
+                                            <th>कार्यक्रम कोड</th>
+                                            <th>आयोजना/कार्यक्रम</th>
+                                            <th>अवधि</th>
+                                            <th>पेश गरेको वर्ष</th>
+                                            <th>चौमासिक</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var item in Model.ViewAllProgressReportDtlViewModelList)
+                                        {
+                                            string QuardName = string.Empty;
+                                            if (item.QuadrimesterId == 1)
+                                            {
+                                                QuardName = "प्रथम चौमासिक";
+                                            }
+                                            else if (item.QuadrimesterId == 2)
+                                            {
+                                                QuardName = "दोस्रो चौमासिक";
+                                            }
+                                            else if (item.QuadrimesterId == 3)
+                                            {
+                                                QuardName = "तेस्रो चौमासिक";
+                                            }
+                                            <tr>
+                                                <td>@j</td>
+                                                <td>@item.PhaseTitle</td>
+                                                <td>@item.SubProgramId</td>
+                                                <td>@item.SubProgramTitle</td>
+                                                <td>@item.TimeDurationYear</td>
+                                                <td>@item.SubmitedYear</td>
+                                                <td>@QuardName</td>
+                                            </tr>
+
+                                            j++;
+
+                                        }
+                                    </tbody>
+                                </table>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

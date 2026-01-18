@@ -1,0 +1,260 @@
+﻿@model GrantApp.Models.RequestGrantAmountModel
+
+@{
+    ViewBag.Title = "ReqestGrantAmount";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">अनुदान रकम (आगामी आ. व. को लागि प्रस्तावित)</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewBagGrantTypeId) (अनुदान रकम माग गर्नुहोस्)</h1>
+            <h6> </h6>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <table>
+                            <tr>
+                                <th>आयोजना वा कार्यक्रमको नाम :@Model.ProgramTitle</th>
+                            </tr>
+                            <tr>
+                                <th>आयोजनाको कुल अवधि : @Model.ProgramTimeDuration</th>
+                            </tr>
+                            <tr>
+                                <th>आयोजनाको कुल लागत (रू. लाखमा) : 
+                                @{
+                                    decimal totalBudgetinLakh = Model.TotalBudgetForProgram;
+                                    totalBudgetinLakh = totalBudgetinLakh / 100000;
+                                }
+                                @totalBudgetinLakh</th>
+                            </tr>
+                            
+                        </table>
+                        
+                       
+
+                    </div>
+                    @*<div class="card-header row" style="display:none;">
+                       
+                        <div class="col-md-4">
+                            रकम माग प्रथम वर्ष. :@Model.BudgetForFirstYear
+                        </div>
+                        <div class="col-md-4">
+                            रकम माग दोस्रो.वर्ष :@Model.BudgetForSecondYear
+                        </div>
+                        @if (Model.ProgramTimeDuration > 2)
+                        {
+                            <div class="col-md-4">
+                                रकम माग तेस्रो.वर्ष :@Model.BudgetForThirdYear
+                            </div>
+                        }
+
+                    </div>
+                    `
+                    <div class="card-header d-flex align-items-center" style="display:none;">
+                       
+
+                        @if (Model.ProgramPhaseNumber == 2)
+                        {
+                            <div class="col-md-4">स्वीकृत रकम (आ.व. २०७७/२०७८): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 1)</div>
+                            <div class="col-md-4">स्वीकृत रकम (आ.व. २०७८/२०७९): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 2)</div>
+
+                        }
+                        @if (Model.ProgramPhaseNumber == 3)
+                        {
+                            <div class="col-md-4">स्वीकृत रकम (आ.व. २०७८/२०७९): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 1)</div>
+                            <div class="col-md-4">स्वीकृत रकम (आ.व. २०७९/२०८०): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 2)</div>
+
+                        }
+                        else if (Model.ProgramPhaseNumber == 4)
+                        {
+
+                            <div class="col-md-4">स्वीकृत रकम(आ.व. २०७९/२०८०): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 1)</div>
+                            <div class="col-md-4">स्वीकृत रकम(आ.व. २०८०/८१): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 2)</div>
+
+
+                        }
+                        else if (Model.ProgramPhaseNumber == 5)
+                        {
+
+                            <div class="col-md-4">स्वीकृत रकम(आ.व. २०८०/२०८१): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 1)</div>
+                            <div class="col-md-4">स्वीकृत रकम(आ.व. २०८१/८२): @CommontUtilities.GetProgramWiseAmountByProgramId(Model.ProgramId, 2)</div>
+
+
+                        }
+
+
+
+                    </div>*@
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("ReqestGrantAmount", "SubProgramSetup", FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewBagGrantTypeId)
+                            @Html.HiddenFor(m => m.ProgramId)
+                            @*@Html.HiddenFor(m => m.FiscalYearId)*@
+                            @Html.HiddenFor(m=>m.RequestGrantAmountId)
+                            @Html.HiddenFor(m => m.ProgramTimeDuration)
+                            @Html.HiddenFor(m => m.ProgramPhaseNumber)
+                            @Html.HiddenFor(m => m.TotalBudgetForProgram)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+
+                                <div class="row">
+
+                                    @if (Model.ViewBagGrantTypeId == 2)
+                                    {
+                                        <div class="col-md-4 col-sm-6 form-group">
+                                            <label>आगामी आ.व. का लागि माग गरिएको रकम (रु. लाखमा)  </label>
+                                            @Html.TextBoxFor(m => m.AmountSecond, new { @class = "form-control form-control sm", required = "required" })
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="col-md-4 col-sm-6 form-group">
+                                            <label>रकम चालु (आगामी आ. व. को लागि प्रस्तावित) रु लाखमा</label>
+                                            @Html.TextBoxFor(m => m.ChaluAmount, new { @class = "form-control form-control sm", required = "required" })
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6 form-group">
+                                            <label>रकम पुँजीगत (आगामी आ. व. को लागि प्रस्तावित) रु लाखमा</label>
+                                            @Html.TextBoxFor(m => m.PujiAmount, new { @class = "form-control form-control sm", required = "required" })
+                                        </div>
+                                    }
+
+                                    @if (Model.ViewBagGrantTypeId == 2)
+                                    {
+                                        <div class="col-md-8 col-sm-6 form-group">
+                                            <label>
+                                                आगामी आ.व.का लागि सम्बन्धित स्थानीय तह/प्रदेश सरकारले बेहोर्ने रकम (रु. लाखमा)
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </label>
+                                            @Html.TextBoxFor(m => m.OfficeAmount, new { @class = "form-control form-control sm", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.OfficeAmount)
+                                        </div>
+
+                                    }
+
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>
+                                            कूल ठेक्का रकम (रु. लाखमा)
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </label>
+                                        @Html.TextBoxFor(m => m.ContractAmount, new { @class = "form-control form-control sm", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.ContractAmount)
+                                    </div>
+
+
+
+                                    @if (Model.RequestReasonDoc == null)
+                                    {
+                                        <div class="col-md-4 col-sm-4 form-group">
+                                            <label>आ.व.२०८३/८४ का लागि सङ्घीय समपूरक तथा विशेष अनुदान अन्तर्गत संचालन हुने आयोजना वा कार्यक्रम छनौट सम्बन्धी सम्बन्धित स्थानीय तहको हकमा सम्बन्धित कार्यपालिकाको निर्णय (उपस्थिति सहित) र प्रदेशको हकमा सम्बन्धित प्रदेश योजना आयोगको सिफारिशमा प्रदेश सरकार मन्त्रिपरिषद्को निर्णय: (*)</label>
+                                            <input type="file" name="file" id="file" required />
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>निर्णय अपलोड</th>
+                                                    <th>डाउनलोड</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-4 col-sm-4 form-group">
+                                                            <label>
+                                                                आ.व.२०८२/८३ का लागि सङ्घीय समपूरक तथा विशेष अनुदान अन्तर्गत संचालन हुने आयोजना वा
+                                                                कार्यक्रम छनौट सम्बन्धी सम्बन्धित स्थानीय तहको हकमा सम्बन्धित कार्यपालिकाको निर्णय
+                                                                (उपस्थिति सहित) र प्रदेशको हकमा सम्बन्धित प्रदेश योजना आयोगको सिफारिशमा
+                                                                प्रदेश सरकार मन्त्रिपरिषद्को निर्णय: (*)
+                                                            </label>
+                                                            <input type="file" name="file" id="file" />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @Html.ActionLink(" Download", "Download", "GrantRequestForm",
+                                                                      new { @FileName = Model.RequestReasonDoc },
+                                                                      new { @class = "fa fa-download" })
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @Html.HiddenFor(m => m.RequestReasonDoc)
+                                    }
+
+
+
+
+
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+
+                                <div class="form-group">
+
+
+                                    @if (Model.ApprovedStatusBool == true)
+                                    {
+                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>पेश गर्नुहोस</button>
+                                    }
+
+
+
+
+
+                                    @Html.ActionLink("मुख्य सुचिमा जानुहोस", "PreviousSubProgramList", "SubProgramSetup", new { @id = Model.ViewBagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+
+                                </div>
+                                <div>रकम माग गरिसकेको आयोजना वा कार्यक्रमलाई पुनह् रद्द गर्न मिल्दैन । </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+

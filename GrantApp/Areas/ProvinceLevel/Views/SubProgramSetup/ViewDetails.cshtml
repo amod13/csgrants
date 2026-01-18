@@ -1,0 +1,170 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Areas/ProvinceLevel/Views/Shared/_ProvinceLayout.cshtml";
+}
+
+
+@*<div class="breadcrumb-holder">
+        <div class="container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Details </li>
+            </ul>
+        </div>
+    </div>*@
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Details </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        @*<header>
+                <h1 class="h3 display">Details</h1>
+            </header>*@
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h4>विवरण</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 form-group"><b>आधार/क्षेत्र:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@CommontUtilities.GetProgramNameById(Model.ProgramId)</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>आयोजना/कार्यक्रमको नाम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.SubProgramTitle</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>कूल लागत:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TotalBudget</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>लाभान्वित सम्भाब्य जनसंख्या:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ProbableBenefitedPopulation</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>अवधि (वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TimeDurationYear</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.AmountProvinceVdc</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>सहकारी तथा अन्य गैर सरकारीले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.NGOINGOAmount</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>नेपाल सरकारले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.GovnNepalAmount</div>
+
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>प्रदेश वा स्थानीय तहको पूर्वाधार निर्माणसंग सम्बन्धित रहेको:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.InfrastrucutreRelatedToProvinces)</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>जनताको आयस्तर तथा गरिबी निवारणमा योगदान पुर्याउने:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.PovertyAlleviationAnLivingStandard)</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>स्थानीय सीप, स्रोत र साधनको उपयोग हुने :</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.ResourceSkillAndSourceUsed)</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>कम्तिमा ५० प्रतिशत रकम विनियोजन गरेको :</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.Minimum50PercentageAppropriation)</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>नेपाल सरकारको प्राथमिकतामा परेको :</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.TopPriorityInGovernment)</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>नेपाल सरकारको नीति तथा कार्यक्रममा परेको :</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.InGovernmentPolicyAndProgram)</div>
+
+
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>अपलोड गरीएका फाईलहरू:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group"></div>
+
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>आयोजना कार्यान्वयन गर्नुपर्ने आवस्यकता र पुष्टायाई भएको:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.NecessityForProgram</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>आयोजना कार्यक्रम कार्यान्वयनका लागि भौतिक क्षमता तथा जनशक्ति उपलब्धता रहेको:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.PhysicalAndManPower</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>वार्षिक कार्यक्रम तथा बजेटमा परेको:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.YearlyProgramAndBudget</div>
+
+
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>संभाव्यता अध्यन:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.FeasibilitiesStudyFile</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>ड्रइङ, डिजाइन,स्पेसिफिकेशन:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.SDSDocFile</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>निर्णयको प्रतिलिपि:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.DecisionDocFile</div>
+
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>वातावरणीय प्रभाव मूल्याङ्कन प्रतिवेदन:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.EnvironmentDocFile</div>
+
+                            <div class="col-lg-4 col-md-3 form-group"><b>अन्य विवरण कागजातहरू:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ObjSupportingDocumentsModel.ExtraDocFile</div>
+
+
+
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+                        @using (Html.BeginForm("RequestGrant", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ProgramId)
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+
+
+                                @if (Model.Status == 1)
+                                {
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i> पेश गर्नुहोस</button>
+                                        @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                                    </div>
+                                }
+                                else
+
+                                {
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="button" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>प्रकिया मा छ ।</button>
+                                        @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                                    </div>
+                                }
+
+
+
+
+
+
+                            </fieldset>
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

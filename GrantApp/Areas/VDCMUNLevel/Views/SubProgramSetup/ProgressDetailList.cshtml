@@ -1,0 +1,461 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ProgressDetailList";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int j = 1;
+}
+
+
+<style>
+    .edits {
+        color: red !important;
+        font-size:24px !important;
+    }
+    .Update {
+        color: #0026ff;
+        font-size: 24px !important;
+    }
+</style>
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रगति विवरण</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+
+            <div class="card-body">
+                <h3 class="card-title" style="color:black;">
+                    रातो आइकन  <span class="edits fa fa-file"></span> क्लिक गरेर आवश्यक विवरण भर्नुहोस् र नीलो  <span class="Update fa fa-file"></span> रङ्गमा बदल्नुहोस्
+                    @*नयाँ आयोजना/कार्यक्रम थप्नुहोस Option खुल्नको लागि सबैभन्दा पहिला सबै आवहरुको प्रगति विवरण आइकन नीलो बनाउने, त्यसपछि दाहिने तर्फ रहेको “आयोजना सम्पन्नताको अवस्था” क्लिक गरेर भर्ने, त्यसपछि क्रमागत आयोजनामा रकम माग वा चाहिंदैन भन्ने विकल्प प्रयोग गरेपछि मात्रै नयाँ आयोजना/कार्यक्रम प्रविष्टि गर्न मिल्छ ।</h3>*@
+                    @*सबै आवहरुको प्रगति विवरण आइकन
+                    <span class="Update fa fa-file"></span>
+                    नीलो हुनका लागि
+                    रातो भएको आईकनमा <span class="edits fa fa-file"></span> क्लिक गरेर प्रगती विवरण भर्नुहोस । त्यसपछि  दाहिने तर्फ रहेको “आयोजना सम्पन्नताको अवस्था” क्लिक गरेर आवश्यक विवरण भर्नुहोस ।*@
+</div>
+
+            @*<div class="card-body">
+                <h5 class="card-title" style="color:red;">नयाँ/क्रमागत आयोजना/कार्यक्रम प्रविष्टि गर्नुपूर्व यस अघि स्वीकृत भएका आयोजना/कार्यक्रमको अद्यावधिक प्रगति विवरण अनिवार्य रुपमा भर्नुहोस्। धन्यवाद।</h5>
+            </div>*@
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="h3 display">१. सम्पन्न आयोजना वा  कार्यक्रमहरुको प्रगति विवरण ।</h1>
+                    </div>
+                    <div class="table-responsive m_table">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>क्रम</th>
+                                    <th>शुरु भएको आ.व.</th>
+                                    <th>आयोजना/कार्यक्रमको नाम</th>
+                                    <th>अनुदान प्रकार</th>
+                                    <th>अवधि</th>
+                                    <th>आ.व. २०७६/७७</th>
+                                    <th>आ.व. २०७७/७८</th>
+                                    <th>आ.व. २०७८/७९</th>
+                                    <th>आ.व. २०७९/८०</th>
+                                    <th>आ.व. २०८०/८१</th>
+                                    <th>आ.व.२०८१/८२ (माघ मसान्तसम्म)</th>
+                                    <th>आ.व.२०८१/८२ (आषाढ मसान्तसम्म)</th>
+
+                                    <th>आयोजना सम्पन्नताको अवस्था</th>
+
+
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.YearlyWiseProgressDetailsListVMList)
+                                {
+                                    if((item.PhaseStatus>=1 && item.PhaseStatus<5) || (item.PhaseStatus==5 && item.TimeDurationYear<=2) || (item.PhaseStatus==6  && item.TimeDurationYear<=1))
+                                    
+                                    {
+
+             
+
+                                    string CssClassApproved = "";
+
+                                    if (true == true)
+                                    {
+                                        CssClassApproved = @"#f7eded";
+                                    }
+
+                                    <tr style="background:@CssClassApproved">
+                                        <th scope="row">@j</th>
+                                        <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+
+
+                                        <td>@item.SubProgramTitle</td>
+                                        <td>@item.GrantTypeName</td>
+
+                                        <td>@item.TimeDurationYear</td>
+
+                                        @if (item.PhaseStatus == 1 && item.TimeDurationYear >= 1)
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 1, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 1, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+                                        @*aba 77/78*@
+
+                                        @if ((item.PhaseStatus == 2 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 1 && item.TimeDurationYear > 1))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 11, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 11, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+
+                                        @*aba 78/79*@
+                                        @if ((item.PhaseStatus == 3 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 2 && item.TimeDurationYear > 1) || (item.PhaseStatus == 1 && item.TimeDurationYear > 2))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 13, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 13, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+
+                                        @*aba 79/80*@
+
+                                        @if ((item.PhaseStatus == 4 && item.TimeDurationYear >= 1) || (item.PhaseStatus == 2 && item.TimeDurationYear > 2) || (item.PhaseStatus == 3 && item.TimeDurationYear >= 2))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 14, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 14, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+                                        @*aba 80/81*@
+
+                                        @if ((item.PhaseStatus == 5 && (item.TimeDurationYear == 1 || item.TimeDurationYear <= 2)) || (item.PhaseStatus == 3 && item.TimeDurationYear > 2) || (item.PhaseStatus == 4 && item.TimeDurationYear >= 2))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 15, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 15, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+                                        @*aba 81/82 माग*@
+
+                                        @if ((item.PhaseStatus == 6 && item.TimeDurationYear == 1) || (item.PhaseStatus == 4 && item.TimeDurationYear > 2) || (item.PhaseStatus == 5 && item.TimeDurationYear >= 2))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 16, 0);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 16, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+
+                                        @*aba 81/82 असार*@
+
+                                        @if ((item.PhaseStatus == 6 && item.TimeDurationYear == 1) || (item.PhaseStatus == 4 && item.TimeDurationYear > 2) || (item.PhaseStatus == 5 && item.TimeDurationYear >= 2))
+                                        {
+                                            string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 16, 1);
+                                            string ClassNameCss = ($"{ClassName} fa fa-file");
+                                            <td>
+                                                @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 16, @id3 = 1 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
+
+                                        @{
+                                            string ClassNameForSampanna = CommontUtilities.GetFinalReportClassName(item.SubProgramId);
+                                            string ClassNameForSampannaCss = ($"{ClassNameForSampanna} fa fa-file");
+
+                                        }
+
+
+
+
+
+                                        <td style="width:290px;">
+
+                                            @Html.ActionLink(" ", "ApplicationStatusDetails", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = ClassNameForSampannaCss, data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+
+                                        </td>
+
+                                    </tr>
+                                        ++j;
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <br />
+
+
+                    <div class="card-header">
+                        <h1 class="h3 display">२. यस आ.ब. (८२|८३) मा सञ्चालन भैरखेको तथा क्रमागत आयोजना वा कार्यक्रमहरुको प्रगति विवरण</h1>
+                    </div>
+                    <div class="card-body">
+
+                        
+
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरु भएको आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>अनुदान प्रकार</th>
+                                        <th>अवधि</th>
+
+                                        <th>आ.व. २०८०/८१</th>
+                                        <th>आ.व.२०८१/८२ (माघ मसान्तसम्म)</th>
+                                        <th>आ.व.२०८१/८२ (असार मसान्तसम्म)</th>
+                                        <th>आ.व. २०८२/८३ (हालसम्मको प्रगति विवरण)</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.YearlyWiseProgressDetailsListVMList)
+                                    {
+                                        
+                                        if ((item.PhaseStatus>6) || (item.PhaseStatus == 6 && item.TimeDurationYear >= 2) || (item.PhaseStatus == 5 && item.TimeDurationYear > 2) )
+
+                                        {
+
+
+
+                                            string CssClassApproved = "";
+
+                                            if (true == true)
+                                            {
+                                                CssClassApproved = @"#f7eded";
+                                            }
+
+                                        <tr style="background:@CssClassApproved">
+                                            <th scope="row">@i</th>
+                                            <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+
+
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.GrantTypeName</td>
+
+                                            <td>@item.TimeDurationYear</td>
+
+
+
+
+                                            @*aba 80/81 phs=5*@
+                                            @if ((item.PhaseStatus == 5 && item.TimeDurationYear > 2))
+                                            {
+                                                string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 14, 0);
+                                                string ClassNameCss = ($"{ClassName} fa fa-file");
+                                                <td>
+                                                    @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 14, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                                </td>
+                                            }
+
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+                                            @*aba 81/82 magh*@
+
+                                            @if (item.PhaseStatus == 5 && item.TimeDurationYear > 2 || (item.PhaseStatus == 6 && item.TimeDurationYear > 1))
+                                            {
+                                                string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 15, 0);
+                                                string ClassNameCss = ($"{ClassName} fa fa-file");
+                                                <td>
+                                                    @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 15, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+                                            @*aba 81/82 asar*@
+                                            @if (item.PhaseStatus == 5 && item.TimeDurationYear > 2 || (item.PhaseStatus == 6 && item.TimeDurationYear >= 2) || (item.PhaseStatus == 4 && item.TimeDurationYear >= 2))
+                                            {
+                                                string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 15, 1);
+                                                string ClassNameCss = ($"{ClassName} fa fa-file");
+                                                <td>
+                                                    @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 15, @id3 = 1 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+
+                                            @*aba 82/83 halsamma*@
+
+                                            @if (item.PhaseStatus == 7 && item.TimeDurationYear >= 1 || (item.PhaseStatus == 6 && item.TimeDurationYear >= 2) || (item.PhaseStatus == 5 && item.TimeDurationYear >= 2))
+                                            {
+                                                string ClassName = CommontUtilities.GetProgressReportClassName(item.SubProgramId, 16, 0);
+                                                string ClassNameCss = ($"{ClassName} fa fa-file");
+                                                <td>
+                                                    @Html.ActionLink(" ", "AddProgressDetailByFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 16, @id3 = 0 }, new { @class = ClassNameCss, data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण भर्न क्लिक गर्नुहोस" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+
+                                        </tr>
+                                            ++i;
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr />
+                        <br />
+                        <div>
+                            राखिसकेका प्रगति विवरणहरू
+                        </div>
+
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>संचालन भएको स्थान</th>
+                                        <th>भौतिक(प्रगति)</th>
+                                        <th>वित्तिय (प्रगति)</th>
+                                        <th>राखेको आ.व.</th>
+                                        <th>विवरण</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.QuadrimesterReportsDetailViewModelList)
+                                    {
+                                        string QuardName = string.Empty;
+                                        if (item.QuadrimesterId == 1)
+                                        {
+                                            QuardName = "प्रथम चौमासिक";
+                                        }
+                                        else if (item.QuadrimesterId == 2)
+                                        {
+                                            QuardName = "दोस्रो चौमासिक";
+                                        }
+                                        else if (item.QuadrimesterId == 3)
+                                        {
+                                            QuardName = "तेस्रो चौमासिक";
+                                        }
+
+                                        <tr>
+                                            <th scope="row">@sn</th>
+                                            <th>@item.ProgramPhaseTitle</th>
+                                            <th>@item.ProgramTitle</th>
+                                            <td>@item.ProgramConductPlace</td>
+                                            <td>@item.AchievementMaterial</td>
+                                            <td>@item.AchievementFinance</td>
+                                            <td>@CommontUtilities.GetFiscalYearTitelByFID(Convert.ToInt32(item.FiscalYearId))</td>
+
+                                            <td>
+                                                @Html.ActionLink(" ", "ViewDetailProgressReportForClient", new { @id = item.ProgramId, @id1 = item.GrantTypeId, @id2 = item.QuadrimesterReportsDetailId, @id3 = 1 }, new { @class = "edits fa fa-eye" })
+                                            </td>
+
+                                        </tr>
+                                        ++sn;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["ProgresReportNtf"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>

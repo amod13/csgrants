@@ -1,0 +1,226 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int sn = 1;
+}
+
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">आयोजना वा कार्यक्रमको विवरण</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>अनुदानको प्रकार</th>
+                        <td>@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजना वा कार्यक्रमको नाम</th>
+                        <td>@Model.SubProgramTitle</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजना संचालन हुने स्थान (जिल्ला, स्थानीय तह, वडा, टोल/बस्ती): </th>
+                        <td>@Model.AyojanaAddress</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजना वा कार्यक्रमको प्रमुख क्षेत्र</th>
+                        <td>@CommontUtilities.GetMainSectionNameBySectionId(Model.MainSectionId)</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजना वा कायर्यक्रमको प्राथमिकताक्रम </th>
+                        <td>@CommontUtilities.GetNepaliOrdinal(Model.ProgramPirority)</td>
+                    </tr>
+
+                    <tr>
+                        <th>आयोजना वा कार्यक्रमको अवधी (बर्ष) </th>
+                        <td>@Model.TimeDurationYear</td>
+                    </tr>
+                    <tr>
+                        <th>कुल लागत रकम (र) लाखमा </th>
+                        <td>@Model.TotalBudget</td>
+                    </tr>
+                    <tr>
+                        <th>नेपाल सरकारसँग माग गरिएको रकम (प्रथम बर्ष) रु. लाखमा</th>
+                        <td>@(Model.BudgetForFirstYear ?? 0)</td>
+                    </tr>
+                    @if (Model.TimeDurationYear > 1)
+                    {
+                        <tr>
+                            <th>नेपाल सरकारसँग माग गरिएको रकम (दोस्रो वर्ष) रु लाखमा)</th>
+                            <td>@(Model.BudgetForSecondYear ?? 0)</td>
+                        </tr>
+                    }
+                    @if (Model.TimeDurationYear > 2)
+                    {
+                        <tr>
+                            <th>नेपाल सरकारसँग माग गरिएको रकम (तेस्रो वर्ष) रु लाखमा</th>
+                            <td>@(Model.BudgetForThirdYear ?? 0)</td>
+                        </tr>
+                    }
+
+                    @if (Model.ViewbagGrantTypeId == 2)
+                    {
+                        <tr>
+                            <th>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम (रू. लाखमा)</th>
+                            <td>@(Model.AmountProvinceVdc ?? 0)</td>
+                        </tr>
+                    }
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">कागजातहरू</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>क्रस</td>
+                            <td>शिर्षक</td>
+                            <td>अपलोड गरीएको फाईल</td>
+                            <td>डाउनलोड गर्नुहोस्</td>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.DocumentsRequirementsViewModel)
+                    {
+                        <tr>
+                            <td>@sn</td>
+                            <td>@item.DocTitleFileStr</td>
+                            <td>@item.UploadFileUrl</td>
+                            <td>
+                                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.UploadFileUrl }, new { @class = "fa fa-download" })
+                            </td>
+                        </tr>
+                        sn++;
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @if (Model.AvailablePrograms != null && Model.AvailablePrograms.Any(p => p.Selected))
+    {
+        <div class="card mt-4 shadow-lg">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Selected Programs</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Program ID</th>
+                                <th>Program Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var program in Model.AvailablePrograms.Where(p => p.Selected))
+                            {
+                                <tr>
+                                    <td>@program.Value</td>
+                                    <td>@program.Text</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+    @if (ViewBag.ApplicationStatus != null)
+    {
+        <div class="card mt-4 shadow-lg">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0">आयोजना वा कार्यक्रम मागको अवस्था</h3>
+                @if (ViewBag.ApplicationStatus == 1)
+                {
+                    <strong>
+                        राष्ट्रिय योजना आयोगमा आ.व. २०८२/८३ का लागि प्रस्ताव पेश गर्न बाँकी
+                    </strong>
+                }
+                else if (ViewBag.ApplicationStatus == 2)
+                {
+                    <strong>
+                        राष्ट्रिय योजना आयोगमा आ.व. २०८२/८३ का लागि प्रस्ताव पेश गरिएको ।
+                    </strong>
+                }
+
+            </div>
+            @if (ViewBag.ApplicationStatus == 1)
+            {
+                <div class="card-body">
+                    @if (Model.ViewbagGrantTypeId == 2)
+                    {
+                        <p>
+                            सबै आयोजना वा कार्यक्रमको प्रस्ताव पेश गरेपछि अनुसूचि २ (शर्तनामा)
+                            डाउनलोड गरी आवश्यक विवरण तथा हस्ताक्षर सहित पुन: अपलोड गर्ने कार्य गर्न बांकी ।
+
+                        </p>
+
+                    }
+                    else if (Model.ViewbagGrantTypeId == 1)
+                    {
+                        <p>
+                            सबै आयोजना वा कार्यक्रमको प्रस्ताव पेश गरेपछि अनुसूचि ४ (शर्तनामा)
+                            डाउनलोड गरी आवश्यक विवरण तथा हस्ताक्षर सहित पुन: अपलोड गर्ने कार्य गर्न बांकी ।
+
+                        </p>
+                    }
+
+                </div>
+            }
+            else if (ViewBag.ApplicationStatus == 2)
+            {
+                <div class="card-body">
+                    <p>
+                        आयोजना वा कार्यक्रमको प्रस्ताव पेश भैसकेको छ । आयोजना नं @Model.SubProgramId
+
+                    </p>
+
+
+
+                </div>
+
+            }
+        </div>
+    }
+    @if (ViewBag.FinalDocUrl != null)
+    {
+        <div class="card mt-4 shadow-lg">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">शर्तनामा</h3>
+            </div>
+            <div class="card-body">
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm",
+                 new { @FileName = ViewBag.FinalDocUrl },
+                 new { @class = "fa fa-download" })
+            </div>
+        </div>
+    }
+
+    <div class="text-center mt-4">
+        @Html.ActionLink("नया आयोजना वा कार्यक्रम माग गर्ने पेजमा जानुहोस्", "FormEntry", "Grant", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+    </div>
+</div>
+

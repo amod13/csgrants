@@ -1,0 +1,64 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+
+}
+<div class="table-responsive" id="DoubleScrollDivID">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>अनुदान प्रकार</th>
+                <th>प्रदेश</th>
+                <th>स्थानिय तहको नाम</th>
+                <th>जिल्ला</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>आ.व.</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>सम्बन्धित तहले व्यहोर्ने</th>
+                <th>माग गरिएको रकम</th>
+                <th>आयोजनाको अवधि</th>
+                <th>सिफारिस रु (प्रथम वर्ष)</th>
+                <th>सिफारिस रु (दोस्रो वर्ष)</th>
+                <th>सिफारिस रु (तेस्रो वर्ष)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.AnusuchiOneViewModelList)
+            {
+
+
+                <tr>
+                    <td scope="row">@i</td>
+                    <td>@item.GrantTypeName</td>
+                    <td>@item.ProvinceTitleNep</td>
+                    <td>@item.VdcMunNameNep</td>
+                    <td>@item.DistrictNameNep</td>
+                    <td>@item.SectionName</td>
+                    <td>@item.PhaseTitle</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TotalBudget</td>
+                    <td>@item.AmountProvinceVdc</td>
+                    <td>@item.AmountProvinceVdc</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@item.FirstInstallMent</td>
+                    <td>@item.SecondInstallMent</td>
+                    <td>@item.ThirdInstallMent</td>
+                </tr>
+
+                ++i;
+            }
+
+
+
+
+        </tbody>
+    </table>
+
+
+</div>

@@ -1,0 +1,458 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 form-group">
+        <label>मुलभुत क्षेत्र</label>
+        @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDD(Model.ViewbagGrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+    </div>
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>आधार/क्षेत्र</label>
+            @Html.DropDownListFor(m => m.ProgramId, GrantApp.Areas.Admin.FunctionClass.GetProgramListDDForEdit(Model.MainSectionId), new { @id = "dll_ProgramId", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+    }
+
+    else
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>आधार/क्षेत्र</label>
+            @Html.DropDownListFor(m => m.ProgramId, GrantApp.Areas.Admin.FunctionClass.GetProgramListDDForInsert(), new { @id = "dll_ProgramId", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+    }
+
+
+
+
+
+
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>आयोजना/कार्यक्रमको नाम</label>
+        @Html.TextBoxFor(m => m.SubProgramTitle, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
+        @Html.ValidationMessageFor(m => m.SubProgramTitle)
+    </div>
+
+
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>कुल लागत</label>
+        @Html.TextBoxFor(m => m.TotalBudget, new { @class = "form-control form-control sm", @required = "required", @id = "TotalBudget" })
+        @Html.ValidationMessageFor(m => m.TotalBudget)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>लाभान्वित सम्भाब्य जनसंख्या</label>
+        @Html.TextBoxFor(m => m.ProbableBenefitedPopulation, new { @class = "form-control form-control sm", @required = "required" })
+
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>अवधि (वर्ष)</label>
+        @Html.TextBoxFor(m => m.TimeDurationYear, new { @class = "form-control form-control sm", @required = "required" })
+
+    </div>
+
+    <div class="clearfix"></div>
+
+    @if (Model.ViewbagGrantTypeId == 2)
+    {
+
+
+        <div class="col-md-3 col-sm-6 form-group">
+            <label>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम</label>
+            @Html.TextBoxFor(m => m.AmountProvinceVdc, new { @id = "AmountProvinceVdc", @class = "form-control form-control sm", @required = "required" })
+        </div>
+
+
+
+
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>सहकारी तथा अन्य गैर सरकारीले व्यहोर्ने रकम</label>
+            @Html.TextBoxFor(m => m.NGOINGOAmount, new { @id = "NGOINGOAmount", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+
+
+
+
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>नेपाल सरकारले व्यहोर्ने रकम</label>
+            @Html.TextBoxFor(m => m.GovnNepalAmount, new { @id = "GovnNepalAmount", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+
+    }
+
+
+
+</div>
+
+
+<div class="row check_box_sec">
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>प्रदेश वा स्थानीय तहको पूर्वाधार निर्माणसंग सम्बन्धित रहेको</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.InfrastrucutreRelatedToProvinces)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>जनताको आयस्तर तथा गरिबी निवारणमा योगदान पुर्याउने</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.PovertyAlleviationAnLivingStandard)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>स्थानीय सीप, स्रोत र साधनको उपयोग हुने</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.ResourceSkillAndSourceUsed)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>कम्तिमा ५० प्रतिशत रकम विनियोजन गरेको</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.Minimum50PercentageAppropriation)
+    </div>
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>नेपाल सरकारको प्राथमिकतामा परेको</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.TopPriorityInGovernment)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>नेपाल सरकारको नीति तथा कार्यक्रममा परेको</label>
+
+        @Html.CheckBoxFor(m => m.ObjSupportingDocumentsModel.InGovernmentPolicyAndProgram)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>आयोजना कार्यान्वयन गर्नुपर्ने आवस्यकता र पुष्टायाई भएको</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile">No file chosen...</div>
+                <input type="file" name="files[5]" id="chooseFile">
+            </div>
+        </div>
+
+        <!-- <input type="file" name="files[5]" /> -->
+    </div>
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>आयोजना कार्यक्रम कार्यान्वयनका लागि भौतिक क्षमता तथा जनशक्ति उपलब्धता रहेको</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile2">No file chosen...</div>
+                <input type="file" name="files[6]" id="chooseFile2">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[6]" /> -->
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>वार्षिक कार्यक्रम तथा बजेटमा परेको</label>
+        <br /><br />
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile3">No file chosen...</div>
+                <input type="file" name="files[7]" id="chooseFile3">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[7]" /> -->
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>संभाव्यता अध्यन</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile4">No file chosen...</div>
+                <input type="file" name="files[0]" id="chooseFile4">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[0]" /> -->
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>ड्रइङ, डिजाइन,स्पेसिफिकेशन</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile5">No file chosen...</div>
+                <input type="file" name="files[1]" id="chooseFile5">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[1]" /> -->
+
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>निर्णयको प्रतिलिपि</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile6">No file chosen...</div>
+                <input type="file" name="files[2]" id="chooseFile6">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[2]" /> -->
+
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>वातावरणीय प्रभाव मूल्याङ्कन प्रतिवेदन</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile7">No file chosen...</div>
+                <input type="file" name="files[3]" id="chooseFile7">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[3]" /> -->
+
+    </div>
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>अन्य विवरण कागजातहरू</label>
+
+        <div class="file-upload">
+            <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile8">No file chosen...</div>
+                <input type="file" name="files[4]" id="chooseFile8">
+            </div>
+        </div>
+
+        <!--  <input type="file" name="files[4]" /> -->
+
+    </div>
+
+</div>
+
+
+@if (ViewBag.Mode == "Edit")
+{
+
+    <div class="row">
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>अपलोड गरीएका फाईलहरू</label>
+
+        </div>
+    </div>
+
+
+    <div class="uploaded_files">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> आयोजना कार्यान्वयन गर्नुपर्ने आवस्यकता र पुष्टायाई भएको</label>
+                @Model.ObjSupportingDocumentsModel.NecessityForProgram
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> आयोजना कार्यक्रम कार्यान्वयनका लागि भौतिक क्षमता तथा जनशक्ति उपलब्धता रहेको</label>
+                @Model.ObjSupportingDocumentsModel.PhysicalAndManPower
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> वार्षिक कार्यक्रम तथा बजेटमा परेको</label>
+                @Model.ObjSupportingDocumentsModel.YearlyProgramAndBudget
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> संभाव्यता अध्यन</label>
+                @Model.ObjSupportingDocumentsModel.FeasibilitiesStudyFile
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> ड्रइङ, डिजाइन,स्पेसिफिकेशन</label>
+                @Model.ObjSupportingDocumentsModel.SDSDocFile
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> निर्णयको प्रतिलिपि</label>
+                @Model.ObjSupportingDocumentsModel.DecisionDocFile
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> वातावरणीय प्रभाव मूल्याङ्कन प्रतिवेदन</label>
+                @Model.ObjSupportingDocumentsModel.EnvironmentDocFile
+            </div>
+            <div class="col-md-4 col-sm-6 form-group">
+                <label><i class="fa fa-angle-double-right">&nbsp;</i> अन्य विवरण कागजातहरू</label>
+                @Model.ObjSupportingDocumentsModel.ExtraDocFile
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $('#chooseFile').bind('change', function () {
+        var filename = $("#chooseFile").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile2').bind('change', function () {
+        var filename = $("#chooseFile2").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile2").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile2").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile3').bind('change', function () {
+        var filename = $("#chooseFile3").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile3").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile3").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile4').bind('change', function () {
+        var filename = $("#chooseFile4").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile3").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile4").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile5').bind('change', function () {
+        var filename = $("#chooseFile5").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile5").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile5").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile6').bind('change', function () {
+        var filename = $("#chooseFile6").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile6").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile6").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile7').bind('change', function () {
+        var filename = $("#chooseFile7").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile7").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile7").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile8').bind('change', function () {
+        var filename = $("#chooseFile8").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile8").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile8").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+</script>
+
+<script>
+
+    var kk = $.noConflict();
+    kk(document).ready(function () {
+        kk('.js-example-basic-single').select2();
+    });
+</script>
+
+
+<script>
+    function GetProgramListByMainSectionId() {
+        var value = $("#dll_MainSectionId option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetProgramListByMainSectionId", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_ProgramId").html(items);
+            }
+        })
+    };
+</script>
+
+<script type="text/javascript">
+    function CalculateAmt() {
+        var TotalBudget = $("#TotalBudget").val();
+        var Percentage = $("#ProvincesAmtP").val();
+        alert(TotalBudget + ' ' + Percentage);
+        var TotalAmt = parseFloat(TotalBudget) * parseFloat(Percentage) / 100;
+        $("#AmountProvinceVdc").val(TotalAmt.toFixed(2));
+    }
+    function CalculatePercentage() {
+        var TotalBudget = $("#TotalBudget").val();
+        var Amount = $("#AmountProvinceVdc").val();
+
+        var TotalAmt = parseFloat(TotalBudget) / Amount * 100;
+        $("#ProvincesAmtP").val(TotalAmt.toFixed(2));
+    }
+
+</script>

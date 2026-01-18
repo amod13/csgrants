@@ -1,0 +1,144 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+
+@{
+    ViewBag.Title = "ViewDashboardNewProgramList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
+
+    i = i + ((Model.PageNumber - 1) * Model.TotalPageNumberToDisplay) + 1;
+}
+@using PagedList;
+@using PagedList.Mvc;
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">विशेष / समपुरक अनुदान -कार्यक्रम</li>
+        </ul>
+    </div>
+</div>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                नयाँ विशेष/समपुरक आयोजना/कार्यक्रमको विवरण
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="card-body">
+                            <div class="table-responsive m_table bg-light">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr style="text-align:right;">
+                                            <th>आ.व.</th>
+                                            <th>प्रदेश-१</th>
+                                            <th>प्रदेश-२</th>
+                                            <th>प्रदेश-३</th>
+
+                                            <th>प्रदेश-४</th>
+                                            <th>प्रदेश-५</th>
+                                            <th>प्रदेश-६</th>
+                                            <th>प्रदेश-७</th>
+                                            <th>जम्मा</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ViewNewProgramProvinceWiseStatusVMList)
+                                        {
+                                            <tr style="text-align:right;">
+                                                <td>@item.PhaseTitle</td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=1">@item.ProOneTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=2">@item.ProTwoTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=3">@item.ProThreeTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=4">@item.ProFourTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=5">@item.ProFiveTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=6">@item.ProSixTotal</a></td>
+                                                <td><a href="~/Admin/AdminHome/ViewDashboardNewProgramList/@Model.GrantTypeId?id1=6&id2=7">@item.ProSevenTotal</a></td>
+                                                <td>@item.TotalProgram</td>
+                                            </tr>
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="card-body">
+                            <div class="provinceClass">
+                                @GrantApp.Areas.Admin.FunctionClass.GetProvinceNameByID(Model.ProvinceId)
+                            </div>
+                            <div class="table-responsive m_table">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>क्रम</th>
+                                            <th>स्वीकृत/अस्वीकृत</th>
+                                            <th>कार्यलय</th>
+                                            <th>प्रकार</th>
+                                            <th>आ.व.</th>
+                                            <th>मुलभुत क्षेत्र</th>
+                                            <th>कोड</th>
+                                            <th>शिर्षक</th>
+                                            <th>कुल लागत (लाखमा)</th>
+                                            <th>समय अवधि</th>
+                                            <th></th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.pageList)
+                                        {
+
+                                            item.TotalBudget = item.TotalBudget / 100000;
+                                            string approvedStatus = "अस्वीकृत";
+                                            if (item.PhaseStatus == Model.CurrentPhaseNumber)
+                                            {
+                                                approvedStatus = "प्रकिया";
+                                            }
+                                            if (item.ApprovedStatus == true)
+                                            {
+                                                approvedStatus = "स्वीकृत";
+                                            }
+
+
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@approvedStatus</td>
+                                                <td>@item.OfficeName</td>
+                                                <td>@item.GrantTypeName</td>
+                                                <td>@item.PhaseTitle</td>
+                                                <td>@item.SectionName</td>
+                                                <td>@item.SubProgramId</td>
+                                                <td>@item.SubProgramTitle</td>
+                                                <td>@item.TotalBudget</td>
+                                                <td>@item.TimeDurationYear</td>
+                                                <td>
+                                                    @Html.ActionLink(" ", "ViewDeatilsFromDashboard", "AdminHome", new { @id = item.SubProgramId, @id1 = Model.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                                                </td>
+                                            </tr>
+                                            ++i;
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                                @Html.PagedListPager(Model.pageList, id3 => Url.Action("ViewDashboardNewProgramList", "AdminHome", new { id = Model.GrantTypeId, id1 = Model.FiscalYearID, id2 = Model.ProvinceId, id3 }))
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

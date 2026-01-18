@@ -1,0 +1,93 @@
+﻿@model GrantApp.Models.SubProgramMaster
+@{
+    int id = 1;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<style>
+    @@media print {
+        table td:last-child {
+            display: none;
+        }
+
+        table th:last-child {
+            display: none;
+        }
+    }
+</style>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>क्रस</td>
+                <td>कागजातहरू</td>
+                <td>फाईल अपलोड</td>
+                @if (ViewBag.Mode == "Edit")
+                {
+                    <td>अपलोड गरिएका फाईलहरू</td>
+                }
+                @*@if (ViewBag.ErrMode == "On")
+                {
+                    <td>अपलोड गर्न खोजिएका फाईलहरू</td>
+                }*@
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.DocumentsRequirementsViewModel.Count; i++)
+        {
+            @Html.HiddenFor(m => m.DocumentsRequirementsViewModel[i].UploadFileUrl)
+            int snNo = i + 1;
+    <tr>
+        <td>@snNo</td>
+
+        <td>
+            @Model.DocumentsRequirementsViewModel[i].DocTitleFileStr
+            @Html.HiddenFor(m => Model.DocumentsRequirementsViewModel[i].RequiredDocID)
+        </td>
+
+        @{
+            // Dynamically generate the name for the file input
+            string filename = "files[" + i + "]";
+        }
+
+
+
+        @if (ViewBag.Mode == "Edit")
+        {
+            <td>
+
+                <input type="file" name="files[@i]"  />
+            </td>
+
+            @Html.HiddenFor(m => m.DocumentsRequirementsViewModel[i].UploadFileUrl)
+            <td>@Model.DocumentsRequirementsViewModel[i].UploadFileUrl</td>
+
+
+        }
+        else
+        {
+            <td>
+
+                <input type="file" name="files[@i]" required />
+            </td>
+        }
+
+        @*@if (ViewBag.ErrMode == "On")
+        {
+
+          <td>
+              @if (Model.Files != null && Model.Files.Count > i)
+              {
+                  <span>@Model.Files[i].FileName</span>
+              }
+          </td>
+
+
+        }*@
+
+    </tr>
+        }
+
+    </table>
+</div>

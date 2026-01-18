@@ -1,0 +1,132 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int i = 1;
+}
+
+<div class="table-responsive">
+
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>कार्यालयको नाम</th>
+                <th>स्वीकृत/अस्वीकृत</th>
+                <th>आ.व.</th>
+                <th>कार्यक्रम कोड</th>
+                <th>अनुदान प्रकार</th>
+                <th>कार्यक्रमको नाम</th>
+                <th>अवधि</th>
+                <th>कुल लागत</th>
+                @*<th>माग प्रथम वर्ष</th>
+                    <th>माग दोस्रो वर्ष</th>
+                    <th>माग तेस्रो वर्ष</th>*@
+                @*<th>माग रकम प्रथम वर्ष</th>*@
+                <th>अनुमोदित प्रथम वर्ष (लाखमा)</th>
+                @*<th>माग रकम दोस्रो वर्ष</th>*@
+                <th>अनुमोदित दोस्रो वर्ष</th>
+                @*<th>माग रकम तेस्रो वर्ष</th>*@
+                <th>अनुमोदित तेस्रो वर्ष</th>
+                <th>ठेक्का रकम</th>
+                <th>प्रगति विवरण</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ViewAllDetailsOfOfficeViewModelList)
+            {
+
+                decimal GranttedAmt = item.Ist;
+                decimal? GrantAmtSecond = item.IInd;
+                decimal? GrantAmtThird = item.IIIrd;
+                try
+                {
+                    GranttedAmt = (item.Ist / 100000);
+                    GrantAmtSecond = (item.IInd / 100000);
+                    GrantAmtThird = (item.IIIrd / 100000);
+
+                }
+                catch (Exception)
+                {
+
+                    GranttedAmt = item.Ist;
+                    GrantAmtSecond = (item.IInd);
+                    GrantAmtThird = (item.IIIrd);
+
+                }
+
+                string ApprovedStr = string.Empty;
+
+                if (item.ApprovedStatus)
+                {
+                    ApprovedStr‍‍‍ = @"स्वीकृत";
+                }
+                else
+                {
+                    ApprovedStr = @"अस्वीकृत";
+                }
+
+                //string ApprovedStr = string.Empty;
+
+                if (Model.ProgramPhaseNumber == 6)
+                {
+                    ApprovedStr = @"प्रकियामा";
+                }
+                //else
+                //{
+                //    if (item.ApprovedStatus)
+                //    {
+                //        ApprovedStr‍‍‍ = @"स्वीकृत";
+                //    }
+                //    else
+                //    {
+                //        ApprovedStr = @"अस्वीकृत";
+                //    }
+                //}
+
+
+
+
+                <tr>
+                    <th scope="row">@i</th>
+                    <th>@item.OfficeName</th>
+                    <th>@ApprovedStr‍‍‍</th>
+                    <th>@item.PhaseTitle</th>
+                    <td>@item.SubProgramID</td>
+                    <td>@item.GrantTypeName</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@item.TotalBudget</td>
+                    @*<td>@item.BudgetForFirstYear</td>
+                        <td>@item.BudgetForSecondYear</td>
+                        <td>@item.BudgetForThirdYear</td>*@
+                    @*<td>@item.RequestAmountIst</td>*@
+                    <td>@GranttedAmt</td>
+                    @*<td>@item.RequestAmountIInd</td>*@
+                    <td>@GrantAmtSecond</td>
+                    @*<td>@item.RequestAmountIIIrd</td>*@
+                    <td>@GrantAmtThird</td>
+                    <td>@item.ContractAmount</td>
+                    @if (item.ApprovedStatus)
+                    {
+                        <td>
+                            @Html.ActionLink(" ", "ViewDetailProgressReportForAll", new { @id = item.SubProgramID, @id1 = item.GrantTypeId, @id2 = 0, @id3 = 1 }, new { @class = "edits fa fa-eye", target = "_blank" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+
+                </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>
+

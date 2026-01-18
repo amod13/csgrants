@@ -1,0 +1,105 @@
+﻿@{ 
+    int TotalLettercount = CommontUtilities.GetTotalLetterCount();
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+    int CurrentUserType = GrantApp.Areas.Admin.FunctionClass.GetUsertypeFromOfficeId(CurrentLoginOfficeId);
+    GrantApp.Models.GrantGroupInfo groupInfo = new GrantApp.Models.GrantGroupInfo();
+    groupInfo = GrantApp.CommontUtilities.GetGrantGroupInfo(CurrentLoginOfficeId);
+    string name = groupInfo?.Name ?? "N/A";
+    int contributionpercent = (int)(groupInfo?.ContributionPercent ?? 100);
+    int npccontribution = 100 - contributionpercent;
+}
+
+<header class="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a><a href="index.html" class="navbar-brand">
+                        <div class="brand-text d-none d-md-inline-block"><strong class="text-white">राष्ट्रिय योजना आयोग</strong></div>
+                    </a>
+                </div>
+
+                <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                    <li>
+                        @if (CurrentUserType == 2)
+                        {
+                            <h3 class="card-title" style="color:white;">
+                                साझेदारी अनुपात (सङ्घ:प्रदेश) [ @npccontribution:@contributionpercent (@name)] रहेको छ
+
+
+                            </h3>
+                        }
+                        else
+                        {
+                            <h3 class="card-title" style="color:white;">
+                                साझेदारी अनुपात (सङ्घ:स्थानीय तह) [ @npccontribution:@contributionpercent (@name)] रहेको छ
+
+
+                            </h3>
+                        }
+
+
+                    </li>
+
+                    <!-- Notifications dropdown-->
+                    <li class="nav-item dropdown">
+                        <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">@TotalLettercount</span></a>
+                        <ul aria-labelledby="notifications" class="dropdown-menu">
+                            <li>
+
+                                         
+
+                                <a rel="nofollow" href="#" class="dropdown-item">
+                                    <div class="notification d-flex justify-content-between">
+                                        <div class="notification-content"><i class="fa fa-envelope"></i>पत्र</div>
+                                        @*<div class="notification-time"><small>4 minutes ago</small></div>*@
+                                    </div>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li><a rel="nofollow" href="~/VDCMUNLevel/VDCMUNHome/ListLetter" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-eye"></i>पत्रहरू हेर्नुहोस</strong></a></li>
+                        </ul>
+                    </li>
+                    <!-- Messages dropdown-->
+                    <li class="nav-item dropdown" style="display:none;">
+                        <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                        <ul aria-labelledby="notifications" class="dropdown-menu">
+                            <li>
+                                <a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"> <img src="~/AdminResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Bibek Baral</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"> <img src="~/AdminResources/img//avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Bikash Bhandari</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"> <img src="~/AdminResources/img/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Gopal Rakhal</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
+                        </ul>
+                    </li>
+                    @*<li class="nav-item"><a href="#" class="nav-link logout"><span class="d-none d-sm-inline-block">@CommontUtilities.GetOfficeNameByOfficeId()</span></a></li>*@
+                    <li class="nav-item"><a href="#" class="nav-link logout"><span class="d-none d-sm-inline-block">@System.Web.HttpContext.Current.User.Identity.Name</span><i class="fa fa-user"></i></a></li>
+                    <!-- Log out-->
+                    <li class="nav-item"><a href="~/Account/LogOff" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

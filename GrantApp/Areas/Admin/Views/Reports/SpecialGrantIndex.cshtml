@@ -1,0 +1,84 @@
+﻿@model GrantApp.Models.ComplementryReportViewModel
+
+@{
+    ViewBag.Title = "ComplementryIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">विशेष अनुदान प्रस्तावको विवरण</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4></h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आयोजनाको नाम</th>
+                                        <th>तह</th>
+                                        <th>तहको नाम</th>
+                                        <th>कूल लागत</th>
+                                        <th>सम्बन्धित तहले व्यहोर्ने</th>
+                                        <th>अनुदान माग गरिएको रकम</th>
+                                        <th>आयोजनाको अवधि</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ComplementryReportViewModelList)
+                                    {
+
+                                        decimal TotalBudgetAmt = item.TotalBudget;
+                                        decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                                        decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <th>@item.SubProgramTitle</th>
+                                            <td>@CommontUtilities.GetUserTypeNameByID(item.UserType)</td>
+                                            <td>@item.OfficeName</td>
+                                            <td>@item.TotalBudget</td>
+                                            <td>@item.AmountProvinceVdc</td>
+                                            <td></td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>
+                                            <td>
+                                                @Html.ActionLink(" ", "ViewDeatilsListForSpecialGrant", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                                            </td>
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

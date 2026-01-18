@@ -1,0 +1,43 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+        <span style="color:red;font-weight:bold;font-style:italic;">यदि आयोजना/कार्यक्रम कार्यान्वयनमा नगएको हो भने पुष्ट्याई र आधार सहित आधिकारिक पत्र अपलोड गर्नुहोस् ।</span>
+        <br />
+        <label>फाईल अपलोड (*)</label>
+        @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppNotRunningProofFile, new { type = "file", @id = "notimplementedDiv" })
+        @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppNotRunningProofFile)
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc))
+        {
+
+        <div class="col-md-6 col-sm-12 form-group">
+            <label>अपलोड गरिएको फाईल</label>
+            @Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc
+            @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc }, new { @class = "fa fa-download" })
+
+        </div>
+
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

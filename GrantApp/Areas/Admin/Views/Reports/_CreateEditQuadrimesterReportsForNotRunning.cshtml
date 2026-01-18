@@ -1,0 +1,34 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc))
+        {
+
+            <div class="col-md-6 col-sm-12 form-group">
+                <label>अपलोड गरिएको फाईल</label>
+                @Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc }, new { @class = "fa fa-download" })
+
+            </div>
+
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

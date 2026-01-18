@@ -1,0 +1,365 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ListSubProgram";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int CurrentTypeId = 1;
+    int PreGrantId = 1;
+
+
+}
+
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">विशेष अनुदान -कार्यक्रम</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        @if (Model.ViewBagIfProgramNumberExceed)
+                        {
+                            if (Model.TotalRequestGrantAmountCount >= Model.TotalApprovedProgramCount && Model.TotalSubmitedProgressReportCount >= Model.TotalApprovedProgramCountForProgressRPT)
+                            {
+                                if (Model.ViewbagGrantTypeId == 1)
+                                {
+                                    <h4>
+                                        @Html.ActionLink("नयाँ आयोजना थप्नुहोस", "CreateSpecial", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-sm btn-success" })
+
+                                    </h4>
+                                }
+                                else
+                                {
+                                  
+                                    <h4>
+                                        @Html.ActionLink("नयाँ आयोजना थप्नुहोस", "Create", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-sm btn-success" })
+
+                                    </h4>
+                                }
+
+                            }
+                            else
+                            {
+                                <h4>
+                                    @Html.ActionLink("नयाँ आयोजना थप्नुहोस", "DisplayValidationRule", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-sm btn-success" })
+
+                                </h4>
+                            }
+
+                        }
+
+
+                    </div>
+                    <div class="card-body">
+
+
+
+
+                        <h4 style="display:none;">अघिल्लो वर्षका आयोजना/कार्यक्रमको विवरणहरू</h4>
+                        <div class="table-responsive m_table" style="display:none;">
+                            <table class="table table-hover" style="font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>स्वीकृत</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>अनुदान प्रकार</th>
+                                        <th>कुल लागत (रू लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>स्वीकृत रकम (रू. लाखमा)</th>
+                                        @*
+                                            <th>आ.व.</th>*@
+                                        <th>विवरण</th>
+                                        <th>प्रगति विवरण</th>
+                                        <th>रकम माग</th>
+                                        <th>रकम चाहिदैन</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.SubProgramMasterListForPreviousYear.Where(x => x.ApprovedStatus == true))
+                                    {
+                                        string ApprovedStatusStr = "नभएको";
+                                        string CssClassApproved = "";
+                                        decimal? totalBudget = 0m;
+                                        totalBudget = item.TotalBudget / 100000;
+                                        decimal? approvedAmount = 0m;
+                                        approvedAmount = item.BudgetForFirstYear / 100000;
+
+                                        if (item.ApprovedStatus == true)
+                                        {
+                                            ApprovedStatusStr = "भएको";
+                                            CssClassApproved = @"#f7eded";
+                                        }
+
+                                        <tr style="background:@CssClassApproved">
+                                            <th scope="row">@i</th>
+
+                                            <th>@ApprovedStatusStr</th>
+                                            <td>@CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(item.GrantTypeId)</td>
+
+                                            <td>@totalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@approvedAmount</td>
+                                            @*
+                                                <td></td>*@
+                                            <td>@Html.ActionLink(" ", "ViewDetailPrevious", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण हेर्नुहोस" })</td>
+
+                                            @if (item.ApprovedStatus == true)
+                                            {
+                                                @*<td>@Html.ActionLink(" ", "ProgressDetailView", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण राख्नुहोस" })</td>*@
+                                                <td>@Html.ActionLink(" ", "ProgressDetailList", null, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण राख्नुहोस" })</td>
+
+
+
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.ApprovedStatus == true)
+                                            {
+                                                if (item.PhaseStatus == 1)
+                                                {
+                                                    if (item.TimeDurationYear > 2 && item.IsCancelled == false)
+                                                    {
+                                                        <td>@Html.ActionLink(" ", "ReqestGrantAmountFromList", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम माग गर्नुहोस" })</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    if (item.TimeDurationYear > 1 && item.IsCancelled == false)
+                                                    {
+                                                        <td>@Html.ActionLink(" ", "ReqestGrantAmountFromList", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम माग गर्नुहोस" })</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+
+                                                }
+
+
+                                            }
+
+
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+                                            @*
+                                                <td>@item.Status</td>*@
+
+
+
+                                            @if (item.PhaseStatus == 1)
+                                            {
+                                                if (item.ApprovedStatus == true && item.IsCancelled == false && item.TimeDurationYear > 2)
+                                                {
+                                                    <td>@Html.ActionLink(" ", "CancleForThisFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-window-close", data_toggle = "tooltip", data_placement = "top", @title = "रद्द गर्नुहोस" })</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                                if (item.ApprovedStatus == true && item.IsCancelled == false && item.TimeDurationYear >= 2)
+                                                {
+                                                    <td>@Html.ActionLink(" ", "CancleForThisFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-window-close", data_toggle = "tooltip", data_placement = "top", @title = "रद्द गर्नुहोस" })</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+
+                                            }
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        @*<div class="clearfix"></div>*@
+                        <hr />
+
+
+                        <h4>राष्ट्रिय योजना आयोगमा आ.व. २०८१/८२ का लागि प्रस्ताव पेश गरिएका नयाँ आयोजना/कार्यक्रमहरूको विवरणहरू</h4>
+                        <span>
+                            आयोजनाहरूको प्राथमिकीकरण समेत निर्धारण गरी पेश गर्नुहोस ।
+                            @*प्राथमिकीकरण पेश गर्न यो <i class="fa fa-thumbs-up"></i> (आईकन) मा क्लिक गर्नुहोस ।*@
+                        </span>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover" style="font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरू आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>कुल लागत (रू. लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>सच्चाउनुहोस</th>
+                                        <th>विवरण</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.SubProgramMasterList.Where(x => x.IsCancelled == false))
+                                    {
+
+                                        decimal? TotalBudget = 0m;
+                                        TotalBudget = item.TotalBudget / 100000;
+                                        <tr>
+                                            <th scope="row">@PreGrantId</th>
+                                            <td>@CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@TotalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            @if (item.PhaseStatus == 6)
+                                            {
+                                                <td>@Html.ActionLink(" ", "Edit", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-edit ", data_toggle = "tooltip", data_placement = "top", @title = "सच्चाउनुहोस" })</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+
+
+
+
+                                            <td>
+
+                                                @Html.ActionLink(" ", "ViewDetails", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+
+                                            </td>
+
+
+
+                                        </tr>
+                                        ++PreGrantId;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                        <h4>राष्ट्रिय योजना आयोगमा आ.व. २०८१/८२ का लागि प्रस्ताव पेश गर्न बाँकी (Draft/मस्यैादा) नयाँ आयोजना/कार्यक्रमहरूको विवरणहरू</h4>
+                        <span>
+                        </span>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover" style="font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरू आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>कुल लागत (रू. लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+
+                                        <th>सच्चाउनुहोस</th>
+                                        <th>हटाउनुहोस</th>
+                                        <th>विवरण</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.SubProgramMasterListNotSubmited.Where(x => x.IsCancelled == false))
+                                    {
+
+                                        decimal? TotalBudget = 0m;
+                                        TotalBudget = item.TotalBudget / 100000;
+                                        <tr>
+                                            <th scope="row">@PreGrantId</th>
+                                            <td>@CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@TotalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@Html.ActionLink(" ", "Edit", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-edit ", data_toggle = "tooltip", data_placement = "top", @title = "सच्चाउनुहोस" })</td>
+                                            <td>@Html.ActionLink(" ", "DeleteSubProgramMaster", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-trash", data_toggle = "tooltip", data_placement = "top", @title = "हटाउनुहोस", onclick = "return confirm('के तपाँई यो विवरण सिस्टम बाट हटाउन चाहानुहुन्छ ?')" })</td>
+
+                                            
+
+                                            <td>
+
+                                                @Html.ActionLink(" ", "ViewDetails", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+
+                                            </td>
+
+
+
+                                        </tr>
+                                        ++PreGrantId;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+

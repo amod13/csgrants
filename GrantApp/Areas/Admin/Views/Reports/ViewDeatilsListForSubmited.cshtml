@@ -1,0 +1,302 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ViewDeatils";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int sn = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Details</li>
+        </ul>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h2 class="h3 display">
+                कार्यलयको नाम:
+                @GrantApp.Areas.Admin.FunctionClass.GetOfficeNameByOfficeId(Model.OfficeId)
+                &nbsp;&nbsp;&nbsp;(@GrantApp.Areas.Admin.FunctionClass.GetProvinceDistrictVDCMUNByOfficeID(Model.OfficeId))
+            </h2>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+
+                        <h4 style="color:#0991f3;">
+                            आयोजना/कार्यक्रमको विवरण
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 form-group"><b>मुलभुत क्षेत्र:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@GrantApp.Areas.Admin.FunctionClass.GetMainSectionNameByMainSectionid(Model.MainSectionId)</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>आधार/क्षेत्र:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@CommontUtilities.GetProgramNameById(Model.ProgramId)</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>आयोजना/कार्यक्रमको नाम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.SubProgramTitle</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>कूल लागत:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TotalBudget</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>लाभान्वित सम्भाब्य जनसंख्या:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.ProbableBenefitedPopulation</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>अवधि (वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.TimeDurationYear</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.AmountProvinceVdc</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>सहकारी तथा अन्य गैर सरकारीले व्यहोर्ने रकम:</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.NGOINGOAmount</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>माग रकम (प्रथम वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.BudgetForFirstYear</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>माग रकम (दोस्रो वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.BudgetForSecondYear</div>
+                            <div class="col-lg-4 col-md-3 form-group"><b>माग रकम (तेस्रो वर्ष):</b></div>
+                            <div class="col-lg-8 col-md-9 form-group">@Model.BudgetForThirdYear</div>
+
+                            @*<div class="col-lg-4 col-md-3 form-group"><b>नेपाल सरकारले व्यहोर्ने रकम:</b></div>
+            <div class="col-lg-8 col-md-9 form-group">@Model.GovnNepalAmount</div>*@
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+                        <hr />
+
+                        @if (Model.NewProgramInitiationModel != null)
+                        {
+                            <div class="row">
+
+                                <div class="col-lg-4 col-md-3 form-group"><h4 style="color:#0991f3;"> निर्णय र्फाइल:</h4></div>
+                                <div class="col-lg-4 col-md-9 form-group">@Model.NewProgramInitiationModel.RequestFileDoc</div>
+                                @if (Model.FinalDocumentsUrl != "")
+                                {
+                                    FileInfo fi = new FileInfo(Model.NewProgramInitiationModel.RequestFileDoc);
+                                    string extn = fi.Extension;
+                                    string imgPath = @"~/RequiredDocs/" + Model.NewProgramInitiationModel.RequestFileDoc;
+
+
+
+                                    if (extn == ".jpg" || extn == ".JPG" || extn == ".jpeg" || extn == ".JPEG" || extn == ".PNG" || extn == ".png")
+                                    {
+                                        <a target="_blank" href='@Url.Content(imgPath)'>
+                                            <text> हेर्नुहोस</text>
+                                        </a>
+
+                                    }
+
+                                    else
+                                    {
+                                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.NewProgramInitiationModel.RequestFileDoc }, new { @class = "fa fa-download" })</div>
+                                    }
+
+                                }
+                            </div>
+
+                        }
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-3 form-group"><h4 style="color:#0991f3;">शर्तहरू पुरा भएर घोषणा गरेको फाइल:</h4></div>
+                            <div class="col-lg-4 col-md-9 form-group">@Model.FinalDocumentsUrl</div>
+                            @if (Model.FinalDocumentsUrl != "")
+                            {
+                                FileInfo fi = new FileInfo(Model.FinalDocumentsUrl);
+                                string extn = fi.Extension;
+                                string imgPath = @"~/RequiredDocs/" + Model.FinalDocumentsUrl;
+
+
+
+                                if (extn == ".jpg" || extn == ".JPG" || extn == ".jpeg" || extn == ".JPEG" || extn == ".PNG" || extn == ".png")
+                                {
+                                    <a target="_blank" href='@Url.Content(imgPath)'>
+                                        <text> हेर्नुहोस</text>
+                                    </a>
+
+                                }
+
+                                else
+                                {
+                                    <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.FinalDocumentsUrl }, new { @class = "fa fa-download" })</div>
+                                }
+
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+
+                                <h4>
+                                    अनिवार्य कागजातहरू
+                                </h4>
+
+                            </div>
+                            <table class="table table-bordered" style="width:75%;">
+                                <thead>
+                                    <tr>
+                                        <td>क्रस</td>
+                                        <td>शिर्षक</td>
+                                        <td>अपलोड गरीएको फाईल</td>
+                                        <td>डाउनलोड गर्नुहोस्</td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.DocumentsRequirementsViewModel)
+                                {
+                                    <tr>
+                                        <td>@sn</td>
+                                        <td>@item.DocTitleFileStr</td>
+                                        <td>@item.UploadFileUrl</td>
+                                        <td>
+                                            @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.UploadFileUrl }, new { @class = "fa fa-download" })
+                                        </td>
+                                    </tr>
+                                    sn++;
+                                }
+
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <table class="table table-bordered" style="width:75%;">
+                                <thead>
+                                    <tr>
+                                        <td>क्रस</td>
+                                        <td></td>
+                                        <td>शर्त</td>
+                                        <td>अपलोड गरीएको फाईल</td>
+                                        <td>डाउनलोड</td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.ProgramConditionsViewModelList)
+                                {
+                                    <tr>
+                                        <td>@sn</td>
+                                        <td>@Html.CheckBox("CBName", item.IsCheck)</td>
+                                        <td>@item.ConditionsTitle</td>
+
+                                        <td>@item.UploadFileUrl</td>
+
+                                        <td>
+                                            @if (item.UploadFileUrl != "")
+                                            {
+                                                FileInfo fi = new FileInfo(item.UploadFileUrl);
+                                                string extn = fi.Extension;
+                                                string imgPath = @"~/RequiredDocs/" + item.UploadFileUrl;
+
+
+
+                                                if (extn == ".jpg" || extn == ".JPG" || extn == ".jpeg" || extn == ".JPEG" || extn == ".PNG" || extn == ".png" || extn == ".pdf" || extn == ".PDF")
+                                                {
+                                                    <a target="_blank" href='@Url.Content(imgPath)'>
+                                                        <text> हेर्नुहोस</text>
+                                                    </a>
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.UploadFileUrl }, new { @class = "fa fa-download" })
+                                                }
+
+                                            }
+                                        </td>
+
+
+
+                                    </tr>
+                                    sn++;
+                                }
+
+                            </table>
+                        </div>
+
+
+                        <div class="row">
+                            <h4 style="color:#0991f3;">
+
+                                थप विवरण
+                            </h4>
+
+
+
+                            @for (int i = 0; i < Model.ValuationResultViewModelList.Count; i++)
+                            {
+                                string cls = "css" + Model.ValuationResultViewModelList[i].VariableId;
+                                if (Model.ValuationResultViewModelList[i].MainTitle != null)
+                                {
+
+
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>@Html.DisplayFor(m => Model.ValuationResultViewModelList[i].MainTitle)</label>
+
+                                    </div>
+                                }
+                                <div class="col-md-1 col-sm-6 form-group">
+                                    <label>
+                                        @Html.CheckBoxFor(m => Model.ValuationResultViewModelList[i].IsChecked, new { @class = cls })
+                                        @Html.DisplayFor(m => Model.ValuationResultViewModelList[i].SerialNep)
+                                    </label>
+                                </div>
+
+                                <div class="col-md-11 col-sm-6 form-group">
+                                    @Html.HiddenFor(m => Model.ValuationResultViewModelList[i].VariableId)
+                                    @Html.HiddenFor(m => Model.ValuationResultViewModelList[i].VariableDetailId)
+                                    @Html.DisplayFor(m => Model.ValuationResultViewModelList[i].SubTitle, new { @class = "form-control form-control sm" })
+                                </div>
+                            }
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 form-group">
+
+                                <h4 style="color:#0991f3;">
+                                    राष्ट्रिय उदेश्यसँग सामञ्जस्यता
+                                </h4>
+
+                            </div>
+                            @for (int i = 0; i < Model.FifteenYojanaDetailsList.Count; i++)
+                            {
+                                <div class="col-md-12 col-sm-6 form-group">
+                                    <label>@Model.FifteenYojanaDetailsList[i].OptionValue</label>
+                                    @Html.CheckBoxFor(m => Model.FifteenYojanaDetailsList[i].IsChecked, new { @disabled = "disabled" })
+                                    @Html.DisplayFor(m => Model.FifteenYojanaDetailsList[i].YojanaTitle)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].OptionValue)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].SubProgramId)
+                                    @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].RefGrantVariableId)
+
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-primary" onclick="goBack()"><i class="fa fa-floppy-o">&nbsp;</i>मुख्य मेनु</button>
+                                    @*@Html.ActionLink("मुख्य सूचि", "DetailsSearchReport", "Reports", null, new { @class = "btn btn-danger" })*@
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function goBack() {
+        history.go(-1);
+    }
+</script>
+
+

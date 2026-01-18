@@ -1,0 +1,316 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "CheckListAction";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    string CName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string AName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
+    string DefaultClass1 = "btn btn-info btn-sm";
+    string DefaultClass2 = "btn btn-info btn-sm";
+    string DefaultClass3 = "btn btn-info btn-sm";
+    string DefaultClass4 = "btn btn-info btn-sm";
+    string DefaultClass5 = "btn btn-info btn-sm";
+    string DefaultClass6 = "btn btn-info btn-sm";
+    string DefaultClass7 = "btn btn-info btn-sm";
+    string DefaultClass8 = "btn btn-info btn-sm";
+
+    if (CName == "SubProgramSetup" && AName == "Edit")
+    {
+        DefaultClass1 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListAction")
+    {
+        DefaultClass2 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListActionUpload")
+    {
+        DefaultClass4 = "btn btn-danger btn-sm";
+    }
+    if (CName == "GrantRequestForm" && AName == "ProposalValuation")
+    {
+        DefaultClass3 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ViewDetails")
+    {
+        DefaultClass5 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "FifteenYojana")
+    {
+        DefaultClass6 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ProgramPriority")
+    {
+        DefaultClass7 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ReqDocUploads")
+    {
+        DefaultClass8 = "btn btn-danger btn-sm";
+    }
+
+
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">शर्त घोषणा पृष्ठ</li>
+        </ul>
+    </div>
+</div>
+<style>
+    .btn-toolbar {
+        display: inline !important;
+    }
+
+    @@media print {
+        table td:last-child {
+            display: none;
+        }
+
+        table th:last-child {
+            display: none;
+        }
+    }
+</style>
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            @*<h1 class="h3 display">शर्त घोषणा पृस्ठ</h1>*@
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                @if (ViewBag.Mode == "Edit")
+                {
+                    <div class="btn-toolbar">
+                        @Html.ActionLink("१. मुख्य विवरण", "Edit", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass1 })
+                        @Html.ActionLink("२. अनिवार्य कागजातहरू", "ReqDocUploads", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass8 })
+                        @Html.ActionLink("३. शर्त घोषणा पृष्ठ", "CheckListAction", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass2 })
+                        @Html.ActionLink("४. शर्त घोषणा कागजात", "CheckListActionUpload", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass4 })
+                        @Html.ActionLink("५. थप विवरण", "ProposalValuation", "GrantRequestForm", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass3 })
+                        @Html.ActionLink("६. राष्ट्रिय उदेश्यसँग सामञ्जस्यता", "FifteenYojana", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass6 })
+                        @Html.ActionLink("७. प्राथमिकता क्रम", "ProgramPriority", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass7 })
+                        @Html.ActionLink("८. समिक्षा", "ViewDetails", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass5 })
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr />
+
+                }
+
+
+
+                @*<input type="button" value="Print Form" onclick="callPrint()" class="btn btn-info btn-sm" />*@
+
+
+
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h3 display">शर्त घोषणा पृष्ठ</h3>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("CheckListAction", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "CheckListFormID" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                            @Html.HiddenFor(m => m.SubProgramId)
+
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div id="printDiv">
+
+                                    @Html.Partial("_CreateEditCheckList")
+
+
+                                    <br />
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <span>
+                                            @Html.CheckBoxFor(m => Model.TermsAndCondtions)
+                                            आयोजना/कार्यक्रम प्रस्तावसंग सम्बन्धित माथिका शर्तहरू पुरा भएको व्यहोरा साचो हो भनि घोषणा गर्दछु ।
+                                        </span>
+                                    </div>
+
+
+                                    @*<div class="col-md-4 col-sm-12 form-group">
+                                            <span>
+                                                हस्ताक्षर:
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 form-group">
+                                            <span>
+                                                नाम :
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 form-group">
+                                            <span>
+                                                पद :
+                                            </span>
+                                        </div>
+
+
+                                        <div class="col-md-4 col-sm-12 form-group">
+                                            <span>
+                                                कार्यलयको छापः
+                                            </span>
+                                        </div>*@
+
+                                </div>
+
+                                @if (Model.Status == 1 || Model.Status == 2)
+                                {
+                                    <div class="form-group">
+                                        <span style="font-weight:bold;font-size:10px;color:#ff6a00;">(प्रत्येक बुदाँको चेक बक्सहरूमा चेक लगाउनुहोस ।)</span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+                                        @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                    </div>
+
+                                }
+                                else
+
+                                {
+
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>प्रमाणिकरणको प्रकियामा छ ।</button>
+                                        @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                    </div>
+                                }
+
+
+
+
+
+
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+<script type="text/javascript">
+
+    function callPrint() {
+        var divToPrint = document.getElementById('printDiv');
+        var popupWin = window.open('', '_blank', 'width=300,height=400,location=no,left=200px');
+        popupWin.document.open();
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+        popupWin.document.close();
+    };
+
+</script>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+    });
+
+
+
+</script>
+
+<script type="text/javascript">
+    function SubmitValidate() {
+        var checkedCount = $("input:checked").length;
+        var valid = checkedCount > 23;
+
+        var GrantTypeId = @Model.ViewbagGrantTypeId;
+        var OfficeType = @Model.ViewBagCurrentOfficeType;
+        if (OfficeType == 4) {
+
+            valid = checkedCount > 22;
+
+            if (!valid) {
+                alert("कृपया सबै चेक बक्स चेक गर्नुहोस ।")
+            }
+
+        }
+        else {
+            valid = checkedCount > 23;
+
+            if (!valid) {
+                alert("कृपया सबै चेक बक्स चेक गर्नुहोस ।")
+            }
+        }
+
+
+
+
+        return valid;
+
+    };
+
+
+    $('#CheckListFormID').submit(SubmitValidate);
+</script>
+
+
+
+
+@*<script type="text/javascript">
+        function SubmitValidate() {
+            var checkedCount = $("input:checked").length;
+            var valid = checkedCount > 13;
+
+            var GrantTypeId = @Model.ViewbagGrantTypeId;
+            if(GrantTypeId==2)
+            {
+                valid = checkedCount > 16;
+            }
+
+
+            if (!valid) {
+                //$('#validationMessage').html('You must select at least one option');
+                alert("कृपया सबै चेक बक्स चेक गर्नुहोस ।")
+            }
+            return valid;
+
+        };
+
+
+        $('#CheckListFormID').submit(SubmitValidate);
+    </script>*@
+
+
+
+
+
+
+

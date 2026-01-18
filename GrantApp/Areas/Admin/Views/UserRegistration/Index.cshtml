@@ -1,0 +1,136 @@
+﻿@model GrantApp.Models.UsersModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">गृहपृष्ठ</a></li>
+            <li class="breadcrumb-item active">यूजरको विवरण</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">यूजरको विवरण</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        @*<h4>Basic Table</h4>*@
+                    </div>
+                    @*<div class="pull-right" style="margin-bottom:12px;">
+                            @Html.ActionLink("नयाँ यूजर थप्नुहोस", "Register", "Account", new { @Area = "" }, new { @class = "btn btn-sm btn-primary pull-right" })
+                        </div>*@
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="basic" id="DatatableExm">
+
+                                <thead>
+                                    <tr>
+                                        <th>क्रस</th>
+                                        <th>यूजरको नाम</th>
+                                        <th>यूजरको प्रकार</th>
+                                        <th>प्रदेश</th>
+                                        <th>जिल्ला</th>
+                                        <th>नपा/गापा</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.UserLoginModelListList)
+                                    {
+                                        if (item.UserType == 1)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>@item.UserName</td>
+                                                <td>@GrantApp.CommontUtilities.GetUserTypeByUserTypeId(item.UserType)</td>
+
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+
+                                                <td>हटाउनुहोस्</td>
+                                            </tr>
+
+                                        }
+                                        if (item.UserType == 2)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>@item.UserName</td>
+                                                <td>@GrantApp.CommontUtilities.GetUserTypeByUserTypeId(item.UserType)</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetProvinceNameByID(Convert.ToInt32(item.ProvinceId))</td>
+                                                <td>--</td>
+                                                <td>--</td>
+
+                                                <td>हटाउनुहोस्</td>
+                                            </tr>
+
+                                        }
+                                        if (item.UserType == 3)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>@item.UserName</td>
+                                                <td>@GrantApp.CommontUtilities.GetUserTypeByUserTypeId(item.UserType)</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetProvinceNameByID(Convert.ToInt32(item.ProvinceId))</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetDistrictNameByDistrctitCode(item.DistrictCode)</td>
+                                                <td>--</td>
+
+                                                <td>हटाउनुहोस्</td>
+                                            </tr>
+
+                                        }
+                                        if (item.UserType == 4)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>@item.UserName</td>
+                                                <td>@GrantApp.CommontUtilities.GetUserTypeByUserTypeId(item.UserType)</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetProvinceNameByID(Convert.ToInt32(item.ProvinceId))</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetDistrictNameByDistrctitCode(item.DistrictCode)</td>
+                                                <td>@GrantApp.Areas.Admin.FunctionClass.GetVDCNPByVDCCode(item.VDCMUNCode)</td>
+
+                                                <td>हटाउनुहोस्</td>
+                                            </tr>
+
+                                        }
+
+                                        i++;
+
+                                    }
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(document).ready(function () {
+        kk.fn.dataTable.ext.classes.sPageButton = 'btn btn-info btn-sm';
+        kk('#DatatableExm').DataTable();
+    });
+</script>

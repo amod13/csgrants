@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Forms       </li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">Forms</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h4>Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Lorem ipsum dolor sit amet consectetur.</p>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Name</label>
+                                    <input type="text" value="HariKrishna Prasad Khatri" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Address</label>
+                                    <input type="text" value="Kavrepalanchwor Nagarpalika-4 kavre, patlekhet" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Address2</label>
+                                    <input type="text" value="Hanumanthan 5, Nepal" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="harikrishnaprasad123@gmail.com" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Phone</label>
+                                    <input type="phone" value="+977-9810099062" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Fax</label>
+                                    <input type="number" value="014477710" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Checkboxes</label>
+                                    <div class="i-checks">
+                                        <input id="checkboxCustom1" type="checkbox" value="" class="form-control-custom">
+                                        <label for="checkboxCustom1">Option one</label> &nbsp;  &nbsp;  &nbsp;
+                                        <input id="checkboxCustom2" type="checkbox" value="" checked="" class="form-control-custom">
+                                        <label for="checkboxCustom2">Option two checked</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Radios </label>
+                                    <div class="i-checks">
+                                        <input id="radioCustom1" type="radio" value="option1" name="a" class="form-control-custom radio-custom">
+                                        <label for="radioCustom1">Option one</label> &nbsp; &nbsp; &nbsp;
+                                        <input id="radioCustom2" type="radio" checked="" value="option2" name="a" class="form-control-custom radio-custom">
+                                        <label for="radioCustom2">Option two checked</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Select</label>
+                                    <select name="account" class="form-control">
+                                        <option>option 1</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Button addons</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-primary">Go!</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Date of Birth</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="number" placeholder="Day" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" placeholder="Month" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" placeholder="Year" class="form-control">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>File Upload 4pix</label>
+                                    <div class="file-upload">
+                                        <div class="file-select">
+                                            <div class="file-select-button" id="fileName">Upload File</div>
+                                            <div class="file-select-name" id="noFile">No file chosen...</div>
+                                            <input type="file" name="chooseFile" id="chooseFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>With dropdowns</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button data-toggle="dropdown" type="button" class="btn btn-outline-secondary dropdown-toggle">Action <span class="caret"></span></button>
+                                            <div class="dropdown-menu">
+                                                <a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Input with success</label>
+                                    <input type="text" class="form-control is-valid" />
+                                </div>
+                                <div class="col-md-4 col-sm-6 form-group">
+                                    <label>Input with error</label>
+                                    <input type="text" class="form-control is-invalid" />
+                                    <div class="invalid-feedback">Please provide your name.</div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i> Save changes</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

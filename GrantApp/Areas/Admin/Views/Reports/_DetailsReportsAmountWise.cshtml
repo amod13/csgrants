@@ -1,0 +1,75 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>कोड</th>
+                <th>स्थानिय तहको नाम</th>
+                <th>जिल्ला</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>सम्बन्धित तहले व्यहोर्ने</th>
+                <th>माग गरिएको रकम</th>
+                <th>स्वीकृत रकम</th>
+                <th>आयोजनाको अवधि</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget;
+                decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+
+                GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+                GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+                <tr>
+                    <td scope="row">@i</td>
+                    <td>@item.VDCMUNCode</td>
+                    <td>@item.OfficeName</td>
+                    <td>@item.DistrictName</td>
+                    <td>@item.SectionName</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TotalBudget</td>
+                    <td>@item.AmountProvinceVdc</td>
+                    <td>@RequestAmt</td>
+                    <td>@item.GrantedAmount</td>
+                    <td>@item.TimeDurationYear</td>
+
+                    <td>
+                        @Html.ActionLink(" ", "ViewDeatilsListForSubmited", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                    </td>
+
+                </tr>
+
+                ++i;
+            }
+
+            <tr style="font-weight:bold;">
+                <td colspan="7">जम्मा रकम</td>
+                <td>@GrandTotalAmount</td>
+                <td>@GrandVDCMUNAmount</td>
+                <td>@GrandTotalRequestAmt</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+</div>

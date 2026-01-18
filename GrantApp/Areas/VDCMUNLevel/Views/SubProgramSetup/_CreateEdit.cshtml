@@ -1,0 +1,250 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+@{
+    decimal CostSharePercent = 80;
+}
+<div class="row">
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>मुलभुत क्षेत्र</label>
+            @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDD(Model.ViewbagGrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>मुलभुत क्षेत्र</label>
+            @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDDUpdated(Model.ViewbagGrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>कार्यविधि बमोजिम क्षेत्र</label>
+            @Html.DropDownListFor(m => m.ProgramId, GrantApp.Areas.Admin.FunctionClass.GetProgramListDDForEdit(Model.MainSectionId), new { @id = "dll_ProgramId", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+    }
+
+    else
+    {
+        <div class="col-md-12 col-sm-12 form-group">
+            <label>कार्यविधि बमोजिम क्षेत्र</label>
+            @Html.DropDownListFor(m => m.ProgramId, GrantApp.Areas.Admin.FunctionClass.GetProgramListDDForInsert(), new { @id = "dll_ProgramId", @class = "form-control form-control sm", @required = "required" })
+            @Html.ValidationMessageFor(m => m.ProgramId)
+        </div>
+    }
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>आयोजना/कार्यक्रमको नाम (कृपया नेपालि युनिकोडमा लेख्नुहोस ।)</label>
+        @Html.TextBoxFor(m => m.SubProgramTitle, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
+        @Html.ValidationMessageFor(m => m.SubProgramTitle)
+    </div>
+
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>आयोजनाको प्राथमिकीकरण</label>
+        @Html.DropDownListFor(m => m.ProgramPirority, GrantApp.Areas.Admin.FunctionClass.GetProgramPriorityDD(), new { @id = "ppId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>लाभान्वित सम्भाब्य जनसंख्या</label>
+        @Html.TextBoxFor(m => m.ProbableBenefitedPopulation, new { @class = "form-control form-control sm", @required = "required" })
+        @Html.ValidationMessageFor(m => m.ProbableBenefitedPopulation)
+    </div>
+
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>अवधि (वर्ष)</label>
+        @Html.DropDownListFor(m => m.TimeDurationYear, GrantApp.Areas.Admin.FunctionClass.GetProgramYearList(), new { @class = "form-control form-control sm", @id = "dll_TimeDurationYearID", @required = "required", @onChange = "GetYearWiseDivVal()" })
+        @Html.ValidationMessageFor(m => m.TimeDurationYear)
+    </div>
+
+    <div class="col-md-4 col-sm-6 form-group">
+        <label>कुल लागत रू (लाखमा)</label>
+        @Html.TextBoxFor(m => m.TotalBudget, new { @id = "TotalBudget", @class = "form-control form-control sm", @onChange = "FillBreakdownDivVal()" })
+        @Html.ValidationMessageFor(m => m.TotalBudget)
+    </div>
+
+    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    {
+
+        if (Model.TimeDurationYear > 1)
+        {
+            <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount">
+                <label>माग रकम रू (प्रथम वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+            </div>
+
+            <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount">
+                <label>माग रकम रू (दोस्रो वर्ष) लाखमा</label>
+                @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm" })
+                @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+            </div>
+            if (Model.TimeDurationYear > 2)
+            {
+
+
+                <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount">
+                    <label>माग रकम रू (तेस्रो वर्ष) लाखमा</label>
+                    @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm", @required = "required" })
+                    @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+                </div>
+            }
+        }
+
+    }
+    else
+    {
+        <div class="col-md-4 col-sm-6 form-group" id="FirstYearAmount" style="display:none;">
+            <label>माग रकम रू (प्रथम वर्ष) लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForFirstYear, new { @id = "TotalBudgetFirstYear", @class = "form-control form-control sm" })
+            @Html.ValidationMessageFor(m => m.BudgetForFirstYear)
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group" id="SecondYearAmount" style="display:none;">
+            <label>माग रकम रू (दोस्रो वर्ष) लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForSecondYear, new { @id = "TotalBudgetSecondYear", @class = "form-control form-control sm" })
+            @Html.ValidationMessageFor(m => m.BudgetForSecondYear)
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group" id="ThirdYearAmount" style="display:none;">
+            <label>माग रकम रू (तेस्रो वर्ष) लाखमा</label>
+            @Html.TextBoxFor(m => m.BudgetForThirdYear, new { @id = "TotalBudgetThirdYear", @class = "form-control form-control sm" })
+            @Html.ValidationMessageFor(m => m.BudgetForThirdYear)
+        </div>
+
+    }
+
+
+
+    <div class="clearfix"></div>
+
+    @if (Model.ViewbagGrantTypeId == 2)
+    {
+
+
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>प्रदेश वा स्थानिय तहले व्यहोर्ने रकम (रू. लाखमा)</label>
+            @Html.TextBoxFor(m => m.AmountProvinceVdc, new { @id = "AmountProvinceVdc", @class = "form-control form-control sm", @required = "required" })
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+            <label>सहकारी तथा अन्य गैर सरकारीले व्यहोर्ने रकम (रू. लाखमा)</label>
+            @Html.TextBoxFor(m => m.NGOINGOAmount, new { @id = "NGOINGOAmount", @class = "form-control form-control sm", @required = "required" })
+
+        </div>
+
+
+        @*<div class="col-md-4 col-sm-6 form-group">
+                <label>नेपाल सरकारले व्यहोर्ने रकम</label>
+                @Html.TextBoxFor(m => m.GovnNepalAmount, new { @id = "GovnNepalAmount", @class = "form-control form-control sm", @required = "required" })
+
+            </div>*@
+
+
+
+    }
+
+    <div class="col-md-3 col-sm-4 form-group">
+        <label>कार्यपालिकाको निर्णय (फाईल अपलोड)</label>
+        @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile)
+
+    </div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+    function GetProgramListByMainSectionId() {
+        var value = $("#dll_MainSectionId option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetProgramListByMainSectionId", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_ProgramId").html(items);
+            }
+        })
+    };
+    function GetYearWiseDivVal() {
+        debugger;
+        var value = $("#dll_TimeDurationYearID option:selected").val();
+        if (value == 2) {
+            $("#FirstYearAmount").show();
+            $("#SecondYearAmount").show();
+            $("#ThirdYearAmount").hide();
+        }
+        else if (value == 3) {
+            $("#FirstYearAmount").show();
+            $("#SecondYearAmount").show();
+            $("#ThirdYearAmount").show();
+        }
+        else if (value == 1) {
+            $("#FirstYearAmount").hide();
+            $("#SecondYearAmount").hide();
+            $("#ThirdYearAmount").hide();
+        }
+       
+    }
+
+    function FillBreakdownDivVal() {
+        var value = $("#dll_TimeDurationYearID option:selected").val();
+        var totalBudget = $("#TotalBudget").val();
+        var costShare = @CostSharePercent;
+        var shareAmount = (totalBudget * costShare) / 100;
+        var distributeAmount = 0;
+        if (value == 2) {
+            distributeAmount = (totalBudget - shareAmount) / 2;
+            $("#FirstYearAmount").show();
+            $("#TotalBudgetFirstYear").val(distributeAmount);
+            $("#SecondYearAmount").show();
+            $("#TotalBudgetSecondYear").val(distributeAmount);
+            $("#ThirdYearAmount").hide();
+        }
+        else if (value == 3) {
+            distributeAmount = (totalBudget - shareAmount) / 3;
+            $("#FirstYearAmount").show();
+            $("#TotalBudgetFirstYear").val(distributeAmount);
+            $("#SecondYearAmount").show();
+            $("#TotalBudgetSecondYear").val(distributeAmount);
+            $("#ThirdYearAmount").show();
+            $("#TotalBudgetThirdYear").val(distributeAmount);
+        }
+        else if (value == 1) {
+            
+            $("#FirstYearAmount").hide();
+            $("#SecondYearAmount").hide();
+            $("#ThirdYearAmount").hide();
+        }
+        $("#AmountProvinceVdc").val(shareAmount);
+    }
+</script>
+
+

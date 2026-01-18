@@ -1,0 +1,140 @@
+﻿@model GrantApp.Models.AdhuroApuroViewModel
+
+@{
+    ViewBag.Title = "ListSubProgram";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int cancelID = 1;
+
+}
+
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">विशेष /समपूरक कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था   अनुदान रकम माग</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title" style="color:black;">
+                    सूचना: कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस ।
+
+                </h3>
+            </div>
+
+        </div>
+
+        <header>
+            <h1 class="h3 display">कार्यसम्पन्न भएको आयोजना वा कार्यक्रमहरुको विवरण :विशेष र समपूरक</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+
+                                        <th>कोड</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>अनुदान प्रकार</th>
+                                        <th>कुल लागत(लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>आगामी आ.व. का लागि आवश्यक रकम माग विवरण</th>
+                                        @*<th>आयोजना वा कार्यक्रम सम्बन्धी संक्षिप्त विवरण</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.GetNotCompletedProgramListByOfficeIdVMList)
+                                    {
+                                        string ApprovedStatusStr = "नभएको";
+                                        string CssClassApproved = "";
+                                        decimal Totalbudget = item.TotalBudget;
+                                        Totalbudget = Totalbudget / 100000;
+
+
+                                        <tr style="background:@CssClassApproved">
+                                            <th scope="row">@i</th>
+
+
+                                            <td>@item.SubProgramId</td>
+                                            <td>@CommontUtilities.GetFiscalYearTitleFromApplicationId(item.SubProgramId)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(item.GrantTypeId)</td>
+
+                                            <td>
+                                                @Totalbudget
+                                            </td>
+                                            <td>@item.TimeDurationYear</td>
+
+
+                                            <td>
+                                                @Html.ActionLink(" ", "RequestForRemainingBhuktani", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
+                                            </td>
+
+                                            @*<td>
+                                                @Html.ActionLink(" ", "View", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
+                                            </td>*@
+
+
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr />
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+

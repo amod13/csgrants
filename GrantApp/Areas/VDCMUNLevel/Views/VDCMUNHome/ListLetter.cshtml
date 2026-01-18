@@ -1,0 +1,94 @@
+﻿@model GrantApp.Areas.Admin.Models.LetterDetails
+
+@{
+    ViewBag.Title = "ListLetter";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+}
+
+
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Letter</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                कागजात (पत्रहरू) को विवरण
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">                       
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table bg-light">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्र.स.</th>
+                                        <th>विषय</th>
+                                        <th>प्रकाशित मिति</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.LetterDetailsList)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.LetterSubject</td>
+                                            <td>@item.LetterDateEng</td>
+                                            <td>
+                                                @Html.ActionLink(" ", "ViewLetterDetail", new { @id = item.LetterDetailId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण हेर्नुहोस" })
+                                            </td>
+
+
+                                        </tr>
+
+                                        i++;
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+

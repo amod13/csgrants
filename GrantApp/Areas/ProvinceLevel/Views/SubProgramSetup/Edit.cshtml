@@ -1,0 +1,105 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Program</li>
+        </ul>
+    </div>
+</div>
+
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Edit", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "GrantTypeFormEditAdmin" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.NecessityForProgram)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.PhysicalAndManPower)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.YearlyProgramAndBudget)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.FeasibilitiesStudyFile)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.SDSDocFile)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.DecisionDocFile)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.EnvironmentDocFile)
+                            @Html.HiddenFor(m => m.ObjSupportingDocumentsModel.ExtraDocFile)
+
+
+
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                @Html.Partial("_CreateEdit")
+
+                                @if (Model.Status == 1)
+                                {
+                                    <div class="form-group">
+
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>सच्चाउनुहोस</button>
+                                        @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                                    </div>
+
+                                }
+                                else
+
+                                {
+                                    <div class="form-group">
+
+                                        <button type="button" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>प्रमाणिकरणको प्रकियामा छ ।</button>
+                                        @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                                    </div>
+                                }
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+<script type="text/javascript">
+    function validateFormEditAdmin() {
+        var cnv = $('#TotalBudget').val();
+        if (cnv > 1000000000) {
+            alert('कुल लागत १ अर्ब भन्दा धेरै भयो ।');
+            return false;
+        } else { return true; }
+
+    }
+
+    $('#GrantTypeFormEditAdmin').submit(validateFormEditAdmin);
+    //$('#TotalBudget').bind('blur keyup', validate);
+</script>

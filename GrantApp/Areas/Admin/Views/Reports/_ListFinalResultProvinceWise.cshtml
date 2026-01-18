@@ -1,0 +1,63 @@
+﻿@model GrantApp.Models.ReportModel
+
+@{
+    int usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>आ.ब.</th>
+                <th>प्रदेशको नाम</th>
+                <th>प्रकार</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>अनुमोदित रकम</th>
+                <th>आयोजनाको अवधि</th>
+                <th>हटाउनुहोस</th>
+                <th>अनुमोदित रकम</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.ComplementryReportViewModelList)
+        {
+        <tr>
+            <td>@i</td>
+            <td>@item.PhaseTitle</td>
+            <td>@item.ProvinceName</td>
+            <td>@item.GrantTypeName</td>
+            <td>@item.SectionName</td>
+            <td>@item.SubProgramId</td>
+            <td>@item.SubProgramTitle</td>
+            <td>@item.TotalBudget</td>
+            <td>@item.NGOINGOAmount</td>
+            <td>@item.TimeDurationYear</td>
+            @if (Model.RunningOrNewProgramInt == 0)
+            {
+                <td>
+                    <button class="btn" id="DeleteFromFinalList" data-model-id=@item.SubProgramId onclick="CallDelete('@item.SubProgramId')"><i class="fa fa-trash"></i></button>
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "AddApprovedAmountByAdmin", "Reports", new { @id = item.SubProgramId }, new { @class = "btn fa fa-plus", title = "अनुमोदिति रकम राख्नुहोस" })
+
+                </td>
+
+            }
+            else
+            {
+                <td></td>
+                <td></td>
+
+            }
+
+
+        </tr>
+
+            ++i;
+        }
+    </table>
+</div>

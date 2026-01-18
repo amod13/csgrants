@@ -1,0 +1,197 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>आर्थिक वर्ष</th>
+                @if (Model.SearchBy == 0)
+                {
+                    <th>प्रदेशको नाम</th>
+                }
+                else
+                {
+                    <th>स्थानिय तहको नाम</th>
+                }
+                @if (Model.SearchBy == 1)
+                {
+                    <th>जिल्ला</th>
+                }
+                    <th>आयोजनाको कोड</th>
+                    <th>आयोजनाको नाम</th>
+                    <th>कूल लागत</th>
+                    <th>आयोजनाको अवधि</th>
+                    <th>माग रकम</th>
+                    <th>सम्झौता</th>
+                    <th>भौचर</th>
+                    <th>आयोजना फोटो</th>
+                    <th>म्याद थप</th>
+                    <th>प्रतिबद्धता पत्र</th>
+                    <th>निर्णय</th>
+
+                    <th>कार्य</th>
+
+                </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.AdhuroApuroGrantRequestListVM)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget/100000;
+           
+                <tr>
+                    <td>@i</td>
+                    <td>@item.FiscalYearName</td>
+                    <td>@item.OfficeName</td>
+                    @if (Model.SearchBy == 1)
+                    {
+                     <td>@item.DistrictName</td>
+                    }
+
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@TotalBudgetAmt</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@item.TotalRequestBudget</td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.ContractAgreementFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.PaymentVoucherFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.ProjectImagesFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.ExtensionLetterFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.CommitmentLetterFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+
+                        <i class="Update fa fa-eye view-request-file"
+                           data-file="@Url.Content("~/RequiredDocs/" + item.ExecutiveDecisionFilePath)"
+                           title="फाईल हेर्नहोस् ।"
+                           style="cursor:pointer; color:blue;">
+                        </i>
+
+
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "GetAdhuroApuroDetailById", new { @id = item.Id }, new { @class = "edits fa fa-eye" })
+                    </td>
+
+                </tr>
+
+                ++i;
+            }
+
+
+
+        </tbody>
+    </table>
+
+
+</div>
+
+<div class="modal fade" id="requestFileModal" tabindex="-1" aria-labelledby="requestFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="requestFileModalLabel">File Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" id="requestFileModalBody">
+                <!-- Content will be dynamically updated -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-4 col-md-9 form-group">
+                    <a id="downloadFileBtn" href="#" class="btn btn-primary" download>
+                        <i class="fa fa-download"></i> Download
+                    </a>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $(".view-request-file").click(function () {
+            var filePath = $(this).data("file"); // Get file URL
+            var fileName = filePath.split('/').pop(); // Extract filename
+            var fileExtension = filePath.split('.').pop().toLowerCase(); // Extract file extension
+            var modalBody = $("#requestFileModalBody");
+            var downloadBtn = $("#downloadFileBtn"); // Get the download button
+
+            // Clear previous content
+            modalBody.html("");
+
+            // Determine content based on file extension
+            if (["jpg", "jpeg", "png"].includes(fileExtension)) {
+                modalBody.html(`<img src="${filePath}" alt="Request File" style="max-width: 100%; height: auto;" />`);
+            } else if (fileExtension === "pdf") {
+                modalBody.html(`<embed src="${filePath}" width="100%" height="500px" type="application/pdf">`);
+            } else {
+                modalBody.html("<p>Unsupported file type or File Missing. Please check in the Detail Page.</p>");
+            }
+
+            // Set the download button link with the full URL
+            var downloadUrl = "https://csgrants.gov.np/Admin/Reports/Admin/GrantRequestForm/Download?FileName=" + encodeURIComponent(fileName);
+            downloadBtn.attr("href", downloadUrl);
+
+            // Show the modal
+            $("#requestFileModal").modal("show");
+        });
+    });
+
+
+</script>

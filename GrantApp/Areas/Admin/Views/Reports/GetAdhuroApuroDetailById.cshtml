@@ -1,0 +1,136 @@
+﻿@model GrantApp.Models.AdhuroApuroReportViewModel
+@{
+    ViewBag.Title = "GetAdhuroApuroDetailById";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">आयोजना वा कार्यक्रमको विवरण</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>अनुदानको प्रकार</th>
+                        <td>@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.GrantTypeId)</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजना वा कार्यक्रमको नाम</th>
+                        <td>@Model.SubProgramTitle</td>
+                    </tr>
+                    <tr>
+                        <th>(जिल्ला, स्थानीय तह): </th>
+                        <td>@Model.DistrictName,@Model.OfficeName</td>
+                    </tr>
+
+                    <tr>
+                        <th>थप रकम माग (रु. लाखमा)</th>
+                        <td>@Model.AdditionalFundRequested</td>
+                    </tr>
+
+                    <tr>
+                        <th>सम्बन्धित तहले बेहोर्ने रकम (रु. लाखमा) </th>
+                        <td>@Model.AmountCoveredByLocalLevel</td>
+                    </tr>
+
+                    <tr>
+                        <th>आयोजना वा कार्यक्रमको अवधी (बर्ष) </th>
+                        <td>@Model.TimeDurationYear</td>
+                    </tr>
+                    <tr>
+                        <th>कुल लागत रकम (र) लाखमा </th>
+                        <td>@Model.TotalBudget</td>
+                    </tr>
+                    <tr>
+                        <th>आयोजनाको भौतिक प्रगति (%)</th>
+                        <td>@Model.PhysicalProgress</td>
+                    </tr>
+                    <tr>
+                        <th> आयोजनाको वित्तीय प्रगति (%)</th>
+                        <td>@Model.FinancialProgress</td>
+                    </tr>
+                    <tr>
+                        <th> हालसम्मको कूल विनियोजन (रु. लाखमा)</th>
+                        <td>@Model.TotalAllocation</td>
+                    </tr>
+                    <tr>
+                        <th>  हालसम्मको कूल खर्च (रु. लाखमा)</th>
+                        <td>@Model.TotalExpenditure</td>
+                    </tr>
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">अपलोड गरिएका फाईलहरुको सूचि</h3>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>कागजात</th>
+                    <th>डाउनलोड</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ठेक्का सम्झौता</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.ContractAgreementFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>सम्पूर्ण भुक्तानी भौचर</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.PaymentVoucherFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>आयोजनाका तस्वीरहरु</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.ProjectImagesFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>म्याद थप पत्र</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.ExtensionLetterFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>सम्बन्धित आयोजना आर्थिक वर्ष २०८२/८३ भित्र सम्पन्न गर्ने सम्बन्धी प्रतिवद्धता पत्र</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.CommitmentLetterFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>सम्बन्धित आयोजना आर्थिक वर्ष २०८२/८३ भित्र सम्पन्न गर्ने प्रतिवद्धता गरिएको कार्यपालिका निर्णय</td>
+                    <td>
+                        @Html.ActionLink("डाउनलोड", "Download", "Reports",
+                            new { @FileName = Model.ExecutiveDecisionFilePath },
+                            new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+    </div>

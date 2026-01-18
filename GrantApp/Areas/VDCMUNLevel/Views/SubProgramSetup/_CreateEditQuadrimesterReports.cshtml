@@ -1,0 +1,403 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+
+}
+
+
+
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>कार्यक्रम संचालन स्थान (*)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProgramConductPlace, new { @id = "placeID", @class = "form-control form-control sm", @required = "required" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>हालसम्मको भौतिक प्रगति (%)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.AchievementMaterial, new { @id = "materialachieveid", @class = "form-control form-control sm", @required = "required", type = "number" })
+    </div>
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>हालसम्मको वित्तीय प्रगति (%)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.AchievementFinance, new { @id = "fincaneachid", @class = "form-control form-control sm", @required = "required" , type = "number" })
+    </div>
+</div>
+<div class="row">
+
+
+
+
+
+
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>कुल ठेक्का रकम (रु. लाखमा)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.TotalContractAmount, new { @id = "ttamount", @class = "form-control form-control sm", @required = "required" })
+    </div>
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>हालसम्मको निकासा रकम (रू. लाखमा)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.TotalNikashaRamam, new { @id = "tnikashaAmount", @class = "form-control form-control sm", @required = "required" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>हालसम्मको खर्च रकम (रू. लाखमा)</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.TotalAmountUsed, new { @id = "tcontractAmount", @class = "form-control form-control sm", @required = "required" })
+    </div>
+
+
+
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-4 form-group">
+        <label style="color:rebeccapurple;font-style:italic;">ठेक्का रकम निकाशा रकम भन्दा धेरै वा बराबरको हुनु पर्दछ ।</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+        <label>कैफियत</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.Remarks, new { @id = "remarksID", @class = "form-control form-control sm", @required = "required" })
+    </div>
+</div>
+<div class="row">
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile, new { type = "file", required = "required", @id = "prptFile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile)
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">ठेक्का सूचना (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">ठेक्का सूचना  (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile, new { type = "file", required = "required", @id = "ctnoticefile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile)
+
+        </div>
+    }
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">ठेक्का सम्झौता (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppcontractFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">ठेक्का सम्झौता (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile, new { type = "file", required = "required", @id = "cctFile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppcontractFile)
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (फाईल अपलोड)(*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile, new { type = "file", required = "required", @id = "tilldatebills" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile)
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label>Running Bill (सारांश) प्रतिलिप (फाईल अपलोड)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label>Running Bill (सारांश) प्रतिलिप (फाईल अपलोड)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile)
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label>अन्तिम म्याद थप सूचना (फाईल अपलोड)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile)
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label>अन्तिम म्याद थप सूचना (फाईल अपलोड)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile)
+
+        </div>
+    }
+
+    <div class="col-md-3 col-sm-4 form-group">
+        <label style="color:red;">साईटको फोटो १ (फाईल अपलोड)(*)</label>
+        @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile, new { type = "file", required = "required", @id = "sitePhoto1" })
+        @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile)
+
+    </div>
+    <div class="col-md-3 col-sm-4 form-group">
+        <label>साईटको फोटो २ (फाईल अपलोड)</label>
+        @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile)
+
+    </div>
+    <div class="col-md-3 col-sm-4 form-group">
+        <label>साईटको फोटो ३ (फाईल अपलोड)</label>
+        @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile)
+
+    </div>
+</div>
+@if (ViewBag.Mode == "Edit")
+{
+    <div class="row" style="margin-top:25px;font-size:10px;">
+        <div class="col-md-12" style="font-size:14px">अपलोड गरिएका फाईलहरूको विवरण</div>
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>प्रगति विवरण</label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload }, new { @class = "fa fa-download" })
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>ठेक्का सूचना</label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile }, new { @class = "fa fa-download" })
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.ContractFile))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>ठेक्का सम्झौता </label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.ContractFile }, new { @class = "fa fa-download" })
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>हालसम्मका भुक्तानी भैाचर प्रतिलिपि </label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile }, new { @class = "fa fa-download" })
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.RunningBillFile))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>Running Bill (सारांश) प्रतिलिपि</label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.RunningBillFile }, new { @class = "fa fa-download" })
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label>अन्तिम म्याद थप सूचना</label>
+                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile }, new { @class = "fa fa-download" })
+
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+
+
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+                @Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+                @Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo
+            </div>
+
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree))
+        {
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+                @Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree
+            </div>
+
+        }
+        else
+
+        {
+            <div class="col-md-3 col-sm-12 form-group">
+                <label></label>
+
+            </div>
+        }
+
+    </div>
+}
+
+
+<div class="row" style="margin-top:25px;font-size:10px;">
+    <div class="col-md-2 col-sm-12 form-group">
+        <label></label>
+
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.NikasaMaagFileUpload))
+    {
+
+        <div class="col-md-3 col-sm-12 form-group">
+            <label>&nbsp;</label>
+            @Model.ObjQuadrimesterReportsDetailViewModel.NikasaMaagFileUpload
+        </div>
+
+    }
+    else
+    {
+        <div class="col-md-3 col-sm-12 form-group">
+            <label></label>
+
+        </div>
+    }
+</div>
+<div class="row">
+
+    @if (Model.ObjQuadrimesterReportsDetailViewModel.QuadrimesterId == 1)
+    {
+        <div class="col-md-4 col-sm-4 form-group">
+            <label>ठेक्का सूचना जारी भएको</label>
+            @Html.CheckBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.IsContactNoticeIssued, new { @id = "IsContactNoticeIssued", @class = "form-control form-control sm" })
+        </div>
+        <div class="col-md-4 col-sm-4 form-group">
+            <label>ठेक्का सम्झैाता सम्पन्न भएको</label>
+            @Html.CheckBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.IsContractDone, new { @id = "IsContactNoticeIssued", @class = "form-control form-control sm" })
+        </div>
+        <div class="col-md-4 col-sm-4 form-group">
+            <label>पहिलो किस्ता भुक्तानि भएको</label>
+            @Html.CheckBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.IsFirstInstallmentTaken, new { @id = "IsContactNoticeIssued", @class = "form-control form-control sm" })
+        </div>
+    }
+
+
+
+
+</div>
+
+
+

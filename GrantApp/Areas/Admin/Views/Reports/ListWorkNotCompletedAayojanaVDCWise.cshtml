@@ -1,0 +1,231 @@
+﻿@model GrantApp.Models.ApplicationCompletionStatusVM
+
+@{
+    ViewBag.Title = "ListAllSelectedProgram";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int SN = 1;
+}
+<link href="~/AdminResources/DataTables/datatables.min.css" rel="stylesheet" />
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">सम्पन्न नभएका आयोजना/कार्यक्रमहरु (स्थानीय तह अनुसार)</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                सम्पन्न नभएका आयोजना/कार्यक्रमहरु (स्थानीय तह अनुसार)
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+                        <div class="card-body">
+
+                            @using (Ajax.BeginForm("ListWorkNotCompletedAayojanaVDCWise", "Reports", new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "DetailsReportsID",
+                                LoadingElementId = "loader"
+                            }))
+                            {
+                                <fieldset>
+                                    <div class="row">
+
+
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>प्रदेश</label>
+                                            @Html.DropDownListFor(m => m.ProvinceIdSearch, GrantApp.Areas.Admin.FunctionClass.GetProvincesDD(), new { @class = "form-control form-control sm", @id = "dll_province", @onchange = "GetDistrictListDD()" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>जिल्ला</label>
+                                            @Html.DropDownListFor(m => m.DistrictIdSearch, GrantApp.Areas.Admin.FunctionClass.GetDistrictByStateIdDD(Model.ProvinceIdSearch), new { @class = "form-control form-control sm", @id = "dll_district", @onchange = "GetVDCMUNListDD()" })
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                            <label>गापा/नपा</label>
+                                            @Html.DropDownListFor(model => model.VdcmunIdSearch, GrantApp.Areas.Admin.FunctionClass.GetRuralMunicipalitybyDistrictDDDefault(Model.DistrictIdSearch.ToString()), new { @class = "form-control form-control-sm", id = "dll_vdcmun" })
+
+                                        </div>
+                                        @*<div class="col-md-3 col-sm-6 form-group">
+                                                <label>अनुदान प्रकार</label>
+                                                @Html.DropDownListFor(m => m.ViewBagGrantTypeId, GrantApp.Areas.Admin.FunctionClass.GetGrantType(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId", @onchange = "ShowHideSearchDiv()" })
+
+                                            </div>*@
+
+
+
+                                    </div>
+
+
+
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>खोज्नुहोस</button>
+                                </fieldset>
+                            }
+
+                            <div id="loader" class=" aletr" style="display:none">
+                                Loading...
+                                <img src="~/AdminResources/img/ajax-loader.gif" />
+                            </div>
+
+                            <div id="DetailsReportsID"></div>
+
+
+
+                        </div>
+
+
+                        <div class="card-body" style="display:none;">
+                            <h1 class="h3 display">
+                                सम्पन्न नभएका आयोजना/कार्यक्रमहरु
+                            </h1>
+                            <div class="table-responsive m_table bg-light">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>क्रस</th>
+                                            <th>शुरु आ.व.</th>
+                                            <th>अनुदान प्रकार</th>
+                                            <th>प्रदेश</th>
+                                            <th>जिल्ला</th>
+                                            <th>कार्यालय</th>
+                                            <th>आयोजना/कार्यक्रम</th>
+                                            <th>कुल लागत</th>
+                                            <th>आयोजना सम्पन्न हुने नयाँ अवधि</th>
+                                            <th>थप रकम माग(लाखमा)</th>
+                                            <th>कारण(पुस्ट्याई, निर्णय र आधार सहितको आधिकारिक पत्र)</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ApplicationCompletionStatusVMList)
+                                        {
+                                            if (item.TotalBudget.HasValue)
+                                            {
+                                                if (item.TotalBudget > 0)
+                                                {
+                                                    item.TotalBudget = item.TotalBudget / 100000;
+                                                }
+                                            }
+                                            string FullOrPartialText = @"आंशिक सम्पन्न";
+                                            if (item.CompleteOrParitalCompleteStatusId == 1)
+                                            {
+                                                FullOrPartialText = @"पूर्ण सम्पन्न";
+                                            }
+                                            <tr>
+                                                <td>@SN</td>
+                                                <td>@item.PhaseTitle</td>
+                                                <td>@item.GrantTypeName</td>
+
+                                                <td>@item.ProvinceTitleNep</td>
+                                                <td>@item.DistrictNameNep</td>
+                                                <td>@item.OfficeName</td>
+                                                <td>@item.SubProgramTitle</td>
+                                                <td>@item.TotalBudget</td>
+                                                <td>@item.YearNeededForCompleteId</td>
+                                                <td>@item.AmountRequired</td>
+                                                <td>
+                                                    @if (item.NotCompletedFileTypeStr != "")
+                                                    {
+                                                        @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.NotCompletedFileTypeStr }, new { @class = "fa fa-download" })
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                </td>
+
+
+
+                                            </tr>
+                                            SN++;
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr />
+
+
+
+
+
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+<script type="text/javascript">
+    function GetDistrictListDD() {
+        var value = $("#dll_province option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetDistrictDDByProvinceIdWithSelectValue", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_district").html(items);
+            }
+        })
+    };
+
+    function GetVDCMUNListDD() {
+        var value = $("#dll_district option:selected").val();
+        $.ajax({
+            @*url: "@Url.Action("GetVDCMUNDDByDistrictId", "AjaxRequest", new { @area="admin"})",*@
+            url: "@Url.Action("GetVDCMUNDDByDistrictIdWithDefaultValue", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                GetVDCMUNDDByDistrictId
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_vdcmun").html(items);
+            }
+        })
+    };
+
+
+
+
+</script>

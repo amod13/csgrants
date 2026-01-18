@@ -1,0 +1,109 @@
+﻿@using GrantApp.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+<style>
+    .OfficeName span {
+        font-size: 14px;
+        line-height: 1.5em;
+        font-weight: 600;
+    }
+
+    .OfficeName small {
+        color: #e00000;
+        display: block;
+        font-size: 16px !important;
+        margin-top: 10px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>समपुरक तथा विशेष अनुदान</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css">
+
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=News+Cycle:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    @*<style>
+            body {
+                padding-top: 54px;
+            }
+
+            @@media (min-width: 992px) {
+                body {
+                    padding-top: 56px;
+                }
+            }
+        </style>*@
+</head>
+<body class="login">
+    <div class="login-overlay"></div>
+    <div class="container">
+        <div class="login-page">
+            @*<figure class="visitnepal"><img src="~/AdminResources/img/Visit-Nepal_Logo.png" /></figure>*@
+            <div class="form-outer text-center d-flex align-items-center login_box">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-inner">
+                    <div class="logo text-uppercase">
+                        <figure>
+                            <img src="~/AdminResources/img/photos/250px-Emblem_of_Nepal.svg.png" height="100px" width="100px" />
+                        </figure>
+
+                    </div>
+
+                    <div class="OfficeName">
+                        <small>नेपाल सरकार</small>
+                        <span>राष्ट्रिय योजना आयोग</span><br />
+                        सिंहदरवार, काठमाडौ
+                        नेपाल
+                        <br />
+                        <span>विशेष/समपूरक अनुदान कार्यक्रम</span><br />
+                        
+                        <span>सूचना</span>
+
+                    </div>
+
+                    
+
+                    <div style="text-align:justify !important;font-weight:bold !important;">
+                        आ व २०८१/८२ का लागि सङ्घीय समपूरक अनुदान तथा विशेष अनुदान अन्तर्गत संचालन हुने आयोजना कार्यक्रमका 
+                        लागि आयोजना/कार्यक्रम प्रस्ताव पेश गर्ने सीमा २०८० माघ मसान्तसम्म रहेको बेहोरा जानकारीका लागि अनुरोध छ । 
+                        यस अवधिमा आयोजना प्रस्ताव पेश गर्ने अनलाईन पोर्टलमा 
+                        केही परिमार्जन, संशोधन र अद्यावधिक कार्य चलिरहेकोले 
+                        केही समयपछि मात्र लग ईन गर्न सकिने सूचना जानकारीका लागि अनुरोध छ ।
+                    </div>
+                    @*<div class="copyrights text-center" style="border:1px solid red;">
+
+                        <p> Copyright  &copy;नेपाल सरकार, राष्ट्रिय योजना आयोग ,2019 </p>
+                        <p>ईमेल :csgrants@npc.gov.np &nbsp; फोन : 01-4211023,01-4211034</p>
+                    </div>*@
+                </div>
+                  
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

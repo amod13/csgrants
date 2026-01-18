@@ -1,0 +1,673 @@
+﻿@model GrantApp.Areas.Admin.Models.DashboardModel
+@{
+
+
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .btn-group-sm > .btn, .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+</style>
+
+<div class="row">
+    <div class="publicInfo" style="display:flex;justify-content:flex-end">
+        <div>
+            <label style="margin-top:16px;padding-right:10px;padding-left:20px">आयोजना कोड:</label>
+        </div>
+        <div>
+            @Html.TextBox("txtProgramID", null, new { @style = "width:180px;margin-top:12px", @id = "txtProgramID", @placeholder = "eg:1098", @class = "form-control" })
+        </div>
+        <div class="col-md-1" style="margin-left:1px;margin-top:13px">
+            <button type="button" id="btn_Search" class="btn btn-sm btn-success" value='SearchProgram' data-toggle="modal" data-target="#exampleModal123" onclick="showProgramDetails()">खोज्नुहोस</button>
+        </div>
+
+    </div>
+</div>
+
+
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="alert alert-info">
+            <div class="row">
+                <div class="col-md-10">आ.व. २०८१/८२ को लागि प्रस्तावित आयोजना/कार्यक्रमको विवरण</div>
+                <div class="col-md-2">
+                    @Html.ActionLink("सम्पूर्ण विवरण", "DashboardDetails", new { @id = 0, @id1 = 6 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Count item widget-->
+            @*<div class="col-xl-3 col-md-4 col-6">
+                    <div class="info-box">
+                        <div class="wrapper count-title d-flex">
+                            <div class="icon"><i class="icon-user"></i></div>
+                            <div class="name">
+                                <strong class="text-uppercase">सक्रिय प्रयोगकर्ता </strong><span> हाल सम्म</span>
+                                <div class="count-number">@GrantApp.CommontUtilities.TotalActiveUsers(1)</div>
+                                <div>&nbsp;</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-paper-airplane"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">नयाँ आयोजना/कार्यक्रम </strong><span>हाल सम्म</span>
+                            <div class="count-number">@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.objTotalProgramListPhaseWiseNewModel.TotalProgramCount.ToString())</div>
+                            <div>
+                                @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 0, @id1 = 6, @id2 = 0 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-bill"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">विशेष अनुदान तर्फ</strong><span> हाल सम्म</span>
+                            <div class="count-number">@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.objTotalProgramListPhaseWiseNewModel.TotalBisheshCount.ToString())</div>
+                            <div>
+                                @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 1, @id1 = 6, @id2 = 0 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase"> समपुरक अनुदान तर्फ</strong><span> हाल सम्म</span>
+                            <div class="count-number">@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.objTotalProgramListPhaseWiseNewModel.TotalSamapurakCount.ToString())</div>
+                            <div>
+                                @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 2, @id1 = 6, @id2 = 0 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">क्रमागत आयोजना/कार्यक्रम</strong><span> हाल सम्म</span>
+                            <div class="count-number">
+                                @GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(0, 0, 16)
+                                (वि.- @GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(1, 0, 16) , स.- @GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(2, 0, 16))
+                            </div>
+                            <div>
+                                @Html.ActionLink("विवरण", "ViewDashboardRequestAmountList", new { @id = 0, @id1 = 16, id2 = 0 })
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+<hr />
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="alert alert-info">आ.व. २०८०/८१ को आयोजना/कार्यक्रमहरूको विवरण</div>
+        <div class="row">
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">क्रमागत आयोजना/कार्यक्रम </strong><span>हाल सम्म</span>
+                            <div class="count-number"> @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.TotalRunning.ToString())</div>
+                            <div>
+                                &nbsp;
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-bill"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase"> विशेष अनुदान तर्फ</strong><span> प्रस्तावित/स्वीकृत</span>
+                            @*<div class="count-number">@GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(1, 0, 13)</div>*@
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.TotalBishesh.ToString())
+                                /
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.BisheshCount.ToString())
+                            </div>
+                            <div>
+                                &nbsp;
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase"> समपुरक अनुदान तर्फ</strong><span> प्रस्तावित/स्वीकृत</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.TotalSampurak.ToString())
+                                /
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.SampurakCount.ToString())
+
+                            </div>
+                            <div>
+                                &nbsp;
+                            </div>
+                            @*<div>
+                                    @Html.ActionLink("विवरण", "ViewDashboardRequestAmountList", new { @id = 2, @id1 = 11 })
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase"> स्वीकृत(क्रमागत‌+नयाँ) </strong><span> हाल सम्म</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Model.ObjAdminDashboardNewprojectCountListViewModel.NewAndRunning.ToString())
+
+
+
+                            </div>
+                            <div>&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="alert alert-info">
+            आ.व. २०८०/८१ सम्मको प्राप्त प्रगति प्रतिवेदनहरूको विवरण
+        </div>
+        <div class="row">
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">प्राप्त प्रगति प्रतिवेदन स्था.तह</strong><span>आयोजना/कार्यक्रम</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalCountReportsByOfficeTypestr(4))
+
+                                @*@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalProgressReportCountLocalLevelstr(2))*@
+                            </div>
+                            <div>
+                                <div> @Html.ActionLink("विवरण", "DashBoardProgressRptProvinceWise", "Reports", new { @id = 4, @id1 = 4 }, null)</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-paper-airplane"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">प्रतिवेदन बुझाउने कार्यालय</strong><span>स्थानीय तह</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalReportSubmitedByOfficesType(4))
+
+                                @*@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalProgressReportSubmitedByOfficesCountLocalLevel(2))*@
+                            </div>
+                            <div>
+                                <div>@Html.ActionLink("विवरण", "DashBoardProgressRptProvinceWise", "Reports", new { @id = 4, @id1 = 4 }, null)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">प्राप्त प्रगति प्रतिवेदन प्रदेश</strong><span>आयोजना/कार्यक्रम</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalCountReportsByOfficeTypestr(2))
+
+                                @*@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalProgressReportCountstr(2))*@
+                            </div>
+                            <div>
+                                <div> @Html.ActionLink("विवरण", "DashBoardProgressRptProvinceWise", "Reports", new { @id = 2, @id1 = 5 }, null)</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+                <div class="info-box">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-paper-airplane"></i></div>
+                        <div class="name">
+                            <strong class="text-uppercase">प्रतिवेदन बुझाउने कार्यालय</strong><span>प्रदेश</span>
+                            <div class="count-number">
+                                @GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalReportSubmitedByOfficesType(2))
+
+                                @*@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(GrantApp.Areas.Admin.FunctionClass.GetTotalProgressReportSubmitedByOfficesCountStr(2))*@
+                            </div>
+                            <div>
+                                <div> @Html.ActionLink("विवरण", "DashBoardProgressRptProvinceWise", "Reports", new { @id = 2, @id1 = 2 }, null)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+<hr />
+
+
+
+@*<section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div id="columnchart_material">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>*@
+
+
+
+
+@*<section class="dashboard-header">
+        <div class="alert alert-info">
+            मुलभुत क्षेत्र अनुसार-कार्यक्रम/आयोजनाहरूको विवरण
+        </div>
+        <div class="container-fluid">
+            <div class="row d-flex align-items-md-stretch">
+                <!-- To Do List-->
+                <div class="col-lg-6 col-md-6">
+                    <div class="card palika-info">
+                        <h2 class="display h4">आयोजना/कार्यक्रम मुलभुत क्षेत्र अनुसार-विशेष</h2>
+
+
+                        <ul class="list-unstyled">
+                            <!-- Item-->
+
+                            @foreach (var item in Model.DashboardModelListSpecialGrant)
+                            {
+                                <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="icon"><i class="fa fa-hand-o-right"></i></div>
+                                        <div class="title"><strong>@item.SectionName</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <div class="update-date">@item.TotalProgram</div>
+                                    </div>
+                                </li>
+                            }
+
+
+
+
+
+                            <!-- Item-->
+
+                        </ul>
+
+
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="card palika-info">
+                        <h2 class="display h4">आयोजना/कार्यक्रम मुलभुत क्षेत्र अनुसार-समपूरक</h2>
+
+
+                        <ul class="list-unstyled">
+                            <!-- Item-->
+
+                            @foreach (var item in Model.DashboardModelListComplemnetryGrant)
+                            {
+                                <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="icon"><i class="fa fa-hand-o-right"></i></div>
+                                        <div class="title"><strong>@item.SectionName</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <div class="update-date">@item.TotalProgram</div>
+                                    </div>
+                                </li>
+                            }
+
+
+                            <!-- Item-->
+
+                        </ul>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+
+
+@*<section class="dashboard-header">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-md-stretch">
+                <!-- To Do List-->
+                <div class="col-lg-6 col-md-6">
+                    <div class="card palika-info">
+                        <h2 class="display h4">आयोजना/कार्यक्रम मुलभुत क्षेत्र अनुसार (समपूरक र विशेष)</h2>
+
+
+                        <ul class="list-unstyled">
+                            <!-- Item-->
+
+                            @foreach (var item in Model.DashboardModelList)
+                            {
+                                <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="icon"><i class="fa fa-hand-o-right"></i></div>
+                                        <div class="title"><strong>@item.SectionName</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <div class="update-date">@item.TotalProgram</div>
+                                    </div>
+                                </li>
+                            }
+
+
+                            <!-- Item-->
+
+                        </ul>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>*@
+
+
+<section class="dashboard-header">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-md-stretch">
+            <!-- To Do List-->
+            <div class="col-lg-6 col-md-6">
+                <div class="card palika-info">
+                    <h2 class="display h4">आयोजना/कार्यक्रम मुलभुत क्षेत्र अनुसार(समपूरक र विशेष)</h2>
+                </div>
+            </div>
+
+            <div class="publicInfo" style="display:flex;justify-content:flex-end">
+                <div>
+                    <label style="margin-top:16px;padding-right:10px;padding-left:20px"> आर्थिक वर्ष:</label>
+                </div>
+                <div>
+                    @Html.DropDownListFor(m => m.ProgramPhaseNumber, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "dll_phaseNumber", @style = "width:180px;margin-top:12px" })
+                    @*@Html.TextBox("txtProgramID", null, new { @style = "width:180px;margin-top:12px", @id = "txtProgramID", @placeholder = "eg:1098", @class = "form-control" })*@
+                </div>
+                <div class="col-md-1" style="margin-left:1px;margin-top:13px">
+                    <button type="button" id="btn_SearchSectionWise" class="btn btn-sm btn-success" value='SearchProgram' data-toggle="modal" data-target="#exampleModal123456" onclick="showSectionWiseCount()">खोज्नुहोस</button>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-12" style="margin-top:5px;" id="SectionWiseCountDiv">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">मुलभुत क्षेत्र</th>
+                            <th scope="col">अनुदान प्रकार</th>
+                            <th scope="col">जम्मा निवेदन</th>
+                            <th scope="col">स्वीकृत निवेदन(विशेष) प्रदेश</th>
+                            <th scope="col">स्वीकृत निवेदन(समपूरक)प्रदेश</th>
+                            <th scope="col">स्वीकृत निवेदन(विशेष) स्था.तह</th>
+                            <th scope="col">स्वीकृत निवेदन(समपूरक)स्था.तह</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SecionWiseProgramCountViewModelList)
+                        {
+                            <tr>
+                                <td>@item.SectionName</td>
+                                <td>@item.GrantTypeName</td>
+                                <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.TotalProgram.ToString())</td>
+                                <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.BisheshApproved.ToString())</td>
+                                <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.SampurakApproved.ToString())</td>
+                                <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.BisheshApprovedLocalLevel.ToString())</td>
+                                <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.SampurakApprovedLocalLevel.ToString())</td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="height:70px">
+                <h3 class="modal-title" id="exampleModalLabel">आयोजना / कार्यक्रमको विवरण: <span id="Program_ID"></span> </h3>
+
+            </div>
+            <div class="modal-body">
+                <div id="popUpModelContent">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    .info-box {
+        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+        border-radius: .25rem;
+        padding: .5rem;
+        min-height: 80px;
+        background: #fff;
+    }
+
+    .dashboard-counts .count-number {
+        font-size: 1em;
+    }
+</style>
+@*<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['आ.व.', 'विशेष अनुदान', 'समपुरक अनुदान', 'जम्मा'],
+                ['२०७६/७७', 1375, 1825, 3200],
+                ['२०७७/७८', 1443, 1520, 2963],
+                ['२०७८/७९', 1546, 1598, 3144],
+                ['२०७९/८०', 1588, 1718, 3306],
+                ['२०८०/८१', 2060, 2144, 4204]
+
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'आर्थिक वर्ष अनुसार',
+                    subtitle: 'विशेष / समपुरक अनुदान प्राप्त निवेदन',
+                },
+                bars: 'vertical',
+                vAxis: {
+                    format: 'decimal'
+                },
+                height: 400,
+                colors: ['#5457d6', '#d95f02', '#1aed25']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>*@
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+    function showProgramDetails() {
+
+            var ProgramID = $("#txtProgramID").val();
+             //var InfoPA = $('#Program_ID').html(ProgramID);
+            if ($.trim(ProgramID) == "")
+            {
+                alert("ProgramId cannot be empty.")
+                $('#exampleModal').modal('hide');
+                 return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CheckProgramDetails", "AdminHome")?ProgramID=' + ProgramID,
+                success: function (checkstatus) {
+                debugger;
+                    if(checkstatus == "T")
+                    {
+                     $.ajax({
+                           type: 'POST',
+                         url: '@Url.Action("GetProgramDetailsByID", "AdminHome")?id=' + ProgramID,
+                           success: function (result) {
+                               debugger;
+                               $('#exampleModal').modal('show');
+                               $('#popUpModelContent').html(result);
+
+                            }
+                        });
+                    }
+                   else
+                    {
+
+                           $.ajax({
+                           type: 'POST',
+                               url: '@Url.Action("GetProgramDetailsByIDError", "AdminHome")?id=' + ProgramID,
+                           success: function (result) {
+
+                               $('#exampleModal').modal('show');
+                               $('#popUpModelContent').html(result);
+                            }
+                        });
+
+
+
+
+
+
+                    }
+                }
+            });
+
+
+
+    };
+
+
+    function showSectionWiseCount() {
+        var PhaseNumber = $("#dll_phaseNumber").val();
+        $.ajax({
+                type: 'POST',
+            url: '@Url.Action("GetSectionWiseCountDetails", "AdminHome")?id=' + PhaseNumber,
+                success: function (result) {
+
+                    $('#SectionWiseCountDiv').html(result);
+
+                }
+            });
+
+    }
+</script>
+
+

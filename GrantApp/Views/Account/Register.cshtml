@@ -1,0 +1,248 @@
+﻿@model GrantApp.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">गृहपृष्ठ</a></li>
+            <li class="breadcrumb-item active">यूजरको विवरण</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">यूजरको विवरण</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        @*<h4>Basic Table</h4>*@
+                    </div>
+
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @id = "frmCommonForm", @class = "", role = "" }))
+                        {
+
+
+                            @Html.AntiForgeryToken()
+                            @*<h4>Create a new account.</h4>
+                                <hr />*@
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                            if (ViewBag.ErrorMessage != null)
+                            {
+                                <div class="text-danger">@ViewBag.ErrorMessage</div>
+                            }
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "" })
+
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-sm" })
+
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "" })
+
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-sm" })
+
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "" })
+
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-sm" })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                                    @Html.LabelFor(m => m.UserType, new { @class = "" })
+
+                                    @Html.DropDownListFor(m => m.UserType, GrantApp.Areas.Admin.FunctionClass.GetUserTypeList(), new { @id = "UserTypeId", @class = "form-control form-control-sm", @onchange = "DisplayDivByUserTypeID()" })
+
+                                </div>
+
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group" id="ProvincesListId">
+                                    @Html.LabelFor(m => m.ProvinceId, new { @class = "" })
+
+                                    @Html.DropDownListFor(model => model.ProvinceId, GrantApp.Areas.Admin.FunctionClass.GetProvincesDD(), new { @class = "form-control form-control-sm", @id = "dll_province", @onchange = "GetDistrictListDD()" })
+
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group" id="DistrictListId">
+                                    @Html.LabelFor(m => m.DistrictCode, new { @class = "" })
+
+                                    @Html.DropDownListFor(model => model.DistrictCode, GrantApp.Areas.Admin.FunctionClass.GetDistrictByStateIdDD(Model.ProvinceId), new { @class = "form-control form-control-sm", id = "dll_district", @onchange = "GetVDCMUNListDD()" })
+
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 form-group" id="VDCMUNListID">
+                                    @Html.LabelFor(m => m.VDCMUNCode, new { @class = "" })
+
+                                    @Html.DropDownListFor(model => model.VDCMUNCode, GrantApp.Areas.Admin.FunctionClass.GetRuralMunicipalitybyDistrictDD(Model.ProvinceId), new { @class = "form-control form-control-sm", id = "dll_vdcmun" })
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" class="btn btn-info" value="Register" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+
+    // A $( document ).ready() block.
+    $(document).ready(function () {
+
+        var UserType = '@Model.UserType'
+
+        if (UserType != null || !isNaN(UserType)) {
+            if (UserType == 1) {
+                $("#ProvincesListId").hide();
+                $("#DistrictListId").hide();
+                $("#VDCMUNListID").hide();
+            }
+            else if (UserType == 2) {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").hide();
+                $("#VDCMUNListID").hide();
+            }
+            else if (UserType == 3) {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").show();
+                $("#VDCMUNListID").hide();
+            }
+            else {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").show();
+                $("#VDCMUNListID").show();
+
+
+            }
+        }
+        else {
+            $("#ProvincesListId").hide();
+            $("#DistrictListId").hide();
+            $("#VDCMUNListID").hide();
+        }
+    });
+
+
+
+
+
+    function DisplayDivByUserTypeID() {
+
+        var value = $("#UserTypeId option:selected").val();
+        if (value != null) {
+            if (value == 1) {
+                $("#ProvincesListId").hide();
+                $("#DistrictListId").hide();
+                $("#VDCMUNListID").hide();
+                //SuperAdmin
+
+            }
+            else if (value == 2) {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").hide();
+                $("#VDCMUNListID").hide();
+
+            }
+            else if (value == 3) {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").show();
+                $("#VDCMUNListID").hide();
+
+            }
+            else {
+                $("#ProvincesListId").show();
+                $("#DistrictListId").show();
+                $("#VDCMUNListID").show();
+
+            }
+
+        }
+        else {
+            $("#ProvincesListId").hide();
+            $("#DistrictListId").hide();
+            $("#VDCMUNListID").hide();
+
+        }
+
+    };
+
+
+    function GetDistrictListDD() {
+        var value = $("#dll_province option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetDistrictDDByProvinceId", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_district").html(items);
+            }
+        })
+    };
+
+
+    function GetVDCMUNListDD() {
+        var value = $("#dll_district option:selected").val();
+        $.ajax({
+            url: "@Url.Action("GetVDCMUNDDByDistrictId", "AjaxRequest", new { @area="admin"})",
+            data: { id: value },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                GetVDCMUNDDByDistrictId
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+                });
+
+                $("#dll_vdcmun").html(items);
+            }
+        })
+    };
+</script>
+<!-- Bootstrap core JavaScript -->
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+

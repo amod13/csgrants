@@ -1,0 +1,83 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ProgramwiseAmount";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Program Wise Amount</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    @if (ViewBag.ErroMessage != null)
+                    {
+                        <span>@ViewBag.ErroMessage</span>
+                    }
+                    <div class="card-header d-flex align-items-center">
+                        <h4>@Model.ObjProgramwiseAmountViewModel.ViewBagProgramTitle</h4>
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("ProgramwiseAmount", "Reports", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.ObjProgramwiseAmountViewModel.ViewBagReportViewID)
+                            @Html.HiddenFor(m => m.ObjProgramwiseAmountViewModel.ProgramId)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>रकम (रू) (प्रथम वर्ष)</label>
+                                        @Html.TextBoxFor(m => m.ObjProgramwiseAmountViewModel.Amount, new { @class = "form-control form-control sm", @required = "required" })
+
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>रकम (रू) (दोस्रो वर्ष)</label>
+                                        @Html.TextBoxFor(m => m.ObjProgramwiseAmountViewModel.AmountSecondYear, new { @class = "form-control form-control sm"})
+
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>रकम (रू) (तेस्रो वर्ष)</label>
+                                        @Html.TextBoxFor(m => m.ObjProgramwiseAmountViewModel.AmountThirdYear, new { @class = "form-control form-control sm"})
+
+                                    </div>
+
+
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>कैफियत</label>
+                                        @Html.TextBoxFor(m => m.ObjProgramwiseAmountViewModel.Remarks, new { @class = "form-control form-control sm", @required = "required" })
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i> Save changes</button>
+
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,134 @@
+﻿@model GrantApp.Models.SubProgramMaster
+@{
+    ViewBag.Title = "ChangeSubProgramDetailById";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Program</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="clearfix"></div>
+                <hr />
+                <div class="card">
+
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.GrantTypeId)</h3>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+
+                        @using (Html.BeginForm("ChangeSubProgramDetailById", "Reports", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "GrantFormEdit" }))
+                        {
+                            @Html.HiddenFor(m => m.GrantTypeId)
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.OfficeId)
+
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="row">
+
+                                    @*<div class="col-md-12 col-sm-12 form-group">
+                                            <label>मुलभुत क्षेत्र</label>
+                                            @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDD(Model.GrantTypeId), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required", @onChange = "GetProgramListByMainSectionId()" })
+
+                                        </div>*@
+
+
+                                    @*<div class="col-md-12 col-sm-12 form-group">
+                                            <label>कार्यविधि बमोजिम क्षेत्र</label>
+                                            @Html.DropDownListFor(m => m.ProgramId, GrantApp.Areas.Admin.FunctionClass.GetProgramListDDForEdit(Model.MainSectionId), new { @id = "dll_ProgramId", @class = "form-control form-control sm", @required = "required" })
+
+                                        </div>*@
+
+
+
+
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>आयोजना/कार्यक्रमको नाम </label>
+                                        @Html.TextBoxFor(m => m.SubProgramTitle, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.SubProgramTitle)
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>लाभान्वित सम्भाब्य जनसंख्या</label>
+                                        @Html.TextBoxFor(m => m.ProbableBenefitedPopulation, new { @class = "form-control form-control sm", @required = "required", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.ProbableBenefitedPopulation)
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>अवधि (वर्ष)</label>
+                                        @Html.DropDownListFor(m => m.TimeDurationYear, GrantApp.Areas.Admin.FunctionClass.GetProgramYearList(), new { @class = "form-control form-control sm", @id = "dll_TimeDurationYearID", @required = "required", @onChange = "GetYearWiseDivVal()" })
+                                        @Html.ValidationMessageFor(m => m.TimeDurationYear)
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 form-group">
+                                        <label>कुल लागत रू</label>
+                                        @Html.TextBoxFor(m => m.TotalBudget, new { @id = "TotalBudget", @class = "form-control form-control sm", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.TotalBudget)
+                                    </div>
+
+
+                                    <div class="clearfix"></div>
+
+
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>सच्चाउनुहोस</button>
+                                    @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "GetApplicationDetailForEdit", "Reports", new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                </div>
+
+
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+

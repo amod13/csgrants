@@ -1,0 +1,195 @@
+﻿@model GrantApp.Models.PublicPrivateGrantRequest
+
+@{
+    ViewBag.Title = "ProgressDetailList";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">निजी क्षेत्रसँगको साझेदारी/सार्वजनिक निजी साझेदारी  MOU माग गरिएको आयोजनाको  विवरण</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">निजी क्षेत्रसँगको साझेदारी/सार्वजनिक निजी साझेदारी  MOU माग गरिएको आयोजनाको विवरण</h5>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "PublicGrant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                @Html.HiddenFor(m => m.Id)
+                @*@Html.HiddenFor(m => m.Phase)*@
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>आयोजना वा कार्यक्रमको नाम:</label>
+                    @Html.TextBoxFor(m => m.ProgramName, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>आयोजना वा कार्यक्रमको प्रमुख क्षेत्र:</label>
+
+                    @Html.TextBoxFor(m => m.ProgramSector, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>आयोजना वा कार्यक्रमको अवधी:</label>
+
+                    @Html.DropDownListFor(m => m.TimeDuration, GrantApp.Areas.Admin.FunctionClass.GetProgramYearList(), new { @class = "form-control form-control sm", @id = "dll_TimeDurationYearID", @required = "required" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>आयोजना वा कार्यक्रमको कूल लागत (रु. लाखमा)</label>
+
+                    @Html.TextBoxFor(m => m.TotalCost, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>प्रदेश वा स्थानीय तहले व्यहोर्ने रकम (रु. लाखमा)</label>
+
+                    @Html.TextBoxFor(m => m.StateContribution, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>निजी क्षेत्रले व्यहोर्ने रकम (रु. लाखमा)</label>
+
+                    @Html.TextBoxFor(m => m.PrivateContribution, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>सम्भाव्यता न्यून परिपूरक कोष (VGF) रकम (रु. लाखमा)</label>
+
+                    @Html.TextBoxFor(m => m.VGFFund, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12 col-sm-12 form-group">
+                    <label>संघ सरकारसँग माग गरिएको रकम (रु. लाखमा)</label>
+
+                    @Html.TextBoxFor(m => m.RequestedAmount, new { @class = "form-control" })
+                </div>
+
+                @if (Model.Id > 0)
+                {
+
+                    @*@Html.HiddenFor(m => m.ContractAgreementFilePath)
+            @Html.HiddenFor(m => m.PaymentVoucherFilePath)
+            @Html.HiddenFor(m => m.ProjectImagesFilePath)
+            @Html.HiddenFor(m => m.ExtensionLetterFilePath)
+            @Html.HiddenFor(m => m.CommitmentLetterFilePath)
+            @Html.HiddenFor(m => m.ExecutiveDecisionFilePath)*@
+
+                    <!-- File Upload Fields -->
+                    @*<div class="col-md-6 mb-3">
+                @Html.Label("ठेक्का सम्झौता")
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control me-2" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.ContractAgreementFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                @Html.Label("सम्पूर्ण भुक्तानी भौचर")
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.PaymentVoucherFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("आयोजनाका तस्वीरहरु")
+
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.ProjectImagesFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+
+
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("म्याद थप पत्र")
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.ExtensionLetterFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("सम्बन्धित आयोजना आर्थिक वर्ष २०८२/८३ भित्र सम्पन्न गर्ने सम्बन्धी प्रतिवद्धता पत्र")
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.CommitmentLetterFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("सम्बन्धित आयोजना आर्थिक वर्ष २०८२/८३ भित्र सम्पन्न गर्ने प्रतिवद्धता गरिएको कार्यपालिका निर्णय")
+                <div class="d-flex align-items-center">
+                    <input type="file" name="files" class="form-control" />
+                    @Html.ActionLink(" डाउनलोड", "Download", "AdhuroGrant",
+                        new { @FileName = Model.ExecutiveDecisionFilePath },
+                        new { @class = "btn btn-primary btn-sm ms-2" })
+                </div>
+
+            </div>*@
+
+
+
+                }
+                else
+                {
+
+
+                    <!-- File Upload Fields -->
+                    <div class="col-md-6 mb-3">
+                        <label>आयोजना सम्भाव्यता अध्ययन र ड्रइङ, डिजाइन, स्पेसिफिकेशन सहितको विस्तृत विवरणको लागत अनुमान:</label>
+                        <input type="file" name="files" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label> वातावरणीय अध्ययन प्रतिवेदन वा पुष्ट्याई:</label>
+                        <input type="file" name="files" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>आयोजना प्राथमिकता सहितको विवरण:</label>
+                        <input type="file" name="files" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>स्थानीय तहको निर्णय र प्रदेश सरकार निर्णय:</label>
+                        <input type="file" name="files" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>अनुसूची-२ बमोजिमको ढाँचामा शर्तनामा घोषणा:</label>
+                        <input type="file" name="files" class="form-control" required />
+                    </div>
+
+                }
+
+
+            </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["ProgresReportNtf"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+    });
+</script>

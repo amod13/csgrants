@@ -1,0 +1,113 @@
+﻿@model GrantApp.Models.OfficeDetailsViewModel
+
+@{
+    ViewBag.Title = "IdleUserListFYWise";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">आवेदन पेश गर्ने/नगर्ने स्थानिय तहहरूको विवरण -आ.व. अनुसार</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        @using (Ajax.BeginForm("IdleUserListFYWise", "Reports", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "DetailsReportsID",
+                            LoadingElementId = "loader"
+                        }))
+                        {
+                            <fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>आर्थिक वर्ष</label>
+                                        @Html.DropDownListFor(m => m.ProgramPhaseNumber, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "dll_phaseNumber" })
+
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>पेश गर्ने/नगर्ने</label>
+                                        @Html.DropDownListFor(m => m.RequestOrNotDDID, GrantApp.Areas.Admin.FunctionClass.RequestOrNotDD(), new { @class = "form-control form-control sm", @id = "dll_submitedornot", @onchange = "ShowHideSearchDiv()" })
+
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-6 form-group" id="granttypediv">
+                                        <label>अनुदान प्रकार</label>
+                                        @Html.DropDownListFor(m => m.GrantTypeSearchID, GrantApp.Areas.Admin.FunctionClass.GetGrantTypeWithDefaultValue(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId" })
+
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>खोज्नुहोस</button>
+                            </fieldset>
+                        }
+
+
+                        <div id="loader" class=" aletr" style="display:none">
+                            Loading...
+                            <img src="~/AdminResources/img/ajax-loader.gif" />
+                        </div>
+
+                        <div id="DetailsReportsID"></div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+
+    function ShowHideSearchDiv() {
+        var Submitedornotval = $("#dll_submitedornot option:selected").val();
+        if (Submitedornotval == 1) {
+            $("#granttypediv").hide();
+        }
+        else {
+            $("#granttypediv").show();
+        }
+
+
+    }
+
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#DetailsReportsID").table2excel({
+                filename: "dtlIdleUserReports.xls"
+            });
+        });
+    });
+</script>
+

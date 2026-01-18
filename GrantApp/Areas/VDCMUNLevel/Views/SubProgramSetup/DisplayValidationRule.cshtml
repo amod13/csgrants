@@ -1,0 +1,84 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "DisplayValidationRule";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display"></h1>
+           
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("CancleForThisFY", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                        {
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @*@Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                                @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)*@
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 form-group">
+                                        <label>प्रगति विवरण वा अनुदान रकम माग नगरेसम्म नयाँ आयोजना/कार्यक्रम थप्न मिल्दैन ।</label>
+                                        <label>"अघिल्लो आयोजना/कार्यक्रमहरू" मेनु मा गएर चालु आ.व. को लागि अनुदान रकम माग गर्नुहोस । वहुवर्षिय आयोजना/कार्यक्रमको हकमा समेत पूनः रकम माग गर्नुहोस । </label> 
+                                        <label>"प्रगति विवरण राख्नुहोस" मेनु मा गएर हाल आ.व. सम्मको प्रगति विवरण भर्नुहोस । </label>                                          
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                   
+                                    @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["PriorityMessage"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+    });
+
+</script>
+
+
+

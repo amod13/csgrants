@@ -1,0 +1,105 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+
+@{
+    ViewBag.Title = "ViewReportsSubmitwise";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Home</a></li>
+            <li class="breadcrumb-item active">प्रतिवेदनहरू</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">पेश गरे/नगरेको आयोजना</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4><input type="button" id="btnExport" value="Export" /></h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        @using (Ajax.BeginForm("ViewReportsSubmitwise", "VDCMUNHome", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "NotSubmitedListDivId",
+                            LoadingElementId = "loader"
+                        }))
+                        {
+                            <fieldset>
+
+
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>आर्थिक वर्ष</label>
+                                        @Html.DropDownListFor(m => m.FiscalYearID, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "dll_phaseNumber" })
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>अनुदान प्रकार</label>
+                                        @Html.DropDownListFor(m => m.GrantTypeId, GrantApp.Areas.Admin.FunctionClass.GetGrantTypeWithDefaultValue(), new { @class = "form-control form-control sm", @id = "dll_phaseNumber" })
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>पेश गरे/नगरेको</label>
+                                        @Html.DropDownListFor(m => m.SubmitOrNot, GrantApp.Areas.Admin.FunctionClass.RequestOrNotDDWithDefaultNew(), new { @class = "form-control form-control sm", @id = "dll_submitornot" })
+
+                                    </div>
+
+                                </div>
+
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o">&nbsp;</i>खोज्नुहोस</button>
+                            </fieldset>
+                        }
+
+                        <div id="loader" class="aletr" style="display:none">
+                            Loading...
+                            <img src="~/AdminResources/img/ajax-loader.gif" />
+                        </div>
+
+                        <div class="table-responsive m_table" id="NotSubmitedListDivId">
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/AdminResources/js/table2excel.js"></script>
+<script type="text/javascript">
+    var kk = $.noConflict();
+    kk(function () {
+        kk("#btnExport").click(function () {
+            kk("#NotSubmitedListTable").table2excel({
+                filename: "NotSubmitedList.xls"
+            });
+        });
+    });
+</script>
+
+
+
+
+

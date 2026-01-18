@@ -1,0 +1,105 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+@{
+    int i = 1;
+}
+
+<style>
+    .wrapper1, .wrapper2 {
+        width: 1000px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .wrapper1 {
+        height: 30px;
+    }
+
+    .wrapper2 {
+        height: 900px;
+    }
+
+    .div1 {
+        width: 1200px;
+        height: 100px;
+    }
+
+    .div2 {
+        width: 1200px;
+        height: 900px;
+        overflow: auto;
+    }
+</style>
+
+
+<div class="table-responsive m_table">
+
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>प्रदेश</th>
+                <th>जिल्ला</th>
+                <th>गापा/नपा</th>
+                <th>आ.व.</th>
+                <th>आयोजना कोड</th>
+                <th>अनुदान प्रकार</th>
+                <th>शिर्षक</th>
+                <th>अवधि</th>
+                <th>कैफियत</th>
+                <th>कागजात</th>
+                <th>कागजात</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.canceledApplicationListViewModelList)
+            {
+
+
+                <tr>
+                    <th scope="row">@i</th>
+
+                    <td>@item.ProvinceTitleEng</td>
+                    <td>@item.DistrictNameEng</td>
+                    <td>@item.VdcMunNameEng</td>
+                    <td>@item.PhaseTitle</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.GrantTypeName</td>
+                    <th>@item.SubProgramTitle</th>
+                    <th>@item.TimeDurationYear</th>
+                    <th>@item.CancelledRemarks</th>
+                    @if (string.IsNullOrEmpty(item.CancelledDocuments))
+                    {
+                        <td> छैन</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.CancelledDocuments }, new { @class = "fa fa-download" })
+                        </td>
+                    }
+
+                    @if (string.IsNullOrEmpty(item.CancelledDocuments1))
+                    {
+                        <td> छैन</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.CancelledDocuments1 }, new { @class = "fa fa-download" })
+                        </td>
+                    }
+
+
+                </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+
+
+</div>
+

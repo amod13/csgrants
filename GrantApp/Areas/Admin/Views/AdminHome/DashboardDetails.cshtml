@@ -1,0 +1,205 @@
+﻿@model GrantApp.Areas.Admin.Models.DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .btn-group-sm > .btn, .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+</style>
+<section class="dashboard-counts section-padding">
+
+    <div class="publicInfo" style="display:flex;justify-content:flex-end">
+        <div>
+            <label style="margin-top:16px;padding-right:10px;padding-left:20px"> आर्थिक वर्ष:</label>
+        </div>
+        <div>
+            @Html.DropDownListFor(m => m.ProgramPhaseNumber, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "dll_phaseNumber", @style = "width:180px;margin-top:12px" })
+            @*@Html.TextBox("txtProgramID", null, new { @style = "width:180px;margin-top:12px", @id = "txtProgramID", @placeholder = "eg:1098", @class = "form-control" })*@
+        </div>
+        <div class="col-md-1" style="margin-left:1px;margin-top:13px">
+            <button type="button" id="btn_SearchFiscalyearWise" class="btn btn-sm btn-success" value='SearchProgram' data-toggle="modal" data-target="#exampleModal123456" onclick="ShowProgramPhaseWiseDetails()">खोज्नुहोस</button>
+        </div>
+
+    </div>
+
+    <div id="FiscalYearWiseDetails">
+
+
+        <div class="container-fluid">
+            <div class="alert alert-info">
+                @Model.ProgramPhaseNumberStr को लागि प्रस्तावित आयोजना/कार्यक्रमको विवरण
+            </div>
+            <div class="row">
+
+                <div class="col-xl-3 col-md-4 col-6">
+                    <div class="info-box">
+                        <div class="wrapper count-title d-flex">
+
+                            <div class="name">
+                                <strong class="text-uppercase">नयाँ आयोजना/कार्यक्रम </strong>
+                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.GetTotalProgramCountPhaseWise(4)</strong></div>
+
+                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4)</div>
+
+                                <div class="count-number">स्था.तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4)</div>
+                                <div class="count-number">प्रदेश रकम माग: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4)</div>
+
+                                <div class="count-number">स्था.तह रकम मागः  @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>
+
+                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(2, 4)</div>
+                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(4, 4)</div>
+                                @*<div class="count-number">स्वीकृत रकम प्र.तर्फ: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>
+                                    <div class="count-number">स्वीकृत रकम स्था.तह तर्फ: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>*@
+
+
+
+                                <div>
+                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 0, @id1 = 4 })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Count item widget-->
+                <div class="col-xl-3 col-md-4 col-6">
+                    <div class="info-box">
+                        <div class="wrapper count-title d-flex">
+
+                            <div class="name">
+                                <strong class="text-uppercase"> विशेष अनुदान तर्फ</strong>
+                                <div class="count-number"><strong>जम्मा: @GrantApp.CommontUtilities.TotalSpecialProgramCount(1) </strong></div>
+                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4, 1)</div>
+
+                                <div class="count-number">स्था.तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4, 1)</div>
+                                <div class="count-number">प्रदेश रकम मागः @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4, 1)</div>
+
+                                <div class="count-number">स्था.रकम मागः @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4, 1)</div>
+                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, 4, 1)</div>
+                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, 4, 1)</div>
+
+
+
+                                <div>
+                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 1, @id1 = 4 })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Count item widget-->
+                <div class="col-xl-3 col-md-4 col-6">
+                    <div class="info-box">
+                        <div class="wrapper count-title d-flex">
+
+                            <div class="name">
+                                <strong class="text-uppercase"> समपुरक अनुदान तर्फ</strong>
+                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.TotalComplementryProgramCount(1) </strong></div>
+                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4, 2)</div>
+
+                                <div class="count-number">स्था.तह तर्फ: @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4, 2)</div>
+                                <div class="count-number">प्रदेश रकम माग: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4, 2)</div>
+
+                                <div class="count-number">स्था.तह रकम: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4, 2)</div>
+                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, 4, 2)</div>
+                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, 4, 2)</div>
+
+                                <div>
+                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 2, @id1 = 4 })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-3 col-md-4 col-6">
+                    <div class="info-box">
+                        <div class="wrapper count-title d-flex">
+
+                            <div class="name">
+                                <strong class="text-uppercase">क्रमागत आयोजना/कार्यक्रम</strong>
+                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(0, 0, 14) </strong></div>
+                                <div class="count-number">विशेष अनुदानः @GrantApp.CommontUtilities.TotalRequestAmountGrantTypeWise(14, 1)</div>
+                                <div class="count-number">समपुरक अनुदानः @GrantApp.CommontUtilities.TotalRequestAmountGrantTypeWise(14, 2)</div>
+                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(2, 4, 14)</div>
+                                <div class="count-number">स्थानिय तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(4, 4, 14)</div>
+
+                                <div class="count-number">प्रदेश रकम: @GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(2, 4, 14)</div>
+                                <div class="count-number">स्थानिय रकम: @GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(4, 4, 14)</div>
+
+                                <div>
+                                    @Html.ActionLink("विवरण", "ViewDashboardRequestAmountList", new { @id = 0, @id1 = 14 })
+                                </div>
+                                @*<div>
+                                        @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 2, @id1 = 4 })
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
+</section>
+<style>
+    .info-box {
+        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+        border-radius: .25rem;
+        padding: .5rem;
+        min-height: 80px;
+        background: #fff;
+    }
+
+    .dashboard-counts .count-number {
+        font-size: 1em;
+    }
+</style>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+<script>
+    function ShowProgramPhaseWiseDetails() {
+        var PhaseNumber = $("#dll_phaseNumber").val();
+
+        $.ajax({
+                type: 'POST',
+            url: '@Url.Action("ShowProgramPhaseWiseDetails", "AdminHome")?id=' + PhaseNumber,
+            success: function (result) {
+
+                    $('#FiscalYearWiseDetails').html(result);
+
+
+                }
+            });
+
+    }
+</script>
+
+
+
+

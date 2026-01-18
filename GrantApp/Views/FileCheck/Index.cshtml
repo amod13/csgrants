@@ -1,0 +1,21 @@
+﻿@model List<GrantApp.Models.FileCheckResult>
+
+<h2>File Check Results</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>SubProgram ID</th>
+            <th>File Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SubProgramId</td>
+                <td>@item.FileName</td>
+            </tr>
+        }
+    </tbody>
+</table>

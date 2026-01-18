@@ -1,0 +1,41 @@
+﻿@model GrantApp.Models.OfficeDetailsViewModel
+@{
+
+    int i = 1;
+}
+
+<table class="table table-hover" id="IdleUserlisttable">
+    <thead>
+        <tr>
+            <th>क्रम</th>
+            <th>आ.व.</th>
+            <th>प्रदेश</th>
+            <th>जिल्ला</th>
+            <th>गापा/नपा</th>
+            <th>कार्यलयको नाम</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.OfficeDetailsViewModelList)
+        {
+
+
+            <tr>
+                <td scope="row">@i</td>
+                <td>@item.PhaseTitle</td>
+                <td>@item.ProvinceTitleEng</td>
+                <td>@item.DistrictNameEng</td>
+                <td>@item.VdcMunNameEng</td>
+                <td>@item.OfficeName</td>
+
+            </tr>
+            ++i;
+        }
+
+
+    </tbody>
+</table>
+

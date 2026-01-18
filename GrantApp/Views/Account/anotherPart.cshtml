@@ -1,0 +1,170 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and FAQ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 300px; /* Set your fixed height here */
+        }
+
+        .login-form {
+            flex: 1;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .faq-section {
+            flex: 3;
+            padding: 20px;
+            background-color: #e0e0e0;
+            overflow-y: auto; /* Enable vertical scroll when content overflows */
+        }
+
+        /* Style the login form */
+        .login-form form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        .login-form button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Style the FAQ section */
+        .faq-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .faq-section ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .faq-section li {
+            margin-bottom: 12px;
+        }
+
+        .faq-section .question {
+            cursor: pointer;
+            color: #0066cc;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-section .answer {
+            display: none;
+            margin-top: 5px;
+        }
+
+        .faq-section .arrow-icon {
+            width: 15px;
+            height: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .faq-section .question.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="faq-section">
+            <h2>FAQ</h2>
+            <ul>
+                <!-- Add more FAQ items as needed -->
+                <li>
+                    <div class="question">
+                        What is this website about?
+                        <div class="arrow-icon">▼</div>
+                    </div>
+                    <div class="answer">This website is about...</div>
+                </li>
+                <li>
+                    <div class="question">
+                        How can I contact support?
+                        <div class="arrow-icon">▼</div>
+                    </div>
+                    <div class="answer">You can contact support by...</div>
+                </li>
+                <li>
+                    <div class="question">
+                        Is my data secure?
+                        <div class="arrow-icon">▼</div>
+                    </div>
+                    <div class="answer">Yes, we take data security seriously...</div>
+                </li>
+                <!-- ... -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get all question elements
+            var questions = document.querySelectorAll('.faq-section .question');
+
+            questions.forEach(function (question) {
+                question.addEventListener('click', function () {
+                    // Toggle the display of the corresponding answer
+                    var answer = question.nextElementSibling;
+                    answer.style.display = (answer.style.display === 'none') ? 'block' : 'none';
+                    // Toggle the arrow icon
+                    question.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

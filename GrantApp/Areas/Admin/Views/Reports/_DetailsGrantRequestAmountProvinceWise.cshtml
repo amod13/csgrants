@@ -1,0 +1,190 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+    decimal TotalRequestedAmount = 0;
+    decimal? RequestFirstYeartotal = 0;
+    decimal? RequestSecondYeartotal = 0;
+    decimal? RequestThirYeartotal = 0;
+    decimal? grantedFirstYearTotal = 0;
+    decimal? grantedSecondYearTotal = 0;
+    decimal? grantedThirdYearTotal = 0;
+    decimal? TotalChaluAmount = 0;
+    decimal? TotalPujiAmountSum = 0;
+}
+<div class="wrapper1">
+    <div class="div1"></div>
+</div>
+<div class="wrapper2">
+    <div class="div2">
+        <div class="table-responsive">
+            <div class="cd">
+                <table class="table table-hover" id="DetailsReportsID">
+                    <thead>
+                        <tr>
+                            <th>क्रम</th>
+                            <th>आ.व.</th>
+                            <th>प्रदेश</th>
+                            <th>मुलभुत क्षेत्र</th>
+                            <th>आयोजनाको कोड</th>
+                            <th>आयोजनाको नाम</th>
+                            <th>अवधि</th>
+                            <th>कूल लागत</th>
+                            <th>सम्बन्धित तहले व्यहोर्ने</th>
+                            @*<th>माग रकम (प्र.व.)</th>*@
+                            <th>स्वीकृत रकम (प्र.व.)</th>
+                            @*<th>माग रकम (दो.व.)</th>*@
+                            <th>स्वीकृत रकम (दो.व.)</th>
+                            @*<th>माग रकम (ते.व.)</th>*@
+                            <th>स्वीकृत रकम (ते.व.)</th>
+                            <th>हाल माग गरिएको रकम</th>
+                            @if (Model.ViewBagGrantTypeId == 1)
+                            {
+                                <th>चालु तर्फ</th>
+                                <th>पूजिँगत तर्फ</th>
+                            }
+
+                            <th>ठेक्का रकम</th>
+                            <th></th>
+                            <th>प्र.वि</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.ComplementryReportViewModelList)
+                        {
+
+                            decimal TotalBudgetAmt = item.TotalBudget;
+                            decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                            decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                            decimal GrantAmountFirst = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 1);
+                            decimal GrantAmountSecond = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 2);
+                            decimal GrantAmountThird = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 3);
+
+                            GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+                            GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                            GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+                            TotalRequestedAmount = TotalRequestedAmount + item.AmountSecond;
+                            RequestFirstYeartotal = RequestFirstYeartotal + item.BudgetForFirstYear;
+                            RequestSecondYeartotal = RequestSecondYeartotal + item.BudgetForSecondYear;
+                            RequestThirYeartotal = RequestThirYeartotal + item.BudgetForThirdYear;
+
+                            grantedFirstYearTotal = grantedFirstYearTotal + GrantAmountFirst;
+                            grantedSecondYearTotal = grantedSecondYearTotal + GrantAmountSecond;
+                            grantedThirdYearTotal = grantedThirdYearTotal + GrantAmountThird;
+                            TotalPujiAmountSum = TotalPujiAmountSum + item.PujigatAmount;
+                            TotalChaluAmount = TotalChaluAmount + item.ChaluAmount;
+
+
+                            <tr>
+                                <td scope="row">@i</td>
+                                <td>@item.PhaseTitle</td>
+                                <td>@item.OfficeName</td>
+                                <td>@item.SectionName</td>
+                                <td>@item.SubProgramId</td>
+                                <td>@item.SubProgramTitle</td>
+                                <td>@item.TimeDurationYear</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalBudget)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.AmountProvinceVdc)</td>
+                                @*<td>@item.BudgetForFirstYear</td>*@
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrantAmountFirst)</td>
+                                @*<td>@item.BudgetForSecondYear</td>*@
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrantAmountSecond)</td>
+                                @*<td>@item.BudgetForThirdYear</td>*@
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrantAmountThird)</td>
+                                @if (Model.ProgramPhaseNumber > 1)
+                                {
+                                    <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.AmountSecond)</td>
+                                }
+                                else
+                                {
+                                    <td>@GrantApp.CommontUtilities.RetrunRsInLakh(RequestAmt)</td>
+                                }
+                                @if (Model.ViewBagGrantTypeId == 1)
+                                {
+                                    <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.ChaluAmount)</td>
+                                    <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.PujigatAmount)</td>
+
+                                }
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.ContractAmount)</td>
+
+                                @if (usertype == 5 && Model.ProgramPhaseNumber == 15)
+                                {
+
+                                    <td>
+                                        @Html.ActionLink(" ", "ViewDetailGrantRequestAmount", "Reports", new { @id = item.SubProgramId, @id1 = Model.ProgramPhaseNumber }, new { @class = "edits fa fa-plus", title = "अनुमोदित रकम राख्नुहोस" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+
+                                <td>
+                                    @Html.ActionLink(" ", "ViewDetailProgressReportForAll", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 0, @id3 = 1 }, new { @class = "edits fa fa-eye", target = "_blank" })
+                                </td>
+
+
+
+
+                            </tr>
+
+                            ++i;
+                        }
+
+
+                        @if (Model.ViewBagGrantTypeId == 1)
+                        {
+                            <tr style="font-weight:bold;">
+                                <td colspan="7">जम्मा रकम</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrandTotalAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrandVDCMUNAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedFirstYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedSecondYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedThirdYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(TotalRequestedAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(TotalChaluAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(TotalPujiAmountSum)</td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="font-weight:bold;">
+                                <td colspan="7">जम्मा रकम</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrandTotalAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(GrandVDCMUNAmount)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedFirstYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedSecondYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(grantedThirdYearTotal)</td>
+                                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(TotalRequestedAmount)</td>
+                            </tr>
+
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".wrapper1").scroll(function () {
+            $(".wrapper2").scrollLeft($(".wrapper1").scrollLeft());
+        });
+        $(".wrapper2").scroll(function () {
+            $(".wrapper1").scrollLeft($(".wrapper2").scrollLeft());
+        });
+    });
+</script>

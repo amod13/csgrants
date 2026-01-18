@@ -1,0 +1,74 @@
+﻿@model GrantApp.Models.GrantTypeViewModel
+
+@{
+    ViewBag.Title = "ListGrantType";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">अनुदान</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">अनुदान</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    @*<div class="card-header">
+                            <h4>Striped table Create <a href="#" class="btn btn-sm btn-success">Create</a></h4>
+                        </div>*@
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शिर्षक</th>
+                                        @*<th>अवस्था</th>*@
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.GrantTypeViewModelList)
+                                    {
+
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <td>@item.GrantTypeName</td>
+                                           
+                                            @*<td>@item.Status</td>*@
+                                            <td>
+                                                @Html.ActionLink(" ", "Index", new { @id = item.GrantTypeId }, new { @class = "edits fa fa-plus" })
+                                                @*<a href="#" class="edits" title="Edit"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" class="views" title="View"><i class="fa fa-eye"></i></a>
+                                                    <a href="#" class="deletes" title="Delete"><i class="fa fa-trash"></i></a>*@
+                                            </td>
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,67 @@
+﻿@model GrantApp.Models.GetSubprogramListForApprovedActionVM
+@{
+    int i = 1;
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+}
+
+<div class="table-responsive m_table" id="NotSubmitedListDivId">
+    <table class="table table-hover table-sm table-border" id="NotSubmitedListTable">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>प्रदेश</th>
+                <th>आयोजनाको नाम</th>
+                <th>कोड</th>
+                <th>आ.व.</th>
+                <th>अवधि</th>
+                <th>स्वीकृत अवस्था</th>
+                <th>पेश गरे/नगरेको</th>
+                <th>कार्य</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.GetSubprogramListForApprovedActionVMList)
+            {
+                string ApprovedVal = @"अस्वीकृत";
+                string submissionStatus = @"पेश नगरेको";
+                string linkTextStr = @"स्वीकृत गर्नुहोस";
+
+                if (item.ApprovedStatus)
+                {
+                    ApprovedVal = @"स्वीकृत";
+                    linkTextStr = @"अस्वीकृत गर्नुहोस";
+                }
+
+                if (item.Status == 2)
+                {
+                    submissionStatus = @"पेश गरेको";
+                    
+                }
+
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.ProvinceTitleNep</td>
+
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.SubProgramId</td>
+                    <th>@item.PhaseTitle</th>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@ApprovedVal</td>
+                    <td>@submissionStatus</td>
+                    <td>                      
+                        @Html.ActionLink($"{linkTextStr}", "DoAction", new { @id = item.SubProgramId,@id1=item.GrantTypeId }, new { @class = "edits" })
+                    </td>
+
+
+                </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+
+

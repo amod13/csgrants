@@ -1,0 +1,20 @@
+﻿@model GrantApp.Models.ProgramSetup
+
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>मुलभुत</label>
+        @Html.DropDownListFor(m => m.MainSectionId, GrantApp.Areas.Admin.FunctionClass.GetMainSectionListDD(Model.ViewBagGrantTypeId), new { @class = "form-control form-control sm" })
+
+    </div>
+
+
+    <div class="col-md-12 col-sm-6 form-group">
+        <label>शिर्षक</label>
+        @Html.TextBoxFor(m => m.ProgramName, new { @class = "form-control form-control sm" })
+
+    </div>
+
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int i = 1;
+}
+
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>जिल्ला</th>
+                <th>स्थानिय तहको नाम</th>
+                <th>कार्यालय</th>
+                <th>ईमेल</th>
+                <th>आधिकारीक ईमेल</th>
+                <th>फोन</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OfficeDetalProvinceWiseViewModelList)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.DistrictNameNep</td>
+                    <td>@item.VdcMunNameNep</td>
+                    <td>@item.OfficeName</td>
+                    <td>@item.EmailID</td>
+                    <td>@item.AuthorizedEmail</td>
+                    <td>@item.Phone</td>
+
+                </tr>
+
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

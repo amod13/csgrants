@@ -1,0 +1,99 @@
+﻿@model GrantApp.Models.FiscalYearViewModel
+
+@{
+    ViewBag.Title = "ProgressDetailView";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int SnNo = 1;
+}
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रगति विवरण</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>आयोजना/कार्यक्रमको नाम : @CommontUtilities.GetSubProgramNameById(Model.ProgramId)</h4>
+                        <br/>
+                        <hr/>
+                        <h6>"आ. ब. २०८०/८१ को प्रथम चौमासिक सम्मको सम्पूर्ण प्रतिवेदनहरु पेश गर्नुहोस |"</h6>
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आर्थिक वर्ष</th>
+                                        <th>प्रथम चौमासिक</th>
+                                        <th>दोस्रो चौमासिक</th>
+                                        <th>तेस्रो चौमासिक</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.FiscalYearViewModelList)
+                                    {
+
+                                        <tr>
+                                            <td>@SnNo</td>
+                                            <td>@item.FiscalYearTitle</td>
+                                            <td>
+
+                                                @Html.ActionLink("प्रथम चौमासिक", "AddProgressDetail", "SubProgramSetup", new { @id = item.ProgramId, @id1 = Model.GrantTypeId, @id2 = 1, @id3 = item.FiscalYearId }, new { @class = GrantApp.Areas.Admin.FunctionClass.CheckIfAlreadyInsertedProgressRpt(Model.ViewBagOfficeId, item.ProgramId, item.FiscalYearId, 1) })
+
+                                            </td>
+                                            <td>
+
+                                                @Html.ActionLink("दोस्रो चौमासिक", "AddProgressDetail", "SubProgramSetup", new { @id = item.ProgramId, @id1 = Model.GrantTypeId, @id2 = 2, @id3 = item.FiscalYearId }, new { @class = GrantApp.Areas.Admin.FunctionClass.CheckIfAlreadyInsertedProgressRpt(Model.ViewBagOfficeId, item.ProgramId, item.FiscalYearId, 2) })
+
+                                            </td>
+                                            <td>
+
+                                                @Html.ActionLink("तेस्रो चौमासिक", "AddProgressDetail", "SubProgramSetup", new { @id = item.ProgramId, @id1 = Model.GrantTypeId, @id2 = 3, @id3 = item.FiscalYearId }, new { @class = GrantApp.Areas.Admin.FunctionClass.CheckIfAlreadyInsertedProgressRpt(Model.ViewBagOfficeId, item.ProgramId, item.FiscalYearId, 3) })
+
+                                            </td>
+                                        </tr>
+                                        SnNo++;
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "PreviousSubProgramList", "SubProgramSetup", new { @id = Model.GrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["ProgresReportNtf"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+    });
+
+
+
+</script>

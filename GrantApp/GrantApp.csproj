@@ -1,0 +1,1548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GrantApp</RootNamespace>
+    <AssemblyName>GrantApp</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.5.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.96.0\lib\net40\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Extensions.WebApi, Version=0.3.0.0, Culture=neutral, PublicKeyToken=bbacec02e699a4b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.Extensions.WebApi.0.3.0\lib\net45\ClosedXML.Extensions.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.pdfcalligraph.5.0.0\lib\net461\ICU4N.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.barcodes, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.bouncy-castle-adapter.9.0.0\lib\net461\itext.bouncy-castle-adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-connector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.bouncy-castle-connector.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.commons, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.commons.9.0.0\lib\net461\itext.commons.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.licensing.base, Version=4.2.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.licensing.base.4.2.0\lib\net461\itext.licensing.base.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfua, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.pdfua.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.sign.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.styledxmlparser, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.styledxmlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.svg, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.0.0\lib\net461\itext.svg.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.typography, Version=5.0.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.pdfcalligraph.5.0.0\lib\net461\itext.typography.dll</HintPath>
+    </Reference>
+    <Reference Include="J2N, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f39447d697a969af, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.pdfcalligraph.5.0.0\lib\net461\J2N.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.1\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.1\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.1\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.9.0.1\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.1\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.9.0.1\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.9.0.1\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.0\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminFileUploadsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AjaxRequestController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GrantRequestFormController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProgramSetupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserRegistrationController.cs" />
+    <Compile Include="Areas\Admin\FunctionClass.cs" />
+    <Compile Include="Areas\Admin\Models\AdminReport.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\LetterDetails.cs" />
+    <Compile Include="Areas\Admin\Models\ProfileUpdates.cs" />
+    <Compile Include="Areas\Admin\Models\StaticValues.cs" />
+    <Compile Include="Areas\ProvinceLevel\Controllers\ProvinceHomeController.cs" />
+    <Compile Include="Areas\ProvinceLevel\Controllers\SubProgramSetupController.cs" />
+    <Compile Include="Areas\ProvinceLevel\ProvinceLevelAreaRegistration.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\BaseController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\PublicGrantController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\AdhuroGrantController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\GrantRequestFormController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\SubProgramSetupController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\VDCMUNHomeController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\VDCMUNLevelAreaRegistration.cs" />
+    <Compile Include="CommonProvider.cs" />
+    <Compile Include="CommontUtilities.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\VDCMUNLevel\Controllers\GrantController.cs" />
+    <Compile Include="Controllers\FileCheckController.cs" />
+    <Compile Include="Controllers\GrantReportsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportsAPIController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationCompletionStatus.cs" />
+    <Compile Include="Models\DocumentRequirementsUpload.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Initializer.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OfficeDetails.cs" />
+    <Compile Include="Models\ProgramSetup.cs" />
+    <Compile Include="Models\ReportModel.cs" />
+    <Compile Include="Models\RequestGrantAmountModel.cs" />
+    <Compile Include="Models\SubProgramMaster.cs" />
+    <Compile Include="Models\UsersModel.cs" />
+    <Compile Include="Models\VDCMUNVIewModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FileServices.cs" />
+    <Compile Include="Services\PublicPrivateGrantServices.cs" />
+    <Compile Include="Services\CommonServices.cs" />
+    <Compile Include="Services\AhhuroApuroServices.cs" />
+    <Compile Include="Services\DashboardServices.cs" />
+    <Compile Include="Services\ProgramPointsServices.cs" />
+    <Compile Include="Services\ProgramServices.cs" />
+    <Compile Include="Services\ReportServices.cs" />
+    <Compile Include="Services\RequestGrantAmountService.cs" />
+    <Compile Include="Services\SubProgramServices.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="StaticValue\ConstantValues.cs" />
+    <Compile Include="StaticValue\UserType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminResources\css\custom.css" />
+    <Content Include="AdminResources\css\fontastic.css" />
+    <Content Include="AdminResources\css\grasp_mobile_progress_circle-1.0.0.min.css" />
+    <Content Include="AdminResources\css\ss.css" />
+    <Content Include="AdminResources\css\style.blue.css" />
+    <Content Include="AdminResources\css\style.default.css" />
+    <Content Include="AdminResources\css\style.green.css" />
+    <Content Include="AdminResources\css\style.pink.css" />
+    <Content Include="AdminResources\css\style.red.css" />
+    <Content Include="AdminResources\css\style.sea.css" />
+    <Content Include="AdminResources\css\style.violet.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bulma.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.dataTables.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.foundation.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.semanticui.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\buttons.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bulma.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.colVis.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.colVis.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.dataTables.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.foundation.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.html5.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.html5.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.print.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.print.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.semanticui.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\buttons.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\dataTables.buttons.js" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\js\dataTables.buttons.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bulma.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.dataTables.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.foundation.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.semanticui.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\dataTables.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\jquery.dataTables.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\css\jquery.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\images\sort_asc.png" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\images\sort_asc_disabled.png" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\images\sort_both.png" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\images\sort_desc.png" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\images\sort_desc_disabled.png" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bulma.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.dataTables.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.foundation.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.semanticui.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\dataTables.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\jquery.dataTables.js" />
+    <Content Include="AdminResources\DataTables\DataTables-1.13.4\js\jquery.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\datatables.css" />
+    <Content Include="AdminResources\DataTables\datatables.js" />
+    <Content Include="AdminResources\DataTables\datatables.min.css" />
+    <Content Include="AdminResources\DataTables\datatables.min.js" />
+    <Content Include="AdminResources\DataTables\DateTime-1.4.0\css\dataTables.dateTime.css" />
+    <Content Include="AdminResources\DataTables\DateTime-1.4.0\css\dataTables.dateTime.min.css" />
+    <Content Include="AdminResources\DataTables\DateTime-1.4.0\js\dataTables.dateTime.js" />
+    <Content Include="AdminResources\DataTables\DateTime-1.4.0\js\dataTables.dateTime.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bulma.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.dataTables.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.foundation.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.semanticui.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\css\fixedColumns.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\dataTables.fixedColumns.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\dataTables.fixedColumns.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bulma.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.dataTables.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.foundation.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.semanticui.js" />
+    <Content Include="AdminResources\DataTables\FixedColumns-4.2.2\js\fixedColumns.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bulma.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.dataTables.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.foundation.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.semanticui.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\css\fixedHeader.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\dataTables.fixedHeader.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\dataTables.fixedHeader.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bulma.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.dataTables.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.foundation.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.semanticui.js" />
+    <Content Include="AdminResources\DataTables\FixedHeader-3.3.2\js\fixedHeader.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\JSZip-2.5.0\jszip.js" />
+    <Content Include="AdminResources\DataTables\JSZip-2.5.0\jszip.min.js" />
+    <Content Include="AdminResources\DataTables\pdfmake-0.1.36\pdfmake.js" />
+    <Content Include="AdminResources\DataTables\pdfmake-0.1.36\pdfmake.min.js" />
+    <Content Include="AdminResources\DataTables\pdfmake-0.1.36\vfs_fonts.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bulma.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.dataTables.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.foundation.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.semanticui.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\css\responsive.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\dataTables.responsive.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\dataTables.responsive.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bulma.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.dataTables.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.foundation.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.semanticui.js" />
+    <Content Include="AdminResources\DataTables\Responsive-2.4.1\js\responsive.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bulma.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.dataTables.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.foundation.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.semanticui.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\css\scroller.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\dataTables.scroller.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\dataTables.scroller.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bulma.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.dataTables.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.foundation.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.semanticui.js" />
+    <Content Include="AdminResources\DataTables\Scroller-2.1.1\js\scroller.semanticui.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap4.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap4.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap5.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bootstrap5.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bulma.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.bulma.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.dataTables.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.dataTables.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.foundation.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.foundation.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.jqueryui.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.jqueryui.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.semanticui.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\css\searchBuilder.semanticui.min.css" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\dataTables.searchBuilder.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\dataTables.searchBuilder.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap4.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap4.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap5.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bootstrap5.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bulma.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.bulma.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.dataTables.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.dataTables.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.foundation.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.foundation.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.jqueryui.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.jqueryui.min.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.semanticui.js" />
+    <Content Include="AdminResources\DataTables\SearchBuilder-1.4.2\js\searchBuilder.semanticui.min.js" />
+    <Content Include="AdminResources\fonts\dashboard.svg" />
+    <Content Include="AdminResources\img\ajax-loader.gif" />
+    <Content Include="AdminResources\img\avatar-0.jpg" />
+    <Content Include="AdminResources\img\avatar-1.jpg" />
+    <Content Include="AdminResources\img\avatar-10.jpg" />
+    <Content Include="AdminResources\img\avatar-11.jpg" />
+    <Content Include="AdminResources\img\avatar-2.jpg" />
+    <Content Include="AdminResources\img\avatar-3.jpg" />
+    <Content Include="AdminResources\img\avatar-4.jpg" />
+    <Content Include="AdminResources\img\avatar-5.jpg" />
+    <Content Include="AdminResources\img\avatar-6.jpg" />
+    <Content Include="AdminResources\img\avatar-7.jpg" />
+    <Content Include="AdminResources\img\avatar-8.jpg" />
+    <Content Include="AdminResources\img\avatar-9.jpg" />
+    <Content Include="AdminResources\img\bg-img-a.jpeg" />
+    <Content Include="AdminResources\img\bg-img-b.jpeg" />
+    <Content Include="AdminResources\img\engflag.png" />
+    <Content Include="AdminResources\img\favicon.ico" />
+    <Content Include="AdminResources\img\favicon.png" />
+    <Content Include="AdminResources\img\flags\16\AD.png" />
+    <Content Include="AdminResources\img\flags\16\AE.png" />
+    <Content Include="AdminResources\img\flags\16\AF.png" />
+    <Content Include="AdminResources\img\flags\16\AG.png" />
+    <Content Include="AdminResources\img\flags\16\AI.png" />
+    <Content Include="AdminResources\img\flags\16\AL.png" />
+    <Content Include="AdminResources\img\flags\16\AM.png" />
+    <Content Include="AdminResources\img\flags\16\AN.png" />
+    <Content Include="AdminResources\img\flags\16\AO.png" />
+    <Content Include="AdminResources\img\flags\16\AQ.png" />
+    <Content Include="AdminResources\img\flags\16\AR.png" />
+    <Content Include="AdminResources\img\flags\16\AS.png" />
+    <Content Include="AdminResources\img\flags\16\AT.png" />
+    <Content Include="AdminResources\img\flags\16\AU.png" />
+    <Content Include="AdminResources\img\flags\16\AW.png" />
+    <Content Include="AdminResources\img\flags\16\AX.png" />
+    <Content Include="AdminResources\img\flags\16\AZ.png" />
+    <Content Include="AdminResources\img\flags\16\BA.png" />
+    <Content Include="AdminResources\img\flags\16\BB.png" />
+    <Content Include="AdminResources\img\flags\16\BD.png" />
+    <Content Include="AdminResources\img\flags\16\BE.png" />
+    <Content Include="AdminResources\img\flags\16\BF.png" />
+    <Content Include="AdminResources\img\flags\16\BG.png" />
+    <Content Include="AdminResources\img\flags\16\BH.png" />
+    <Content Include="AdminResources\img\flags\16\BI.png" />
+    <Content Include="AdminResources\img\flags\16\BJ.png" />
+    <Content Include="AdminResources\img\flags\16\BL.png" />
+    <Content Include="AdminResources\img\flags\16\BM.png" />
+    <Content Include="AdminResources\img\flags\16\BN.png" />
+    <Content Include="AdminResources\img\flags\16\BO.png" />
+    <Content Include="AdminResources\img\flags\16\BR.png" />
+    <Content Include="AdminResources\img\flags\16\BS.png" />
+    <Content Include="AdminResources\img\flags\16\BT.png" />
+    <Content Include="AdminResources\img\flags\16\BW.png" />
+    <Content Include="AdminResources\img\flags\16\BY.png" />
+    <Content Include="AdminResources\img\flags\16\BZ.png" />
+    <Content Include="AdminResources\img\flags\16\CA.png" />
+    <Content Include="AdminResources\img\flags\16\CC.png" />
+    <Content Include="AdminResources\img\flags\16\CD.png" />
+    <Content Include="AdminResources\img\flags\16\CF.png" />
+    <Content Include="AdminResources\img\flags\16\CG.png" />
+    <Content Include="AdminResources\img\flags\16\CH.png" />
+    <Content Include="AdminResources\img\flags\16\CI.png" />
+    <Content Include="AdminResources\img\flags\16\CK.png" />
+    <Content Include="AdminResources\img\flags\16\CL.png" />
+    <Content Include="AdminResources\img\flags\16\CM.png" />
+    <Content Include="AdminResources\img\flags\16\CN.png" />
+    <Content Include="AdminResources\img\flags\16\CO.png" />
+    <Content Include="AdminResources\img\flags\16\CR.png" />
+    <Content Include="AdminResources\img\flags\16\CT.png" />
+    <Content Include="AdminResources\img\flags\16\CU.png" />
+    <Content Include="AdminResources\img\flags\16\CV.png" />
+    <Content Include="AdminResources\img\flags\16\CW.png" />
+    <Content Include="AdminResources\img\flags\16\CX.png" />
+    <Content Include="AdminResources\img\flags\16\CY.png" />
+    <Content Include="AdminResources\img\flags\16\CZ.png" />
+    <Content Include="AdminResources\img\flags\16\DE.png" />
+    <Content Include="AdminResources\img\flags\16\DJ.png" />
+    <Content Include="AdminResources\img\flags\16\DK.png" />
+    <Content Include="AdminResources\img\flags\16\DM.png" />
+    <Content Include="AdminResources\img\flags\16\DO.png" />
+    <Content Include="AdminResources\img\flags\16\DZ.png" />
+    <Content Include="AdminResources\img\flags\16\EC.png" />
+    <Content Include="AdminResources\img\flags\16\EE.png" />
+    <Content Include="AdminResources\img\flags\16\EG.png" />
+    <Content Include="AdminResources\img\flags\16\EH.png" />
+    <Content Include="AdminResources\img\flags\16\ER.png" />
+    <Content Include="AdminResources\img\flags\16\ES.png" />
+    <Content Include="AdminResources\img\flags\16\ET.png" />
+    <Content Include="AdminResources\img\flags\16\EU.png" />
+    <Content Include="AdminResources\img\flags\16\FI.png" />
+    <Content Include="AdminResources\img\flags\16\FJ.png" />
+    <Content Include="AdminResources\img\flags\16\FK.png" />
+    <Content Include="AdminResources\img\flags\16\FM.png" />
+    <Content Include="AdminResources\img\flags\16\FO.png" />
+    <Content Include="AdminResources\img\flags\16\FR.png" />
+    <Content Include="AdminResources\img\flags\16\GA.png" />
+    <Content Include="AdminResources\img\flags\16\GB.png" />
+    <Content Include="AdminResources\img\flags\16\GD.png" />
+    <Content Include="AdminResources\img\flags\16\GE.png" />
+    <Content Include="AdminResources\img\flags\16\GG.png" />
+    <Content Include="AdminResources\img\flags\16\GH.png" />
+    <Content Include="AdminResources\img\flags\16\GI.png" />
+    <Content Include="AdminResources\img\flags\16\GL.png" />
+    <Content Include="AdminResources\img\flags\16\GM.png" />
+    <Content Include="AdminResources\img\flags\16\GN.png" />
+    <Content Include="AdminResources\img\flags\16\GQ.png" />
+    <Content Include="AdminResources\img\flags\16\GR.png" />
+    <Content Include="AdminResources\img\flags\16\GS.png" />
+    <Content Include="AdminResources\img\flags\16\GT.png" />
+    <Content Include="AdminResources\img\flags\16\GU.png" />
+    <Content Include="AdminResources\img\flags\16\GW.png" />
+    <Content Include="AdminResources\img\flags\16\GY.png" />
+    <Content Include="AdminResources\img\flags\16\HK.png" />
+    <Content Include="AdminResources\img\flags\16\HN.png" />
+    <Content Include="AdminResources\img\flags\16\HR.png" />
+    <Content Include="AdminResources\img\flags\16\HT.png" />
+    <Content Include="AdminResources\img\flags\16\HU.png" />
+    <Content Include="AdminResources\img\flags\16\IC.png" />
+    <Content Include="AdminResources\img\flags\16\ID.png" />
+    <Content Include="AdminResources\img\flags\16\IE.png" />
+    <Content Include="AdminResources\img\flags\16\IL.png" />
+    <Content Include="AdminResources\img\flags\16\IM.png" />
+    <Content Include="AdminResources\img\flags\16\IN.png" />
+    <Content Include="AdminResources\img\flags\16\IQ.png" />
+    <Content Include="AdminResources\img\flags\16\IR.png" />
+    <Content Include="AdminResources\img\flags\16\IS.png" />
+    <Content Include="AdminResources\img\flags\16\IT.png" />
+    <Content Include="AdminResources\img\flags\16\JE.png" />
+    <Content Include="AdminResources\img\flags\16\JM.png" />
+    <Content Include="AdminResources\img\flags\16\JO.png" />
+    <Content Include="AdminResources\img\flags\16\JP.png" />
+    <Content Include="AdminResources\img\flags\16\KE.png" />
+    <Content Include="AdminResources\img\flags\16\KG.png" />
+    <Content Include="AdminResources\img\flags\16\KH.png" />
+    <Content Include="AdminResources\img\flags\16\KI.png" />
+    <Content Include="AdminResources\img\flags\16\KM.png" />
+    <Content Include="AdminResources\img\flags\16\KN.png" />
+    <Content Include="AdminResources\img\flags\16\KP.png" />
+    <Content Include="AdminResources\img\flags\16\KR.png" />
+    <Content Include="AdminResources\img\flags\16\KW.png" />
+    <Content Include="AdminResources\img\flags\16\KY.png" />
+    <Content Include="AdminResources\img\flags\16\KZ.png" />
+    <Content Include="AdminResources\img\flags\16\LA.png" />
+    <Content Include="AdminResources\img\flags\16\LB.png" />
+    <Content Include="AdminResources\img\flags\16\LC.png" />
+    <Content Include="AdminResources\img\flags\16\LI.png" />
+    <Content Include="AdminResources\img\flags\16\LK.png" />
+    <Content Include="AdminResources\img\flags\16\LR.png" />
+    <Content Include="AdminResources\img\flags\16\LS.png" />
+    <Content Include="AdminResources\img\flags\16\LT.png" />
+    <Content Include="AdminResources\img\flags\16\LU.png" />
+    <Content Include="AdminResources\img\flags\16\LV.png" />
+    <Content Include="AdminResources\img\flags\16\LY.png" />
+    <Content Include="AdminResources\img\flags\16\MA.png" />
+    <Content Include="AdminResources\img\flags\16\MC.png" />
+    <Content Include="AdminResources\img\flags\16\MD.png" />
+    <Content Include="AdminResources\img\flags\16\ME.png" />
+    <Content Include="AdminResources\img\flags\16\MF.png" />
+    <Content Include="AdminResources\img\flags\16\MG.png" />
+    <Content Include="AdminResources\img\flags\16\MH.png" />
+    <Content Include="AdminResources\img\flags\16\MK.png" />
+    <Content Include="AdminResources\img\flags\16\ML.png" />
+    <Content Include="AdminResources\img\flags\16\MM.png" />
+    <Content Include="AdminResources\img\flags\16\MN.png" />
+    <Content Include="AdminResources\img\flags\16\MO.png" />
+    <Content Include="AdminResources\img\flags\16\MP.png" />
+    <Content Include="AdminResources\img\flags\16\MQ.png" />
+    <Content Include="AdminResources\img\flags\16\MR.png" />
+    <Content Include="AdminResources\img\flags\16\MS.png" />
+    <Content Include="AdminResources\img\flags\16\MT.png" />
+    <Content Include="AdminResources\img\flags\16\MU.png" />
+    <Content Include="AdminResources\img\flags\16\MV.png" />
+    <Content Include="AdminResources\img\flags\16\MW.png" />
+    <Content Include="AdminResources\img\flags\16\MX.png" />
+    <Content Include="AdminResources\img\flags\16\MY.png" />
+    <Content Include="AdminResources\img\flags\16\MZ.png" />
+    <Content Include="AdminResources\img\flags\16\NA.png" />
+    <Content Include="AdminResources\img\flags\16\NC.png" />
+    <Content Include="AdminResources\img\flags\16\NE.png" />
+    <Content Include="AdminResources\img\flags\16\NF.png" />
+    <Content Include="AdminResources\img\flags\16\NG.png" />
+    <Content Include="AdminResources\img\flags\16\NI.png" />
+    <Content Include="AdminResources\img\flags\16\NL.png" />
+    <Content Include="AdminResources\img\flags\16\NO.png" />
+    <Content Include="AdminResources\img\flags\16\NP.png" />
+    <Content Include="AdminResources\img\flags\16\NR.png" />
+    <Content Include="AdminResources\img\flags\16\NU.png" />
+    <Content Include="AdminResources\img\flags\16\NZ.png" />
+    <Content Include="AdminResources\img\flags\16\OM.png" />
+    <Content Include="AdminResources\img\flags\16\PA.png" />
+    <Content Include="AdminResources\img\flags\16\PE.png" />
+    <Content Include="AdminResources\img\flags\16\PF.png" />
+    <Content Include="AdminResources\img\flags\16\PG.png" />
+    <Content Include="AdminResources\img\flags\16\PH.png" />
+    <Content Include="AdminResources\img\flags\16\PK.png" />
+    <Content Include="AdminResources\img\flags\16\PL.png" />
+    <Content Include="AdminResources\img\flags\16\PN.png" />
+    <Content Include="AdminResources\img\flags\16\PR.png" />
+    <Content Include="AdminResources\img\flags\16\PS.png" />
+    <Content Include="AdminResources\img\flags\16\PT.png" />
+    <Content Include="AdminResources\img\flags\16\PW.png" />
+    <Content Include="AdminResources\img\flags\16\PY.png" />
+    <Content Include="AdminResources\img\flags\16\QA.png" />
+    <Content Include="AdminResources\img\flags\16\RE.png" />
+    <Content Include="AdminResources\img\flags\16\RO.png" />
+    <Content Include="AdminResources\img\flags\16\RS.png" />
+    <Content Include="AdminResources\img\flags\16\RU.png" />
+    <Content Include="AdminResources\img\flags\16\RW.png" />
+    <Content Include="AdminResources\img\flags\16\SA.png" />
+    <Content Include="AdminResources\img\flags\16\SB.png" />
+    <Content Include="AdminResources\img\flags\16\SC.png" />
+    <Content Include="AdminResources\img\flags\16\SD.png" />
+    <Content Include="AdminResources\img\flags\16\SE.png" />
+    <Content Include="AdminResources\img\flags\16\SG.png" />
+    <Content Include="AdminResources\img\flags\16\SH.png" />
+    <Content Include="AdminResources\img\flags\16\SI.png" />
+    <Content Include="AdminResources\img\flags\16\SK.png" />
+    <Content Include="AdminResources\img\flags\16\SL.png" />
+    <Content Include="AdminResources\img\flags\16\SM.png" />
+    <Content Include="AdminResources\img\flags\16\SN.png" />
+    <Content Include="AdminResources\img\flags\16\SO.png" />
+    <Content Include="AdminResources\img\flags\16\SR.png" />
+    <Content Include="AdminResources\img\flags\16\SS.png" />
+    <Content Include="AdminResources\img\flags\16\ST.png" />
+    <Content Include="AdminResources\img\flags\16\SV.png" />
+    <Content Include="AdminResources\img\flags\16\SX.png" />
+    <Content Include="AdminResources\img\flags\16\SY.png" />
+    <Content Include="AdminResources\img\flags\16\SZ.png" />
+    <Content Include="AdminResources\img\flags\16\TC.png" />
+    <Content Include="AdminResources\img\flags\16\TD.png" />
+    <Content Include="AdminResources\img\flags\16\TF.png" />
+    <Content Include="AdminResources\img\flags\16\TG.png" />
+    <Content Include="AdminResources\img\flags\16\TH.png" />
+    <Content Include="AdminResources\img\flags\16\TJ.png" />
+    <Content Include="AdminResources\img\flags\16\TK.png" />
+    <Content Include="AdminResources\img\flags\16\TL.png" />
+    <Content Include="AdminResources\img\flags\16\TM.png" />
+    <Content Include="AdminResources\img\flags\16\TN.png" />
+    <Content Include="AdminResources\img\flags\16\TO.png" />
+    <Content Include="AdminResources\img\flags\16\TR.png" />
+    <Content Include="AdminResources\img\flags\16\TT.png" />
+    <Content Include="AdminResources\img\flags\16\TV.png" />
+    <Content Include="AdminResources\img\flags\16\TW.png" />
+    <Content Include="AdminResources\img\flags\16\TZ.png" />
+    <Content Include="AdminResources\img\flags\16\UA.png" />
+    <Content Include="AdminResources\img\flags\16\UG.png" />
+    <Content Include="AdminResources\img\flags\16\US.png" />
+    <Content Include="AdminResources\img\flags\16\UY.png" />
+    <Content Include="AdminResources\img\flags\16\UZ.png" />
+    <Content Include="AdminResources\img\flags\16\VA.png" />
+    <Content Include="AdminResources\img\flags\16\VC.png" />
+    <Content Include="AdminResources\img\flags\16\VE.png" />
+    <Content Include="AdminResources\img\flags\16\VG.png" />
+    <Content Include="AdminResources\img\flags\16\VI.png" />
+    <Content Include="AdminResources\img\flags\16\VN.png" />
+    <Content Include="AdminResources\img\flags\16\VU.png" />
+    <Content Include="AdminResources\img\flags\16\WF.png" />
+    <Content Include="AdminResources\img\flags\16\WS.png" />
+    <Content Include="AdminResources\img\flags\16\YE.png" />
+    <Content Include="AdminResources\img\flags\16\YT.png" />
+    <Content Include="AdminResources\img\flags\16\ZA.png" />
+    <Content Include="AdminResources\img\flags\16\ZM.png" />
+    <Content Include="AdminResources\img\flags\16\ZW.png" />
+    <Content Include="AdminResources\img\flags\16\_abkhazia.png" />
+    <Content Include="AdminResources\img\flags\16\_basque-country.png" />
+    <Content Include="AdminResources\img\flags\16\_british-antarctic-territory.png" />
+    <Content Include="AdminResources\img\flags\16\_commonwealth.png" />
+    <Content Include="AdminResources\img\flags\16\_england.png" />
+    <Content Include="AdminResources\img\flags\16\_gosquared.png" />
+    <Content Include="AdminResources\img\flags\16\_kosovo.png" />
+    <Content Include="AdminResources\img\flags\16\_mars.png" />
+    <Content Include="AdminResources\img\flags\16\_nagorno-karabakh.png" />
+    <Content Include="AdminResources\img\flags\16\_nato.png" />
+    <Content Include="AdminResources\img\flags\16\_northern-cyprus.png" />
+    <Content Include="AdminResources\img\flags\16\_olympics.png" />
+    <Content Include="AdminResources\img\flags\16\_red-cross.png" />
+    <Content Include="AdminResources\img\flags\16\_scotland.png" />
+    <Content Include="AdminResources\img\flags\16\_somaliland.png" />
+    <Content Include="AdminResources\img\flags\16\_south-ossetia.png" />
+    <Content Include="AdminResources\img\flags\16\_united-nations.png" />
+    <Content Include="AdminResources\img\flags\16\_unknown.png" />
+    <Content Include="AdminResources\img\flags\16\_wales.png" />
+    <Content Include="AdminResources\img\login_bg.png" />
+    <Content Include="AdminResources\img\logo.png" />
+    <Content Include="AdminResources\img\map-close.png" />
+    <Content Include="AdminResources\img\map-marker-blue.png" />
+    <Content Include="AdminResources\img\map-marker-default.png" />
+    <Content Include="AdminResources\img\map-marker-green.png" />
+    <Content Include="AdminResources\img\map-marker-pink.png" />
+    <Content Include="AdminResources\img\map-marker-red.png" />
+    <Content Include="AdminResources\img\map-marker-sea.png" />
+    <Content Include="AdminResources\img\map-marker-violet.png" />
+    <Content Include="AdminResources\img\map-marker.png" />
+    <Content Include="AdminResources\img\mockup1.jpg" />
+    <Content Include="AdminResources\img\mockup2.jpg" />
+    <Content Include="AdminResources\img\mockup3.jpg" />
+    <Content Include="AdminResources\img\mockup4.jpg" />
+    <Content Include="AdminResources\img\mockup5.jpg" />
+    <Content Include="AdminResources\img\mockup6.jpg" />
+    <Content Include="AdminResources\img\mockup7.jpg" />
+    <Content Include="AdminResources\img\multiselect-switch.png" />
+    <Content Include="AdminResources\img\npflag.png" />
+    <Content Include="AdminResources\img\photos\250px-Emblem_of_Nepal.svg.png" />
+    <Content Include="AdminResources\img\photos\msgrant-01.png" />
+    <Content Include="AdminResources\img\photos\msgrant-02.png" />
+    <Content Include="AdminResources\img\photos\paul-morris-116514-unsplash.jpg" />
+    <Content Include="AdminResources\img\template-mac.png" />
+    <Content Include="AdminResources\img\Visit-Nepal_Logo.png" />
+    <Content Include="AdminResources\js\charts-custom.js" />
+    <Content Include="AdminResources\js\charts-home.js" />
+    <Content Include="AdminResources\js\front.js" />
+    <Content Include="AdminResources\js\grasp_mobile_progress_circle-1.0.0.min.js" />
+    <Content Include="AdminResources\js\table2excel.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\suchana.jpg" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="css\style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminHeader.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminSideBar.cshtml" />
+    <Content Include="AdminResources\fonts\dashboard.eot" />
+    <Content Include="AdminResources\fonts\dashboard.ttf" />
+    <Content Include="AdminResources\fonts\dashboard.woff" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\List.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\UserRegistration\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProgramSetup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProgramSetup\ListGrantType.cshtml" />
+    <Content Include="Areas\Admin\Views\ProgramSetup\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProgramSetup\_CreateEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProgramSetup\Edit.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\web.config" />
+    <Content Include="Areas\ProvinceLevel\Views\Shared\_ProvinceHeader.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\Shared\_ProvinceLayout.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\Shared\_ProvinceSideBar.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\ProvinceHome\Dashboard.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\web.config" />
+    <Content Include="Areas\VDCMUNLevel\Views\Shared\_VDCMUNHeader.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Shared\_VDCMUNLayout.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Shared\_VDCMUNSideBar.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\Dashboard.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ListSubProgram.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\Create.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEdit.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\Edit.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\ViewDeatils.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\SubProgramSetup\ListSubProgram.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\SubProgramSetup\Create.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\SubProgramSetup\_CreateEdit.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\SubProgramSetup\ViewDetails.cshtml" />
+    <Content Include="Areas\ProvinceLevel\Views\SubProgramSetup\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\ProposalValuation.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\ProposalValuationList.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\ProposalValuationResultList.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\IndexComplementary.cshtml" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\Index.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\IndexComplementary.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\ProposalValuation.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\ProposalValuationList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\ProposalValuationResultList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\GrantRequestForm\ViewDeatils.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CheckListAction.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEditCheckList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\PrintPreview.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CheckListActionUpload.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\FifteenYojana.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ComplementryIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SpecialGrantIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsReports.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\NotSubmitedList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsListForSubmited.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsListForSpecialGrant.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsListForComplementryGrant.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\IdleUserList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchReportProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsReportsProvincesWise.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\ProposalValuationResultListGrantTypeII.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsListForResult.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\_PartialValuationResultList.cshtml" />
+    <Content Include="Areas\Admin\Views\GrantRequestForm\_PartialValuationResultListII.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DuplicateSubProgramList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ProgramwiseAmount.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchReportAmountWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchReportProvinceAmountWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsReportsAmountWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsReportsProvincesAmountWise.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\AddProgressDetail.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEditQuadrimesterReports.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ProgressDetailList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ProgressDetailView.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchProgressRptProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchProgressReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportsVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDetailProgressReport.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ChangeProgramPriority.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\PreviousSubProgramList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDetailPrevious.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ReqestGrantAmount.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_NotSubmitedList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsGrantRequestAmountProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsGrantRequestAmountVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchGrantAmountRequestProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchGrantRequestAmount.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDetailGrantRequestAmount.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\populateRequestedGrantAmountList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDetailsForGrantRequestAmount.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ViewReportFiscalYearWise.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_IdleUserListDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\IdleUserListFYWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_IdleUserFiscalYearWise.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\UpdateMunTitle.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewProfile.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CancleForThisFY.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\DisplayValidationRule.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ProgramPriority.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CheckValidation.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CheckValidationForProgress.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CheckValidationForPrevious.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiOne.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiOne.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiTwo.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiTwo.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiThree.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiFour.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiThree.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiFour.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiFive.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiFive.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ViewDashboardNewProgramList.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ViewDashboardRequestAmountList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewReports.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ReportViewDetailById.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDetailProgressReportForClient.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ReqestGrantAmountFromList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchOffices.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_OfficeSearchDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AdminReportGrantedAmountProWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_GrantedAmountProvincesWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AdminReportGrantedAmountVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_GrantedAmountVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AnusuchiSix.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AnusuchiSix.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetAllRunningApplicationList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_RunningApplicationList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\OfficesNotApprovedTill.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetNotGrantedOfficeDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ApprovedRejectedOfficeFYWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsApprovedOffice.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsRejectedOffice.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetApplicationDetailsByOfficePhaseId.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetCanceledApplicationList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetApplicationDetailForEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ApplicationRecordForEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ChangeSubProgramDetailById.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDetailProgressReportForAnusuchi.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\PointsFromAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SpecialPointsFromAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ComplementryPointsFromAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_SubprogramBasicDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DashBoardProgressRptProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DashBoardProgressNotSubmitedList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportProvinceWiseNotSubmited.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportsVDCWiseNotSubmited.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_GetCanceledApplicationList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListFinalResultProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListFinalResultVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListFinalResultProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListFinalResultVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\__ProgramDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\__ProgramDetailsError.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\__SectionWiseCountDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDeatilsApprovedRejectedOfficeFYWise.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ViewDeatilsFromDashboard.cshtml" />
+    <Content Include="Areas\Admin\Controllers\GrantRequestFormController.cs~RF2adc0b.TMP" />
+    <Content Include="Areas\Admin\Views\Reports\AddApprovedAmountByAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewAllDetailsProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllDetailsProvinceWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewAllDetailsVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllDetailsVDCWiseError.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllDetailsVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewDetailProgressReportForAll.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\DashboardDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListAllSelectedProgram.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\viewAllDetailByOffice.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewDetailProgressReportForAll.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\__FiscalYearWiseDetails.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewReportsSubmitwise.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\_SubmitedNotSubmitedList.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ListLetter.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\AddNewLetter.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\EditNewLetter.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\_CreateEditLetter.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ViewLetterDetail.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ListLetter.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewLetterDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\SearchOffice.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\_DetailsSearchOfficeReports.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViewProgramDetailStatusWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ViewAllSifarish.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllSifarishVDCWiseError.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllSifarishVdcMunWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ViewAllSifarishVdcMunWiseBishesh.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\AddProgressDetailByFY.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ApplicationStatusDetails.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\CreateSpecial.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEditSpecial.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEditQuadrimesterReportsForNotRunning.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ReqDocUploads.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\_CreateEditReqDocs.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\GetNotCompletedProjectList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListWorkCompletedAayojana.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListWorkNotCompletedAayojana.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListDroppedAayojana.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\NotSubmitedListForProvince.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_NotSubmitedListForProvince.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\NotSubmitedListForLocalLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_NotSubmitedListForLocalLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\OfficeDetailsByProvince.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_OfficeDetailsByProvinceId.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_OfficeDetailsByLocalLevelId.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\OfficeDetailsByLocalLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ProvicneApprovedActionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ProvicneApprovedActionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DoAction.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\LocalevelApprovedActionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_LocalLevelApprovedActionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DoActionForLocalLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\SearchProgressRptProvinceWiseDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchProgressReportAll.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportProvinceWiseDtl.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_DetailsProgressReportsVDCWiseAll.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AddProgressDetailByFY.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_CreateEditQuadrimesterReports.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_CreateEditQuadrimesterReportsForNotRunning.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ApplicationStatusDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListWorkNotCompletedAayojanaProvince.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListWorkNotCompletedAayojanaVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListWorkNotCompletedAayojanaVDCWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListDroppedAayojanaProvince.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListDroppedAayojanaVDC.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListDroppedAayojanaVDC.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListWorkCompletedAayojana.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ListWorkCompletedAayojanaVDC.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ListWorkCompletedAayojanaVDC.cshtml" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\common.scss" />
+    <Content Include="AdminResources\DataTables\Buttons-2.3.6\css\mixins.scss" />
+    <Content Include="Areas\Admin\Views\Reports\ProgressRptProvinceQuardWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\DetailsSearchProgressReportQuardWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ProgressReportProvinceQuardWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ProgressReportProvinceQuardWiseNotSubmited.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ProgressReportsVDCQuardWise.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_ProgressReportsVDCQuardWiseNotSubmited.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiOne.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiTwo.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_CreateEdit.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\TotalRequests.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_CreateEditReqDocs.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\GenerateAnusuchi2.cshtml" />
+    <Content Include="fonts\Kalimati Regular.otf" />
+    <Content Include="fonts\Mangal-Regular.otf" />
+    <Content Include="fonts\NotoSansDevanagari-Regular.ttf" />
+    <Content Include="fonts\preeti.ttf" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\GetNotCompletedProjectList2.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\VDCMUNHome\ViabilityFundProject.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\GenerateAnusuchiBisesh.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\ViewDetail.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\AdhuroGrant\GetNotCompletedProjectList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\AdhuroGrant\Create.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\AdhuroGrant\GetBhuktaniRemainingProjectList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\AdhuroGrant\RequestForRemainingBhuktani.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\PublicGrant\GetProjectList.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\PublicGrant\Create.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\PublicGrant\Edit.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_RequestFileModal.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_UploadFile.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_TotalRequestsPartial.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_TotalRequestsPartialError.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\_UploadFileError.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\AdhuroApuroList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_AdhuroApuroList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetAdhuroApuroDetailById.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\RemainingBhuktaniList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\_RemainingBhuktaniList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\GetRemainingBhuktaniDetailById.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminFileUploads\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminFileUploads\_AdhuroApuroList.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiOne8283.cshtml" />
+    <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiTwo8283.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\GrantApp.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.doubleScroll.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="vendor\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="vendor\chart.js\Chart.bundle.js" />
+    <Content Include="vendor\chart.js\Chart.bundle.min.js" />
+    <Content Include="vendor\chart.js\Chart.js" />
+    <Content Include="vendor\chart.js\Chart.min.js" />
+    <Content Include="vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="vendor\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="vendor\jquery-validation\additional-methods.js" />
+    <Content Include="vendor\jquery-validation\jquery.validate.js" />
+    <Content Include="vendor\jquery-validation\jquery.validate.min.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ar.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_az.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_bg.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_bn_BD.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ca.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_cs.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_da.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_de.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_el.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_es.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_es_AR.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_es_PE.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_et.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_eu.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_fa.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_fi.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_fr.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ge.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_gl.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_he.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_hr.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_hu.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_hy_AM.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_id.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_is.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_it.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ja.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ka.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_kk.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ko.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_lt.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_lv.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_mk.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_my.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_nl.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_no.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_pl.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_pt_BR.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_pt_PT.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ro.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ru.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sd.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_si.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sk.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sl.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sr.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sr_lat.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_sv.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_th.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_tj.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_tr.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_uk.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_ur.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_vi.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_zh.js" />
+    <Content Include="vendor\jquery-validation\localization\messages_zh_TW.js" />
+    <Content Include="vendor\jquery-validation\localization\methods_de.js" />
+    <Content Include="vendor\jquery-validation\localization\methods_es_CL.js" />
+    <Content Include="vendor\jquery-validation\localization\methods_fi.js" />
+    <Content Include="vendor\jquery-validation\localization\methods_nl.js" />
+    <Content Include="vendor\jquery-validation\localization\methods_pt.js" />
+    <Content Include="vendor\jquery.cookie\jquery.cookie.js" />
+    <Content Include="vendor\jquery.cookie\MIT-LICENSE.txt" />
+    <Content Include="vendor\jquery\core.js" />
+    <Content Include="vendor\jquery\jquery.js" />
+    <Content Include="vendor\jquery\jquery.min.js" />
+    <Content Include="vendor\jquery\jquery.slim.js" />
+    <Content Include="vendor\jquery\jquery.slim.min.js" />
+    <Content Include="vendor\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="vendor\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.css" />
+    <Content Include="vendor\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.js" />
+    <Content Include="vendor\malihu-custom-scrollbar-plugin\mCSB_buttons.png" />
+    <Content Include="vendor\popper.js\esm\popper-utils.js" />
+    <Content Include="vendor\popper.js\esm\popper-utils.min.js" />
+    <Content Include="vendor\popper.js\esm\popper.js" />
+    <Content Include="vendor\popper.js\esm\popper.min.js" />
+    <Content Include="vendor\popper.js\popper-utils.js" />
+    <Content Include="vendor\popper.js\popper-utils.min.js" />
+    <Content Include="vendor\popper.js\popper.js" />
+    <Content Include="vendor\popper.js\popper.min.js" />
+    <Content Include="vendor\popper.js\umd\popper-utils.js" />
+    <Content Include="vendor\popper.js\umd\popper-utils.min.js" />
+    <Content Include="vendor\popper.js\umd\popper.js" />
+    <Content Include="vendor\popper.js\umd\popper.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login123.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="vendor\jquery.cookie\component.json" />
+    <Content Include="vendor\jquery.cookie\cookie.jquery.json" />
+    <Content Include="Views\Manage\AdminChangePassword.cshtml" />
+    <Content Include="Views\Manage\ProvinceChangePassword.cshtml" />
+    <Content Include="Views\Account\RegisterFailureHome.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\loginPart.cshtml" />
+    <Content Include="Views\Account\anotherPart.cshtml" />
+    <Content Include="Views\Account\Login-Bak.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\Index.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\FormEntry.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\Grant\UploadSignedPdf.cshtml" />
+    <Content Include="Views\FileCheck\Index.cshtml" />
+    <Content Include="Views\Account\Login-phase-7-bak.cshtml" />
+    <Content Include="Views\Account\Login - Copy.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\ProvinceLevel\Models\" />
+    <Folder Include="Areas\VDCMUNLevel\Models\" />
+    <Folder Include="Areas\VDCMUNLevel\Views\Base\" />
+    <Folder Include="LetterDocs\" />
+    <Folder Include="NewFolder1\" />
+    <Folder Include="RequiredDocs\" />
+    <Folder Include="vendor\font-awesome\less\" />
+    <Folder Include="vendor\font-awesome\scss\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1721</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1520</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

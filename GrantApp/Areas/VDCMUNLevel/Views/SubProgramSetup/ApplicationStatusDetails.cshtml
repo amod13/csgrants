@@ -1,0 +1,327 @@
+﻿@model GrantApp.Models.ApplicationCompletionStatus
+
+@{
+    ViewBag.Title = "ApplicationStatusDetails";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">आयोजनाको अवस्था</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <div class="col-md-12">आयोजना/कार्यक्रमको नाम : @GrantApp.CommontUtilities.GetSubProgramNameById(Model.ApplicationId)</div>
+
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("ApplicationStatusDetails", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+                            @*@Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.OfficeId)*@
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(m => m.ApplicationId)
+                            @Html.HiddenFor(m => m.GrantTypeID)
+                            @Html.HiddenFor(m => m.ApplicationCompletionStatusId)
+                            @Html.HiddenFor(m => m.UploadFileUrl)
+                            @Html.HiddenFor(m => m.WorkCompletionPhoto1)
+                            @Html.HiddenFor(m => m.NotCompletedFileTypeStr)
+                            <fieldset>
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-6 form-group">
+                                        <label>सम्पन्नताको अवस्था (*)</label>
+                                        @Html.DropDownListFor(m => m.CompletionStatusId, GrantApp.Areas.Admin.FunctionClass.ApplicationCompletionListDD(), new { @id = "dll_MainSectionId", @class = "form-control form-control sm", @required = "required" })
+
+                                    </div>
+                                </div>
+
+
+
+                                @if (ViewBag.Mode == "Edit" && Model.CompletionStatusId == 1)
+                                {
+                                    <div class="row" id="EditCompleteApplcationDD">
+
+                                        <div class="col-md-6 col-sm-6 form-group">
+                                            <label>पूर्ण सम्पन्न/आंशिक सम्पन्न (*)</label>
+                                            @Html.DropDownListFor(m => m.CompleteOrParitalCompleteStatusId, GrantApp.Areas.Admin.FunctionClass.CompletionProgramStatusDD(), new { @id = "dll_completeorpartial", @class = "form-control form-control sm", @onChange = "GetProgramListByMainSectionId()" })
+
+                                        </div>
+                                        <div class="col-md-12 col-sm-6 form-group">
+                                            <label>अन्तिम भुक्तानी भैाचर वा निर्माण व्यवसायीलाई लाई दिईएको कार्यसम्पन्न प्रमाण पत्र वा पत्र (फाईल अपलोड) (*)</label><br />
+                                            @Html.TextBoxFor(m => Model.UploadFileUrlForCompletion, new { type = "file" })
+                                            @Html.ValidationMessageFor(m => m.UploadFileUrlForCompletion)
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="row" id="CompletePrgarmUploadedDoc">
+                                        @if (Model.UploadFileUrl != "")
+                                        {
+                                            <div class="col-md-6 col-sm-6 form-group">
+                                                <label>अपलोड गरिएको फाईल</label>
+                                                <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.UploadFileUrl }, new { @class = "fa fa-download" })</div>
+                                            </div>
+                                        }
+                                    </div>
+
+
+                                }
+                                else
+                                {
+                            <div class="row" id="CompleteDD">
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <label>पूर्ण सम्पन्न/आंशिक सम्पन्न (*)</label>
+                                    @Html.DropDownListFor(m => m.CompleteOrParitalCompleteStatusId, GrantApp.Areas.Admin.FunctionClass.CompletionProgramStatusDD(), new { @id = "dll_completeorpartial", @class = "form-control form-control sm", @onChange = "GetProgramListByMainSectionId()" })
+
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                  
+                                    <div class="col-md-6 col-sm-6 form-group">
+                                        <label>पूर्ण सम्पन्न/आंशिक सम्पन्न मिति (*)</label>
+                                        @Html.TextBoxFor(m => m.AmountRequired, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-6 form-group">
+                                    <label>अन्तिम भुक्तानी भैाचर वा निर्माण व्यवसायि लाई दिईएको कार्यसम्पन्न प्रमाण पत्र वा पत्र (फाईल अपलोड) (*)</label><br />
+                                    @Html.TextBoxFor(m => Model.UploadFileUrlForCompletion, new { type = "file" })
+                                    @Html.ValidationMessageFor(m => m.UploadFileUrlForCompletion)
+
+                                </div>
+
+                            </div>
+                                }
+
+
+
+
+                                @if (ViewBag.Mode == "Edit" && Model.CompletionStatusId == 2)
+                                {
+                                    <div class="row" id="NotCompletedReasonDivID">
+                                        @*<div class="col-md-4 col-sm-4 form-group">
+                                            <label>आयोजना सम्पन्न हुने नयाँ अवधि (*)</label>
+                                            @Html.DropDownListFor(m => m.YearNeededForCompleteId, GrantApp.Areas.Admin.FunctionClass.GetProgramYearListForProgramSubmission(), new { @id = "dll_MainSectionId", @class = "form-control form-control sm" })
+
+                                        </div>*@
+
+                                        @*<div class="col-md-4 col-sm-4 form-group">
+                                            <label>थप रकम आवश्यक भए माग (रू. लाखमा)</label>
+                                            @Html.TextBoxFor(m => m.AmountRequired, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                        </div>*@
+
+                                        <div class="col-md-6 col-sm-6 form-group">
+                                            <label>कारण(पुस्ट्याई, निर्णय र आधार सहितको आधिकारिक पत्र) (*)</label>
+                                            @Html.TextBoxFor(m => Model.NotCompletedFileTypeStrFile, new { type = "file" })
+                                            @Html.ValidationMessageFor(m => m.NotCompletedFileTypeStrFile)
+
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <div class="row" id="NotCompletedPrgarmUploadedDoc">
+                                        @if (Model.NotCompletedFileTypeStr != "")
+                                        {
+                                            <div class="col-md-6 col-sm-6 form-group">
+                                                <label>अपलोड गरिएको फाईल</label>
+                                                <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.NotCompletedFileTypeStr }, new { @class = "fa fa-download" })</div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                }
+                                else
+
+                                {
+                                    <div class="row" id="NotCompleteDD">
+                                        @*<div class="col-md-12 col-sm-12 form-group">
+                                                <label>कारण</label>
+                                                @Html.TextBoxFor(m => m.NotCompleteReason, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                            </div>*@
+                                        @*<div class="col-md-4 col-sm-4 form-group">
+                                            <label>आयोजना सम्पन्न हुने नयाँ अवधि (*)</label>
+                                            @Html.DropDownListFor(m => m.YearNeededForCompleteId, GrantApp.Areas.Admin.FunctionClass.GetProgramYearListForProgramSubmission(), new { @id = "dll_MainSectionId", @class = "form-control form-control sm" })
+
+                                        </div>*@
+
+                                        @*<div class="col-md-4 col-sm-4 form-group">
+                                            <label>थप रकम आवश्यक भए माग (रू. लाखमा)</label>
+                                            @Html.TextBoxFor(m => m.AmountRequired, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                        </div>*@
+
+                                        <div class="col-md-6 col-sm-6 form-group">
+                                            <label>कारण(पुस्ट्याई, निर्णय र आधार सहितको आधिकारिक पत्र) (*)</label>
+                                            <br />
+                                            @Html.TextBoxFor(m => Model.NotCompletedFileTypeStrFile, new { type = "file" })
+                                            @Html.ValidationMessageFor(m => m.NotCompletedFileTypeStrFile)
+
+                                        </div>
+
+
+                                    </div>
+                                }
+
+
+
+
+                                @if (ViewBag.Mode == "Edit" && Model.CompletionStatusId == 3)
+                                {
+                                    <div class="row" id="CancleProjectEditDiv">
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <label>कारण (*)</label>
+                                            @Html.TextBoxFor(m => m.DroppedReason, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6 form-group">
+                                            <label>कारण(पुस्ट्याई, निर्णय र आधार सहितको आधिकारिक पत्र) (*)</label>
+                                            @Html.TextBoxFor(m => Model.UploadFileUrlForDroppedProjectFile, new { type = "file" })
+                                            @Html.ValidationMessageFor(m => m.UploadFileUrlForDroppedProjectFile)
+
+                                        </div>
+                                    </div>
+                                    <div class="row" id="CancleProjectEditDivPhoto">
+                                        @if (Model.WorkCompletionPhoto1 != "")
+                                        {
+                                            <div class="col-md-6 col-sm-6 form-group">
+                                                <label>अपलोड गरिएको फाईल</label>
+                                                <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.WorkCompletionPhoto1 }, new { @class = "fa fa-download" })</div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                else
+
+                                {
+                                    <div class="row" id="DroppedDD">
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <label>कारण (*)</label>
+                                            @Html.TextBoxFor(m => m.DroppedReason, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
+
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6 form-group">
+                                            <label>कारण(पुस्ट्याई, निर्णय र आधार सहितको आधिकारिक पत्र) (*)</label>
+                                            @Html.TextBoxFor(m => Model.UploadFileUrlForDroppedProjectFile, new { type = "file" })
+                                            @Html.ValidationMessageFor(m => m.UploadFileUrlForDroppedProjectFile)
+
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+
+
+                                <div class="form-group">
+
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //var progressStatus = $("#CompletionStatusId").val();
+        //alert(progressStatus);
+        $("#CompleteDD").hide();
+        $("#NotCompleteDD").hide();
+        $("#DroppedDD").hide();
+
+        $('#dll_MainSectionId').change(function () {
+            var id = $(this).val();
+            if (id == 0) {
+                $("#CompleteDD").hide();
+                $("#NotCompleteDD").hide();
+                $("#DroppedDD").hide();
+
+            }
+            else if (id == 1) {
+                $("#CompleteDD").show();
+                $("#EditCompleteApplcationDD").show();
+                $("#CompletePrgarmUploadedDoc").show();
+                $("#NotCompleteDD").hide();
+                $("#DroppedDD").hide();
+                $("#NotCompletedReasonDivID").hide();
+                $("#CancleProjectEditDiv").hide();
+                $("#CancleProjectEditPhoto").hide();
+
+
+
+
+
+
+            }
+            else if (id == 2) {
+                $("#CompleteDD").hide();
+                $("#EditCompleteApplcationDD").hide();
+                $("#CompletePrgarmUploadedDoc").hide();
+
+
+                $("#NotCompleteDD").show();
+                $("#NotCompletedReasonDivID").show();
+                $("#DroppedDD").hide();
+                $("#CancleProjectEditDiv").hide();
+                $("#CancleProjectEditPhoto").hide();
+            }
+            else if (id == 3) {
+                $("#CompleteDD").hide();
+                $("#NotCompleteDD").hide();
+                $("#EditCompleteApplcationDD").hide();
+                $("#CompletePrgarmUploadedDoc").hide();
+                $("#NotCompletedReasonDivID").hide();
+                $("#DroppedDD").show();
+                $("#CancleProjectEditDiv").show();
+                $("#CancleProjectEditPhoto").show();
+
+            }
+
+        });
+
+    });
+</script>
+
+
+
+
+
+
+

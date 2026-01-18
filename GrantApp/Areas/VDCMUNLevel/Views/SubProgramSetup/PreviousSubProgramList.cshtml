@@ -1,0 +1,321 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ListSubProgram";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int cancelID = 1;
+
+}
+
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">विशेष /समपूरक अनुदान रकम माग</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title" style="color:red;">
+                    सूचना: क्रमागत आयोजना वा कार्यक्रमको आगामी आ.व. का लागि आवश्यक रकम माग गर्नुहोस ।
+                    क्रमागत आयोजना वा कार्यक्रम सम्बन्धी विवरण पेश गरेपछि मात्रै नयाँ आयोजना प्रविष्टि गर्ने विकल्प (Options) खुल्छ ।
+                </h3>
+            </div>
+            @*<div class="card-body" style="text-align:left;">
+                <h5 class="card-title" style="color:red;">नयाँ आयोजना/कार्यक्रम प्रविष्ट गर्नु पूर्व यस अघि स्वीकृत भएका आयोजना/कार्यक्रमको रकम माग गर्नुहोस् | यदि  रकम नचाहिने भएमा रकम चाहिँदैन बटनमा क्लिक गरी विवरण भर्नुहोस् |<br /></h5>
+            </div>*@
+
+        </div>
+
+        <header>
+            <h1 class="h3 display">स्वीकृत क्रमागत आयोजना वा कार्यक्रमहरुको विवरण :विशेष र समपूरक</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>स्वीकृत</th>
+                                        <th>कोड</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>अनुदान प्रकार</th>
+                                        <th>कुल लागत(लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>स्वीकृत रकम(प्रथम वर्ष)(लाखमा)</th>
+                                        <th>स्वीकृत रकम(दोस्रो वर्ष)(लाखमा)</th>
+                                        <th>स्वीकृत रकम(तेस्रो वर्ष)(लाखमा)</th>
+
+                                        @*<th>अवस्था</th>*@
+                                    <th>आगामी आ.व. का लागि आवश्यक रकम माग विवरण</th>
+                                    <th>आगामी आ.व. का लागि रकम माग नगर्ने सम्बन्धी विवरण</th>
+                                        <th>आयोजना वा कार्यक्रम सम्बन्धी संक्षिप्त विवरण</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.SubProgramMasterList.Where(x => x.ApprovedStatus == true && x.TimeDurationYear >= 2))
+                                    {
+                                        string ApprovedStatusStr = "नभएको";
+                                        string CssClassApproved = "";
+                                        decimal Totalbudget = item.TotalBudget;
+                                        Totalbudget = Totalbudget / 100000;
+
+                                        if (item.ApprovedStatus == true)
+                                        {
+                                            ApprovedStatusStr = "भएको";
+                                            CssClassApproved = @"#f7eded";
+                                        }
+
+                                        <tr style="background:@CssClassApproved">
+                                            <th scope="row">@i</th>
+
+                                            <th>@ApprovedStatusStr</th>
+                                            <td>@item.SubProgramId</td>
+                                            <td>@CommontUtilities.GetFiscalYearTitleFromApplicationId(item.SubProgramId)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(item.GrantTypeId)</td>
+
+                                            <td>
+                                                @Totalbudget
+                                            </td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>
+                                                @if (item.BudgetForFirstYear.HasValue)
+                                                {
+                                                    if (item.BudgetForFirstYear > 0)
+                                                    {
+                                                        item.BudgetForFirstYear = item.BudgetForFirstYear / 100000;
+                                                    }
+                                                    @item.BudgetForFirstYear
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @if (item.BudgetForSecondYear.HasValue)
+                                                {
+                                                    if (item.BudgetForSecondYear > 0)
+                                                    {
+                                                        item.BudgetForSecondYear = item.BudgetForSecondYear / 100000;
+                                                    }
+                                                    @item.BudgetForSecondYear
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.BudgetForThirdYear.HasValue)
+                                                {
+                                                    if (item.BudgetForThirdYear > 0)
+                                                    {
+                                                        item.BudgetForThirdYear = item.BudgetForThirdYear / 100000;
+                                                    }
+                                                    @item.BudgetForThirdYear
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </td>
+
+                                            @*<td>@item.Status</td>*@
+
+                                            @if (CommontUtilities.CheckIfKramagatIsAppliedOrNot(item.SubProgramId) == 0)
+                                            {
+
+                                                if (item.TimeDurationYear > 1 && item.IsCancelled == false)
+                                                {
+
+                                                    <td>
+                                                        @Html.ActionLink(" ", "ReqestGrantAmount", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
+                                                    </td>
+                                               
+
+                                                }
+                                                else
+                                                {
+                                                    <td> - </td>
+                                                }
+
+                                            <td>@Html.ActionLink(" ", "CancleForThisFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-window-close", data_toggle = "tooltip", data_placement = "top", @title = "रकम चाहिदैन" })</td>
+                                            }
+                                            else
+                                                            {
+                                                                <td >  </td>
+                                                                <td>  </td>
+                                                            }
+                                            <td>
+
+                                                @Html.ActionLink(" ", "ViewDetailPrevious", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+                                            </td>
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr />
+
+                        <h6>आगामी आ.व. का लागि अनुदान रकम माग गरिएका क्रमागत आयोजना वा कार्यक्रमको सूचि</h6>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>प्रकार</th>
+                                        <th>कुल लागत(लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>माग गरेको आ.व.</th>
+                                        <th>संघ सरकारसँग माग रकम (रु. लाखमा)</th>
+                                        <th>सम्बन्धित तहले बेहोर्ने रकम (रु. लाखमा)</th>
+                                        <th>निर्णय फाईल</th>
+                                        <th>विवरण सच्च्याउनुहोस</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.RequestGrantAmountViewModelList)
+                                    {
+                                        decimal Totalbudget = item.TotalBudget;
+                                        Totalbudget = Totalbudget / 100000;
+                                        if (item.RequestedAmount > 1)
+                                        {
+
+
+                                            string ApprovedStatusStr = "नभएको";
+                                            string CssClassApproved = "";
+                                            ApprovedStatusStr = "भएको";
+                                            CssClassApproved = @"#f7eded";
+                                            decimal requestAmount = item.RequestedAmount / 100000;
+                                            decimal OfficeAmount = 0;
+                                            if (item.OfficeAmount > 1)
+                                            {
+                                                OfficeAmount = item.OfficeAmount / 100000;
+
+                                            }
+
+                                            <tr style="background:@CssClassApproved">
+                                                <th scope="row">@sn</th>
+                                                <td>@item.ProgramPhaseTitle</td>
+                                                <td>@item.SubProgramTitle</td>
+                                                <td>@item.GrantTypeName</td>
+                                                <td>@Totalbudget</td>
+                                                <td>@item.TimeDurationYear</td>
+                                                <th>@item.PhaseTitle</th>
+                                                <td>@requestAmount</td>
+                                                <td>@OfficeAmount</td>
+                                                <td>
+                                                    @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = item.RequestReasonDoc}, new { @class = "fa fa-download" })
+
+                                                    
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink(" ", "ReqestGrantAmount", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम सच्याउनुहोस" })
+                                                </td>
+                                            </tr>
+                                            ++sn;
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr />
+                        <h6>आगामी आ.व. का लागि अनुदान रकम माग नगर्ने निर्णय भई पेश नगरिएका क्रमागत आयोजना वा कार्यक्रमको सूचि</h6>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        <th>प्रकार</th>
+                                        <th>कुल लागत(लाखमा)</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.CanceledProgramListForRGVMList)
+                                    {
+                                        decimal Totalbudget = item.TotalBudget;
+                                        Totalbudget = Totalbudget / 100000;
+
+                                        <tr>
+                                            <th scope="row">@cancelID</th>
+                                            <td>@CommontUtilities.GetFiscalYearTitleFromApplicationId(item.SubProgramId)</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.GrantTypeName</td>
+                                            <td>@Totalbudget</td>
+
+                                        </tr>
+                                        ++cancelID;
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+

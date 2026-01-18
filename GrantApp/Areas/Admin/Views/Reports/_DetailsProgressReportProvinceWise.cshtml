@@ -1,0 +1,113 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                @*<th>आर्थिक वर्ष</th>*@
+                @*<th>चौमासिक</th>*@
+                <th>स्थानिय तहको नाम</th>
+                @*<th>मुलभुत क्षेत्र</th>*@
+                @*<th>आयोजनाको कोड</th>*@
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                @*<th>सम्बन्धित तहले व्यहोर्ने</th>
+        <th>अनुदान माग गरिएको रकम</th>*@
+                <th>आयोजनाको अवधि</th>
+                @*<th>आ.व २०७६/७७</th>
+                <th>आ.व २०७७/७८</th>
+                <th>आ.व २०७८/७९</th>
+                <th>आ.व २०७९/८०</th>
+                <th>आ.व २०८०/८१</th>
+                <th>का.स्थि.</th>
+                <th>भैा.</th>
+                <th>वि.</th>*@
+                <th>ठेक्का</th>
+                <th>निकासा</th>
+                <th>खर्च</th>
+                @*<th>स.स्थिति</th>*@
+
+
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget;
+                decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+                GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+
+            <tr>
+                <td scope="row">@i</td>
+                @*<td>@item.PhaseTitle</td>*@
+                @*<td>@item.QuadrimesterId</td>*@
+                <td>@item.OfficeName</td>
+                @*<td>@item.SectionName</td>*@
+                @*<td>@item.SubProgramId</td>*@
+                <td>@item.SubProgramTitle</td>
+                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalBudget)</td>
+                @*<td>@item.AmountProvinceVdc</td>
+        <td>@RequestAmt</td>*@
+                <td>@item.TimeDurationYear</td>
+                @*<th>आ.व २०७६/७७</th>
+                <th>आ.व २०७७/७८</th>
+                <th>आ.व २०७८/७९</th>
+                <th>आ.व २०७९/८०</th>
+                <th>आ.व २०८०/८१</th>
+                <th>का.स्थि.</th>
+                <th>भैा.</th>
+                <th>वि.</th>*@
+
+                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalContractAmount)</td>
+                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalNikashaRamam)</td>
+                <td>@GrantApp.CommontUtilities.RetrunRsInLakh(item.TotalAmountUsed)</td>
+                <th>स.स्थिति</th>
+                <td>
+                    @Html.ActionLink(" ", "ViewDetailProgressReport", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = item.QuadrimesterReportsDetailId, @id3 = 1 }, new { @class = "edits fa fa-eye" })
+                </td>
+
+            </tr>
+
+                ++i;
+            }
+
+            @*<tr style="font-weight:bold;">
+                <td colspan="7">जम्मा रकम</td>
+                <td>@GrandTotalAmount</td>
+                <td>@GrandVDCMUNAmount</td>
+                <td>@GrandTotalRequestAmt</td>
+            </tr>*@
+
+
+        </tbody>
+    </table>
+
+</div>
+
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="~/AdminResources/js/table2excel.js"></script>
+    <script type="text/javascript">
+        var kk = $.noConflict();
+            kk(function () {
+                kk("#btnExport").click(function () {
+                    kk("#DetailsReportsID").table2excel({
+                        filename: "dtlReports.xls"
+                    });
+                });
+            });
+    </script>*@

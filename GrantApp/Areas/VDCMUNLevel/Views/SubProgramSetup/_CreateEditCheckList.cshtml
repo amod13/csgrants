@@ -1,0 +1,179 @@
+﻿@model GrantApp.Models.SubProgramMaster
+@{
+    int id = 1;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<style>
+    @@media print {
+        table td:last-child {
+            display: none;
+        }
+
+        table th:last-child {
+            display: none;
+        }
+    }
+</style>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>क्रस</td>
+                <td></td>
+                <td>शर्तहरू</td>
+               
+                @*@if (ViewBag.Mode == "Edit")
+                {
+                    <td>अपलोड गरिएका फाईल</td>
+                }*@
+
+            </tr>
+        </thead>
+
+        @for (int i = 0; i < Model.ProgramConditionsViewModelList.Count; i++)
+        {
+            @Html.HiddenFor(m => m.ProgramConditionsViewModelList[i].UploadFileUrl)
+
+            int snNo = i + 1;
+        <tr>
+            <td>@snNo</td>
+
+            <td>
+                @Html.CheckBoxFor(m => Model.ProgramConditionsViewModelList[i].IsCheck)
+                @*@Html.ValidationMessageFor(m => Model.ProgramConditionsViewModelList[i].IsCheck)*@
+
+            </td>
+
+            <td>
+                @Model.ProgramConditionsViewModelList[i].ConditionsTitle
+                @Html.HiddenFor(m => Model.ProgramConditionsViewModelList[i].ProgramConditionID)
+            </td>
+           
+            @*@if (Model.ProgramConditionsViewModelList[i].IsUploadFile)
+            {
+                string filename = "files[" + i + "]";
+                <td>
+                    @Html.HiddenFor(m => Model.ProgramConditionsViewModelList[i].IsUploadFile)
+                    @Html.TextBoxFor(m => Model.ProgramConditionsViewModelList[i].SupportingDocFiles, new { type = "file" })
+
+
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }*@
+            @*@if (ViewBag.Mode == "Edit")
+            {
+                @Html.HiddenFor(m => m.ProgramConditionsViewModelList[i].UploadFileUrl)
+                <td>@Model.ProgramConditionsViewModelList[i].UploadFileUrl</td>
+            }*@
+
+
+        </tr>
+        }
+
+    </table>
+</div>
+
+
+<script>
+    $('#chooseFile').bind('change', function () {
+        var filename = $("#chooseFile").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile2').bind('change', function () {
+        var filename = $("#chooseFile2").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile2").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile2").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile3').bind('change', function () {
+        var filename = $("#chooseFile3").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile3").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile3").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile4').bind('change', function () {
+        var filename = $("#chooseFile4").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile3").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile4").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile5').bind('change', function () {
+        var filename = $("#chooseFile5").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile5").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile5").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile6').bind('change', function () {
+        var filename = $("#chooseFile6").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile6").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile6").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile7').bind('change', function () {
+        var filename = $("#chooseFile7").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile7").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile7").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+    $('#chooseFile8').bind('change', function () {
+        var filename = $("#chooseFile8").val();
+        if (/^\s*$/.test(filename)) {
+            $(this).parents(".file-upload").removeClass('active');
+            $("#noFile8").text("No file chosen...");
+        }
+        else {
+            $(this).parents(".file-upload").addClass('active');
+            $("#noFile8").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+</script>
+

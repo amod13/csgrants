@@ -1,0 +1,36 @@
+﻿@model GrantApp.Areas.Admin.Models.DashboardModel
+
+<div class="col-lg-12" style="margin-top:5px;" id="SectionWiseCountDiv">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th scope="col">मुलभुत क्षेत्र</th>
+                <th scope="col">अनुदान प्रकार</th>
+                <th scope="col">जम्मा निवेदन</th>
+                <th scope="col">स्वीकृत निवेदन(विशेष) प्रदेश</th>
+                <th scope="col">स्वीकृत निवेदन(समपूरक)प्रदेश</th>
+                <th scope="col">स्वीकृत निवेदन(विशेष) स्था.तह</th>
+                <th scope="col">स्वीकृत निवेदन(समपूरक)स्था.तह</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SecionWiseProgramCountViewModelList)
+            {
+                <tr>
+                    <td>@item.SectionName</td>
+                    <td>@item.GrantTypeName</td>
+                    <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.TotalProgram.ToString())</td>
+                    <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.BisheshApproved.ToString())</td>
+                    <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.SampurakApproved.ToString())</td>
+                    <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.BisheshApprovedLocalLevel.ToString())</td>
+                    <td>@GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(item.SampurakApprovedLocalLevel.ToString())</td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+

@@ -1,0 +1,139 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+
+@{
+    ViewBag.Title = "ViewDashboardNewProgramList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">विशेष / समपुरक अनुदान रकम माग</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                विशेष/समपुरक आयोजना/कार्यक्रम‍--अनुदान रकम माग
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive m_table bg-light">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr style="text-align:right;">
+                                        <th>आ.व.</th>
+                                        <th>प्रदेश-१</th>
+                                        <th>प्रदेश-२</th>
+                                        <th>प्रदेश-३</th>
+                                        <th>प्रदेश-४</th>
+                                        <th>प्रदेश-५</th>
+                                        <th>प्रदेश-६</th>
+                                        <th>प्रदेश-७</th>
+                                        <th>जम्मा</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ViewNewProgramProvinceWiseStatusVMList)
+                                    {
+                                        <tr style="text-align:right;">
+                                            <td>२०८०/८१</td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=1">@item.ProOneTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=2">@item.ProTwoTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=3">@item.ProThreeTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=4">@item.ProFourTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=5">@item.ProFiveTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=6">@item.ProSixTotal</a></td>
+                                            <td><a href="~/Admin/AdminHome/ViewDashboardRequestAmountList/@Model.GrantTypeId?id1=15&id2=7">@item.ProSevenTotal</a></td>
+                                            <td>@item.TotalProgram</td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="provinceClass">
+                            @GrantApp.Areas.Admin.FunctionClass.GetProvinceNameByID(Model.ProvinceId)
+                        </div>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>कार्यलय</th>
+                                        <th>प्रकार</th>
+                                        <th>शुरु आ.व.</th>
+                                        <th>मुलभुत क्षेत्र</th>
+                                        <th>कोड</th>
+                                        <th>शिर्षक</th>
+                                        <th>कुल लागत (लाखमा)</th>
+                                        <th>समय अवधि</th>
+                                        <td>माग रकम (लाखमा)</td>
+                                        <td>ठेक्का रकम (लाखमा)</td>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.DashboardNewProgramListViewModelList)
+                                    {
+                                        decimal totalBudget = 0m;
+                                        decimal? requestGrantAmount = 0m;
+                                        decimal? contractAmount = 0m;
+                                        if(item.TotalBudget>0)
+                                        {
+                                            totalBudget = item.TotalBudget / 100000;
+                                        }
+                                        if(item.RequestedAmount.HasValue)
+                                        {
+                                            if(item.RequestedAmount>0)
+                                            {
+                                                requestGrantAmount = item.RequestedAmount / 100000;
+                                            }
+                                        }
+                                        if(item.ContractAmount.HasValue)
+                                        {
+                                            if(item.ContractAmount>0)
+                                            {
+                                                contractAmount = item.ContractAmount / 100000;
+                                            }
+                                        }
+
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.OfficeName</td>
+                                            <td>@item.GrantTypeName</td>
+                                            <td>@item.PhaseTitle</td>
+                                            <td>@item.SectionName</td>
+                                            <td>@item.SubProgramId</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@totalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@requestGrantAmount</td>
+                                            <td>@contractAmount</td>
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

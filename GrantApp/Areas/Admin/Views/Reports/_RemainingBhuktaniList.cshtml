@@ -1,0 +1,60 @@
+﻿
+@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>आर्थिक वर्ष</th>
+                <th>स्थानिय तहको नाम</th>
+                <th>जिल्ला</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत</th>
+                <th>आयोजनाको अवधि</th>
+                <th>माग रकम</th>
+                <th>कार्य</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.RemainingBhuktaniGrantRequestListVM)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget / 100000;
+
+                <tr>
+                    <td>@i</td>
+                    <td>@item.FiscalYearName</td>
+                    <td>@item.OfficeName</td>
+
+                    <td>@item.DistrictName</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@TotalBudgetAmt</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@item.TotalRequestBudget</td>
+                    <td>
+                        @Html.ActionLink(" ", "GetRemainingBhuktaniDetailById", new { @id = item.Id }, new { @class = "edits fa fa-eye" })
+                    </td>
+
+                </tr>
+
+                ++i;
+            }
+
+
+
+        </tbody>
+    </table>
+
+
+</div>

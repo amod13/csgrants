@@ -1,0 +1,193 @@
+﻿@model GrantApp.Models.GetNotCompletedProgramListByOfficeIdVM
+
+@{
+    ViewBag.Title = "ProgressDetailList";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int j = 1;
+}
+
+
+<style>
+    .edits {
+        color: red !important;
+        font-size: 24px !important;
+    }
+
+    .Update {
+        color: #0026ff;
+        font-size: 24px !important;
+    }
+</style>
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">थप रकम माग गरिएका अधुरा आयोजना/कार्यक्रमहरूको विवरण</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .striped-container {
+        font-weight: bold;
+        font-size: 13px;
+        color: #ff6a00;
+        width: fit-content;
+    }
+
+        .striped-container div:nth-child(odd) {
+            background-color: #ffe5cc;
+            padding: 10px;
+        }
+
+        .striped-container div:nth-child(even) {
+            background-color: #ffffff;
+            padding: 10px;
+        }
+
+    .input-field {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+    }
+</style>
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-header">
+                            कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस ।
+                        </div>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आ.व.</th>
+                                        <th>प्रकार</th>
+                                        <th>मुलभुत क्षेत्र</th>
+                                        <th>कोड</th>
+                                        <th>शिर्षक</th>
+                                        <th>कुल लागत</th>
+                                        <th>समय अवधि</th>
+                                        <th>विवरण</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.GetNotCompletedProgramListByOfficeIdVMList)
+                                    {
+
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.PhaseStatus</td>
+                                            <td>@item.GrantTypeName</td>
+
+                                            <td>@item.SubProgramId</td>
+                                            <td>@item.SubProgramId</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.TotalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@Html.ActionLink(" ", "ReportViewDetailById", new { @id = item.SubProgramId, @id1 = item.GrantTypeName }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण हेर्नुहोस" })</td>
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="striped-container">
+    <div>भुक्तानी फरफारक गर्न आवश्यक थप रकम माग (रु. लाखमा): <input type="text" class="input-field"></div>
+    <div>सम्बन्धित तहले बेहोर्ने रकम (रु. लाखमा): <input type="text" class="input-field"></div>
+    <div>आयोजनाको भौतिक प्रगति (%): <input type="text" class="input-field"></div>
+    <div>आयोजनाको वित्तीय प्रगति (%): <input type="text" class="input-field"></div>
+    <div>हालसम्मको कूल विनियोजन (रु. लाखमा): <input type="text" class="input-field"></div>
+    <div>हालसम्मको कूल खर्च (रु. लाखमा): <input type="text" class="input-field"></div>
+
+    <!-- File Upload Fields -->
+
+
+    <div>
+        म्याद थप पत्र:
+        <input type="file" class="input-field">
+    </div>
+
+    <!-- File Upload Fields -->
+    <div>
+        ठेक्का सम्झौता:
+        <input type="file" class="input-field">
+    </div>
+    <div>
+        सम्पूर्ण भुक्तानी भौचर:
+        <input type="file" class="input-field">
+    </div>
+    <div>
+        आयोजनाका तस्वीरहरु:
+        <input type="file" class="input-field">
+    </div>
+
+
+    <div>
+        सिर्जित दायित्व प्रमाणित गरिएको म.ले.प.फा.नं. २२१:
+        <input type="file" class="input-field">
+    </div>
+    <div>
+        भुक्तानी फरफारक गर्ने सम्बन्धी कार्यपालिका निर्णय:
+        <input type="file" class="input-field">
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["ProgresReportNtf"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>

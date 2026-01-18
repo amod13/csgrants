@@ -1,0 +1,148 @@
+﻿@model GrantApp.Models.PublicPrivateGrantViewModel
+
+@{
+    ViewBag.Title = "ListSubProgram";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int cancelID = 1;
+
+}
+
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">आयोजना प्रस्ताव फारम</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title" style="color:black;">
+                    सूचना: निजी क्षेत्रसँगको साझेदारी/सार्वजनिक निजी साझेदारी  MOU सम्बन्धी आयोजना वा कार्यक्रमको आगामी आ.व. का लागि आवश्यक रकम माग गर्नुहोस ।
+
+                </h3>
+            </div>
+
+        </div>
+
+        <header>
+            <h1 class="h3 display">निजी क्षेत्रसँगको साझेदारी/सार्वजनिक निजी साझेदारी  MOU माग गरिएको आयोजनाको सुचि ।</h1>
+        </header>
+
+        <h4 class="align-content-lg-end">
+            @Html.ActionLink("नयाँ आयोजना थप्नुहोस", "Create", "PublicGrant", new { @id = 1 }, new { @class = "btn btn-sm btn-success" })
+
+        </h4>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+
+                                        <th>कोड</th>
+                                        @*<th>शुरु आ.व.</th>*@
+                                        <th>आयोजना/कार्यक्रमको नाम</th>
+                                        @*<th>अनुदान प्रकार</th>*@
+                                        <th>कुल लागत(लाखमा)</th>
+                                        <th>अवधि (वर्ष)</th>
+                                        <th>संघ सरकारसँग माग गरिएको रकम (रु. लाखमा)</th>
+                                        <th>आयोजना वा कार्यक्रम सम्बन्धी संक्षिप्त विवरण</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.GetPublicPrivateGrantVMList)
+                                    {
+
+                                        decimal Totalbudget = item.TotalBudget;
+                                        Totalbudget = Totalbudget / 100000;
+                                        decimal RequestedAmount = item.RequestedAmount;
+                                        RequestedAmount = RequestedAmount / 100000;
+
+
+
+                                        <tr>
+                                            <th scope="row">@i</th>
+
+
+                                            <td>@item.SubProgramId</td>
+
+                                            <td>@item.SubProgramTitle</td>
+
+                                            <td>
+                                                @Totalbudget
+                                            </td>
+                                            <td>@item.TimeDurationYear</td>
+
+                                            <td>@RequestedAmount</td>
+
+                                            <td>
+                                                @Html.ActionLink(" ", "Edit", new { @id = item.SubProgramId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम सच्चयाउनुहोस्" })
+                                            </td>
+
+                                            @*<td>
+            @Html.ActionLink(" ", "View", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
+        </td>*@
+
+
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr />
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["Notifications"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+

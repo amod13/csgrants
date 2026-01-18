@@ -1,0 +1,708 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+
+    int PreGrantId = 1;
+
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+@*<div class="breadcrumb-holder">
+           <div class="container-fluid">
+               <ul class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                   <li class="breadcrumb-item active">Program</li>
+               </ul>
+           </div>
+    </div>*@
+<section class="forms">
+    <div class="container-fluid">
+
+        <div class="card">
+            <div class="card-body">
+                <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>
+
+                <p>
+                    <h5 class="card-title" style="color:red;">१. आगामी आ.व. को लागि @GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)तर्फ नँया आयोजना वा कार्यक्रमको लागि प्रस्ताव पेश गर्नुहोस । </h5>
+                </p>
+                @if (Model.ViewbagGrantTypeId == 2)
+                {
+                    <p>
+                        <h5 class="card-title" style="color:blue;">२. सबै आयोजना वा कार्यक्रमको प्रस्ताव पेश गरेपछि अनुसूचि २ (शर्तनामा) डाउनलोड गरी आवश्यक विवरण तथा हस्ताक्षर सहित पुन: अपलोड गर्नुहोस ।</h5>
+                    </p>
+
+                }
+                else
+                {
+                    <p>
+                        <h5 class="card-title" style="color:blue;">२. सबै आयोजना वा कार्यक्रमको प्रस्ताव पेश गरेपछि अनुसूचि ४ (शर्तनामा) डाउनलोड गरी आवश्यक विवरण तथा हस्ताक्षर सहित पुन: अपलोड गर्नुहोस ।</h5>
+                    </p>
+
+                }
+
+
+                @if (Model.SubProgramId > 0)
+                {
+                    <h3> आयोजना वा कार्यक्रम सच्चयाउनुहोस ।</h3>
+
+                }
+
+                else
+                {
+                    <h3> प्रविष्टी गर्न बाकी आयोजना संख्याः @ViewBag.TotalRemainingApplication</h3>
+                }
+
+                <table class="table table-hover" style="font-size:12px !important">
+                    <thead>
+                        <tr>
+                            <th>क्रम</th>
+                            <th>विवरण</th>
+                            <th>कार्य</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>१.</td>
+                            <td>
+                                आ.व.२०८२/८३ का लागि सङ्घीय समपूरक तथा विशेष अनुदान अन्तर्गत संचालन हुने आयोजना वा कार्यक्रम छनौट सम्बन्धी सम्बन्धित स्थानीय तहको हकमा सम्बन्धित कार्यपालिकाको निर्णय (उपस्थिति सहित) र प्रदेशको हकमा सम्बन्धित प्रदेश योजना आयोगको सिफारिशमा प्रदेश सरकार मन्त्रिपरिषद्को निर्णय
+                            </td>
+                            <td>
+                                <i class="Update fa fa-eye view-request-file" title="फाईल हेर्नहोस् । " style="cursor:pointer; color:blue;"></i>
+
+                                <!-- Upload Icon -->
+                                <i class="edits fa fa-file request-upload" title="पुन अपलोड गर्नुहोस् ।" style="cursor:pointer; color:darkred; margin-left: 10px;"></i>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२.</td>
+                            <td>
+                                आ.व.२०८२/८३ का लागि  @ViewBag.WillApplyTotal वटा कुल आयोजना वा कार्यक्रम प्रविष्ट गर्न मिल्ने गरि  तपाई प्रणाली प्रप्योगकर्ताले छनोट गर्नुभएको छ । उक्त माग गरिने आयोजना वा कार्यक्रमको कुल संख्या पुन सशोधन गर्नुपरेमा Click गर्नुहोस् ।
+                            </td>
+                            <td>
+
+                                <!-- Upload Icon -->
+                                <i class="edits fa fa-edit request-total-grant" title="पुन अपलोड गर्नुहोस् ।" style="cursor:pointer; color:darkred; margin-left: 10px;"></i>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+
+                    @if (Model.SubProgramId > 0)
+                    {
+                        <div class="card-body">
+
+                            @using (Html.BeginForm("FormEntry", "Grant", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                            {
+                                @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                                @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                                @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                                @Html.HiddenFor(m => m.SubProgramId)
+                                @Html.ValidationSummary(true)
+                                <fieldset>
+
+                                    @Html.Partial("_CreateEdit")
+
+                                    @Html.Partial("_CreateEditReqDocs")
+                                    @*@if (Model.ViewbagGrantTypeId == 1)
+                                        {
+                                            @Html.Partial("_CreateEditSpecial")
+
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("_CreateEdit")
+
+                                        }*@
+
+
+
+
+
+
+                                    <div class="form-group">
+
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> आ.व. २०८२/८३ को लागि  नँया आयोजना वा कार्यक्रम सच्याउनुहोस  </button>
+
+                                        @Html.ActionLink("सच्चयाउने कार्य रद्द गर्नुहोस् ।", "FormEntry", "Grant", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+
+
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        if (ViewBag.TotalRemainingApplication > 0)
+                        {
+
+                            <div class="card-body">
+
+                                @using (Html.BeginForm("FormEntry", "Grant", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                                {
+                                    @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                                    @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                                    @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                                    @Html.ValidationSummary(true)
+                                    <fieldset>
+
+                                        @Html.Partial("_CreateEdit")
+
+                                        @Html.Partial("_CreateEditReqDocs")
+                                        @*@if (Model.ViewbagGrantTypeId == 1)
+                                            {
+                                                @Html.Partial("_CreateEditSpecial")
+
+                                            }
+                                            else
+                                            {
+                                                @Html.Partial("_CreateEdit")
+
+                                            }*@
+
+
+
+
+
+                                        <div class="form-group">
+
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> आ.व. २०८२/८३ को लागि  @*@CommontUtilities.GetNepaliOrdinal(@ViewBag.TotalRemainingApplication)*@  आयोजना वा कार्यक्रम सुरक्षित गर्नुहोस </button>
+
+
+
+
+                                        </div>
+                                    </fieldset>
+                                }
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body">
+            @if (ViewBag.ApplicationStatus == 1)
+            {
+                <h4>राष्ट्रिय योजना आयोगमा आ.व. २०८२/८३ का लागि प्रस्ताव पेश गर्न बाँकी (Draft/मस्यैादा) नयाँ आयोजना वा कार्यक्रमहरूको विवरणहरू</h4>
+            }
+            else
+            {
+                <h4>राष्ट्रिय योजना आयोगमा आ.व. २०८२/८३ का लागि प्रस्ताव पेश गरिएका नयाँ आयोजना वा कार्यक्रमहरूको विवरणहरू</h4>
+            }
+
+            <span>
+            </span>
+            <div class="table-responsive m_table">
+                <table class="table table-hover" style="font-size:12px !important">
+                    <thead>
+                        <tr>
+                            <th>क्रम</th>
+                            <th>शुरू आ.व.</th>
+                            <th>आयोजना/कार्यक्रमको नाम</th>
+                            <th>कुल लागत (रू. लाखमा)</th>
+                            <th>प्राथमिकताक्रम</th>
+                            <th>माग रकम (आ.ब ८२।८३)</th>
+                            <th>अवधि (वर्ष)</th>
+                            <th>सच्चाउनुहोस</th>
+                            <th>हटाउनुहोस</th>
+                            <th>विवरण</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.SubProgramMasterListNotSubmited.Where(x => x.IsCancelled == false))
+                        {
+
+                            decimal? TotalBudget = 0m;
+                            TotalBudget = item.TotalBudget / 100000;
+                            decimal? TotalBudgetForCommingFiscal = 0m;
+                            TotalBudgetForCommingFiscal = item.BudgetForFirstYear / 100000;
+                            <tr>
+                                <th scope="row">@PreGrantId</th>
+                                <td>@CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+                                <td>@item.SubProgramTitle</td>
+                                <td>@TotalBudget</td>
+                                <td>@item.ProgramPirority</td>
+                                <td>@TotalBudgetForCommingFiscal</td>
+                                <td>@item.TimeDurationYear</td>
+
+                                <td>
+                                    <a href="#" class="edits fa fa-edit"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="सच्चाउनुहोस"
+                                       onclick="showSwalAndRedirect('@Url.Action("FormEntry", new { id = Model.ViewbagGrantTypeId, id2 = item.SubProgramId })'); return false;">
+                                    </a>
+                                </td>
+
+                                @*<td>@Html.ActionLink(" ", "FormEntry", new { @id = Model.ViewbagGrantTypeId, @id2 = item.SubProgramId }, new { @class = "edits fa fa-edit ", data_toggle = "tooltip", data_placement = "top", @title = "सच्चाउनुहोस" })</td>*@
+                                @*<td>@Html.ActionLink(" ", "DeleteSubProgramMaster", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-trash", data_toggle = "tooltip", data_placement = "top", @title = "हटाउनुहोस", onclick = "return confirm('के तपाँई यो विवरण सिस्टम बाट हटाउन चाहानुहुन्छ ?')" })</td>*@
+
+                                <td>
+                                    <a href="#" class="edits fa fa-trash"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="हटाउनुहोस"
+                                       onclick="showSwalAndRedirectDelete('@Url.Action("DeleteSubProgramMaster", new { id = item.SubProgramId, id1 = Model.ViewbagGrantTypeId })'); return false;">
+                                    </a>
+                                </td>
+
+
+                                <td>
+
+                                    @Html.ActionLink(" ", "ViewDetail", new { @id = item.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+
+                                </td>
+
+
+
+                            </tr>
+                            ++PreGrantId;
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            @if (ViewBag.TotalRemainingApplication == 0 && ViewBag.ApplicationStatus == 1)
+            {
+                if (Model.GrantTypeId == 1)
+                {
+                    @Html.ActionLink("माथि पेश गरिएका आयोजना वा कार्यक्रम सम्बन्धी अनुसूची-४ (शर्तनामा घोषणा) बमोजिमको विवरण डाउनलोड गर्न क्लिक गर्नुहोस् ।\r\n", "GenerateAnusuchiBisesh", "Grant", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("माथि पेश गरिएका आयोजना वा कार्यक्रम सम्बन्धी अनुसूची-२ (शर्तनामा घोषणा) बमोजिमको विवरण डाउनलोड गर्न क्लिक गर्नुहोस् ।\r\n", "GenerateAnusuchi2", "Grant", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                }
+
+
+
+
+
+                using (Html.BeginForm("UploadSignedPdf", "Grant", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormFinalFileID" }))
+                {
+                    <div class="card-body">
+                        @Html.HiddenFor(m => m.GrantTypeId)
+                        @Html.HiddenFor(m => m.OfficeId)
+                        @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            <input type="file" name="file" required />
+                            माथि पेश गरिएका आयोजना वा कार्यक्रम सम्बन्धी अनुसूची-२ (शर्तनामा घोषणा) मा आवश्यक विवरण भरेर आवश्यक हस्ताक्षर सहित पुन: अपलोड गर्नुहोस ।
+                        </div>
+
+                        <!-- This section includes all SubProgramIds dynamically -->
+                        @foreach (var item in Model.SubProgramMasterListNotSubmited.Where(x => x.IsCancelled == false))
+                        {
+                            <input type="hidden" name="SubProgramIds[]" value="@item.SubProgramId" />
+                        }
+
+                        <button type="submit" class="btn btn-info btn-sm">आयोजना पेश गर्नुहोस ।</button>
+                    </div>
+                }
+
+
+
+
+            }
+            else if (ViewBag.TotalRemainingApplication == 0 && ViewBag.ApplicationStatus == 2)
+            {
+                using (Html.BeginForm("CancelSubmission", "Grant", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormFinalFileID" }))
+                {
+                    <div class="card-body">
+                        @Html.HiddenFor(m => m.GrantTypeId)
+                        @Html.HiddenFor(m => m.OfficeId)
+                        @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                        @Html.ValidationSummary(true)
+                        <!-- This section includes all SubProgramIds dynamically -->
+                        @foreach (var item in Model.SubProgramMasterListNotSubmited.Where(x => x.IsCancelled == false))
+                        {
+                            <input type="hidden" name="SubProgramIds[]" value="@item.SubProgramId" />
+                        }
+
+
+
+                        @if (!string.IsNullOrEmpty(ViewBag.FinalDocUrl))
+                        {
+                            if (Model.ViewbagGrantTypeId == 2)
+                            {
+                                <label>  आयोजना वा कार्यक्रम सम्बन्धी अनुसूची-२ (शर्तनामा घोषणा) मा आवश्यक विवरण भरेर आवश्यक हस्ताक्षर सहित अपलोड गरिएको फाईल ।</label>
+                            }
+                            else
+                            {
+                                <label>  आयोजना वा कार्यक्रम सम्बन्धी अनुसूची-४ (शर्तनामा घोषणा) मा आवश्यक विवरण भरेर आवश्यक हस्ताक्षर सहित अपलोड गरिएको फाईल ।</label>
+                            }
+
+                            <div class="table-responsive m_table">
+                                <table class="table table-hover" style="font-size:12px !important">
+                                    <thead>
+                                        <tr>
+                                            <th>क्रम</th>
+                                            <th>फाईल.</th>
+                                            <th>आयोजना वा कार्यक्रमको पुन संशोधन गर्नको निम्ति</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th> १ </th>
+                                            <th>
+                                                @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = ViewBag.FinalDocUrl }, new { @class = "fa fa-download" })
+                                            </th>
+                                            <th> <button type="submit" class="btn btn-danger btn-sm">पेश गरिएको शर्तनामा प्रणालिबाट हटाई पुन आयोजना वा कार्यक्रम संशोधन गर्नुहोस ।</button>  </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                        }
+
+
+
+
+
+                    </div>
+                }
+
+            }
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+<!-- Modal HTML -->
+<div id="requestFileModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Content will be injected here -->
+        </div>
+    </div>
+</div>
+
+<!-- Upload File Modal -->
+
+
+
+
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script src="~/Scripts/toastr.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+
+ $(function () {
+    var message = '@Html.Raw(TempData["Notifications"])'; // Ensure special characters are handled
+
+    if (message && message.trim() !== '') {
+        Swal.fire({
+            title: "सूचना",
+            text: message,
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+    }
+});
+
+
+
+
+</script>
+
+
+
+
+<script>
+$(document).ready(function () {
+    $(".view-request-file").click(function () {
+        var id = @Model.ViewbagGrantTypeId; // Ensure that the correct id is passed from the model
+
+        $.ajax({
+            url: "/VDCMUNLevel/Grant/GetRequestFile", // Ensure the full URL path is correct
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                // Insert the response (partial view content) into the modal body
+                $("#requestFileModal .modal-content").html('');
+
+                $("#requestFileModal .modal-content").html(data);
+
+                // Open the modal
+                $("#requestFileModal").modal("show");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
+                alert("Error loading file. Please try again.");
+            }
+        });
+    });
+});
+
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".request-upload").click(function () {
+        var id = @Model.ViewbagGrantTypeId; // Ensure that the correct id is passed from the model
+
+        $.ajax({
+            url: "/VDCMUNLevel/Grant/UploadFilePartial", // Ensure the full URL path is correct
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                // Insert the response (partial view content) into the modal body
+                $("#requestFileModal .modal-content").html('');
+
+                $("#requestFileModal .modal-content").html(data);
+
+                // Open the modal
+                $("#requestFileModal").modal("show");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
+                alert("Error loading file. Please try again.");
+            }
+        });
+    });
+});
+
+
+
+
+
+
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+        $(".request-total-grant").click(function () {
+        var id = @Model.ViewbagGrantTypeId; // Ensure that the correct id is passed from the model
+
+        $.ajax({
+            url: "/VDCMUNLevel/Grant/TotalRequestsPartial", // Ensure the full URL path is correct
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                // Insert the response (partial view content) into the modal body
+                $("#requestFileModal .modal-content").html('');
+
+                $("#requestFileModal .modal-content").html(data);
+
+                // Open the modal
+                $("#requestFileModal").modal("show");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
+                alert("Error loading file. Please try again.");
+            }
+        });
+    });
+});
+
+
+
+
+
+
+</script>
+
+
+<script>
+
+
+    function showSwalAndRedirect(url) {
+        Swal.fire({
+            title: 'आयोजना वा कार्यक्रम सच्च्याउँदै हुनुहुन्छ ?',
+            text: "आयोजना वा कार्यक्रम सच्याउनु पूर्व अपलोड भएको शर्त घोषणा (पुरानो फाइल) हटाउनुहोस र सच्याईसकेपछि पुन: नयाँ शर्त घोषणा अपलोड गर्नुहोस् । ",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            } else {
+                Swal.fire('', 'आयोजना वा कार्यक्रम सच्याउने कार्य रद्द गरियो', 'info');
+            }
+        });
+    }
+
+
+    function showSwalAndRedirectDelete(url) {
+        Swal.fire({
+            title: 'आयोजना वा कार्यक्रम हटाउदै हुनुहुन्छ ?',
+            text: "आयोजना वा कार्यक्रम सच्याउनु पूर्व अपलोड भएको शर्त घोषणा (पुरानो फाइल) हटाउनुहोस र सच्याईसकेपछि पुन: नयाँ शर्त घोषणा अपलोड गर्नुहोस् । ",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            } else {
+                Swal.fire('', 'आयोजना वा कार्यक्रम हटाउने कार्य रद्द गरियो.', 'info');
+            }
+        });
+    }
+
+
+</script>
+
+
+
+<script>
+
+ function validate() {
+
+
+    var OfficeType = @Model.ViewBagCurrentOfficeType;
+    var ProvincesType = @Model.ViewBagCurrentLoginUserUserTypeId;
+    var GrantTypeId = @Model.ViewbagGrantTypeId;
+    var cnv = $('#TotalBudget').val();
+    cnv = cnv * 100000;
+
+    if ($(".program-checkbox:checked").length === 0) {
+        alert("कम्तीमा एउटा कार्यक्रम चयन गर्नुहोस्।");
+        $("#programMultiSelect").css("border", "2px solid red");
+        return false;
+    } else {
+        $("#programMultiSelect").css("border", "1px solid #ced4da");
+    }
+
+    if (GrantTypeId == 1) {
+        if (ProvincesType == 2) {
+            if (cnv < 50000000) { // 10 Crore
+                alert('कुल लागत कम्तिमा ५ करोड वा बढीमा  १० करोड सम्म हुनु पर्दछ ।');
+                return false;
+            }
+        } else {
+            if (OfficeType == 1) { // Gaunpalika
+                if (cnv > 30000000 || cnv < 2500000) {
+                    alert('कुल लागत कम्तिमा २५ लाख र बढीमा ३ करोड सम्म हुनु पर्दछ ।');
+                    return false;
+                }
+            } else if (OfficeType == 4) {
+                if (cnv > 30000000 || cnv < 2500000) {
+                    alert('कुल लागत कम्तिमा २५ लाख र बढीमा ३ करोड सम्म हुनु पर्दछ ।');
+                    return false;
+                }
+            } else { // Mahanagarpalika, Upmahanagarpalika
+                if (cnv > 50000000 || cnv < 2500000) {
+                    alert('कुल लागत कम्तिमा २५ लाख र बढीमा ५ करोड सम्म हुनु पर्दछ ।');
+                    return false;
+                }
+            }
+        }
+    }
+    else {
+        if (ProvincesType == 2) {
+            if (cnv > 300000000 || cnv < 100000000) {
+                alert('कुल लागत १० करोड देखि ३० करोड सम्म हुनु पर्दछ ।');
+                return false;
+            }
+        } else {
+            if (OfficeType == 1) {
+                if (cnv > 70000000 || cnv < 10000000) {
+                    alert('कुल लागत १ करोड देखि ७ करोड सम्मको हुनु पर्दछ ।');
+                    return false;
+                }
+            } else if (OfficeType == 4) {
+                if (cnv > 70000000 || cnv < 10000000) {
+                    alert('कुल लागत १ करोड देखि ७ करोड सम्मको हुनु पर्दछ ।');
+                    return false;
+                }
+            } else {
+                if (cnv > 300000000 || cnv < 100000000) {
+                    alert('कुल लागत १० करोड देखि ३० करोड सम्मको हुनु पर्दछ !');
+                    return false;
+                }
+            }
+        }
+     }
+
+    validateForm(); // Ensure all files are uploaded
+
+    return true; // Allow form submission if all conditions are met
+}
+
+ function validateForm() {
+        let isValid = true;
+        let fileInputs = document.querySelectorAll("input[type='file']");
+
+        fileInputs.forEach((input, index) => {
+            if (input.files.length === 0) {
+                alert("कृपया क्र.स. " + (index + 1)) ‌‌+ "फाईल अपलोड गर्नुहोला ।";
+                isValid = false;
+                return false; // Stop further checks
+            }
+        });
+
+        return isValid;
+    }
+
+$('#GrantFormID').submit(validate);
+
+
+
+
+</script>
+
+
+

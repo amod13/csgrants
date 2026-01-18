@@ -1,0 +1,54 @@
+﻿@model GrantApp.Models.OfficeDetailsViewModel
+
+@{
+    ViewBag.Title = "_DetailsApprovedOffice";
+    Layout = null;
+    int i = 1;
+}
+
+
+<table class="table table-hover" id="IdleUserlisttable">
+    <thead>
+        <tr>
+            <th>क्रम</th>
+            <th>आ.व.</th>
+            <th>प्रदेश</th>
+            <th>जिल्ला</th>
+            <th>गापा/नपा</th>
+            <th>कार्यलयको नाम</th>
+            <th>बिशेष</th>
+            <th>समपुरक</th>
+            <th>जम्मा</th>
+            <th>विवरण</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.OfficeDetailsViewModelList)
+        {
+
+
+            <tr>
+                <td scope="row">@i</td>
+                <td>@item.PhaseTitle</td>
+                <td>@item.ProvinceTitleEng</td>
+                <td>@item.DistrictNameEng</td>
+                <td>@item.VdcMunNameEng</td>
+                <td>@item.OfficeName</td>
+                <td>@item.Bishesh</td>
+                <td>@item.Sampurak</td>
+                <td>@item.TotalGrant</td>
+                <td>
+                    @Html.ActionLink(" ", "GetApplicationDetailsByOfficePhaseId", new { @id = item.OfficeId, @id1 = item.ProgramPhaseNumber }, new { @class = "edits fa fa-eye" })
+                </td>
+
+            </tr>
+            ++i;
+        }
+
+
+    </tbody>
+</table>
+
+

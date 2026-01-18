@@ -1,0 +1,36 @@
+﻿<nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+            <!-- User Info-->
+            <div class="sidenav-header-inner text-center">
+                <img src="~/AdminResources/img/photos/250px-Emblem_of_Nepal.svg.png" alt="Logo" class="img-fluid">
+                <!--<h2 class="h5">4pix Solutions</h2> <span>Smart Solutions</span>-->
+            </div>
+            <!-- Small Brand information, appears on minimized sidebar-->
+            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>M</strong><strong class="text-primary">P</strong></a></div>
+        </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+            <!--<h5 class="sidenav-heading">Main</h5>-->
+            <ul id="side-main-menu" class="side-menu list-unstyled">
+                <li><a href="~/ProvinceLevel/ProvinceHome/Dashboard"> <i class="icon-home"></i>Home</a></li>
+                @*<li><a href="~/Admin/ProgramSetup/ListGrantType"> <i class="icon-form"></i>अनुदान प्रदान गरिने क्षेत्र र आधार</a></li>
+                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts</a></li>
+                    <li><a href="tables.html"> <i class="icon-grid"></i>Tables</a></li>*@
+
+                <li>
+                    <a href="#DemandGrant" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows">आयोजना/कार्यक्रम</i></a>
+                    <ul id="DemandGrant" class="collapse list-unstyled ">
+                        <li><a href="~/ProvinceLevel/SubProgramSetup/ListSubProgram/1"> <i class="icon-form"></i>विशेष अनुदान-आयोजना/कार्यक्रम</a></li>
+                        <li><a href="~/ProvinceLevel/SubProgramSetup/ListSubProgram/2"> <i class="icon-form"></i>समपुरक अनुदान-आयोजना/कार्यक्रम</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="~/Manage/ProvinceChangePassword"> <i class="fa fa-key"></i>पासवर्ड परिवर्तन</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>

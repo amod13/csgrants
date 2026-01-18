@@ -1,0 +1,224 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "AddProgressDetail";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int? RunningStatus = 1;
+    if (Model.ObjQuadrimesterReportsDetailViewModel.AppRunningStatus.HasValue)
+    {
+        RunningStatus = Model.ObjQuadrimesterReportsDetailViewModel.AppRunningStatus;
+    }
+
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Progress Detail</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <div class="col-md-12">
+                            आयोजना/कार्यक्रमको नाम : @GrantApp.CommontUtilities.GetSubProgramNameById(Model.ObjQuadrimesterReportsDetailViewModel.ProgramId)
+                            <br />
+                            <span>
+                                शुरु आर्थिक वर्ष : @GrantApp.CommontUtilities.GetFiscalYearTitleFromApplicationId(Model.ObjQuadrimesterReportsDetailViewModel.ProgramId)
+                            </span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="error" style="color:red;font-size:14px;font-style:italic;">
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+
+                                <span>@ViewBag.ErrorMessage</span>
+                            }
+                        </div>
+
+                        @using (Html.BeginForm("AddProgressDetailByFY", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProgramId)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.QuadrimesterReportsDetailId)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.QuadrimesterId)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.FiscalYearId)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.NikasaMaagFileUpload)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.ContractFile)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.RunningBillFile)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile)
+                            @Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.ReportOfFisalYearEnd)
+
+
+                            @*@Html.HiddenFor(m => m.ObjQuadrimesterReportsDetailViewModel.OfficeId)*@
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                @if (ViewBag.Mode == "Edit")
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 form-group">
+                                            <label>आयोजना कार्यान्वयन स्थितिः</label>
+                                            @Html.DropDownListFor(m => m.ObjQuadrimesterReportsDetailViewModel.ApplicationProgressStatusId, GrantApp.Areas.Admin.FunctionClass.ApplicationProgressStatusDD(Model.ObjQuadrimesterReportsDetailViewModel.ApplicationProgressStatusId), new { @id = "dll_ApplicationStatus", @class = "form-control form-control sm", @required = "required" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 form-group">
+                                            <label>आयोजना कार्यान्वयन स्थितिः</label>
+                                            @Html.DropDownListFor(m => m.ObjQuadrimesterReportsDetailViewModel.ApplicationProgressStatusId, GrantApp.Areas.Admin.FunctionClass.ApplicationProgressStatusDD(), new { @id = "dll_ApplicationStatus", @class = "form-control form-control sm", @required = "required" })
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+                                @if (ViewBag.Mode == "Edit" && RunningStatus == 2)
+                                {
+                                    @Html.Partial("_CreateEditQuadrimesterReportsForNotRunning")
+
+
+                                }
+
+                                @if (ViewBag.Mode == "Edit" && RunningStatus == 1)
+                                {
+                                    @Html.Partial("_CreateEditQuadrimesterReports")
+
+                                }
+
+                                @if (ViewBag.Mode == "Create")
+                                {
+                                    <div id="AppNotRunningDiv">
+                                        @Html.Partial("_CreateEditQuadrimesterReportsForNotRunning")
+
+                                    </div>
+                                    <div id="AppRunningStatusTrueDiv">
+                                        @Html.Partial("_CreateEditQuadrimesterReports")
+
+                                    </div>
+                                }
+
+
+
+
+                                <div class="form-group">
+
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्षित गर्नुहोस</button>
+                                    @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ProgressDetailList", "SubProgramSetup", new { @class = "btn btn-info btn-sm fa fa-home" })
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#AppNotRunningDiv").hide();
+
+        $('#dll_ApplicationStatus').change(function () {
+            var id = $(this).val();
+            if (id == 0) {
+                $("#AppNotRunningDiv").hide();
+                $("#AppRunningStatusTrueDiv").hide();
+
+
+            }
+            else if (id == 1) {
+                $("#AppNotRunningDiv").hide();
+                $("#AppRunningStatusTrueDiv").show();
+
+                $('#placeID').prop('required', true);
+                $('#materialachieveid').prop('required', true);
+                $('#ttamount').prop('required', true);
+                $('#tnikashaAmount').prop('required', true);
+                $('#tnikashaAmount').prop('required', true);
+                $('#tcontractAmount').prop('required', true);
+                $('#remarksID').prop('required', true);
+                $('#prptFile').prop('required', true);
+                $('#cctFile').prop('required', true);
+                $('#cctFile').removeAttr('required');
+                $('#tilldatebills').prop('required', true);
+                $('#tilldatebills').prop('required', true);
+                $('#ctnoticefile').prop('required', true);
+                $('#sitePhoto1').prop('required', true);
+
+
+            }
+            else if (id == 2) {
+                $("#AppNotRunningDiv").show();
+                $("#AppRunningStatusTrueDiv").hide();
+
+                $('#placeID').prop('required', false);
+                $('#placeID').removeAttr('required');
+
+                $('#materialachieveid').prop('required', false);
+                $('#materialachieveid').removeAttr('required');
+                $('#ttamount').prop('required', false);
+                $('#ttamount').removeAttr('required');
+                $('#tnikashaAmount').prop('required', false);
+                $('#tnikashaAmount').removeAttr('required');
+                $('#tnikashaAmount').prop('required', false);
+                $('#tnikashaAmount').removeAttr('required');
+                $('#tcontractAmount').prop('required', false);
+                $('#tcontractAmount').removeAttr('required');
+
+                $('#remarksID').prop('required', false);
+                $('#remarksID').removeAttr('required');
+
+                $('#prptFile').prop('required', false);
+                $('#prptFile').removeAttr('required');
+
+                $('#cctFile').prop('required', false);
+                $('#cctFile').removeAttr('required');
+
+                $('#tilldatebills').prop('required', false);
+                $('#tilldatebills').removeAttr('required');
+
+                $('#tilldatebills').prop('required', false);
+                $('#tilldatebills').removeAttr('required');
+
+                $('#ctnoticefile').prop('required', false);
+                $('#ctnoticefile').removeAttr('required');
+                $('#sitePhoto1').prop('required', false);
+                $('#sitePhoto1').removeAttr('required');
+
+                
+
+
+
+            }
+
+
+        });
+
+    });
+</script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

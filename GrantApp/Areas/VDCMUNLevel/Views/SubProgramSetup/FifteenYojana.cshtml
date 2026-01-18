@@ -1,0 +1,177 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "FifteenYojana";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    string CName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string AName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
+    string DefaultClass1 = "btn btn-info btn-sm";
+    string DefaultClass2 = "btn btn-info btn-sm";
+    string DefaultClass3 = "btn btn-info btn-sm";
+    string DefaultClass4 = "btn btn-info btn-sm";
+    string DefaultClass5 = "btn btn-info btn-sm";
+    string DefaultClass6 = "btn btn-info btn-sm";
+    string DefaultClass7 = "btn btn-info btn-sm";
+    string DefaultClass8 = "btn btn-info btn-sm";
+
+
+    if (CName == "SubProgramSetup" && AName == "ProgramPriority")
+    {
+        DefaultClass7 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "Edit")
+    {
+        DefaultClass1 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListAction")
+    {
+        DefaultClass2 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "CheckListActionUpload")
+    {
+        DefaultClass4 = "btn btn-danger btn-sm";
+    }
+    if (CName == "GrantRequestForm" && AName == "ProposalValuation")
+    {
+        DefaultClass3 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ViewDetails")
+    {
+        DefaultClass5 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "FifteenYojana")
+    {
+        DefaultClass6 = "btn btn-danger btn-sm";
+    }
+    if (CName == "SubProgramSetup" && AName == "ReqDocUploads")
+    {
+        DefaultClass8 = "btn btn-danger btn-sm";
+    }
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">राष्ट्रिय उदेश्यसँग सामञ्जस्यता</li>
+        </ul>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            @*<h1 class="h3 display">राष्ट्रिय उदेश्यसँग सामञ्जस्यता</h1>*@
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                @if (ViewBag.Mode == "Edit")
+                {
+                <div class="btn-toolbar">
+                    @Html.ActionLink("१. मुख्य विवरण", "Edit", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass1 })
+                    @Html.ActionLink("२. अनिवार्य कागजातहरू", "ReqDocUploads", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass8 })
+                    @Html.ActionLink("३. शर्त घोषणा पृष्ठ", "CheckListAction", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass2 })
+                    @Html.ActionLink("४. शर्त घोषणा कागजात", "CheckListActionUpload", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass4 })
+                    @Html.ActionLink("५. थप विवरण", "ProposalValuation", "GrantRequestForm", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass3 })
+                    @Html.ActionLink("६. राष्ट्रिय उदेश्यसँग सामञ्जस्यता", "FifteenYojana", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass6 })
+                    @Html.ActionLink("७. प्राथमिकता क्रम", "ProgramPriority", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass7 })
+                    @Html.ActionLink("८. समिक्षा", "ViewDetails", "SubProgramSetup", new { @id = Model.SubProgramId, @id1 = Model.ViewbagGrantTypeId }, new { @class = DefaultClass5 })
+
+                </div>
+                }    <div class="clearfix"></div>
+                <hr />
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h3 display">राष्ट्रिय उदेश्यसँग सामञ्जस्यता</h3>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("FifteenYojana", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "fifteenYojanaCheck" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                            @Html.HiddenFor(m => m.SubProgramId)
+                            @Html.HiddenFor(m => m.ObjFifteenYojanaDetails.RefGrantVariableId)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+
+                                @for (int i = 0; i < Model.FifteenYojanaDetailsList.Count; i++)
+                                {
+                                    <div class="col-md-12 col-sm-6 form-group">
+                                        <label>@Model.FifteenYojanaDetailsList[i].OptionValue</label>
+                                        @Html.CheckBoxFor(m => Model.FifteenYojanaDetailsList[i].IsChecked)
+                                        @Html.DisplayFor(m => Model.FifteenYojanaDetailsList[i].YojanaTitle)
+                                        @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].OptionValue)
+                                        @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].SubProgramId)
+                                        @Html.HiddenFor(m => Model.FifteenYojanaDetailsList[i].RefGrantVariableId)
+
+                                    </div>
+                                }
+
+
+
+                                @if (Model.Status == 1)
+                                {
+                                    <div class="form-group">
+                                        <span style="font-weight:bold;font-size:10px;color:#ff6a00;">(कम्तिमा एउटा चेक बक्समा क्लिक गर्नुहोस ।)</span>
+                                    </div>
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+                                        @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                    </div>
+
+                                }
+                                else
+
+                                {
+
+                                    <div class="form-group">
+                                        @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-floppy-o">&nbsp;</i>प्रमाणिकरणको प्रकियामा छ ।</button>
+                                        @Html.ActionLink(" मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm fa fa-home" })
+
+                                    </div>
+                                }
+
+
+
+
+
+
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script type="text/javascript">
+    function SubmitValidateFifteenYojana() {
+        var checkedCount = $("input:checked").length;
+        var valid = checkedCount > 0;
+        if (!valid) {
+            //$('#validationMessage').html('You must select at least one option');
+            alert("कृपया कुनै एक चेक गर्नुहोस ।")
+        }
+        return valid;
+
+    };
+    $('#fifteenYojanaCheck').submit(SubmitValidateFifteenYojana);
+</script>

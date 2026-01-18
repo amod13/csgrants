@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Upload Signed PDF";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<h2>Upload Signed PDF</h2>
+<form action="@Url.Action("UploadSignedPdf", "Grant")" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required />
+    <button type="submit">Upload</button>
+</form>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+

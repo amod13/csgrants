@@ -1,0 +1,54 @@
+﻿@model GrantApp.Models.OfficeDetailsForAdminViewModel
+@{
+    int i = 1;
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+}
+
+<div class="table-responsive m_table" id="NotSubmitedListDivId">
+    <table class="table table-hover" id="NotSubmitedListTable">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>प्रदेश</th>
+                <th>मुख्य मन्त्रि/मेयर/अध्यक्ष को नाम</th>
+                <th>मुख्य मन्त्रि/मेयर/अध्यक्ष को ईमेल</th>
+                <th>मुख्य मन्त्रि/मेयर/अध्यक्ष को मोबाईल नं</th>
+                <th>उपमेयर/उपाध्यक्ष को नाम</th>
+                <th>उपमेयर/उपाध्यक्ष को ईमेल</th>
+                <th>उपमेयर/उपाध्यक्ष को मोबाईल नं.</th>
+                <th>प्रशासकिय अधिकृतको नाम</th>
+                <th>प्रशासकिय अधिकृतको ईमेल</th>
+                <th>प्रशासकिय अधिकृतको मोबाईल नं</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.OfficeDetailsForAdminViewModelList)
+            {
+
+
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.OfficeName</td>
+                <td>@item.ContactPerson</td>
+                <td>@item.ContactPersonPost</td>
+                <th>@item.MobileNumber</th>
+                <td>@item.UpMayerName</td>
+                <td>@item.UpMayeraEmail</td>
+                <td>@item.UpMayerMobile</td>
+                <td>@item.ContactPersonAccount</td>
+                <td>@item.ContactPersonEmailAccount</td>
+                <td>@item.ContactPersonMobileAccount</td>
+
+            </tr>
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+
+

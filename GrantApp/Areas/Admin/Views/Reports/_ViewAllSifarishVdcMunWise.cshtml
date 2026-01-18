@@ -1,0 +1,101 @@
+﻿@model GrantApp.Models.ReportModel
+
+@{
+
+    int i = 1;
+
+}
+<div class="table-responsive">
+
+    <table class="table table-bordered table-responsive" id="exporttopdf" style="font-size:12px;">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>स्थानीय तहको नाम</th>
+                <th>जिल्ला</th>
+                <th>प्रदेश</th>
+                <th>अनुदान प्रकार</th>
+                <th colspan="2" style="text-align:center;">आ.व. २०७६/७७</th>
+                <th colspan="2" style="text-align:center;">आ.व. २०७७/७८</th>
+                <th colspan="2" style="text-align:center;">आ.व. २०७८/७९</th>
+                <th colspan="2" style="text-align:center;">आ.व. २०७९/८०</th>
+                <th colspan="2" style="text-align:center;">आ.व. २०८०/८१</th>
+                <th style="text-align:center;">आ.व. २०८०/८१ को लागी माग रकम</th>
+                <th colspan="2" style="text-align:center;">कुल</th>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+                <td></td>
+                <td>आयोजना संख्या</td>
+                <td>सिफारिस रू</td>
+            </tr>
+            @*<tr>
+                    <td rowspan="2">आयोजना संख्या</td>
+                    <td rowspan="2">सिफारिस रू</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">आयोजना संख्या</td>
+                    <td rowspan="2">सिफारिस रू</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">आयोजना संख्या</td>
+                    <td rowspan="2">सिफारिस रू</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">आयोजना संख्या</td>
+                    <td rowspan="2">सिफारिस रू</td>
+                </tr>*@
+
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ViewAllSifarishVMList)
+            {
+
+
+            <tr>
+                <td scope="row">@i</td>
+                <td>@item.VdcMunNameNep</td>
+                <td>@item.DistrictNameNep</td>
+                <td>@item.ProvinceTitleNep</td>
+                <td>समपूरक</td>
+                <td>@item.Total20762077</td>
+                <td>@item.Total20762077Sum</td>
+                <td>@item.Total20772078</td>
+                <td>@item.Total20772078Sum</td>
+                <td>@item.Total20782079</td>
+                <td>@item.Total20782079Sum</td>
+                <td>@item.Total20792080</td>
+                <td>@item.Total20792080Sum</td>
+                <td>@item.Total20802081</td>
+                <td>@item.Total20802081Sum</td>
+                <td>@item.TotalRequestedProgram</td>
+                <td>@item.TotalTillDate</td>
+                <td>@item.GrantTotalSum</td>
+
+
+
+            </tr>
+
+                ++i;
+            }
+
+
+        </tbody>
+    </table>
+</div>

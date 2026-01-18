@@ -1,0 +1,84 @@
+﻿@model GrantApp.Areas.Admin.Models.AdminReport
+
+@{
+    ViewBag.Title = "ViewReports";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+   
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">अनुदान -कार्यक्रम</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">
+                आयोजना/कार्यक्रमहरुको विवरण
+            </h1>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-header">
+                            स्वीकृत भएका कार्यक्रमहरूको विवरण
+                        </div>
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>आ.व.</th>
+                                        <th>प्रकार</th>
+                                        <th>मुलभुत क्षेत्र</th>
+                                        <th>कोड</th>
+                                        <th>शिर्षक</th>
+                                        <th>कुल लागत</th>
+                                        <th>समय अवधि</th>
+                                        <th>विवरण</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.AllProgramListOfClientViewModelList.Where(x => x.ApprovedStatus == true && x.GrantTypeId==Model.GrantTypeId))
+                                    {
+
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.PhaseTitle</td>
+                                            <td>@item.GrantTypeName</td>
+
+                                            <td>@item.SectionName</td>
+                                            <td>@item.SubProgramId</td>
+                                            <td>@item.SubProgramTitle</td>
+                                            <td>@item.TotalBudget</td>
+                                            <td>@item.TimeDurationYear</td>
+                                            <td>@Html.ActionLink(" ", "ReportViewDetailById", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण हेर्नुहोस" })</td>
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

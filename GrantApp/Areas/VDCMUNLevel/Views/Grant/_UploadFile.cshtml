@@ -1,0 +1,22 @@
+﻿@model GrantApp.Models.NewProgramInitiation
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="requestFileModalLabel">आ.व.२०८२/८३ का लागि सङ्घीय समपूरक तथा विशेष अनुदान अन्तर्गत संचालन हुने आयोजना वा कार्यक्रम छनौट सम्बन्धी सम्बन्धित स्थानीय तहको हकमा सम्बन्धित कार्यपालिकाको निर्णय (उपस्थिति सहित) र प्रदेशको हकमा सम्बन्धित प्रदेश योजना आयोगको सिफारिशमा प्रदेश सरकार मन्त्रिपरिषद्को निर्णय</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+<div class="modal-body">
+    <form action="@Url.Action("UploadFile", "Grant")" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            @Html.HiddenFor(m=>m.GrantType)
+            <input type="file" name="file" required class="form-control" />
+            <button type="submit" class="btn btn-primary mt-2"> पुन अपलोड गर्नुहोस ।</button>
+        </div>
+    </form>
+</div>
+
+

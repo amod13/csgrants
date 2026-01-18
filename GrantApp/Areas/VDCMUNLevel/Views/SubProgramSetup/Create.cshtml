@@ -1,0 +1,177 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+    decimal CostSharePercent = 80;
+}
+
+@*<div class="breadcrumb-holder">
+        <div class="container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Program</li>
+            </ul>
+        </div>
+    </div>*@
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Create", "SubProgramSetup", FormMethod.Post,new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                            @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                            @Html.ValidationSummary(true)
+                        <fieldset>
+
+                            @Html.Partial("_CreateEdit")
+                            @*@if (Model.ViewbagGrantTypeId == 1)
+                            {
+                                @Html.Partial("_CreateEditSpecial")
+
+                            }
+                            else
+                            {
+                                @Html.Partial("_CreateEdit")
+
+                            }*@
+
+
+
+                            @if (Model.ViewbagGrantTypeId == 2)
+                            {
+                                <div class="form-group">
+                                    <span style="font-weight:bold;font-size:10px;color:#ff6a00;">(कार्यविधि अनुसार, तँहा निकायले व्यहोर्ने रकम कुल लागत रकमको कम्तिमा @GrantApp.CommontUtilities.GetTotalPercentageOfOfficeType(CurrentLoginOfficeId)% रकम हुनुपर्दछ  ।)</span>
+                                </div>
+                            }
+
+
+
+                            <div class="form-group">
+
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+                                @Html.ActionLink("मुख्य सुचिमा जानुहोस", "ListSubProgram", "SubProgramSetup", new { @id = Model.ViewbagGrantTypeId }, new { @class = "btn btn-info btn-sm" })
+
+                            </div>
+                        </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+
+<script type="text/javascript">
+    function validate() {
+
+        var OfficeType=@Model.ViewBagCurrentOfficeType;
+        var ProvincesType=@Model.ViewBagCurrentLoginUserUserTypeId;
+        var GrantTypeId = @Model.ViewbagGrantTypeId;
+        var cnv = $('#TotalBudget').val();
+        cnv = cnv * 100000;
+
+        if(GrantTypeId==1)
+        {
+            if(ProvincesType==2)
+            {
+                if (cnv<100000000) {//10 KRORE
+                    alert('कुल लागत कम्तिमा १ करोड वा बढीमा ७ करोड सम्म हुनु पर्दछ सो भन्दा धेरै हुनु पर्दछ ।');
+                    return false;
+                } else { return true; }
+            }
+
+            else
+            {
+                if(OfficeType==1)//Gapanapa
+                {
+                    if (cnv>50000000 || cnv<5000000) {
+                        alert('कुल लागत कम्तिमा १ करोड र बढीमा ७ करोड सम्म हुनु पर्दछ ।');
+                        return false;
+                    } else { return true; }
+                }
+                else if (OfficeType == 4)
+                {
+                    if (cnv > 100000000 || cnv < 5000000) {
+                        alert('कुल लागत कम्तिमा १ करोड र बढीमा ७ करोड सम्म हुनु पर्दछ ।');
+                        return false;
+                    } else { return true; }
+
+                }
+                else//mahanagarpalika and upmahanagarpalika
+                {
+                    if (cnv>150000000 || cnv<5000000) {
+                        alert('कुल लागत कम्तिमा १ करोड र बढीमा १५ करोड सम्म हुनु पर्दछ !');
+                        return false;
+                    } else { return true; }
+                }
+
+
+            }
+        }
+        else
+        {
+            if(ProvincesType==2)
+            {
+                if (cnv>1000000000 || cnv<200000000) {
+                    alert('कुल लागत २० करोड देखि १ अर्ब सम्म हुनु पर्दछ ।');
+                    return false;
+                } else { return true; }
+            }
+            else
+            {
+
+                if(OfficeType==1)
+                {
+                    if (cnv>100000000 || cnv<10000000) {
+                        alert('कुल लागत १ करोड देखि १० करोड सम्मको हुनु पर्दछ ।');
+                        return false;
+                    } else { return true; }
+                }
+                else if (OfficeType == 4)
+                {
+                    if (cnv > 100000000 || cnv < 10000000) {
+                        alert('कुल लागत १ करोड देखि ७ करोड सम्मको हुनु पर्दछ ।');
+                        return false;
+                    } else { return true; }
+                }
+                else
+                {
+                    if (cnv>250000000 || cnv<50000000) {
+                        alert('कुल लागत ५ करोड देखि २५ करोड सम्मको हुनु पर्दछ  !');
+                        return false;
+                    } else { return true; }
+                }
+            }
+
+        }
+
+
+
+    }
+
+    $('#GrantFormID').submit(validate);
+    //$('#TotalBudget').bind('blur keyup', validate);
+</script>

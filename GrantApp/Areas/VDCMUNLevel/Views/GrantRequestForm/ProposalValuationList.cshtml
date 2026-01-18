@@ -1,0 +1,90 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+}
+
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रस्ताव मूल्यांकन सूची</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            @*<h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>*@
+
+            <h1 class="h3 display">प्रस्ताव मूल्यांकन सूची</h1>
+
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    @*<div class="card-header">
+
+                        <a href="@Url.Action("Action", "Controller")" class="btn btn-warning">
+                            अनुदान प्रकिया
+                            <i class="fa fa-sliders" aria-hidden="true"></i>
+                        </a>
+
+
+                    </div>*@
+                    <div class="card-body">
+                        <div class="table-responsive m_table">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>क्रम</th>
+                                        <th>मुलभुत क्षेत्र</th>
+                                        <th>कार्यविधी क्षेत्र</th>
+                                        <th>आयोजना कार्यक्रम</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ValuationBasisModelList)
+                                    {
+
+                                        <tr>
+                                            <th scope="row">@i</th>                                           
+                                            <td>@item.MainSection</td>
+                                            <td>@item.ProgramName</td>
+                                            <td>@item.SubProgram</td>                                     
+                                            <td>
+
+                                                @Html.ActionLink(" ", "ProposalValuation", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                                             
+                                            </td>
+                                           
+
+                                        </tr>
+                                        ++i;
+                                    }
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

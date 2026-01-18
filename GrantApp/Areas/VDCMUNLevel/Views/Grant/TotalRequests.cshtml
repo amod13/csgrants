@@ -1,0 +1,70 @@
+﻿@model GrantApp.Models.NewProgramInitiation
+@{
+    ViewBag.Title = "TotalRequests";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title" style="color:red;">
+                    सूचना: आगामी आ.व. को लागि @GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.GrantType) तर्फ नँया आयोजना वा कार्यक्रमको लागि आवश्यक रकम माग गर्न सक्नुहुनेछ ।
+
+                </h3>
+            </div>
+
+
+        </div>
+
+        <header>
+            <h1 class="h3 display"> आगामी आ.व. मा पेश गर्न सकिने आयोजना (जम्मा संख्या बाँकी बढीमा): @CommontUtilities.MaxAllowedThisyear(Model.OfficeId,Model.GrantType)</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h2>आगामी आ.व. को लागि @GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.GrantType) तर्फ पेश गरिने आयोजना वा कार्यक्रम संख्या छान्नुहोस ।</h2>
+
+                    </div>
+                    <div class="card-body">
+
+                        <form action="@Url.Action("TotalRequests", "Grant")" method="post">
+                            <div class="form-group">
+                                @Html.HiddenFor(m => m.GrantType)
+                                @Html.DropDownListFor(m=>m.TotalAppliedProject, ViewBag.SubProgramList as SelectList, "Select", new { @id = "ddlSubProgram", @class = "form-control form-control sm", @required = "required" })
+
+
+
+
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> आ.व. २०८२/८३ को लागि पेश गरिने आयोजना संख्या यकीन गरी अघि बढ्नुहोस </button>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

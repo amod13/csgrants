@@ -1,0 +1,76 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ProvinceLevel/Views/Shared/_ProvinceLayout.cshtml";
+}
+
+@*<div class="breadcrumb-holder">
+        <div class="container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Program</li>
+            </ul>
+        </div>
+    </div>*@
+<section class="forms">
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">@GrantApp.Areas.Admin.FunctionClass.GetGrantTypeNameById(Model.ViewbagGrantTypeId)</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span style="background-color:#eadfdf;">@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Create", "SubProgramSetup", FormMethod.Post,
+new { enctype = "multipart/form-data", @id = "ProGrantFormID" }))
+                        {
+                            @Html.HiddenFor(m => m.ViewbagGrantTypeId)
+                            @Html.HiddenFor(m => m.ViewBagCurrentOfficeType)
+                            @Html.HiddenFor(m => m.ViewBagCurrentLoginUserUserTypeId)
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                @Html.Partial("_CreateEdit")
+
+                                <div class="form-group">
+                                    @*<button type="submit" class="btn btn-secondary"><i class="fa fa-angle-double-left">&nbsp;</i> Back</button> &nbsp; &nbsp; &nbsp;*@
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o">&nbsp;</i> सुरक्छित गर्नुहोस</button>
+
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+
+
+<script type="text/javascript">
+    function validateForm() {
+        var cnv = $('#TotalBudget').val();
+        if (cnv > 1000000000) {
+            alert('कुल लागत १ अर्ब भन्दा धेरै भयो ।');
+            return false;
+        } else { return true; }
+
+    }
+
+    $('#ProGrantFormID').submit(validateForm);
+    //$('#TotalBudget').bind('blur keyup', validate);
+</script>
+
+

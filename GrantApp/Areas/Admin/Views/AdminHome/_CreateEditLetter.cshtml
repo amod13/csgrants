@@ -1,0 +1,29 @@
+﻿@model GrantApp.Areas.Admin.Models.LetterDetails
+
+
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 form-group">
+        <label>विषय</label>
+        @Html.TextBoxFor(m => m.LetterSubject, new { @id = "dll_Subject", @class = "form-control form-control sm", @required = "required" })
+
+    </div>
+    <div class="col-md-12 col-sm-12 form-group">
+        <label>विस्तृत विवरण</label>
+        @Html.TextAreaFor(m => m.LetterDescription, new { @id = "dll_Subject", @class = "form-control form-control sm", @required = "required" })
+
+    </div>
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>प्रकाशित मिति</label>
+        @Html.TextBoxFor(m => m.LetterDateEng, new { @id = "dll_Subject", @class = "form-control form-control sm", @required = "required" })
+
+    </div>
+    <div class="col-md-4 col-sm-4 form-group">
+        <label>फाईल अपलोड</label>
+        @Html.TextBoxFor(m => Model.LetterFileUploadFile, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.LetterFileUploadFile)
+
+    </div>
+</div>
+

@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+    int CurrentUserType = GrantApp.Areas.Admin.FunctionClass.GetUsertypeFromOfficeId(CurrentLoginOfficeId);
+
+    GrantApp.Models.SubProgramMaster subProgramMaster = new GrantApp.Models.SubProgramMaster();
+    GrantApp.Services.SubProgramServices services = new GrantApp.Services.SubProgramServices();
+    GrantApp.Models.GrantGroupInfo groupInfo = new GrantApp.Models.GrantGroupInfo();
+    subProgramMaster.OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+    int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+    subProgramMaster.SubProgramMasterList = services.SP_GetSubmitedProgramListbyType(0, 2, CurrentPhaseNumber, subProgramMaster.OfficeId).ToList();
+    subProgramMaster.CurrentYearGrantRequestProgramListVMList = services.SPUP_GetCurrentYearRequestProgramList(16, subProgramMaster.OfficeId);
+    int RequestedCount = 1;
+    int RunningCount = 1;
+    groupInfo = GrantApp.CommontUtilities.GetGrantGroupInfo(CurrentLoginOfficeId);
+    string name = groupInfo?.Name ?? "N/A";
+    int contributionpercent = (int)(groupInfo?.ContributionPercent ?? 100);
+    int npccontribution = 100 - contributionpercent;
+
+    //subProgramMaster.SubProgramMasterListNotSubmited = services.SP_GetSubmitedProgramListbyType(0, 1, CurrentPhaseNumber, subProgramMaster.OfficeId).ToList();
+}
+<style>
+    .blink_text {
+        animation: 3s blinker linear infinite;
+        -webkit-animation: 3s blinker linear infinite;
+        -moz-animation: 3s blinker linear infinite;
+        color: red;
+    }
+
+    @@-moz-keyframes blinker {
+        0% {
+            opacity: 1.0;
+        }
+
+        50% {
+            opacity: 0.0;
+        }
+
+        100% {
+            opacity: 1.0;
+        }
+    }
+
+    @@-webkit-keyframes blinker {
+        0% {
+            opacity: 1.0;
+        }
+
+        50% {
+            opacity: 0.0;
+        }
+
+        100% {
+            opacity: 1.0;
+        }
+    }
+
+    @@keyframes blinker {
+        0% {
+            opacity: 1.0;
+        }
+
+        50% {
+            opacity: 0.0;
+        }
+
+        100% {
+            opacity: 1.0;
+        }
+    }
+</style>
+<section class="dashboard-counts section-padding">
+
+    <div class="container-fluid">
+        <div class="card text-center">
+            <div class="card-header">
+                CSGrants प्रणाली भर्ने कार्य प्रकृया (Flowchart)
+            </div>
+            <div class="card-body text-left">
+                <p>
+                    <h5 class="card-title" style="color:red;">१. प्रयोगकर्ता प्रोफाइल अपडेट गर्नुहोस</h5>
+                </p>
+                <p>
+                    <h5 class="card-title" style="color:blue;">२. सम्पन्न तथा क्रमागत आयोजनाको प्रगति विवरण भर्नुहोस्</h5>
+                </p>
+                <p>
+                    <h5 class="card-title" style="color:red;">३. क्रमागत आयोजनाको रकम माग गर्ने रकम माग नगर्ने सम्बन्धी विवरण भर्नुहोस्</h5>
+                </p>
+                <p>
+                    <h5 class="card-title" style="color:blue;">४. नयाँ आयोजना माग गर्नुहोस</h5>
+                </p>
+
+
+            </div>
+
+            <div class="form-group">
+                @if (CurrentUserType == 2)
+                {
+                    <span style="font-weight:bold;font-size:13px;color:#ff6a00;">
+
+                    
+                        समपूरक अनुदान सम्बन्धी कार्यविधि, २०८१ अनुसार यो स्थानीय तह @name अन्तर्गत रहेको छ, जसअनुसार समपूरक अनुदान अन्तर्गत संचालन हुने आयोजनाका लागि लागत साझेदारी अनुपात (सङ्घ:प्रदेश)
+
+                        @npccontribution:@contributionpercent (@name) रहेको छ ।
+
+                    </span>
+                }
+                else
+                {
+            <span style="font-weight:bold;font-size:13px;color:#ff6a00;">
+                समपूरक अनुदान सम्बन्धी कार्यविधि, २०८१ अनुसार यो स्थानीय तह  @name अन्तर्गत रहेको छ, जसअनुसार समपूरक अनुदान अन्तर्गत संचालन हुने आयोजनाका लागि लागत साझेदारी अनुपात (सङ्घ:स्थानीय तह)
+
+                @npccontribution:@contributionpercent (@name) रहेको छ ।
+
+            </span>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<style>
+    .info-box {
+        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+        border-radius: .25rem;
+        padding: .5rem;
+        min-height: 80px;
+        background: #fff;
+    }
+
+    .dashboard-counts .count-number {
+        font-size: 1em;
+    }
+</style>

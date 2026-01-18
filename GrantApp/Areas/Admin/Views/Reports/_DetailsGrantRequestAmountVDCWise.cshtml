@@ -1,0 +1,221 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int Usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+    decimal TotalRequestedamt = 0;
+    decimal? RequestFirstYeartotal = 0;
+    decimal? RequestSecondYeartotal = 0;
+    decimal? RequestThirYeartotal = 0;
+    decimal? grantedFirstYearTotal = 0;
+    decimal? grantedSecondYearTotal = 0;
+    decimal? grantedThirdYearTotal = 0;
+    decimal? granttotalchaluamount = 0;
+    decimal? granttotalpujiamount = 0;
+}
+@*<div class="wrapper1">
+    <div class="div1"></div>
+</div>*@
+<div class="wrapper2111">
+    <div class="div21111">
+        <div class="table-responsive">
+            <div class="cd1234">
+                <table class="table table-hover" id="DetailsReportsID" style="font-size:12px;">
+                    <thead>
+                        <tr>
+                            <th>क्रम</th>
+                            <th>आ.ब.</th>
+                            <th>स्थानिय तहको नाम</th>
+                            <th>जिल्ला</th>
+                            <th>मुलभुत क्षेत्र</th>
+                            <th>आयोजनाको कोड</th>
+                            <th>आयोजनाको नाम</th>
+                            <th>आयोजनाको अवधि</th>
+                            <th>कूल लागत (लाखमा)</th>
+                            <th>स्वीकृत रकम (प्र) (लाखमा)</th>
+                            <th>स्वीकृत रकम (दो)(लाखमा)</th>
+                            <th>स्वीकृत रकम (ते) (लाखमा)</th>
+                            @if (Model.ViewBagGrantTypeId == 1)
+                            {
+                                <th>जम्मा रकम (लाखमा)</th>
+                                <th>हाल मागेको रकम चालु(लाखमा)</th>
+                                <th>हाल मागेको रकम पुँजिगत(लाखमा)</th>
+
+                            }
+                            else
+                            {
+                                <th>हाल मागेको रकम (लाखमा)</th>
+                            }
+
+                            <th></th>
+                            <th>ठेक्का रकम(लाखमा</th>
+                            <th>प्र.वि.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.ComplementryReportViewModelList)
+                        {
+
+                            decimal TotalBudgetAmt = item.TotalBudget;
+
+                            decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                            decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                            decimal AmountSecondtotal = item.AmountSecond;
+                            decimal GrantAmountFirst = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 1);
+                            decimal GrantAmountSecond = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 2);
+                            decimal GrantAmountThird = GrantApp.Areas.Admin.FunctionClass.GetApprovedAmount(item.SubProgramId, 3);
+
+
+
+
+                            GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                            GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+                            //TotalRequestedamt = AmountSecondtotal + TotalRequestedamt;
+                            RequestFirstYeartotal = RequestFirstYeartotal + item.BudgetForFirstYear;
+                            RequestSecondYeartotal = RequestSecondYeartotal + item.BudgetForSecondYear;
+                            RequestThirYeartotal = RequestThirYeartotal + item.BudgetForThirdYear;
+
+
+
+
+                            item.TotalBudget = item.TotalBudget / 100000;
+                            GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+
+                            GrantAmountFirst = GrantAmountFirst / 100000;
+                            GrantAmountSecond = GrantAmountSecond / 100000;
+                            GrantAmountThird = GrantAmountThird / 100000;
+                            item.AmountSecond = item.AmountSecond / 100000;
+
+                            grantedFirstYearTotal = grantedFirstYearTotal + GrantAmountFirst;
+                            grantedSecondYearTotal = grantedSecondYearTotal + GrantAmountSecond;
+                            grantedThirdYearTotal = grantedThirdYearTotal + GrantAmountThird;
+
+                            if (item.ChaluAmount.HasValue)
+                            {
+                                item.ChaluAmount = item.ChaluAmount / 100000;
+                            }
+                            if (item.PujigatAmount.HasValue)
+                            {
+                                item.PujigatAmount = item.PujigatAmount / 100000;
+                            }
+                            if (item.ContractAmount.HasValue)
+                            {
+                                item.ContractAmount = item.ContractAmount / 100000;
+                            }
+                            //if (grantedFirstYearTotal.HasValue)
+                            //{
+                            //    grantedFirstYearTotal = grantedFirstYearTotal / 100000;
+                            //}
+                            //if (grantedSecondYearTotal.HasValue)
+                            //{
+                            //    grantedSecondYearTotal = grantedSecondYearTotal / 100000;
+                            //}
+                            //if (grantedThirdYearTotal.HasValue)
+                            //{
+                            //    grantedThirdYearTotal = grantedThirdYearTotal / 100000;
+                            //}
+                            TotalRequestedamt = TotalRequestedamt + item.AmountSecond;
+                            granttotalchaluamount = granttotalchaluamount + item.ChaluAmount;
+                            granttotalpujiamount = granttotalpujiamount + item.PujigatAmount;
+
+
+                            <tr>
+                                <td scope="row">@i</td>
+                                <td>@item.PhaseTitle</td>
+                                <td>@item.OfficeName</td>
+                                <td>@item.DistrictName</td>
+                                <td>@item.SectionName</td>
+                                <td>@item.SubProgramId</td>
+                                <td>@item.SubProgramTitle</td>
+                                <td>@item.TimeDurationYear</td>
+
+                                <td>@item.TotalBudget</td>
+                                <td>@GrantAmountFirst</td>
+                                <td>@GrantAmountSecond</td>
+                                <td>@GrantAmountThird</td>
+                                @if (Model.ViewBagGrantTypeId == 1)
+                                {
+                                    <td>@item.AmountSecond</td>
+                                    <td>@item.ChaluAmount</td>
+                                    <td>@item.PujigatAmount</td>
+                                }
+                                else
+                                {
+                                    <td>@item.AmountSecond</td>
+                                }
+
+
+
+                                @if (Usertype == 5 && Model.ProgramPhaseNumber == 14)
+                                {
+                                    <td>
+                                        @Html.ActionLink(" ", "ViewDetailGrantRequestAmount", new { @id = item.SubProgramId, @id1 = Model.ProgramPhaseNumber }, new { @class = "edits fa fa-plus", title = "अनुमोदित रकम राख्नुहोस" })
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                <td>@item.ContractAmount</td>
+                                <td>
+                                    @Html.ActionLink(" ", "ViewDetailProgressReportForAll", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = 0, @id3 = 1 }, new { @class = "edits fa fa-eye", target = "_blank" })
+                                </td>
+
+
+                            </tr>
+
+                            ++i;
+                        }
+
+                        @if (Model.ViewBagGrantTypeId == 2)
+                        {
+                            
+                            <tr style="font-weight:bold;">
+                                <td colspan="8">जम्मा रकम</td>
+                                <td>@GrandTotalAmount</td>
+                                <td>@grantedFirstYearTotal</td>
+                                <td>@grantedSecondYearTotal</td>
+                                <td>@grantedThirdYearTotal</td>
+                                <td>@TotalRequestedamt</td>
+                            </tr>
+                        }
+                        else
+                        {
+                          
+                            <tr style="font-weight:bold;">
+                                <td colspan="8">जम्मा रकम</td>
+                                <td>@GrandTotalAmount</td>
+                                <td>@grantedFirstYearTotal</td>
+                                <td>@grantedSecondYearTotal</td>
+                                <td>@grantedThirdYearTotal</td>
+                                <td>@TotalRequestedamt</td>
+                                <td>@granttotalchaluamount</td>
+                                <td>@granttotalpujiamount</td>
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    $(function () {
+        $(".wrapper1").scroll(function () {
+            $(".wrapper2").scrollLeft($(".wrapper1").scrollLeft());
+        });
+        $(".wrapper2").scroll(function () {
+            $(".wrapper1").scrollLeft($(".wrapper2").scrollLeft());
+        });
+    });
+</script>*@

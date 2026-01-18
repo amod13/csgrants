@@ -1,0 +1,401 @@
+﻿@model GrantApp.Models.ReportModel
+@{
+    int usertype = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserType();
+
+    int i = 1;
+    decimal GrandTotalAmount = 0;
+    decimal GrandVDCMUNAmount = 0;
+    decimal GrandTotalRequestAmt = 0;
+}
+<div class="table-responsive">
+    <table class="table table-hover" id="DetailsReportsID">
+        <thead>
+            <tr>
+                <th>क्रम</th>
+                <th>आ.व.</th>
+                <th>प्रदेशको नाम</th>
+                <th>मुलभुत क्षेत्र</th>
+                <th>आयोजनाको कोड</th>
+                <th>आयोजनाको नाम</th>
+                <th>कूल लागत (लाखमा)</th>
+                <th>सम्बन्धित तहले व्यहोर्ने (लाखमा)</th>
+                <th>अनुदान माग गरिएको रकम (लाखमा)</th>
+                <th>आयोजनाको अवधि</th>
+                <th>प्राथमिकता</th>
+                @if (Model.ProgramPhaseNumber > 6)
+                {
+                    <th> निर्णय फाईल </th>
+                    <th> कूल लागत अनुमान दस्तावेज </th>
+
+                    <th> वातावरणीय अध्ययन प्रतिवेदन </th>
+                    if (Model.ViewBagGrantTypeId == 1)
+                    {
+
+                        <th> अनुसूची २ विशेष</th>
+
+                    }
+                    else
+                    {
+
+                        <th> अनुसूची १ समपूरक </th>
+                    }
+
+                    <th> शर्त घोषणा   </th>
+                }
+                else
+                {
+                    if (Model.ViewBagGrantTypeId == 2)
+                    {
+                        <th>प्रथम वर्ष माग</th>
+                        <th>दोस्रो वर्ष माग</th>
+                        <th>तेस्रो वर्ष माग</th>
+                    }
+                    else
+                    {
+                        <th>प्रथम वर्ष माग (चालु)</th>
+                        <th>दोस्रो वर्ष माग(चालु)</th>
+                        <th>तेस्रो वर्ष माग(चालु)</th>
+                        <th>प्रथम वर्ष माग(पुँजि)</th>
+                        <th>दोस्रो वर्ष माग(पुँजि)</th>
+                        <th>तेस्रो वर्ष माग(पुँजि)</th>
+                    }
+
+                    if (Model.ViewBagGrantTypeId == 1)
+                    {
+                        <th>2</th>
+                        <th>4</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                    }
+                    else
+                    {
+                        <th>3</th>
+                        <th>7</th>
+                        <th>11</th>
+                        <th>12</th>
+                        <th>13</th>
+                    }
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+                <th></th>
+
+                @*@if (usertype == 5)
+                    {
+                        <th>अनुदान रकम</th>
+                    }*@
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.ComplementryReportViewModelList)
+            {
+
+                decimal TotalBudgetAmt = item.TotalBudget;
+                decimal TotalAmountByVDCMUN = item.AmountProvinceVdc;
+                decimal RequestAmt = item.TotalBudget - item.AmountProvinceVdc;
+                GrandTotalAmount = GrandTotalAmount + item.TotalBudget;
+                GrandVDCMUNAmount = GrandVDCMUNAmount + TotalAmountByVDCMUN;
+                GrandTotalRequestAmt = GrandTotalRequestAmt + RequestAmt;
+
+                <tr>
+                    <td scope="row">@i</td>
+                    <td>@item.ProgramPhaseNumberStr</td>
+                    <td>@item.OfficeName</td>
+                    <td>@item.SectionName</td>
+                    <td>@item.SubProgramId</td>
+                    <td>@item.SubProgramTitle</td>
+                    <td>@item.TotalBudget</td>
+                    <td>@item.AmountProvinceVdc</td>
+                    <td>@RequestAmt</td>
+                    <td>@item.TimeDurationYear</td>
+                    <td>@item.ProgramPirority</td>
+
+                    @if (Model.ProgramPhaseNumber > 6)
+                    {
+                        <td>
+
+                            <i class="Update fa fa-eye view-request-file"
+                               data-file="@Url.Content("~/RequiredDocs/" + item.RequestFileDoc)"
+                               title="फाईल हेर्नहोस् ।"
+                               style="cursor:pointer; color:blue;">
+                            </i>
+
+
+                        </td>
+
+
+                        <td>
+
+                            <i class="Update fa fa-eye view-request-file"
+                               data-file="@Url.Content("~/RequiredDocs/" + item.EstimateDoc)"
+                               title="फाईल हेर्नहोस् ।"
+                               style="cursor:pointer; color:blue;">
+                            </i>
+
+
+                        </td>
+
+                        <td>
+
+                            <i class="Update fa fa-eye view-request-file"
+                               data-file="@Url.Content("~/RequiredDocs/" + item.EiaDoc)"
+                               title="फाईल हेर्नहोस् ।"
+                               style="cursor:pointer; color:blue;">
+                            </i>
+
+
+                        </td>
+
+                        <td>
+
+                            <i class="Update fa fa-eye view-request-file"
+                               data-file="@Url.Content("~/RequiredDocs/" + item.AnusuchiDoc)"
+                               title="फाईल हेर्नहोस् ।"
+                               style="cursor:pointer; color:blue;">
+                            </i>
+
+
+                        </td>
+
+
+
+                        <td>
+
+                            <i class="Update fa fa-eye view-request-file"
+                               data-file="@Url.Content("~/RequiredDocs/" + item.FinalDocumentsUrl)"
+                               title="फाईल हेर्नहोस् ।"
+                               style="cursor:pointer; color:blue;">
+                            </i>
+
+
+                        </td>
+                    }
+                    else
+                    {
+                        if (Model.ViewBagGrantTypeId == 2)
+                        {
+                            <td>@item.BudgetForFirstYear</td>
+                            <td>@item.BudgetForSecondYear</td>
+                            <td>@item.BudgetForThirdYear</td>
+                        }
+                        else
+
+                        {
+                            <td>@item.BudgetForFirstYear</td>
+                            <td>@item.BudgetForSecondYear</td>
+                            <td>@item.BudgetForThirdYear</td>
+                            <td>@item.PujiFirstYearAmount</td>
+                            <td>@item.PujiSecondYearAmount</td>
+                            <td>@item.PujiThirdYearAmount</td>
+                        }
+                        if (Model.ViewBagGrantTypeId == 1)
+                        {
+
+                            if (string.IsNullOrEmpty(item.Doc2))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+
+                            if (string.IsNullOrEmpty(item.Doc5))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc7))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc8))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc9))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc10))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(item.Doc22))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+
+                            if (string.IsNullOrEmpty(item.Doc26))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc30))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc31))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+                            if (string.IsNullOrEmpty(item.Doc32))
+                            {
+                                <td>छैन</td>
+                            }
+                            else
+                            {
+                                <td>छ</td>
+                            }
+
+                        }
+                    }
+
+
+
+
+
+                    <td>
+                        @Html.ActionLink(" ", "ViewDeatilsListForSubmited", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-eye" })
+                    </td>
+
+                    @*@if (usertype == 5)
+                        {
+
+                            <td>
+                                @Html.ActionLink("अनुदान रकम राख्नुहोस", "ProgramwiseAmount", new { @id = item.SubProgramId, @id1 = 1 }, new { @class = "" })
+                            </td>
+                        }*@
+
+
+
+                </tr>
+
+                ++i;
+            }
+            <tr style="font-weight:bold;">
+                <td colspan="6">जम्मा रकम</td>
+                <td>@GrandTotalAmount</td>
+                <td>@GrandVDCMUNAmount</td>
+                <td>@GrandTotalRequestAmt</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="modal fade" id="requestFileModal" tabindex="-1" aria-labelledby="requestFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="requestFileModalLabel">File Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" id="requestFileModalBody">
+                <!-- Content will be dynamically updated -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-4 col-md-9 form-group">
+                    <a id="downloadFileBtn" href="#" class="btn btn-primary" download>
+                        <i class="fa fa-download"></i> Download
+                    </a>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $(".view-request-file").click(function () {
+            var filePath = $(this).data("file"); // Get file URL
+            var fileName = filePath.split('/').pop(); // Extract filename
+            var fileExtension = filePath.split('.').pop().toLowerCase(); // Extract file extension
+            var modalBody = $("#requestFileModalBody");
+            var downloadBtn = $("#downloadFileBtn"); // Get the download button
+
+            // Clear previous content
+            modalBody.html("");
+
+            // Determine content based on file extension
+            if (["jpg", "jpeg", "png"].includes(fileExtension)) {
+                modalBody.html(`<img src="${filePath}" alt="Request File" style="max-width: 100%; height: auto;" />`);
+            } else if (fileExtension === "pdf") {
+                modalBody.html(`<embed src="${filePath}" width="100%" height="500px" type="application/pdf">`);
+            } else {
+                modalBody.html("<p>Unsupported file type or File Missing. Please check in the Detail Page.</p>");
+            }
+
+            // Set the download button link with the full URL
+            var downloadUrl = "https://csgrants.gov.np/Admin/Reports/Admin/GrantRequestForm/Download?FileName=" + encodeURIComponent(fileName);
+            downloadBtn.attr("href", downloadUrl);
+
+            // Show the modal
+            $("#requestFileModal").modal("show");
+        });
+    });
+
+
+</script>

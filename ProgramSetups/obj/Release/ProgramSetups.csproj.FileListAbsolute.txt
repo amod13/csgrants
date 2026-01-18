@@ -1,0 +1,12 @@
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\ProgramSetups.dll.config
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\ProgramSetups.dll
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\ProgramSetups.pdb
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\EntityFramework.dll
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\EntityFramework.xml
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\obj\Release\ProgramSetups.csproj.AssemblyReference.cache
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\obj\Release\ProgramSetups.csproj.CoreCompileInputs.cache
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\obj\Release\ProgramS.5D48CE5A.Up2Date
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\obj\Release\ProgramSetups.dll
+C:\Users\usere\Downloads\msgrant-main\msgrant-main\ProgramSetups\obj\Release\ProgramSetups.pdb
