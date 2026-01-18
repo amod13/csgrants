@@ -1723,8 +1723,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                 var subPrograms = db.Database.SqlQuery<SubProgramMasterDto>(
                                  @"SELECT SubProgramId, PhaseStatus, TimeDurationYear 
                                   FROM SubProgramMaster 
-                                  WHERE ApprovedStatus = 1 
-                                  AND IsCancelled = 0 
+                                  WHERE ApprovedStatus = 1
                                   AND OfficeId = @officeId",
                                  new SqlParameter("@officeId", officeId)
                              ).ToList();
@@ -1767,7 +1766,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                         }
                         else if(subProgram.TimeDurationYear == 3)
                         {
-                            requiredRecords = subProgram.TimeDurationYear + 2;
+                            requiredRecords = subProgram.TimeDurationYear + 1;
                         }
 
                     
@@ -1840,21 +1839,52 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
         {
             using (var db = new GrantAppDBEntities())  // 
             {
+                //var subPrograms = db.Database.SqlQuery<SubProgramMasterDto>(
+                //                 @"SELECT SPM.SubProgramId, SPM.PhaseStatus, SPM.TimeDurationYear 
+                //                  FROM SubProgramMaster SPM
+                //                  LEFT JOIN ProgramwiseAmount PWS ON PWS.ProgramId = SPM.SubProgramId
+                //                  WHERE (SPM.PhaseStatus = 6 AND SPM.TimeDurationYear >= 2 AND PWS.Amount > 0) 
+                //                  SPM.OfficeId = @officeId 
+                //                  AND SPM.ApprovedStatus = 1
+                //                  AND SPM.IsCancelled = 0
+                //                  AND SPM.PhaseStatus IN (6,7) 
+                //                  AND (
+                //                      OR 
+                //                      (SPM.PhaseStatus = 6 AND SPM.TimeDurationYear > 2 AND PWS.AmountSecondYear > 0)
+                //                  )",
+                //                 new SqlParameter("@officeId", OfficeId)
+                //                 ).ToList();
+
                 var subPrograms = db.Database.SqlQuery<SubProgramMasterDto>(
-                                 @"SELECT SPM.SubProgramId, SPM.PhaseStatus, SPM.TimeDurationYear 
-                                  FROM SubProgramMaster SPM
-                                  LEFT JOIN ProgramwiseAmount PWS ON PWS.ProgramId = SPM.SubProgramId
-                                  WHER    (SPM.PhaseStatus = 6 AND SPM.TimeDurationYear >= 2 AND PWS.Amount > 0) 
-                                  E SPM.OfficeId = @officeId 
-                                  AND SPM.ApprovedStatus = 1
-                                  AND SPM.IsCancelled = 0
-                                  AND SPM.PhaseStatus IN (6,7) 
-                                  AND (
-                                      OR 
-                                      (SPM.PhaseStatus = 6 AND SPM.TimeDurationYear > 2 AND PWS.AmountSecondYear > 0)
-                                  )",
-                                 new SqlParameter("@officeId", OfficeId)
-                                 ).ToList();
+                                    @"
+                                    SELECT 
+                                        SPM.SubProgramId,
+                                        SPM.PhaseStatus,
+                                        SPM.TimeDurationYear
+                                    FROM SubProgramMaster SPM
+                                    LEFT JOIN ProgramwiseAmount PWS 
+                                        ON PWS.ProgramId = SPM.SubProgramId
+                                    WHERE 
+                                        SPM.OfficeId = @officeId
+                                        AND SPM.ApprovedStatus = 1
+                                        AND SPM.IsCancelled = 0
+                                        AND SPM.PhaseStatus IN (6,7)
+                                        AND
+                                        (
+                                            (SPM.PhaseStatus = 6 
+                                                AND SPM.TimeDurationYear >= 2 
+                                                AND PWS.Amount > 0
+                                            )
+                                            OR
+                                            (SPM.PhaseStatus = 6 
+                                                AND SPM.TimeDurationYear > 2 
+                                                AND PWS.AmountSecondYear > 0
+                                            )
+                                        )
+                                    ",
+                                    new SqlParameter("@officeId", OfficeId)
+                                    ).ToList();
+
                 int AllSubmitted = 1;
                 foreach (var subProgram in subPrograms)
                 {
@@ -1944,10 +1974,11 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
 
         public static int GetCurrentLoginUserMenuBarStatus()
         {
+            
             int CurrentLoginOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
             bool isProfileUpdated = CheckUserProfile(CurrentLoginOfficeId);  
-            bool isProgressCompleted = CheckUserProgress(CurrentLoginOfficeId);
-            bool isKramagatCompleted = CheckUserKramagat(CurrentLoginOfficeId);
+            bool isProgressCompleted = isProfileUpdated?CheckUserProgress(CurrentLoginOfficeId):false;
+            bool isKramagatCompleted = isProgressCompleted?CheckUserKramagat(CurrentLoginOfficeId):false;
             bool isNewYojanaCompleted = isKramagatCompleted ? true: false;
 
             if (!isProfileUpdated)

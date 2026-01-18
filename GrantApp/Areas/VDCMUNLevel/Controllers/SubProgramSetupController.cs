@@ -2084,7 +2084,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             SubProgramServices services = new SubProgramServices();
             int OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
             model.QuadrimesterReportsDetailViewModelList = services.PopulateQuadrimesterReports(0, OfficeId, 0);//qua id, officeid, granttyp id
-            model.SubProgramMasterList = services.PopulateOldSubProgramPhaseWiseListForProgressRpt(0, OfficeId, 1).ToList();
+            //model.SubProgramMasterList = services.PopulateOldSubProgramPhaseWiseListForProgressRpt(0, OfficeId, 1).ToList();
             model.YearlyWiseProgressDetailsListVMList = services.SP_GetFYWiseProgressSubmissionList(OfficeId, 0);
             return View(model);
 

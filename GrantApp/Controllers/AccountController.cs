@@ -77,7 +77,7 @@ namespace GrantApp.Controllers
             }
 
 
-            var SubmissionDate = DateTime.ParseExact("12/02/2025", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var SubmissionDate = DateTime.ParseExact("12/03/2026", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime TodayDate = DateTime.Today;
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
