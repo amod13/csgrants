@@ -613,7 +613,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                       FROM dbo.NewProgramInitiation NPI
                       WHERE NPI.OfficeId = @OfficeId 
                       AND NPI.GrantType = @GrantType
-                      AND NPI.FiscalYearId = 17",
+                      AND NPI.FiscalYearId = 18",
                     new SqlParameter("@OfficeId", OfficeId),
                     new SqlParameter("@GrantType", GrantType)
                 ).FirstOrDefault();
@@ -630,7 +630,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                       FROM dbo.SubProgramMaster SPM
                       WHERE SPM.OfficeId = @OfficeId 
                       AND SPM.GrantTypeId = @GrantType
-                      AND SPM.FiscalYearId = 17",
+                      AND SPM.FiscalYearId = 18",
                     new SqlParameter("@OfficeId", OfficeId),
                     new SqlParameter("@GrantType", GrantType)
                 ).FirstOrDefault();
@@ -1452,6 +1452,35 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
             return className;
         }
 
+
+        public static int GetProgressReportId(int ProgramId, int FYID, int ReportedOnFiscalYearEnd)
+        {
+            //string className = "edits";
+            //color: #4cb748;
+            int Total = 0;
+            //int totalRecordsRequired = CommontUtilities.GetTotalReportRequiredByProgramId(ProgramId);
+            using (GrantAppDBEntities db = new GrantAppDBEntities())
+            {
+
+                Total = db.Database.SqlQuery<int>(
+                            @"SELECT QuadrimesterReportsDetailId
+                              FROM QuadrimesterReportsDetail 
+                              WHERE ProgramId = @ProgramId 
+                                AND FiscalYearId = @FYID 
+                                AND QuadrimesterId = 0 
+                                AND ReportOfFisalYearEnd = @ReportedonEnd",
+                            new SqlParameter("@ProgramId", ProgramId),
+                            new SqlParameter("@FYID", FYID),
+                            new SqlParameter("@ReportedonEnd", ReportedOnFiscalYearEnd)
+                        ).FirstOrDefault();
+
+            }
+         
+            return Total;
+        }
+
+
+
         public static string GetFinalReportClassName(int ProgramId)
         {
             string className = "edits";
@@ -1868,15 +1897,15 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                                         SPM.OfficeId = @officeId
                                         AND SPM.ApprovedStatus = 1
                                         AND SPM.IsCancelled = 0
-                                        AND SPM.PhaseStatus IN (6,7)
+                                        AND SPM.PhaseStatus IN (7,8)
                                         AND
                                         (
-                                            (SPM.PhaseStatus = 6 
+                                            (SPM.PhaseStatus = 7 
                                                 AND SPM.TimeDurationYear >= 2 
                                                 AND PWS.Amount > 0
                                             )
                                             OR
-                                            (SPM.PhaseStatus = 6 
+                                            (SPM.PhaseStatus = 7 
                                                 AND SPM.TimeDurationYear > 2 
                                                 AND PWS.AmountSecondYear > 0
                                             )

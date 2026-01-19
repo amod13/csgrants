@@ -2,6 +2,12 @@
     int CurrentLoginUserMenuStaus = CommontUtilities.GetCurrentLoginUserMenuBarStatus();
     //CurrentLoginUserMenuStaus = 1;
 }
+<style>
+
+    .menu-green {
+        background: green !important;
+    }
+</style>
 
 
 <nav class="side-navbar">
@@ -21,7 +27,7 @@
         <!-- Sidebar Navigation Menus -->
         <div class="main-menu">
             <ul id="side-main-menu" class="side-menu list-unstyled">
-                <li>
+                <li class="@(CurrentLoginUserMenuStaus > 1 ? "menu-green" : "")">
                     <a href="~/VDCMUNLevel/VDCMUNHome/ViewProfile">
                         <i class="fa fa-user"></i> प्रयोगकर्ताको प्रोफाइल
                     </a>
@@ -29,16 +35,22 @@
 
                 @if (CurrentLoginUserMenuStaus > 1)
                 {
-                    <li>
+                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
                         <a href="~/VDCMUNLevel/SubProgramSetup/CheckValidationForProgress/0">
                             <i class="icon-interface-windows"></i> प्रगति विवरण
+                        </a>
+                    </li>
+
+                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
+                        <a href="#">
+                            <i class="icon-interface-windows"></i> नपुग कागजात पेश गर्नुहोस
                         </a>
                     </li>
                 }
 
                 @if (CurrentLoginUserMenuStaus > 2)
                 {
-                    <li>
+                    <li class="@(CurrentLoginUserMenuStaus > 3 ? "menu-green" : "")">
                         <a href="~/VDCMUNLevel/SubProgramSetup/CheckValidationForPrevious/0">
                             <i class="icon-interface-windows"></i> क्रमागत आयोजना वा कार्यक्रम
                         </a>
@@ -47,7 +59,7 @@
 
                 @if (CurrentLoginUserMenuStaus > 3)
                 {
-                    <li>
+                    <li class="@(CurrentLoginUserMenuStaus > 4 ? "menu-green" : "")">
                         <a href="#DemandGrant" aria-expanded="false" data-toggle="collapse">
                             <i class="icon-interface-windows"></i> नयाँ आयोजना वा कार्यक्रम
                         </a>
@@ -61,13 +73,13 @@
                 @if (CurrentLoginUserMenuStaus > 4)
                 {
                     @*<li>
-                <a href="~/VDCMUNLevel/AdhuroGrant/GetNotCompletedProjectList"> <i class="icon-form"></i>अधुरा आयोजना सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
-            </li>
+                            <a href="~/VDCMUNLevel/AdhuroGrant/GetNotCompletedProjectList"> <i class="icon-form"></i>अधुरा आयोजना सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
+                        </li>
 
 
-            <li>
-                <a href="~/VDCMUNLevel/AdhuroGrant/GetBhuktaniRemainingProjectList"> <i class="icon-form"></i>कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
-            </li>*@
+                        <li>
+                            <a href="~/VDCMUNLevel/AdhuroGrant/GetBhuktaniRemainingProjectList"> <i class="icon-form"></i>कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
+                        </li>*@
 
 
                     <li>

@@ -1489,6 +1489,11 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             return File("~/Content/samapurak-anusuchi-1.pdf", "application/pdf");
         }
 
+        public ActionResult DownLoadSamapurakAnusuchi5()
+        {
+            return File("~/Content/samapurak-anusuchi-5.pdf", "application/pdf");
+        }
+
 
         public ActionResult DownLoadBiseshAnusuchi2()
         {
@@ -1499,6 +1504,11 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
         public ActionResult DownLoadBiseshAnusuchi3()
         {
             return File("~/Content/Bisesh-anusuchi-3.pdf", "application/pdf");
+        }
+
+        public ActionResult DownLoadBiseshAnusuchi7()
+        {
+            return File("~/Content/Bisesh-anusuchi-7.pdf", "application/pdf");
         }
 
 
