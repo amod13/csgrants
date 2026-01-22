@@ -34,8 +34,9 @@ namespace GrantApp.Models
 
         public string Remarks { get; set; }
 
-        
         public string UploadFileUrl { get; set; }
+
+        public string PurnaAmsikSampanaMiti { get; set; }
 
         [Display(Name = "आयोजना सम्पन्न हुने नयाँ अवधि")]
        

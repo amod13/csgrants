@@ -158,7 +158,7 @@ namespace GrantApp.Services
                 var GrantTypeIdParam = new SqlParameter { ParameterName = "@GrantTypeId", Value = GrantTypeId };
                 var PhaseNumberParam = new SqlParameter { ParameterName = "@PhaseNumber", Value = PhaseNumber };
                 var OfficeIdParam = new SqlParameter { ParameterName = "@OfficeId", Value = OfficeId };
-                var FiscalYearIdParam = new SqlParameter { ParameterName = "@FiscalYearId", Value = 17 };
+                var FiscalYearIdParam = new SqlParameter { ParameterName = "@FiscalYearId", Value = 18 };
             try
             {
                     AnusuchiDataList = db.Database.SqlQuery<AnusuchiViewModel>(
@@ -252,11 +252,11 @@ namespace GrantApp.Services
 
                 var TermsAndCondtionsParam = new SqlParameter { ParameterName = "@TermsAndCondtions", Value = false };
                 var FinalDocumentsUrlParam = new SqlParameter { ParameterName = "@FinalDocumentsUrl", Value = _Model.FinalDocumentsUrl == null ? string.Empty : _Model.FinalDocumentsUrl };
-                _Model.FiscalYearId = 17;
+                _Model.FiscalYearId = 18;
                 var FiscalYearIdParam = new SqlParameter { ParameterName = "@FiscalYearId", Value = _Model.FiscalYearId };
                 //int PhaseStatus = 2;
                 //int PhaseStatus = 3;
-                int PhaseStatus = 7;
+                int PhaseStatus = 8;
                 var PhaseStatusParam = new SqlParameter { ParameterName = "@PhaseStatus", Value = PhaseStatus };
 
                 var BudgetForFirstYearParam = new SqlParameter { ParameterName = "@BudgetForFirstYear", Value = _Model.BudgetForFirstYear.HasValue ? _Model.BudgetForFirstYear : 0 };
@@ -1511,56 +1511,108 @@ namespace GrantApp.Services
 
 
         #region progress detail
+        //public string InsertQuadrimesterReportDetail(QuadrimesterReportsDetailViewModel model)
+        //{
+        //    using (GrantAppDBEntities db = new GrantAppDBEntities())
+        //    {
+        //        model.TargetedMaterial = "0";
+        //        model.TargetedFinance = 0m;
+
+        //        string msg = string.Empty;
+        //        var QuadrimesterReportsDetailIdParam = new SqlParameter { ParameterName = "@QuadrimesterReportsDetailId", Value = model.QuadrimesterReportsDetailId };
+        //        var OfficeIdParam = new SqlParameter { ParameterName = "@OfficeId", Value = model.OfficeId };
+        //        var ProgramIdParam = new SqlParameter { ParameterName = "@ProgramId", Value = model.ProgramId };
+        //        var ApprovedBudgetParam = new SqlParameter { ParameterName = "@ApprovedBudget", Value = model.ApprovedBudget };
+        //        var ProgramConductPlaceParam = new SqlParameter { ParameterName = "@ProgramConductPlace", Value = model.ProgramConductPlace };
+
+        //        var QuadrimesterIdParam = new SqlParameter { ParameterName = "@QuadrimesterId", Value = model.QuadrimesterId };
+        //        var TargetedMaterialParam = new SqlParameter { ParameterName = "@TargetedMaterial", Value = model.TargetedMaterial };
+        //        var TargetedFinanceParam = new SqlParameter { ParameterName = "@TargetedFinance", Value = model.TargetedFinance };
+        //        var AchievementMaterialParam = new SqlParameter { ParameterName = "@AchievementMaterial", Value = model.AchievementMaterial };
+
+        //        var AchievementFinanceParam = new SqlParameter { ParameterName = "@AchievementFinance", Value = model.AchievementFinance };
+        //        var RemarksParam = new SqlParameter { ParameterName = "@Remarks", Value = model.Remarks == null ? string.Empty : model.Remarks };
+        //        var PreparedByParam = new SqlParameter { ParameterName = "@PreparedBy", Value = model.PreparedBy };
+        //        var PreparedDateParam = new SqlParameter { ParameterName = "@PreparedDate", Value = DateTime.Now };
+
+        //        var ApprovedByParam = new SqlParameter { ParameterName = "@ApprovedBy", Value = model.ApprovedBy };
+        //        var ApprovedDateParam = new SqlParameter { ParameterName = "@ApprovedDate", Value = DateTime.Now };
+
+        //        var StatusParam = new SqlParameter { ParameterName = "@Status", Value = true };
+        //        var IsLockedParam = new SqlParameter { ParameterName = "@IsLocked", Value = false };
+        //        var FiscalYearIdParam = new SqlParameter { ParameterName = "@FiscalYearId", Value = model.FiscalYearId };
+        //        var IsContactNoticeIssuedParam = new SqlParameter { ParameterName = "@IsContactNoticeIssued", Value = model.IsContactNoticeIssued };
+        //        var IsContractDoneParam = new SqlParameter { ParameterName = "@IsContractDone", Value = model.IsContractDone };
+        //        var IsFirstInstallmentTakenParam = new SqlParameter { ParameterName = "@IsFirstInstallmentTaken", Value = model.IsFirstInstallmentTaken };
+        //        var ProjectFileUploadParam = new SqlParameter { ParameterName = "@ProjectFileUpload", Value = model.ProjectFileUpload == null ? string.Empty : model.ProjectFileUpload };
+        //        var PictureOfProjectOneParam = new SqlParameter { ParameterName = "@PictureOfProjectOne", Value = model.PictureOfProjectOne == null ? string.Empty : model.PictureOfProjectOne };
+        //        var PictureOfProjectTwoParam = new SqlParameter { ParameterName = "@PictureOfProjectTwo", Value = model.PictureOfProjectTwo == null ? string.Empty : model.PictureOfProjectTwo };
+        //        var PictureOfProjectThreeParam = new SqlParameter { ParameterName = "@PictureOfProjectThree", Value = model.PictureOfProjectThree == null ? string.Empty : model.PictureOfProjectThree };
+        //        var IsNikashaMaagParam = new SqlParameter { ParameterName = "@IsNikashaMaag", Value = model.IsNikashaMaag.HasValue ? model.IsNikashaMaag : false };
+        //        var NikasaMaagFileUploadParam = new SqlParameter { ParameterName = "@NikasaMaagFileUpload", Value = model.NikasaMaagFileUpload == null ? string.Empty : model.NikasaMaagFileUpload };
+
+        //        var ContractNoticeFileParam = new SqlParameter { ParameterName = "@ContractNoticeFile", Value = model.ContractNoticeFile == null ? string.Empty : model.ContractNoticeFile };
+        //        var ContractFileParam = new SqlParameter { ParameterName = "@ContractFile", Value = model.ContractFile == null ? string.Empty : model.ContractFile };
+        //        var BhuktaniFileParam = new SqlParameter { ParameterName = "@BhuktaniFile", Value = model.BhuktaniFile == null ? string.Empty : model.BhuktaniFile };
+        //        var RunningBillFileParam = new SqlParameter { ParameterName = "@RunningBillFile", Value = model.RunningBillFile == null ? string.Empty : model.RunningBillFile };
+        //        var TimeExtendedFileParam = new SqlParameter { ParameterName = "@TimeExtendedFile", Value = model.TimeExtendedFile == null ? string.Empty : model.TimeExtendedFile };
+        //        var AppRunningStatusParam = new SqlParameter { ParameterName = "@AppRunningStatus", Value = model.AppRunningStatus.HasValue ? model.AppRunningStatus : 0 };
+        //        var NotRunningProofDocParam = new SqlParameter { ParameterName = "@NotRunningProofDoc", Value = model.NotRunningProofDoc == null ? string.Empty : model.NotRunningProofDoc };
+        //        var ReportOfFisalYearEndParam = new SqlParameter { ParameterName = "@ReportOfFisalYearEnd", Value = model.ReportOfFisalYearEnd.HasValue ? model.ReportOfFisalYearEnd : 0 };
+
+        //        var SuchanaPatiFileParam = new SqlParameter { ParameterName = "@SuchanaPatiFile", Value = model.SuchanaPatiUpload == null ? string.Empty : model.SuchanaPatiUpload };
+
+        //        var SarbajanikParikchenFileParam = new SqlParameter { ParameterName = "@SarbajanikParikchenFile", Value = model.SarbajanikParikchen == null ? string.Empty : model.SarbajanikParikchen };
+
+        //        var SarbajanikSunuwaiFileParam = new SqlParameter { ParameterName = "@SarbajanikSunuwaiFile", Value = model.SarbajanikSunuwai == null ? string.Empty : model.SarbajanikSunuwai };
+
+        //        var SamapurakAnusuchi5FileParam = new SqlParameter { ParameterName = "@SamapurakAnusuchi5File", Value = model.SamapurakAnusuchi5 == null ? string.Empty : model.SamapurakAnusuchi5 };
+
+        //        var BisehsAnusuchi7FileParam = new SqlParameter { ParameterName = "@BisehsAnusuchi7File", Value = model.BiseshAnusuchi7 == null ? string.Empty : model.BiseshAnusuchi7 };
+
+
+        //        if (!model.TotalAmountUsed.HasValue)
+        //        {
+        //            model.TotalAmountUsed = 0;
+        //        }
+        //        if (!model.TotalNikashaRamam.HasValue)
+        //        {
+        //            model.TotalNikashaRamam = 0;
+        //        }
+        //        if (!model.TotalContractAmount.HasValue)
+        //        {
+        //            model.TotalContractAmount = 0;
+        //        }
+
+        //        var TotalAmountUsedParam = new SqlParameter { ParameterName = "@TotalAmountUsed", Value = model.TotalAmountUsed };
+        //        var TotalContractAmountParam = new SqlParameter { ParameterName = "@TotalContractAmount", Value = model.TotalContractAmount };
+        //        var TotalNikashaRamamParam = new SqlParameter { ParameterName = "@TotalNikashaRamam", Value = model.TotalNikashaRamam };
+
+
+        //        var MessageParam = new SqlParameter
+        //        {
+        //            ParameterName = "@Message",
+        //            DbType = DbType.String,
+        //            Size = 50,
+        //            Direction = System.Data.ParameterDirection.Output
+        //        };
+
+        //        var result = db.Database.ExecuteSqlCommand("exec InsertQuadrimesterReportDetail @QuadrimesterReportsDetailId,@OfficeId,@ProgramId,@ApprovedBudget,@ProgramConductPlace,@QuadrimesterId,@TargetedMaterial,@TargetedFinance,@AchievementMaterial,@AchievementFinance,@Remarks,@PreparedBy,@PreparedDate,@ApprovedBy,@ApprovedDate,@Status,@IsLocked,@FiscalYearId,@IsContactNoticeIssued,@IsContractDone,@IsFirstInstallmentTaken,@ProjectFileUpload,@PictureOfProjectOne,@PictureOfProjectTwo,@PictureOfProjectThree,@IsNikashaMaag,@NikasaMaagFileUpload,@TotalAmountUsed,@TotalContractAmount,@TotalNikashaRamam,@ContractNoticeFile,@ContractFile,@BhuktaniFile,@RunningBillFile,@TimeExtendedFile,@AppRunningStatus,@NotRunningProofDoc,@ReportOfFisalYearEnd,@SuchanaPatiFile,@SarbajanikSunuwaiFile,@SamapurakAnusuchi5File,@BisehsAnusuchi7File,@Message OUT",
+        //           QuadrimesterReportsDetailIdParam, OfficeIdParam, ProgramIdParam, ApprovedBudgetParam, ProgramConductPlaceParam, QuadrimesterIdParam, TargetedMaterialParam, TargetedFinanceParam, AchievementMaterialParam, AchievementFinanceParam, RemarksParam, PreparedByParam, PreparedDateParam, ApprovedByParam, ApprovedDateParam, StatusParam, IsLockedParam, FiscalYearIdParam, IsContactNoticeIssuedParam, IsContractDoneParam, IsFirstInstallmentTakenParam, ProjectFileUploadParam, PictureOfProjectOneParam, PictureOfProjectTwoParam, PictureOfProjectThreeParam, IsNikashaMaagParam, NikasaMaagFileUploadParam, TotalAmountUsedParam, TotalContractAmountParam, TotalNikashaRamamParam, ContractNoticeFileParam, ContractFileParam, BhuktaniFileParam, RunningBillFileParam, TimeExtendedFileParam, AppRunningStatusParam, NotRunningProofDocParam,ReportOfFisalYearEndParam,SuchanaPatiFileParam,SarbajanikSunuwaiFileParam,SarbajanikParikchenFileParam,SamapurakAnusuchi5FileParam,BisehsAnusuchi7FileParam,MessageParam);
+
+        //        msg = MessageParam.SqlValue.ToString();
+        //        return msg;
+
+        //    }
+        //}
+
+
         public string InsertQuadrimesterReportDetail(QuadrimesterReportsDetailViewModel model)
         {
-            using (GrantAppDBEntities db = new GrantAppDBEntities())
+            using (var db = new GrantAppDBEntities())
             {
                 model.TargetedMaterial = "0";
                 model.TargetedFinance = 0m;
-
-                string msg = string.Empty;
-                var QuadrimesterReportsDetailIdParam = new SqlParameter { ParameterName = "@QuadrimesterReportsDetailId", Value = model.QuadrimesterReportsDetailId };
-                var OfficeIdParam = new SqlParameter { ParameterName = "@OfficeId", Value = model.OfficeId };
-                var ProgramIdParam = new SqlParameter { ParameterName = "@ProgramId", Value = model.ProgramId };
-                var ApprovedBudgetParam = new SqlParameter { ParameterName = "@ApprovedBudget", Value = model.ApprovedBudget };
-                var ProgramConductPlaceParam = new SqlParameter { ParameterName = "@ProgramConductPlace", Value = model.ProgramConductPlace };
-
-                var QuadrimesterIdParam = new SqlParameter { ParameterName = "@QuadrimesterId", Value = model.QuadrimesterId };
-                var TargetedMaterialParam = new SqlParameter { ParameterName = "@TargetedMaterial", Value = model.TargetedMaterial };
-                var TargetedFinanceParam = new SqlParameter { ParameterName = "@TargetedFinance", Value = model.TargetedFinance };
-                var AchievementMaterialParam = new SqlParameter { ParameterName = "@AchievementMaterial", Value = model.AchievementMaterial };
-
-                var AchievementFinanceParam = new SqlParameter { ParameterName = "@AchievementFinance", Value = model.AchievementFinance };
-                var RemarksParam = new SqlParameter { ParameterName = "@Remarks", Value = model.Remarks == null ? string.Empty : model.Remarks };
-                var PreparedByParam = new SqlParameter { ParameterName = "@PreparedBy", Value = model.PreparedBy };
-                var PreparedDateParam = new SqlParameter { ParameterName = "@PreparedDate", Value = DateTime.Now };
-
-                var ApprovedByParam = new SqlParameter { ParameterName = "@ApprovedBy", Value = model.ApprovedBy };
-                var ApprovedDateParam = new SqlParameter { ParameterName = "@ApprovedDate", Value = DateTime.Now };
-
-                var StatusParam = new SqlParameter { ParameterName = "@Status", Value = true };
-                var IsLockedParam = new SqlParameter { ParameterName = "@IsLocked", Value = false };
-                var FiscalYearIdParam = new SqlParameter { ParameterName = "@FiscalYearId", Value = model.FiscalYearId };
-                var IsContactNoticeIssuedParam = new SqlParameter { ParameterName = "@IsContactNoticeIssued", Value = model.IsContactNoticeIssued };
-                var IsContractDoneParam = new SqlParameter { ParameterName = "@IsContractDone", Value = model.IsContractDone };
-                var IsFirstInstallmentTakenParam = new SqlParameter { ParameterName = "@IsFirstInstallmentTaken", Value = model.IsFirstInstallmentTaken };
-                var ProjectFileUploadParam = new SqlParameter { ParameterName = "@ProjectFileUpload", Value = model.ProjectFileUpload == null ? string.Empty : model.ProjectFileUpload };
-                var PictureOfProjectOneParam = new SqlParameter { ParameterName = "@PictureOfProjectOne", Value = model.PictureOfProjectOne == null ? string.Empty : model.PictureOfProjectOne };
-                var PictureOfProjectTwoParam = new SqlParameter { ParameterName = "@PictureOfProjectTwo", Value = model.PictureOfProjectTwo == null ? string.Empty : model.PictureOfProjectTwo };
-                var PictureOfProjectThreeParam = new SqlParameter { ParameterName = "@PictureOfProjectThree", Value = model.PictureOfProjectThree == null ? string.Empty : model.PictureOfProjectThree };
-                var IsNikashaMaagParam = new SqlParameter { ParameterName = "@IsNikashaMaag", Value = model.IsNikashaMaag.HasValue ? model.IsNikashaMaag : false };
-                var NikasaMaagFileUploadParam = new SqlParameter { ParameterName = "@NikasaMaagFileUpload", Value = model.NikasaMaagFileUpload == null ? string.Empty : model.NikasaMaagFileUpload };
-
-                var ContractNoticeFileParam = new SqlParameter { ParameterName = "@ContractNoticeFile", Value = model.ContractNoticeFile == null ? string.Empty : model.ContractNoticeFile };
-                var ContractFileParam = new SqlParameter { ParameterName = "@ContractFile", Value = model.ContractFile == null ? string.Empty : model.ContractFile };
-                var BhuktaniFileParam = new SqlParameter { ParameterName = "@BhuktaniFile", Value = model.BhuktaniFile == null ? string.Empty : model.BhuktaniFile };
-                var RunningBillFileParam = new SqlParameter { ParameterName = "@RunningBillFile", Value = model.RunningBillFile == null ? string.Empty : model.RunningBillFile };
-                var TimeExtendedFileParam = new SqlParameter { ParameterName = "@TimeExtendedFile", Value = model.TimeExtendedFile == null ? string.Empty : model.TimeExtendedFile };
-                var AppRunningStatusParam = new SqlParameter { ParameterName = "@AppRunningStatus", Value = model.AppRunningStatus.HasValue ? model.AppRunningStatus : 0 };
-                var NotRunningProofDocParam = new SqlParameter { ParameterName = "@NotRunningProofDoc", Value = model.NotRunningProofDoc == null ? string.Empty : model.NotRunningProofDoc };
-                var ReportOfFisalYearEndParam = new SqlParameter { ParameterName = "@ReportOfFisalYearEnd", Value = model.ReportOfFisalYearEnd.HasValue ? model.ReportOfFisalYearEnd : 0 };
-
-
 
                 if (!model.TotalAmountUsed.HasValue)
                 {
@@ -1575,27 +1627,114 @@ namespace GrantApp.Services
                     model.TotalContractAmount = 0;
                 }
 
-                var TotalAmountUsedParam = new SqlParameter { ParameterName = "@TotalAmountUsed", Value = model.TotalAmountUsed };
-                var TotalContractAmountParam = new SqlParameter { ParameterName = "@TotalContractAmount", Value = model.TotalContractAmount };
-                var TotalNikashaRamamParam = new SqlParameter { ParameterName = "@TotalNikashaRamam", Value = model.TotalNikashaRamam };
-
-
-                var MessageParam = new SqlParameter
+                var parameters = new[]
                 {
-                    ParameterName = "@Message",
-                    DbType = DbType.String,
-                    Size = 50,
-                    Direction = System.Data.ParameterDirection.Output
-                };
+            new SqlParameter("@QuadrimesterReportsDetailId", model.QuadrimesterReportsDetailId),
+            new SqlParameter("@OfficeId", model.OfficeId),
+            new SqlParameter("@ProgramId", model.ProgramId),
+            new SqlParameter("@ApprovedBudget", model.ApprovedBudget),
+            new SqlParameter("@ProgramConductPlace", model.ProgramConductPlace),
+            new SqlParameter("@QuadrimesterId", model.QuadrimesterId),
+            new SqlParameter("@TargetedMaterial", model.TargetedMaterial),
+            new SqlParameter("@TargetedFinance", model.TargetedFinance),
+            new SqlParameter("@AchievementMaterial", model.AchievementMaterial),
+            new SqlParameter("@AchievementFinance", model.AchievementFinance),
+            new SqlParameter("@Remarks", model.Remarks ?? string.Empty),
+            new SqlParameter("@PreparedBy", model.PreparedBy),
+            new SqlParameter("@PreparedDate", DateTime.Now),
+            new SqlParameter("@ApprovedBy", model.ApprovedBy),
+            new SqlParameter("@ApprovedDate", DateTime.Now),
+            new SqlParameter("@Status", true),
+            new SqlParameter("@IsLocked", false),
+            new SqlParameter("@FiscalYearId", model.FiscalYearId),
+            new SqlParameter("@IsContactNoticeIssued", model.IsContactNoticeIssued),
+            new SqlParameter("@IsContractDone", model.IsContractDone),
+            new SqlParameter("@IsFirstInstallmentTaken", model.IsFirstInstallmentTaken),
+            new SqlParameter("@ProjectFileUpload", model.ProjectFileUpload ?? string.Empty),
+            new SqlParameter("@PictureOfProjectOne", model.PictureOfProjectOne ?? string.Empty),
+            new SqlParameter("@PictureOfProjectTwo", model.PictureOfProjectTwo ?? string.Empty),
+            new SqlParameter("@PictureOfProjectThree", model.PictureOfProjectThree ?? string.Empty),
+            new SqlParameter("@IsNikashaMaag", model.IsNikashaMaag ?? false),
+            new SqlParameter("@NikasaMaagFileUpload", model.NikasaMaagFileUpload ?? string.Empty),
+            new SqlParameter("@TotalAmountUsed", model.TotalAmountUsed),
+            new SqlParameter("@TotalContractAmount", model.TotalContractAmount),
+            new SqlParameter("@TotalNikashaRamam", model.TotalNikashaRamam),
+            new SqlParameter("@ContractNoticeFile", model.ContractNoticeFile ?? string.Empty),
+            new SqlParameter("@ContractFile", model.ContractFile ?? string.Empty),
+            new SqlParameter("@BhuktaniFile", model.BhuktaniFile ?? string.Empty),
+            new SqlParameter("@RunningBillFile", model.RunningBillFile ?? string.Empty),
+            new SqlParameter("@TimeExtendedFile", model.TimeExtendedFile ?? string.Empty),
+            new SqlParameter("@AppRunningStatus", model.AppRunningStatus ?? 0),
+            new SqlParameter("@NotRunningProofDoc", model.NotRunningProofDoc ?? string.Empty),
+            new SqlParameter("@ReportOfFisalYearEnd", model.ReportOfFisalYearEnd ?? 0),
+            new SqlParameter("@SuchanaPatiFile", model.SuchanaPatiUpload ?? string.Empty),
+            new SqlParameter("@SarbajanikParikchenFile", model.SarbajanikParikchen ?? string.Empty),
+            new SqlParameter("@SarbajanikSunuwaiFile", model.SarbajanikSunuwai ?? string.Empty),
+            new SqlParameter("@SamapurakAnusuchi5File", model.SamapurakAnusuchi5 ?? string.Empty),
+            new SqlParameter("@BisehsAnusuchi7File", model.BiseshAnusuchi7 ?? string.Empty),
 
-                var result = db.Database.ExecuteSqlCommand("exec InsertQuadrimesterReportDetail @QuadrimesterReportsDetailId,@OfficeId,@ProgramId,@ApprovedBudget,@ProgramConductPlace,@QuadrimesterId,@TargetedMaterial,@TargetedFinance,@AchievementMaterial,@AchievementFinance,@Remarks,@PreparedBy,@PreparedDate,@ApprovedBy,@ApprovedDate,@Status,@IsLocked,@FiscalYearId,@IsContactNoticeIssued,@IsContractDone,@IsFirstInstallmentTaken,@ProjectFileUpload,@PictureOfProjectOne,@PictureOfProjectTwo,@PictureOfProjectThree,@IsNikashaMaag,@NikasaMaagFileUpload,@TotalAmountUsed,@TotalContractAmount,@TotalNikashaRamam,@ContractNoticeFile,@ContractFile,@BhuktaniFile,@RunningBillFile,@TimeExtendedFile,@AppRunningStatus,@NotRunningProofDoc,@ReportOfFisalYearEnd, @Message OUT",
-                   QuadrimesterReportsDetailIdParam, OfficeIdParam, ProgramIdParam, ApprovedBudgetParam, ProgramConductPlaceParam, QuadrimesterIdParam, TargetedMaterialParam, TargetedFinanceParam, AchievementMaterialParam, AchievementFinanceParam, RemarksParam, PreparedByParam, PreparedDateParam, ApprovedByParam, ApprovedDateParam, StatusParam, IsLockedParam, FiscalYearIdParam, IsContactNoticeIssuedParam, IsContractDoneParam, IsFirstInstallmentTakenParam, ProjectFileUploadParam, PictureOfProjectOneParam, PictureOfProjectTwoParam, PictureOfProjectThreeParam, IsNikashaMaagParam, NikasaMaagFileUploadParam, TotalAmountUsedParam, TotalContractAmountParam, TotalNikashaRamamParam, ContractNoticeFileParam, ContractFileParam, BhuktaniFileParam, RunningBillFileParam, TimeExtendedFileParam, AppRunningStatusParam, NotRunningProofDocParam,ReportOfFisalYearEndParam, MessageParam);
+            new SqlParameter
+            {
+                ParameterName = "@Message",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 50,
+                Direction = ParameterDirection.Output
+            }
+        };
 
-                msg = MessageParam.SqlValue.ToString();
-                return msg;
+                db.Database.ExecuteSqlCommand(
+                    @"EXEC dbo.InsertQuadrimesterReportDetail
+                @QuadrimesterReportsDetailId = @QuadrimesterReportsDetailId,
+                @OfficeId = @OfficeId,
+                @ProgramId = @ProgramId,
+                @ApprovedBudget = @ApprovedBudget,
+                @ProgramConductPlace = @ProgramConductPlace,
+                @QuadrimesterId = @QuadrimesterId,
+                @TargetedMaterial = @TargetedMaterial,
+                @TargetedFinance = @TargetedFinance,
+                @AchievementMaterial = @AchievementMaterial,
+                @AchievementFinance = @AchievementFinance,
+                @Remarks = @Remarks,
+                @PreparedBy = @PreparedBy,
+                @PreparedDate = @PreparedDate,
+                @ApprovedBy = @ApprovedBy,
+                @ApprovedDate = @ApprovedDate,
+                @Status = @Status,
+                @IsLocked = @IsLocked,
+                @FiscalYearId = @FiscalYearId,
+                @IsContactNoticeIssued = @IsContactNoticeIssued,
+                @IsContractDone = @IsContractDone,
+                @IsFirstInstallmentTaken = @IsFirstInstallmentTaken,
+                @ProjectFileUpload = @ProjectFileUpload,
+                @PictureOfProjectOne = @PictureOfProjectOne,
+                @PictureOfProjectTwo = @PictureOfProjectTwo,
+                @PictureOfProjectThree = @PictureOfProjectThree,
+                @IsNikashaMaag = @IsNikashaMaag,
+                @NikasaMaagFileUpload = @NikasaMaagFileUpload,
+                @TotalAmountUsed = @TotalAmountUsed,
+                @TotalContractAmount = @TotalContractAmount,
+                @TotalNikashaRamam = @TotalNikashaRamam,
+                @ContractNoticeFile = @ContractNoticeFile,
+                @ContractFile = @ContractFile,
+                @BhuktaniFile = @BhuktaniFile,
+                @RunningBillFile = @RunningBillFile,
+                @TimeExtendedFile = @TimeExtendedFile,
+                @AppRunningStatus = @AppRunningStatus,
+                @NotRunningProofDoc = @NotRunningProofDoc,
+                @ReportOfFisalYearEnd = @ReportOfFisalYearEnd,
+                @SuchanaPatiFile = @SuchanaPatiFile,
+                @SarbajanikParikchenFile = @SarbajanikParikchenFile,
+                @SarbajanikSunuwaiFile = @SarbajanikSunuwaiFile,
+                @SamapurakAnusuchi5File = @SamapurakAnusuchi5File,
+                @BisehsAnusuchi7File = @BisehsAnusuchi7File,
+                @Message = @Message OUTPUT",
+                    parameters
+                );
 
+                return parameters.Last(p => p.ParameterName == "@Message").Value?.ToString();
             }
         }
+
 
 
         public List<QuadrimesterReportsDetailViewModel> PopulateQuadrimesterReports(int QuadrimesterId, int OfficeId, int GrantTypeId)

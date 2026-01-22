@@ -1,0 +1,136 @@
+﻿@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ProgressDetailList";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int i = 1;
+    int sn = 1;
+    int j = 1;
+}
+
+
+<style>
+    .edits {
+        color: red !important;
+        font-size:24px !important;
+    }
+    .Update {
+        color: #0026ff;
+        font-size: 24px !important;
+    }
+</style>
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">प्रगति विवरण</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="card text-center">
+
+            <div class="card-body">
+                <h3 class="card-title">
+                    आयोजनाको कागजात हेर्न तालिकामा रहेको कागजात कोलमको <span class="fa fa-eye"></span> आईकन क्लिक गरेर आवश्यक विवरण हेर्नुहोस् र नपुग कागजात थप गर्नुहोस ।
+                </h3>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="h3 display"> आ.ब. २०८२|८३ मा माग भई स्विकृत आयोजना वा कार्यक्रमहरुको विवरण ।</h1>
+                    </div>
+                    <div class="table-responsive m_table">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>क्रम</th>
+                                    <th>शुरु भएको आ.व.</th>
+                                    <th>आयोजना/कार्यक्रमको नाम</th>
+                                    <th>आयोजना कोड</th>
+                                    <th>अनुदान प्रकार</th>
+                                    <th>अवधि</th>
+
+                                    <th>कगजात</th>
+
+
+                          
+
+
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.YearlyWiseProgressDetailsListVMList)
+                                {
+                                    if(item.PhaseStatus>=7)
+                                    
+                                    {
+
+                                    
+                               
+
+                                    <tr>
+
+                                        <th scope="row">@j</th>
+                                        <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(item.PhaseStatus)</td>
+                                        <td>@item.SubProgramTitle</td>
+                                        <td>@item.SubProgramId</td>
+                                        <td>@item.GrantTypeName</td>
+                                        <td>@item.TimeDurationYear</td>
+
+                                        <td>
+                                            @Html.ActionLink(" ", "ViewDocuments", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "कागजात हेर्न क्लिक गर्नुहोस" })
+                                        </td>
+
+
+                                    </tr>
+                                        ++j;
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr/>
+                    <br/>
+
+
+
+                    <div class="card-body">
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var a = '@TempData["ProgresReportNtf"]';
+        if (a != '') {
+            toastr.success(a, '');
+        }
+        else {
+
+        }
+
+
+    });
+</script>

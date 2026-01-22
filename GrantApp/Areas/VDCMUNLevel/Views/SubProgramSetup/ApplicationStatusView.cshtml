@@ -1,0 +1,161 @@
+﻿@model GrantApp.Models.ApplicationCompletionStatus
+
+@{
+    ViewBag.Title = "Application Status Detail";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">आयोजनाको अवस्था (View)</li>
+        </ul>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        आयोजना/कार्यक्रमको नाम :
+                        <strong>
+                            @GrantApp.CommontUtilities.GetSubProgramNameById(Model.ApplicationId)
+                        </strong>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th width="35%">सम्पन्नताको अवस्था</th>
+                                    <td>
+                                        @if (Model.CompletionStatusId == 1)
+                                        {
+                                            <span class="text-success">आयोजना वा कार्यक्रम सम्पन्न भैसकेको</span>
+                                        }
+                                        else if (Model.CompletionStatusId == 2)
+                                        {
+                                            <span class="text-warning">आयोजना वा कार्यक्रम अधुरो अपुरो अवस्थामा रहेको</span>
+                                        }
+                                        else if (Model.CompletionStatusId == 3)
+                                        {
+                                            <span class="text-danger">आयोजना वा कार्यक्रम कार्यान्वयन गर्न नसकिएको</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">—</span>
+                                        }
+                                    </td>
+                                </tr>
+
+                                @if (Model.CompletionStatusId == 1)
+                                {
+                                    <tr>
+                                        <th>पूर्ण / आंशिक सम्पन्न</th>
+                                        <td>
+                                            @(Model.CompleteOrParitalCompleteStatusId == 1
+                                            ? "पूर्ण सम्पन्न"
+                                            : Model.CompleteOrParitalCompleteStatusId == 2
+                                                ? "आंशिक सम्पन्न"
+                                                : "")
+                                                                            
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>पूर्ण सम्पन्न / आंशिक सम्पन्न मिति</th>
+                                        <td>@Model.PurnaAmsikSampanaMiti</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>कार्यसम्पन्न प्रमाण पत्र</th>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(Model.UploadFileUrl))
+                                            {
+                                                @Html.ActionLink(
+                                                    "Download",
+                                                    "Download",
+                                                    "GrantRequestForm",
+                                                    new { FileName = Model.UploadFileUrl },
+                                                    new { @class = "btn btn-sm btn-outline-primary fa fa-download" }
+                                                )
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">फाईल छैन</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                                @if (Model.CompletionStatusId == 2)
+                                {
+                                    <tr>
+                                        <th>असम्पन्न कारण</th>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(Model.NotCompletedFileTypeStr))
+                                            {
+                                                @Html.ActionLink(
+                                                    "Download",
+                                                    "Download",
+                                                    "GrantRequestForm",
+                                                    new { FileName = Model.NotCompletedFileTypeStr },
+                                                    new { @class = "btn btn-sm btn-outline-warning fa fa-download" }
+                                                )
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">फाईल छैन</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                                @if (Model.CompletionStatusId == 3)
+                                {
+                                    <tr>
+                                        <th>रद्द गरिएको कारण</th>
+                                        <td>@Model.DroppedReason</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>आधिकारिक पत्र</th>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(Model.WorkCompletionPhoto1))
+                                            {
+                                                @Html.ActionLink(
+                                                    "Download",
+                                                    "Download",
+                                                    "GrantRequestForm",
+                                                    new { FileName = Model.WorkCompletionPhoto1 },
+                                                    new { @class = "btn btn-sm btn-outline-danger fa fa-download" }
+                                                )
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">फाईल छैन</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="mt-3">
+                            <a href="@Url.Action("ProgressDetailList","SubProgramSetup")"
+                               class="btn btn-secondary btn-sm">
+                                ← Back
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

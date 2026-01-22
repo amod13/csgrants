@@ -59,6 +59,8 @@ namespace GrantApp.Models
         public int GrantTypeId { get; set; }
         public string DocTitleFileStr { get; set; }
         public string UploadFileUrl { get; set; }
+
+        public bool FileExists { get; set; }
         public HttpPostedFileBase SupportingDocFiles { get; set; }
     }
 

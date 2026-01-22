@@ -509,6 +509,17 @@ namespace GrantApp.Models
         public bool IsFirstInstallmentTaken { get; set; }
 
 
+        public string SuchanaPatiUpload { get; set; }
+
+        public string SarbajanikParikchen { get; set; }
+
+        public string SarbajanikSunuwai { get; set; }
+
+        public string BiseshAnusuchi7 { get; set; }
+
+        public string SamapurakAnusuchi5 { get; set; }
+
+
         public string ProjectFileUpload { get; set; }
         public string PictureOfProjectOne { get; set; }
         public string PictureOfProjectTwo { get; set; }
@@ -569,6 +580,23 @@ namespace GrantApp.Models
         public HttpPostedFileBase AppTimeExtendedFile { get; set; }
         [NotMapped]
         public HttpPostedFileBase AppNotRunningProofFile { get; set; }
+
+
+        [NotMapped]
+        public HttpPostedFileBase SuchanaPatiUploadFile { get; set; }
+
+
+        [NotMapped]
+        public HttpPostedFileBase SarbajanikParikchenFile { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase SarbajanikSunuwaiFile { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase BiseshAnusuchi7File { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase SamapurakAnusuchi5File { get; set; }
 
 
 

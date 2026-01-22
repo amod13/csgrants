@@ -1,0 +1,338 @@
+﻿
+@model GrantApp.Models.SubProgramMaster
+
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Areas/VDCMUNLevel/Views/Shared/_VDCMUNLayout.cshtml";
+    int sn = 1;
+}
+
+<style>
+    .sticky-right {
+        position: sticky;
+        top: 80px; /* navbar height adjust */
+        z-index: 100;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+
+            <!-- Program Details -->
+            <div class="card shadow-lg mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">आयोजना वा कार्यक्रमको विवरण</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>आयोजना वा कार्यक्रमको नाम</th>
+                                <td>@Model.SubProgramTitle</td>
+                            </tr>
+                            <tr>
+                                <th> शुरु आ.ब.</th>
+                                <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(Model.PhaseStatus)</td>
+                            </tr>
+                            <tr>
+                                <th>आयोजना संचालन हुने स्थान (जिल्ला, स्थानीय तह, वडा, टोल/बस्ती): </th>
+                                <td>@Model.AyojanaAddress</td>
+                            </tr>
+                            <tr>
+                                <th>आयोजना वा कार्यक्रमको अवधी (बर्ष) </th>
+                                <td>@Model.TimeDurationYear</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Table -->
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">कागजातहरू</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>क्रस</th>
+                                    <th>शिर्षक</th>
+                                    <th>फाईल</th>
+                                    <th>हेर्नुहोस् / अपलोड</th>
+                                </tr>
+                            </thead>
+                            <tbody id="docsTableBody">
+                                @foreach (var item in Model.DocumentsRequirementsViewModel)
+                                {
+                                    <tr data-sn="@sn">
+                                        <td>@sn</td>
+                                        <td>@item.DocTitleFileStr</td>
+                                        <td id="fileNameCell_@sn">
+                                            @if (item.FileExists)
+                                            {
+                                                <span class="text-success">Uploaded</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Not Uploaded</span>
+                                            }
+                                        </td>
+
+                                        <td id="actionCell_@sn">
+                                            @if (item.FileExists)
+                                            {
+                                                <a href="javascript:void(0)"
+                                                   onclick="loadDocument('@Url.Content(item.UploadFileUrl)')"
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fa fa-eye"></i> View
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <label class="btn btn-sm btn-outline-success mb-0">
+                                                    <i class="fa fa-upload"></i> Upload
+                                                    <input type="file"
+                                                           name="UploadFile_@sn"
+                                                           id="fileInput_@sn"
+                                                           hidden
+                                                           onchange="handleTempUpload(this,'@item.DocTitleFileStr',@sn)" />
+                                                </label>
+                                            }
+                                        </td>
+
+                                    </tr>
+                                    sn++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Preview + Upload Form -->
+        <div class="col-md-6">
+            <div class="sticky-right">
+
+                <!-- Document Preview -->
+                <div class="card shadow-lg mb-3">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">कागजात Preview</h5>
+                    </div>
+                    <div class="card-body" style="height:400px;">
+                        <iframe id="docPreview"
+                                width="100%"
+                                height="100%"
+                                style="border:1px solid #ddd; display:none;"
+                                onload="onDocLoad()">
+                        </iframe>
+                        <div id="docMessage" class="text-center text-muted mt-5">
+                            कागजात चयन गर्नुहोस्
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval / Uploader Form -->
+                <div class="card shadow-lg">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">अपलोड/स्वीकृति विवरण</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="uploadForm">
+                            <div class="mb-3">
+                                <label class="form-label">मिति</label>
+                                <input type="date" class="form-control" name="uploadDate">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">अपलोड गर्नेको नाम</label>
+                                <input type="text" class="form-control" name="uploaderName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">पद</label>
+                                <input type="text" class="form-control" name="position">
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    // -----------------------------
+    // Global variables
+    // -----------------------------
+    let docLoadTimer;
+    let tempFiles = []; // { sn, docTitle, file, blobUrl, fileName }
+
+    // -----------------------------
+    // Preview existing server files
+    // -----------------------------
+    function loadDocument(fileName) {
+        const iframe = document.getElementById("docPreview");
+        const msg = document.getElementById("docMessage");
+
+        iframe.style.display = "none";
+        msg.innerHTML = "कागजात लोड हुँदैछ...";
+        msg.className = "text-center text-info mt-5";
+        msg.style.display = "block";
+
+        iframe.src = '/GrantRequestForm/Download?FileName=' + encodeURIComponent(fileName);
+
+        docLoadTimer = setTimeout(() => {
+            iframe.style.display = "none";
+            msg.innerHTML = "❌ कागजात लोड गर्न सकिएन। कृपया पुन: प्रयास गर्नुहोस्।";
+            msg.className = "text-center text-danger mt-5";
+        }, 5000);
+    }
+
+    function onDocLoad() {
+        clearTimeout(docLoadTimer);
+        const iframe = document.getElementById("docPreview");
+        const msg = document.getElementById("docMessage");
+
+        try {
+            const body = iframe.contentWindow.document.body.innerText;
+            if (body.includes("Server Error") || body.includes("Error")) {
+                iframe.style.display = "none";
+                msg.innerHTML = "⚠️ सर्भर त्रुटि आयो। कागजात उपलब्ध छैन।";
+                msg.className = "text-center text-danger mt-5";
+            } else {
+                msg.style.display = "none";
+                iframe.style.display = "block";
+            }
+        } catch (e) {
+            msg.style.display = "none";
+            iframe.style.display = "block";
+        }
+    }
+
+    // -----------------------------
+    // Handle temporary client-side uploads
+    // -----------------------------
+    function handleTempUpload(input, docTitle, sn) {
+        if (!input.files || input.files.length === 0) return;
+
+        const file = input.files[0];
+        const blobUrl = URL.createObjectURL(file);
+
+        // Remove previous temp file for same sn
+        tempFiles = tempFiles.filter(f => f.sn !== sn);
+
+        tempFiles.push({
+            sn: sn,
+            docTitle: docTitle,
+            file: file,
+            blobUrl: blobUrl,
+            fileName: file.name
+        });
+
+        renderTempFile(sn);
+    }
+
+    // -----------------------------
+    // Render single temp file
+    // -----------------------------
+    function renderTempFile(sn) {
+        const fileCell = document.getElementById(`fileNameCell_${sn}`);
+        const actionCell = document.getElementById(`actionCell_${sn}`);
+
+        const temp = tempFiles.find(f => f.sn === sn);
+
+        if (temp) {
+            fileCell.innerHTML = `<span class="text-info">${temp.fileName}</span>`;
+            actionCell.innerHTML = `
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="viewTempFile(${sn})">
+                <i class="fa fa-eye"></i> View
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTempFile(${sn})">
+                <i class="fa fa-times"></i>
+            </button>
+            <input type="file" name="UploadFile_${sn}" id="fileInput_${sn}" hidden onchange="handleTempUpload(this,'${temp.docTitle}',${sn})" />
+        `;
+        }
+    }
+
+
+    function viewTempFile(sn) {
+        const temp = tempFiles.find(f => f.sn === sn);
+        if (!temp) return;
+
+        const iframe = document.getElementById("docPreview");
+        const msg = document.getElementById("docMessage");
+
+        iframe.style.display = "block";
+        iframe.src = temp.blobUrl;
+
+        msg.style.display = "none";
+    }
+
+
+
+    // -----------------------------
+    // Remove temporary file
+    // -----------------------------
+    function removeTempFile(sn) {
+        const temp = tempFiles.find(f => f.sn === sn);
+        if (temp) URL.revokeObjectURL(temp.blobUrl);
+
+        tempFiles = tempFiles.filter(f => f.sn !== sn);
+
+        // Restore original Upload button / Not Uploaded display
+        const fileCell = document.getElementById(`fileNameCell_${sn}`);
+        const actionCell = document.getElementById(`actionCell_${sn}`);
+
+        fileCell.innerHTML = `<span class="text-danger">Not Uploaded</span>`;
+
+        actionCell.innerHTML = `
+        <label class="btn btn-sm btn-outline-success mb-0">
+            <i class="fa fa-upload"></i> Upload
+            <input type="file" name="UploadFile_${sn}" id="fileInput_${sn}" hidden onchange="handleTempUpload(this,'',${sn})" />
+        </label>
+    `;
+    }
+
+    // -----------------------------
+    // Submit form with temp files
+    // -----------------------------
+    document.getElementById("uploadForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        // Append temporary files
+        tempFiles.forEach(f => {
+            formData.append(`UploadFile_${f.sn}`, f.file);
+        });
+
+        // Example: submit via fetch to server
+        fetch('/YourController/UploadFiles', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json())
+            .then(data => {
+                alert("Files submitted successfully!");
+                // Optionally reload page or clear tempFiles
+                tempFiles = [];
+            }).catch(err => {
+                console.error(err);
+                alert("Error submitting files!");
+            });
+    });
+
+
+</script>

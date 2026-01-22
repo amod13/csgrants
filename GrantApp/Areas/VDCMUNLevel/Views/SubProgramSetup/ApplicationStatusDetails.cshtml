@@ -100,8 +100,19 @@ new { enctype = "multipart/form-data" }))
                                   
                                     <div class="col-md-6 col-sm-6 form-group">
                                         <label>पूर्ण सम्पन्न/आंशिक सम्पन्न मिति (*)</label>
-                                        @Html.TextBoxFor(m => m.AmountRequired, new { @class = "form-control form-control sm", @id = "SubProgramTitle" })
 
+                                        @Html.TextBoxFor(
+                                            m => m.PurnaAmsikSampanaMiti,
+                                            new
+                                            {
+                                                @class = "form-control form-control-sm",
+                                                placeholder = "YYYY/MM/DD",
+                                                maxlength = "10",
+                                                autocomplete = "off",
+                                                oninput = "formatDateInput(this)"
+                                            })
+
+                                        <small class="text-muted">ढाँचा: YYYY/MM/DD</small>
                                     </div>
 
                                 </div>
@@ -317,6 +328,20 @@ new { enctype = "multipart/form-data" }))
         });
 
     });
+</script>
+
+
+<script>
+    function formatDateInput(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+
+        if (value.length > 4)
+            value = value.slice(0, 4) + '/' + value.slice(4);
+        if (value.length > 7)
+            value = value.slice(0, 7) + '/' + value.slice(7, 10);
+
+        input.value = value;
+    }
 </script>
 
 
