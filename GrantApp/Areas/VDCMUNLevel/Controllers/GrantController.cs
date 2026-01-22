@@ -523,7 +523,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             // batti balne 
 
 
-
+            if(model.ViewbagGrantTypeId == 1) { 
 
             if (model.SelectedProgramIds == null || !model.SelectedProgramIds.Any())
             {
@@ -531,7 +531,14 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 ViewBag.ErrMode = "On";
                 return View(model);
             }
-            model.SelectedPrograms = string.Join(",", model.SelectedProgramIds);
+                model.SelectedPrograms = string.Join(",", model.SelectedProgramIds);
+
+            }
+            else
+            {
+                model.SelectedPrograms = string.Empty;
+            }
+         
 
             //check if program already inserted or not.....
             model.OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
@@ -1203,7 +1210,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
 
         public ActionResult DeleteSubProgramMaster(int id, int id1) //id = subprogram id,  id1= grant type
         {
-            var SubmissionDate = DateTime.ParseExact("13/03/2025", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var SubmissionDate = DateTime.ParseExact("13/03/2026", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime TodayDate = DateTime.Today;
             if (TodayDate > SubmissionDate)
             {
@@ -1318,7 +1325,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 string path = System.IO.Path.Combine(Server.MapPath("~/RequiredDocs"), uniqueFileName);
                 file.SaveAs(path);
                 model.FinalDocumentsUrl = uniqueFileName;
-                model.PhaseStatus = 7;
+                model.PhaseStatus = 8;
                 var x = services.FinalDocUrlAndPeshToNpc(SubProgramIds,model);
                 TempData["Notifications"] = "आयोजना वा कार्यक्रम पेश भएको छ । पुन आयोजना वा कार्यक्रम संशोधन गर्नु परेमा पेश गरिएको शर्तनामा प्रणालिबाट हटाए पश्चात मात्र संशोधन गर्न सक्नुहुनेछ  ।";
             }
@@ -1339,7 +1346,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             try
             {
 
-                model.PhaseStatus = 7;
+                model.PhaseStatus = 8;
 
                 var x = services.CancelSubmission(SubProgramIds, model);
             }

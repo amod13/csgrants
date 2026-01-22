@@ -35,7 +35,9 @@
 
     }
 
-    @if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
+    @if(Model.ViewbagGrantTypeId == 1) { 
+
+    if (ViewBag.Mode == "Edit" || ViewBag.ErrMode == "On")
     {
         <div class="col-md-12 col-sm-12 form-group">
             <label>कार्यविधि बमोजिम क्षेत्र</label>
@@ -90,7 +92,7 @@
 
 
     }
-
+    }
 
 
 

@@ -287,13 +287,13 @@
 
                                         @if ((item.PhaseStatus == 6 && item.TimeDurationYear == 1) || (item.PhaseStatus == 4 && item.TimeDurationYear > 2) || (item.PhaseStatus == 5 && item.TimeDurationYear >= 2))
                                         {
-                                            int ReportId = CommontUtilities.GetProgressReportId(item.SubProgramId, 16, 0);
+                                            int ReportId = CommontUtilities.GetProgressReportId(item.SubProgramId, 16, 1);
                                             string ClassName = ReportId > 0 ? "Update" : "edits";
                                             string ClassNameCss = ($"{ClassName} fa fa-file");
                                             if (ClassName == "Update")
                                             {
                                                 <td>
-                                                    @Html.ActionLink(" ", "ViewDetailProgressReportForClient", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = ReportId, @id3 = 0 }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण हेन क्लिक गर्नुहोस" })
+                                                    @Html.ActionLink(" ", "ViewDetailProgressReportForClient", new { @id = item.SubProgramId, @id1 = item.GrantTypeId, @id2 = ReportId, @id3 = 1 }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "प्रगति विवरण हेन क्लिक गर्नुहोस" })
                                                 </td>
                                             }
                                             else

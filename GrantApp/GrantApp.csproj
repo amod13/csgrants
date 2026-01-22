@@ -1279,6 +1279,9 @@
     <Content Include="Areas\Admin\Views\AdminFileUploads\_AdhuroApuroList.cshtml" />
     <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiOne8283.cshtml" />
     <Content Include="Areas\Admin\Views\Reports\ArthaAnusuchiTwo8283.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\MissingDocumentManagement.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDocuments.cshtml" />
+    <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ApplicationStatusView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GrantApp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

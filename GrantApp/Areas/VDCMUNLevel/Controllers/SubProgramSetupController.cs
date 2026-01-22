@@ -19,7 +19,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
     {
 
         GrantAppDBEntities db = new GrantAppDBEntities();
-
+        private string OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId().ToString();
 
         SubProgramServices services = new SubProgramServices();
 
@@ -1811,7 +1811,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                     if (string.IsNullOrEmpty(NotRunningProofDocStr) == false)
                     {
                         string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                        model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppNotRunningProofFile.FileName);
+                        model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppNotRunningProofFile.FileName);
                         var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.NotRunningProofDoc);
                         model.ObjQuadrimesterReportsDetailViewModel.AppNotRunningProofFile.SaveAs(path);
                     }
@@ -1888,7 +1888,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUpload);
                     model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile.SaveAs(path);
                 }
@@ -1896,7 +1896,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOne);
                     model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile.SaveAs(path);
                 }
@@ -1904,7 +1904,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwo);
                     model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile.SaveAs(path);
                 }
@@ -1913,7 +1913,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThree);
                     model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile.SaveAs(path);
                 }
@@ -1924,7 +1924,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile);
                     model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile.SaveAs(path);
                 }
@@ -1935,7 +1935,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.ContractFile = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.ContractFile = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.ContractFile);
                     model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile.SaveAs(path);
                 }
@@ -1946,7 +1946,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.RunningBillFile = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.RunningBillFile = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.RunningBillFile);
                     model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile.SaveAs(path);
                 }
@@ -1958,23 +1958,72 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
 
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.BhuktaniFile);
                     model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile.SaveAs(path);
                 }
 
 
                 //myadthap File
-
                 string MyadthapFileStr = model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile.FileName;
                 if (string.IsNullOrEmpty(MyadthapFileStr) == false)
                 {
-
                     string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    model.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile = Path.GetFileName(PrifixLetter + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile.FileName);
+                    model.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.TimeExtendedFile);
                     model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile.SaveAs(path);
                 }
+
+                // suchana pati
+                string SuchanaPatiFileStr = model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile.FileName;
+                if (string.IsNullOrEmpty(SuchanaPatiFileStr) == false)
+                {
+                    string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff"); 
+                    model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUpload = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUpload);
+                    model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile.SaveAs(path);
+                }
+
+                // sarbajanik parickchen file
+                string SarbajanikParikchenStr = model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile.FileName;
+                if (string.IsNullOrEmpty(SarbajanikParikchenStr) == false)
+                {
+                    string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchen = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUpload);
+                    model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile.SaveAs(path);
+                }
+
+                // sunuwai file
+                string SarbajanikSunuwaiStr = model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile.FileName;
+                if (string.IsNullOrEmpty(SarbajanikSunuwaiStr) == false)
+                {
+                    string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwai = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwai);
+                    model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile.SaveAs(path);
+                }
+
+                // samapurak file
+                string SamapurakAnusuchi5FileStr = model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File.FileName;
+                if (string.IsNullOrEmpty(SamapurakAnusuchi5FileStr) == false)
+                {
+                    string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5 = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File.FileName);
+                    var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5);
+                    model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File.SaveAs(path);
+                }
+
+                // Bisehs file
+                string BisehsAnusuchi5FileStr = model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File == null ? string.Empty : model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File.FileName;
+                if (string.IsNullOrEmpty(BisehsAnusuchi5FileStr) == false)
+                {
+                    string PrifixLetter = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7 = Path.GetFileName(PrifixLetter + "_" + OfficeId + "_" + model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File.FileName);
+                    var path = Path.Combine(Server.MapPath("~/RequiredDocs"), model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7);
+                    model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File.SaveAs(path);
+                }
+
 
                 if (model.ObjQuadrimesterReportsDetailViewModel.TotalContractAmount.HasValue)
                 {
@@ -1983,6 +2032,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                         model.ObjQuadrimesterReportsDetailViewModel.TotalContractAmount = model.ObjQuadrimesterReportsDetailViewModel.TotalContractAmount * 100000;
                     }
                 }
+
                 if (model.ObjQuadrimesterReportsDetailViewModel.TotalNikashaRamam.HasValue)
                 {
                     if (model.ObjQuadrimesterReportsDetailViewModel.TotalNikashaRamam > 0)
@@ -2122,6 +2172,56 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             ViewBag.ProgressReportSearchId = id3;
             return View(model);
         }
+
+        #endregion
+
+        #region Document Managemnt For Missing
+
+        public ActionResult MissingDocumentManagement()
+        {
+
+            SubProgramMaster model = new SubProgramMaster();
+            SubProgramServices services = new SubProgramServices();
+            int OfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+            //model.QuadrimesterReportsDetailViewModelList = services.PopulateQuadrimesterReports(0, OfficeId, 0);//qua id, officeid, granttyp id
+            //model.SubProgramMasterList = services.PopulateOldSubProgramPhaseWiseListForProgressRpt(0, OfficeId, 1).ToList();
+            model.YearlyWiseProgressDetailsListVMList = services.SP_GetFYWiseProgressSubmissionList(OfficeId, 0);
+            return View(model);
+
+        }
+
+
+        public ActionResult ViewDocuments(int subProgramId, int grantType)
+        {
+            int CurrentLoginUserOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+            SubProgramMaster model = new SubProgramMaster();
+
+            model = services.PopulateSubProgram(grantType).SingleOrDefault(x => x.SubProgramId == subProgramId && x.OfficeId == CurrentLoginUserOfficeId);
+            if (model != null)
+            {
+                model.DocumentsRequirementsViewModel = services.SPUP_PopulateRequiredDocForEdit(subProgramId, 1);
+
+                foreach (var item in model.DocumentsRequirementsViewModel)
+                {
+                    if (!string.IsNullOrEmpty(item.UploadFileUrl))
+                    {
+                        var physicalPath = Server.MapPath(
+                                                 Path.Combine("~/RequiredDocs", item.UploadFileUrl)
+                                             );
+                        item.FileExists = System.IO.File.Exists(physicalPath);
+                    }
+                    else
+                    {
+                        item.FileExists = false;
+                    }
+                }
+
+            }
+
+            return View(model);
+        }
+
+
 
         #endregion
 
@@ -3101,7 +3201,8 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             if(acs != null)
             {
                 TempData["ProgresReportNtf"] = @"प्रगति विवरण अद्यावधिक भईसकेको छ । ";
-                return RedirectToAction("ProgressDetailList");
+                return View("ApplicationStatusView",acs);
+               // return RedirectToAction("ProgressDetailList");
             }
 
             //first check if this applcation all progress report submited or not....

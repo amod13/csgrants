@@ -176,6 +176,89 @@
         </div>
     }
 
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">(सूचना पाटी) (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">(सूचना पाटी) (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file", required = "required", @id = "prptFile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
+
+        </div>
+    }
+
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">सार्वजनिक परीक्षण (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">सार्वजनिक परीक्षण (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file", required = "required", @id = "prptFile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile)
+
+        </div>
+    }
+
+    @if (ViewBag.Mode == "Edit")
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">सार्वजनिक सुनुवाई (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile)
+
+        </div>
+    }
+    else
+
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">सार्वजनिक सुनुवाई (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile, new { type = "file", required = "required", @id = "prptFile" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile)
+
+        </div>
+    }
+
+
+    @if (Model.ViewbagGrantTypeId 
+        == 1)
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">विषेश अनुसदान अनुसूची ७ बमोजिम (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File)
+        </div>
+     }
+
+    else if (Model.ViewbagGrantTypeId == 2)
+    {
+        <div class="col-md-3 col-sm-4 form-group">
+            <label style="color:red;">समपुरक अनुसदान अनुसूची ५ बमोजिम (*)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File)
+        </div>
+    }
+
+
     <div class="col-md-3 col-sm-4 form-group">
         <label style="color:red;">साईटको फोटो १ (फाईल अपलोड)(*)</label>
         @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile, new { type = "file", required = "required", @id = "sitePhoto1" })
@@ -212,17 +295,14 @@
         {
             <div class="col-md-3 col-sm-12 form-group">
                 <label></label>
-
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile))
         {
-
             <div class="col-md-3 col-sm-12 form-group">
                 <label>ठेक्का सूचना</label>
                 @Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = Model.ObjQuadrimesterReportsDetailViewModel.ContractNoticeFile }, new { @class = "fa fa-download" })
             </div>
-
         }
         else
         {

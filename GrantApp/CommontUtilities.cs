@@ -596,7 +596,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                       AND spm.GrantTypeId = @GrantType
                       AND spm.ApprovedStatus = 1 
                       AND spm.IsCancelled = 0 
-                      AND RG.FiscalYearId = 17",
+                      AND RG.FiscalYearId = 18",
                     new SqlParameter("@OfficeId", OfficeId),
                     new SqlParameter("@GrantType", GrantType)
                 ).FirstOrDefault();
@@ -1832,7 +1832,6 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                                               INNER JOIN dbo.SubProgramMaster spm
                                               ON spm.SubProgramId = qr.ProgramId
                                               WHERE qr.ProgramId = @subProgramId
-                                              AND qr.QuadrimesterId = 0 -- always 0
                                               AND spm.PhaseStatus = @phaseNumber",
                                               new SqlParameter("@subProgramId", subProgram.SubProgramId),
                                               new SqlParameter("@phaseNumber", subProgram.PhaseStatus)
@@ -1897,7 +1896,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                                         SPM.OfficeId = @officeId
                                         AND SPM.ApprovedStatus = 1
                                         AND SPM.IsCancelled = 0
-                                        AND SPM.PhaseStatus IN (7,8)
+                                        AND SPM.PhaseStatus IN (6,7)
                                         AND
                                         (
                                             (SPM.PhaseStatus = 7 
@@ -1905,7 +1904,7 @@ where AmountSecond>1 and officeid = '" + OfficeId + "' and FiscalYearId = '" + R
                                                 AND PWS.Amount > 0
                                             )
                                             OR
-                                            (SPM.PhaseStatus = 7 
+                                            (SPM.PhaseStatus = 6 
                                                 AND SPM.TimeDurationYear > 2 
                                                 AND PWS.AmountSecondYear > 0
                                             )

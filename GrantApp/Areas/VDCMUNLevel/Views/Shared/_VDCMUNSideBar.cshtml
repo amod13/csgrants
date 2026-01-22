@@ -5,7 +5,11 @@
 <style>
 
     .menu-green {
-        background: green !important;
+        background: #006699 !important;
+    }
+
+    .menu-red {
+        background: red !important;
     }
 </style>
 
@@ -27,7 +31,7 @@
         <!-- Sidebar Navigation Menus -->
         <div class="main-menu">
             <ul id="side-main-menu" class="side-menu list-unstyled">
-                <li class="@(CurrentLoginUserMenuStaus > 1 ? "menu-green" : "")">
+                <li class="@(CurrentLoginUserMenuStaus > 1 ? "menu-green" : "menu-red")">
                     <a href="~/VDCMUNLevel/VDCMUNHome/ViewProfile">
                         <i class="fa fa-user"></i> प्रयोगकर्ताको प्रोफाइल
                     </a>
@@ -35,14 +39,14 @@
 
                 @if (CurrentLoginUserMenuStaus > 1)
                 {
-                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
+                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "menu-red")">
                         <a href="~/VDCMUNLevel/SubProgramSetup/CheckValidationForProgress/0">
                             <i class="icon-interface-windows"></i> प्रगति विवरण
                         </a>
                     </li>
 
-                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
-                        <a href="#">
+                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "menu-red")">
+                        <a href="~/VDCMUNLevel/SubProgramSetup/MissingDocumentManagement">
                             <i class="icon-interface-windows"></i> नपुग कागजात पेश गर्नुहोस
                         </a>
                     </li>
@@ -50,7 +54,7 @@
 
                 @if (CurrentLoginUserMenuStaus > 2)
                 {
-                    <li class="@(CurrentLoginUserMenuStaus > 3 ? "menu-green" : "")">
+                    <li class="@(CurrentLoginUserMenuStaus > 3 ? "menu-green" : "menu-red")">
                         <a href="~/VDCMUNLevel/SubProgramSetup/CheckValidationForPrevious/0">
                             <i class="icon-interface-windows"></i> क्रमागत आयोजना वा कार्यक्रम
                         </a>
@@ -59,7 +63,7 @@
 
                 @if (CurrentLoginUserMenuStaus > 3)
                 {
-                    <li class="@(CurrentLoginUserMenuStaus > 4 ? "menu-green" : "")">
+                    <li class="@(CurrentLoginUserMenuStaus > 4 ? "menu-green" : "menu-red")">
                         <a href="#DemandGrant" aria-expanded="false" data-toggle="collapse">
                             <i class="icon-interface-windows"></i> नयाँ आयोजना वा कार्यक्रम
                         </a>
