@@ -37,7 +37,6 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             {
                 ReturnDate = GrantApp.StaticValue.ConstantValues.SubmissionDateForProduction;
             }
-
             return ReturnDate;
         }
 
@@ -2193,12 +2192,16 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
 
         public ActionResult ViewDocuments(int subProgramId, int grantType)
         {
+            
             int CurrentLoginUserOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+            int CurrentLoginUserType = CommontUtilities.GetCurrentLoginUserUserTypeByOfficeId(CurrentLoginUserOfficeId);
             SubProgramMaster model = new SubProgramMaster();
 
             model = services.PopulateSubProgram(grantType).SingleOrDefault(x => x.SubProgramId == subProgramId && x.OfficeId == CurrentLoginUserOfficeId);
             if (model != null)
             {
+                model.OnlyDocumentsRequirementsViewModel = services.SPUP_PopulateDocRequirementList(grantType, CurrentLoginUserType);
+                
                 model.DocumentsRequirementsViewModel = services.SPUP_PopulateRequiredDocForEdit(subProgramId, 1);
 
                 foreach (var item in model.DocumentsRequirementsViewModel)
@@ -2224,7 +2227,34 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
         [HttpPost]
         public ActionResult SaveMissingDocument(SubProgramMaster model, IEnumerable<HttpPostedFileBase> files)
         {
-            return null;
+            int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+
+            if (files != null)
+            {
+                int index = 0;
+                foreach (var file in files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        // Generate unique filename
+                        string fileName = $"{model.SubProgramId}_{System.IO.Path.GetFileName(file.FileName)}";
+                        string path = System.IO.Path.Combine(Server.MapPath("~/RequiredDocs"), fileName);
+                        // Save file
+                        file.SaveAs(path);
+                        // Assign file name to corresponding model object
+                        model.OnlyDocumentsRequirementsViewModel[index].UploadFileUrl = fileName;
+                    }
+
+                    index++;
+                }
+            }
+
+            foreach (var item in model.OnlyDocumentsRequirementsViewModel)
+            {
+                services.SPUP_InsertMissingDocumnet(item.RequiredDocID, model.SubProgramId, item.UploadFileUrl, CurrentPhaseNumber,model.UploaderName,model.UploaderPosition);
+            }
+
+            return RedirectToAction("ViewDocuments", new { subProgramId = model.SubProgramId, grantType=model.GrantTypeId });
         }
 
             #endregion

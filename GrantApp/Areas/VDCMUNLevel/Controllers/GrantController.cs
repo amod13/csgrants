@@ -441,12 +441,9 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             return View(model);
         }
 
-        [HttpPost]
+       [HttpPost]
        public ActionResult FormEntry(SubProgramMaster model, IEnumerable<HttpPostedFileBase> files)
-        {
-
-           
-
+       {
 
             if (model.TotalBudgetBisesh>0)
             {
@@ -867,11 +864,9 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
 
                         // Save file
                         file.SaveAs(path);
-
                         // Assign file name to corresponding model object
                         model.DocumentsRequirementsViewModel[index].UploadFileUrl = fileName;
                     }
-
                     index++;
                 }
             }
@@ -880,7 +875,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             // Save data to DB (Adjust this based on your DB structure)
             foreach (var item in model.DocumentsRequirementsViewModel)
             {
-                services.SPUP_InsertProgramConditionDetails(item.RequiredDocID, model.SubProgramId, item.UploadFileUrl, 7);
+                services.SPUP_InsertProgramConditionDetails(item.RequiredDocID, model.SubProgramId, item.UploadFileUrl, 8);
             }
 
             model.ViewbagGrantTypeId = model.ViewbagGrantTypeId;

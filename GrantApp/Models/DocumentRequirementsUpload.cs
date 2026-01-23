@@ -60,6 +60,11 @@ namespace GrantApp.Models
         public string DocTitleFileStr { get; set; }
         public string UploadFileUrl { get; set; }
 
+        public string UploaderName { get; set; }
+        public string UploaderPosition { get; set; }
+        public string FromMissing { get; set; }
+
+
         public bool FileExists { get; set; }
         public HttpPostedFileBase SupportingDocFiles { get; set; }
     }

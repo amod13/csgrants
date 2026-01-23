@@ -239,6 +239,11 @@ namespace GrantApp.Models
 
         [NotMapped]
         public List<DocumentsRequirementsViewModel> DocumentsRequirementsViewModel { get; set; }
+
+
+        [NotMapped]
+        public List<DocumentsRequirementsViewModel> OnlyDocumentsRequirementsViewModel { get; set; }
+
         [NotMapped]
         public DocumentsRequirementsViewModel ObjDocumentsRequirementsViewModel { get; set; }
 
@@ -246,7 +251,11 @@ namespace GrantApp.Models
         [NotMapped]
         public List<CurrentYearGrantRequestProgramListVM> CurrentYearGrantRequestProgramListVMList { get; set; }
 
+        [NotMapped]
+        public string UploaderName {  get; set; }
 
+        [NotMapped]
+        public string UploaderPosition { get; set; }
 
         public SubProgramMaster()
         {
@@ -296,6 +305,9 @@ namespace GrantApp.Models
 
 
     }
+
+
+    
 
 
     public class SubProgramFileViewModel

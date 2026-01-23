@@ -1089,6 +1089,40 @@ namespace GrantApp.Services
             }
         }
 
+        public string SPUP_InsertMissingDocumnet(int ProgramConditionId, int SubProgramId, string UploadFileUrl, int PhaseStatus, string UploaderName , string UploaderPosition)
+        {
+            using (GrantAppDBEntities db = new GrantAppDBEntities())
+            {
+                string msg = string.Empty;
+                var RequiredDocumentsIdParam = new SqlParameter { ParameterName = "@RequiredDocumentsId", Value = ProgramConditionId };
+                var SubProgramIdParam = new SqlParameter { ParameterName = "@SubProgramId", Value = SubProgramId };
+                var UploadFileUrlParam = new SqlParameter { ParameterName = "@UploadFileUrl", Value = UploadFileUrl == null ? string.Empty : UploadFileUrl };
+                var PhaseStatusParam = new SqlParameter { ParameterName = "@PhaseStatus", Value = PhaseStatus };
+                var UploaderNameParam = new SqlParameter { ParameterName = "@UploaderOfficerName", Value = UploaderName };
+                var UploaderPositionParam = new SqlParameter { ParameterName = "@UploadderOfficerPosition", Value = UploaderPosition };
+
+                var MessageParam = new SqlParameter
+                {
+                    ParameterName = "@Message",
+                    DbType = DbType.String,
+                    Size = 50,
+                    Direction = System.Data.ParameterDirection.Output
+                };
+
+
+                var result = db.Database.ExecuteSqlCommand("exec SPUP_InsertMissingDocumnet @RequiredDocumentsId, @SubProgramId,@UploadFileUrl,@PhaseStatus,@UploaderOfficerName,@UploadderOfficerPosition,@Message OUT",
+
+                   RequiredDocumentsIdParam, SubProgramIdParam, UploadFileUrlParam, PhaseStatusParam,UploaderNameParam,UploaderPositionParam, MessageParam);
+
+                msg = MessageParam.SqlValue.ToString();
+                return msg;
+
+            }
+        }
+
+
+        
+
         public bool CheckIfAlreadyInsertedInCondictionDetails(int SubProgramId)
         {
             bool AlreadyInserted = false;

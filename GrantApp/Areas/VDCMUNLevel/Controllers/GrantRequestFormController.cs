@@ -7,6 +7,7 @@ using GrantApp.Models;
 using GrantApp.Services;
 using System.IO;
 using System.Globalization;
+using iText.Kernel.Pdf.Annot;
 
 namespace GrantApp.Areas.VDCMUNLevel.Controllers
 {
@@ -81,6 +82,15 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 
+        public FileResult ShowFile(string fileName)
+        {
+            var virtualPath = "~/RequiredDocs/" + fileName;
+            var physicalPath = Server.MapPath(virtualPath);
+
+            string contentType = MimeMapping.GetMimeMapping(fileName);
+
+            return File(virtualPath,  fileName);
+        }
 
         public ActionResult ProposalValuation(int id, int id1)
         {
