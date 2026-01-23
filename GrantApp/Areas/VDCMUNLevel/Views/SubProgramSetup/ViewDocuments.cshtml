@@ -16,159 +16,235 @@
 </style>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
+    @using (Html.BeginForm("SaveMissingDocument", "SubProgramSetup", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormID" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
 
-            <!-- Program Details -->
-            <div class="card shadow-lg mb-3">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">आयोजना वा कार्यक्रमको विवरण</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>आयोजना वा कार्यक्रमको नाम</th>
-                                <td>@Model.SubProgramTitle</td>
-                            </tr>
-                            <tr>
-                                <th> शुरु आ.ब.</th>
-                                <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(Model.PhaseStatus)</td>
-                            </tr>
-                            <tr>
-                                <th>आयोजना संचालन हुने स्थान (जिल्ला, स्थानीय तह, वडा, टोल/बस्ती): </th>
-                                <td>@Model.AyojanaAddress</td>
-                            </tr>
-                            <tr>
-                                <th>आयोजना वा कार्यक्रमको अवधी (बर्ष) </th>
-                                <td>@Model.TimeDurationYear</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Documents Table -->
-            <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">कागजातहरू</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>क्रस</th>
-                                    <th>शिर्षक</th>
-                                    <th>फाईल</th>
-                                    <th>हेर्नुहोस् / अपलोड</th>
-                                </tr>
-                            </thead>
-                            <tbody id="docsTableBody">
-                                @foreach (var item in Model.DocumentsRequirementsViewModel)
-                                {
-                                    <tr data-sn="@sn">
-                                        <td>@sn</td>
-                                        <td>@item.DocTitleFileStr</td>
-                                        <td id="fileNameCell_@sn">
-                                            @if (item.FileExists)
-                                            {
-                                                <span class="text-success">Uploaded</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-danger">Not Uploaded</span>
-                                            }
-                                        </td>
-
-                                        <td id="actionCell_@sn">
-                                            @if (item.FileExists)
-                                            {
-                                                <a href="javascript:void(0)"
-                                                   onclick="loadDocument('@Url.Content(item.UploadFileUrl)')"
-                                                   class="btn btn-sm btn-outline-primary">
-                                                    <i class="fa fa-eye"></i> View
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <label class="btn btn-sm btn-outline-success mb-0">
-                                                    <i class="fa fa-upload"></i> Upload
-                                                    <input type="file"
-                                                           name="UploadFile_@sn"
-                                                           id="fileInput_@sn"
-                                                           hidden
-                                                           onchange="handleTempUpload(this,'@item.DocTitleFileStr',@sn)" />
-                                                </label>
-                                            }
-                                        </td>
-
-                                    </tr>
-                                    sn++;
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Right Column: Preview + Upload Form -->
-        <div class="col-md-6">
-            <div class="sticky-right">
-
-                <!-- Document Preview -->
+                <!-- Program Details -->
                 <div class="card shadow-lg mb-3">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">कागजात Preview</h5>
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">आयोजना वा कार्यक्रमको विवरण</h3>
                     </div>
-                    <div class="card-body" style="height:400px;">
-                        <iframe id="docPreview"
-                                width="100%"
-                                height="100%"
-                                style="border:1px solid #ddd; display:none;"
-                                onload="onDocLoad()">
-                        </iframe>
-                        <div id="docMessage" class="text-center text-muted mt-5">
-                            कागजात चयन गर्नुहोस्
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>आयोजना वा कार्यक्रमको नाम</th>
+                                    <td>@Model.SubProgramTitle</td>
+                                </tr>
+                                <tr>
+                                    <th> शुरु आ.ब.</th>
+                                    <td>@GrantApp.CommontUtilities.GetPhaseTitleFromPhaseNumber(Model.PhaseStatus)</td>
+                                </tr>
+                                <tr>
+                                    <th>आयोजना संचालन हुने स्थान (जिल्ला, स्थानीय तह, वडा, टोल/बस्ती): </th>
+                                    <td>@Model.AyojanaAddress</td>
+                                </tr>
+                                <tr>
+                                    <th>आयोजना वा कार्यक्रमको अवधी (बर्ष) </th>
+                                    <td>@Model.TimeDurationYear</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Approval / Uploader Form -->
+                <!-- Documents Table -->
                 <div class="card shadow-lg">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="mb-0">अपलोड/स्वीकृति विवरण</h5>
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">कागजातहरू</h3>
                     </div>
                     <div class="card-body">
-                        <form id="uploadForm">
-                            <div class="mb-3">
-                                <label class="form-label">मिति</label>
-                                <input type="date" class="form-control" name="uploadDate">
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>क्रस</th>
+                                        <th>शिर्षक</th>
+                                        <th>फाईल</th>
+                                        <th>हेर्नुहोस् / अपलोड</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="docsTableBody">
+                                    @foreach (var item in Model.DocumentsRequirementsViewModel)
+                                    {
+                                        <tr data-sn="@sn">
+                                            <td>@sn</td>
+                                            <td>@item.DocTitleFileStr</td>
+                                            <td id="fileNameCell_@sn">
+                                                @if (item.FileExists)
+                                                {
+                                                    <span class="text-success">Uploaded</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-danger">Not Uploaded</span>
+                                                }
+                                            </td>
 
-                            <div class="mb-3">
-                                <label class="form-label">अपलोड गर्नेको नाम</label>
-                                <input type="text" class="form-control" name="uploaderName">
-                            </div>
+                                            <td id="actionCell_@sn">
+                                                @if (item.FileExists)
+                                                {
+                                                    <a href="javascript:void(0)"
+                                                       onclick="loadDocument('@Url.Content(item.UploadFileUrl)')"
+                                                       class="btn btn-sm btn-outline-primary">
+                                                        <i class="fa fa-eye"></i> View
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <label class="btn btn-sm btn-outline-success mb-0">
+                                                        <i class="fa fa-upload"></i> Upload
+                                                        <input type="file"
+                                                               name="UploadFile_@sn"
+                                                               id="fileInput_@sn"
+                                                               hidden
+                                                               onchange="handleTempUpload(this,'@item.DocTitleFileStr',@sn)" />
+                                                    </label>
+                                                }
+                                            </td>
 
-                            <div class="mb-3">
-                                <label class="form-label">पद</label>
-                                <input type="text" class="form-control" name="position">
-                            </div>
-
-                            <button type="submit" class="btn btn-success btn-sm">
-                                Save
-                            </button>
-                        </form>
+                                        </tr>
+                                        sn++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
+
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">नपुग कागजातहरू</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>क्रस</td>
+                                        <td>कागजातहरू</td>
+                                        <td>फाईल अपलोड</td>
+                                        @if (ViewBag.Mode == "Edit")
+                                        {
+                                            <td>अपलोड गरिएका फाईलहरू</td>
+                                        }
+
+                                    </tr>
+                                </thead>
+
+                                @for (int i = 0; i < Model.DocumentsRequirementsViewModel.Count; i++)
+                                {
+                                    @Html.HiddenFor(m => m.DocumentsRequirementsViewModel[i].UploadFileUrl)
+                                    int snNo = i + 1;
+                                    <tr>
+                                        <td>@snNo</td>
+
+                                        <td>
+                                            @Model.DocumentsRequirementsViewModel[i].DocTitleFileStr
+                                            @Html.HiddenFor(m => Model.DocumentsRequirementsViewModel[i].RequiredDocID)
+                                        </td>
+
+                                        @{
+                                            // Dynamically generate the name for the file input
+                                            string filename = "files[" + i + "]";
+                                        }
+
+
+
+                                        @if (ViewBag.Mode == "Edit")
+                                        {
+                                            <td>
+
+                                                <input type="file" name="files[@i]" />
+                                            </td>
+
+                                            @Html.HiddenFor(m => m.DocumentsRequirementsViewModel[i].UploadFileUrl)
+                                            <td>@Model.DocumentsRequirementsViewModel[i].UploadFileUrl</td>
+
+
+                                        }
+                                        else
+                                        {
+                                            <td>
+
+                                                <input type="file" name="files[@i]" required />
+                                            </td>
+                                        }
+
+
+                                    </tr>
+                                }
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+
+            <!-- Right Column: Preview + Upload Form -->
+            <div class="col-md-6">
+                <div class="sticky-right">
+
+                    <!-- Document Preview -->
+                    <div class="card shadow-lg mb-3">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">कागजात Preview</h5>
+                        </div>
+                        <div class="card-body" style="height:400px;">
+                            <iframe id="docPreview"
+                                    width="100%"
+                                    height="100%"
+                                    style="border:1px solid #ddd; display:none;"
+                                    onload="onDocLoad()">
+                            </iframe>
+                            <div id="docMessage" class="text-center text-muted mt-5">
+                                कागजात चयन गर्नुहोस्
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approval / Uploader Form -->
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">अपलोड/स्वीकृति विवरण</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="uploadForm">
+                                <div class="mb-3">
+                                    <label class="form-label">मिति</label>
+                                    <input type="date" class="form-control" name="uploadDate">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">अपलोड गर्नेको नाम</label>
+                                    <input type="text" class="form-control" name="uploaderName">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">पद</label>
+                                    <input type="text" class="form-control" name="position">
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    Save
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-    </div>
+    }
 </div>
 
 <script>

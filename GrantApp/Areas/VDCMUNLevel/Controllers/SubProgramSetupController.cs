@@ -2221,14 +2221,18 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult SaveMissingDocument(SubProgramMaster model, IEnumerable<HttpPostedFileBase> files)
+        {
+            return null;
+        }
+
+            #endregion
 
 
-        #endregion
+            #region Approved Program Detail section
 
-
-        #region Approved Program Detail section
-
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]//This is for removing tempdata if back button pressed
+            [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]//This is for removing tempdata if back button pressed
         public ActionResult ApprovedListSubProgram(int id)
         {
             SubProgramMaster model = new SubProgramMaster();
