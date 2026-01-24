@@ -2224,8 +2224,17 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             return View(model);
         }
 
+        public ActionResult AddMissingDocument(int subProgramId, int grantType)
+        {
+            int CurrentLoginUserOfficeId = GrantApp.Areas.Admin.FunctionClass.GetCurrentLoginUserClientId();
+            int CurrentLoginUserType = CommontUtilities.GetCurrentLoginUserUserTypeByOfficeId(CurrentLoginUserOfficeId);
+            SubProgramMaster model = new SubProgramMaster();
+            model.OnlyDocumentsRequirementsViewModel = services.SPUP_PopulateDocRequirementList(grantType, CurrentLoginUserType);
+            return View(model);
+        }
+
         [HttpPost]
-        public ActionResult SaveMissingDocument(SubProgramMaster model, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult AddMissingDocument(SubProgramMaster model, IEnumerable<HttpPostedFileBase> files)
         {
             int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
 

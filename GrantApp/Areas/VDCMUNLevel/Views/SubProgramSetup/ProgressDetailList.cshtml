@@ -37,7 +37,7 @@
 
             <div class="card-body">
                 <h3 class="card-title" style="color:black;">
-                    रातो आइकन  <span class="edits fa fa-file"></span> क्लिक गरेर आवश्यक विवरण भर्नुहोस् र नीलो  <span class="Update fa fa-file"></span> रङ्गमा बदल्नुहोस्
+                    रातो आइकन  <span class="edits fa fa-file"></span> क्लिक गरेर आवश्यक विवरण भर्नुहोस् र  <span class="fa fa-eye"></span> आईकनमा  बदल्नुहोस्
                     @*नयाँ आयोजना/कार्यक्रम थप्नुहोस Option खुल्नको लागि सबैभन्दा पहिला सबै आवहरुको प्रगति विवरण आइकन नीलो बनाउने, त्यसपछि दाहिने तर्फ रहेको “आयोजना सम्पन्नताको अवस्था” क्लिक गरेर भर्ने, त्यसपछि क्रमागत आयोजनामा रकम माग वा चाहिंदैन भन्ने विकल्प प्रयोग गरेपछि मात्रै नयाँ आयोजना/कार्यक्रम प्रविष्टि गर्न मिल्छ ।</h3>*@
                     @*सबै आवहरुको प्रगति विवरण आइकन
                     <span class="Update fa fa-file"></span>
@@ -319,11 +319,18 @@
 
 
 
-                                        <td style="width:290px;">
+                                    <td style="width:290px;">
 
-                                            @Html.ActionLink(" ", "ApplicationStatusDetails", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = ClassNameForSampannaCss, data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+                                        @if (ClassNameForSampanna == "Update")
+                                        {
+                                            @Html.ActionLink(" ", "ApplicationStatusDetails", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink(" ", "ApplicationStatusDetails", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = ClassNameForSampanna, data_toggle = "tooltip", data_placement = "top", @title = "विवरण" })
 
-                                        </td>
+                                        }
+                                    </td>
 
                                     </tr>
                                         ++j;

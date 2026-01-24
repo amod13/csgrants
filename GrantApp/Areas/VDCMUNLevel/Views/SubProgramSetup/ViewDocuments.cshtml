@@ -19,10 +19,8 @@
 </style>
 
 <div class="container-fluid">
-    @using (Html.BeginForm("SaveMissingDocument", "SubProgramSetup", FormMethod.Post, new { enctype = "multipart/form-data", @id = "GrantFormID" }))
-    {
-        @Html.HiddenFor(m => m.SubProgramId)
-        @Html.HiddenFor(m => m.GrantTypeId)
+
+  
         <div class="row">
             <div class="col-md-6">
 
@@ -152,77 +150,7 @@
                 </div>
 
 
-                <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="mb-0">नपुग कागजातहरू</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <td>क्रस</td>
-                                        <td>कागजातहरू</td>
-                                        <td>फाईल अपलोड</td>
-                                        @if (ViewBag.Mode == "Edit")
-                                        {
-                                            <td>अपलोड गरिएका फाईलहरू</td>
-                                        }
-
-                                    </tr>
-                                </thead>
-
-                                @for (int i = 0; i < Model.OnlyDocumentsRequirementsViewModel.Count; i++)
-                                {
-                                    @Html.HiddenFor(m => m.OnlyDocumentsRequirementsViewModel[i].UploadFileUrl)
-                                    int snNo = i + 1;
-                                    <tr>
-                                        <td>@snNo</td>
-
-                                        <td>
-                                            @Model.OnlyDocumentsRequirementsViewModel[i].DocTitleFileStr
-                                            @Html.HiddenFor(m => Model.OnlyDocumentsRequirementsViewModel[i].RequiredDocID)
-                                        </td>
-
-                                        @{
-                                            // Dynamically generate the name for the file input
-                                            string filename = "files[" + i + "]";
-                                        }
-
-
-
-                                        @if (ViewBag.Mode == "Edit")
-                                        {
-                                            <td>
-
-                                                <input type="file" name="files[@i]" />
-                                            </td>
-
-                                            @Html.HiddenFor(m => m.OnlyDocumentsRequirementsViewModel[i].UploadFileUrl)
-                                            <td>@Model.OnlyDocumentsRequirementsViewModel[i].UploadFileUrl</td>
-
-
-                                        }
-                                        else
-                                        {
-                                            <td>
-
-                                                <input type="file" name="files[@i]" required />
-                                            </td>
-                                        }
-
-
-                                    </tr>
-                                }
-
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-
-
+               
             </div>
 
             <!-- Right Column: Preview + Upload Form -->
@@ -247,43 +175,14 @@
                         </div>
                     </div>
 
-                    <!-- Approval / Uploader Form -->
-                    <div class="card shadow-lg">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="mb-0">अपलोड गने कर्मचारीको विवरण</h5>
-                        </div>
-                        <div class="card-body">
-                            <form id="uploadForm">
-                                @*<div class="mb-3">
-                                        <label class="form-label">मिति</label>
-                                        <input type="date" class="form-control" name="uploadDate">
-                                    </div>*@
-
-                                <div class="mb-3">
-                                    <label class="form-label">अपलोड गर्नेको नाम</label>
-                                    @Html.TextBoxFor(m => m.UploaderName, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
-                                    @Html.ValidationMessageFor(m => m.SubProgramTitle)
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">पद</label>
-                                    @Html.TextBoxFor(m => m.UploaderPosition, new { @class = "form-control form-control sm", @required = "required", @id = "SubProgramTitle" })
-                                    @Html.ValidationMessageFor(m => m.SubProgramTitle)
-                                </div>
-
-                                <button type="submit" class="btn btn-success btn-sm">
-                                    Save
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                 
 
                 </div>
             </div>
 
         </div>
 
-    }
+   
 </div>
 
 <script>

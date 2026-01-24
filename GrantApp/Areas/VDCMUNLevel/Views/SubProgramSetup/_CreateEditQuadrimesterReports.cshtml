@@ -180,7 +180,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">(सूचना पाटी) (*)</label>
+            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (*)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
 
@@ -190,7 +190,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">(सूचना पाटी) (*)</label>
+            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (*)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file", required = "required", @id = "prptFile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
 
@@ -243,7 +243,7 @@
         == 1)
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">विषेश अनुसदान अनुसूची ७ बमोजिम (*)</label>
+            <label style="color:red;">विषेश अनुदान अनुसूची ७ बमोजिम (*)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File)
         </div>
@@ -252,7 +252,7 @@
     else if (Model.ViewbagGrantTypeId == 2)
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">समपुरक अनुसदान अनुसूची ५ बमोजिम (*)</label>
+            <label style="color:red;">समपुरक अनुदान अनुसूची ५ बमोजिम (*)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File)
         </div>

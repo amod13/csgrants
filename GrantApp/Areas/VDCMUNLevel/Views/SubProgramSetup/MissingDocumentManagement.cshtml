@@ -60,10 +60,12 @@
                                     <th>अनुदान प्रकार</th>
                                     <th>अवधि</th>
 
-                                    <th>कगजात</th>
+                                    <th>कयम रहेका कागजात हेर्नुहोस </th>
+
+                                    <th>नपुग कागजात थप्नुहोस </th>
 
 
-                          
+
 
 
                                     @*<th></th>*@
@@ -91,6 +93,10 @@
 
                                         <td>
                                             @Html.ActionLink(" ", "ViewDocuments", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "कागजात हेर्न क्लिक गर्नुहोस" })
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink(" ", "AddMissingDocument", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-plus", data_toggle = "tooltip", data_placement = "top", @title = "नपुग कागजात थप गर्न क्लिक गर्नुहोस" })
                                         </td>
 
 
