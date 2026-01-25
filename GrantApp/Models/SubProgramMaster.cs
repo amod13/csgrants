@@ -495,6 +495,14 @@ namespace GrantApp.Models
         public int ProgramId { get; set; }
         public decimal ApprovedBudget { get; set; }
         public string ProgramConductPlace { get; set; }
+
+        public string ConductingCompanyName { get; set; }
+
+        [Required(ErrorMessage = "PAN नम्बर आवश्यक छ।")]
+        [RegularExpression(@"^\d{9}$", ErrorMessage = "PAN नम्बर ९ अंकको हुनुपर्छ।")]
+        public string ConductingCompanyPan { get; set; }
+
+
         public int QuadrimesterId { get; set; }
         public string TargetedMaterial { get; set; }
         public decimal TargetedFinance { get; set; }

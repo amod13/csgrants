@@ -45,11 +45,7 @@
                         </a>
                     </li>
 
-                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
-                        <a href="~/VDCMUNLevel/SubProgramSetup/MissingDocumentManagement">
-                            <i class="icon-interface-windows"></i> नपुग कागजात पेश गर्नुहोस
-                        </a>
-                    </li>
+
                 }
 
                 @if (CurrentLoginUserMenuStaus > 2)
@@ -77,13 +73,13 @@
                 @if (CurrentLoginUserMenuStaus > 4)
                 {
                     @*<li>
-                            <a href="~/VDCMUNLevel/AdhuroGrant/GetNotCompletedProjectList"> <i class="icon-form"></i>अधुरा आयोजना सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
-                        </li>
+                <a href="~/VDCMUNLevel/AdhuroGrant/GetNotCompletedProjectList"> <i class="icon-form"></i>अधुरा आयोजना सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
+            </li>
 
 
-                        <li>
-                            <a href="~/VDCMUNLevel/AdhuroGrant/GetBhuktaniRemainingProjectList"> <i class="icon-form"></i>कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
-                        </li>*@
+            <li>
+                <a href="~/VDCMUNLevel/AdhuroGrant/GetBhuktaniRemainingProjectList"> <i class="icon-form"></i>कार्यसम्पन्न भएको आयोजनाको दायित्व भुक्तानी सम्बन्धी विशेष व्यवस्था अनुसार प्रस्ताव पेश गर्नुहोस</a>
+            </li>*@
 
 
                     <li>
@@ -91,6 +87,16 @@
                     </li>
 
                 }
+
+                @if (CurrentLoginUserMenuStaus > 2)
+                {
+                    <li class="@(CurrentLoginUserMenuStaus > 2 ? "menu-green" : "")">
+                        <a href="~/VDCMUNLevel/SubProgramSetup/MissingDocumentManagement">
+                            <i class="icon-interface-windows"></i> नपुग कागजात पेश गर्नुहोस
+                        </a>
+                    </li>
+                }
+
 
                 <li>
                     <div class="btn-user-manual">@Html.ActionLink("समपूरक अनुसूचि १", "DownLoadSamapurakAnusuchi1", "Grant", null, new { @class = "fa fa-download", target = "_blank" })</div>

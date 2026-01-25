@@ -91,14 +91,30 @@
                                         <td>@item.GrantTypeName</td>
                                         <td>@item.TimeDurationYear</td>
 
-                                        <td>
-                                            @Html.ActionLink(" ", "ViewDocuments", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "कागजात हेर्न क्लिक गर्नुहोस" })
+                                        @*<td>
+            @Html.ActionLink(" ", "ViewDocuments", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-eye", data_toggle = "tooltip", data_placement = "top", @title = "कागजात हेर्न क्लिक गर्नुहोस" })
+        </td>*@
+
+                                        @*<td>
+            @Html.ActionLink(" ", "AddMissingDocument", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-plus", data_toggle = "tooltip", @title = "नपुग कागजात थप गर्न क्लिक गर्नुहोस" })
+        </td>*@
+
+
+                                        <td class="text-center">
+                                            <a href="@Url.Action("ViewDocuments", new { subProgramId = item.SubProgramId, grantType = item.GrantTypeId })"
+                                               class="action-icon fa fa-eye"
+                                               data-bs-toggle="tooltip"
+                                               title="कागजात हेर्न क्लिक गर्नुहोस">
+                                            </a>
                                         </td>
 
-                                        <td>
-                                            @Html.ActionLink(" ", "AddMissingDocument", new { @subProgramId = item.SubProgramId, @grantType = item.GrantTypeId }, new { @class = "fa fa-plus", data_toggle = "tooltip", data_placement = "top", @title = "नपुग कागजात थप गर्न क्लिक गर्नुहोस" })
+                                        <td class="text-center">
+                                            <a href="@Url.Action("AddMissingDocument", new { subProgramId = item.SubProgramId, grantType = item.GrantTypeId })"
+                                               class="action-icon fa fa-plus text-success"
+                                               data-bs-toggle="tooltip"
+                                               title="नपुग कागजात थप गर्न क्लिक गर्नुहोस">
+                                            </a>
                                         </td>
-
 
                                     </tr>
                                         ++j;

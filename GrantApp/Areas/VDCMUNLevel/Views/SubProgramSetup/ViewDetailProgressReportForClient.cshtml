@@ -60,10 +60,18 @@
                         <hr />
 
                         <div class="row">
-                            <h4 style="color:#0991f3;">
-                                प्रगति प्रतिवेदन
-                            </h4>
+                            @{
+                                var firstItem = Model.QuadrimesterReportsDetailViewModelList.FirstOrDefault();
+                            }
 
+                            @if (firstItem != null && firstItem.AppRunningStatus == 1)
+                            {
+                                <h4 style="color:#0991f3;">प्रगति प्रतिवेदन</h4>
+                            }
+                            else
+                            {
+                                <h4 style="color:#0991f3;">कार्यान्वयन नभएको</h4>
+                            }
                             <table border="1" cellpadding="0" cellspacing="0">
                                 <tr height="50">
                                     <td align="center" width="150" rowspan="2">क्रस</td>
@@ -86,20 +94,20 @@
                                 </tr>
                                 @foreach (var item in Model.QuadrimesterReportsDetailViewModelList)
                                 {
-                                <tr height="50">
-                                    <td align="center" width="150">@sn</td>
-                                    <td align="center" width="150">@item.ProgramTitle</td>
-                                    <td align="center" width="150">@item.ProgramConductPlace</td>
-                                    <td align="center" width="150">@item.GrantedAmount</td>
-                                    <td align="center" width="150">@item.TargetedMaterial</td>
-                                    <td align="center" width="150">@item.TargetedFinance</td>
-                                    <td align="center" width="150">@item.AchievementMaterial</td>
-                                    <td align="center" width="150">@item.AchievementFinance</td>
-                                    <td align="center" width="150">@item.TotalContractAmount</td>
-                                    <td align="center" width="150">@item.TotalNikashaRamam</td>
-                                    <td align="center" width="150">@item.TotalAmountUsed</td>
-                                    <td align="center" width="150">@item.Remarks</td>
-                                </tr>
+                                    <tr height="50">
+                                        <td align="center" width="150">@sn</td>
+                                        <td align="center" width="150">@item.ProgramTitle</td>
+                                        <td align="center" width="150">@item.ProgramConductPlace</td>
+                                        <td align="center" width="150">@item.GrantedAmount</td>
+                                        <td align="center" width="150">@item.TargetedMaterial</td>
+                                        <td align="center" width="150">@item.TargetedFinance</td>
+                                        <td align="center" width="150">@item.AchievementMaterial</td>
+                                        <td align="center" width="150">@item.AchievementFinance</td>
+                                        <td align="center" width="150">@item.TotalContractAmount</td>
+                                        <td align="center" width="150">@item.TotalNikashaRamam</td>
+                                        <td align="center" width="150">@item.TotalAmountUsed</td>
+                                        <td align="center" width="150">@item.Remarks</td>
+                                    </tr>
                                     sn++;
                                 }
 
@@ -116,16 +124,115 @@
                         <br />
                         <hr />
                         <div class="row">
-                            @foreach (var itemProjectFile in Model.QuadrimesterReportsDetailViewModelList)
-                            {
-                                <div class="col-lg-4 col-md-3 form-group"><h4 style="color:#0991f3;"> फाइल:</h4></div>
-                                <div class="col-lg-4 col-md-9 form-group">@itemProjectFile.ProjectFileUpload</div>
-                                if (itemProjectFile.ProjectFileUpload != "")
-                                {
-                                    <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.ProjectFileUpload }, new { @class = "fa fa-download" })</div>
-                                }
+                            @*@foreach (var itemProjectFile in Model.QuadrimesterReportsDetailViewModelList)
+                {
+                    <div class="col-lg-4 col-md-3 form-group"><h4 style="color:#0991f3;"> फाइल:</h4></div>
+                    <div class="col-lg-4 col-md-9 form-group">@itemProjectFile.ProjectFileUpload</div>
+                    if (itemProjectFile.ProjectFileUpload != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.ProjectFileUpload }, new { @class = "fa fa-download" })</div>
+                    }
 
-                            }
+
+
+                    if (itemProjectFile.SuchanaPatiUpload != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.SuchanaPatiUpload }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+
+                    if (itemProjectFile.SarbajanikParikchen != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.SarbajanikParikchen }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+                    if (itemProjectFile.SarbajanikSunuwai != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.SarbajanikSunuwai }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+
+                    if (itemProjectFile.SamapurakAnusuchi5 != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.SamapurakAnusuchi5 }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+
+                    if (itemProjectFile.BiseshAnusuchi7 != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.BiseshAnusuchi7 }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+                    if (itemProjectFile.NikasaMaagFileUpload != "")
+                    {
+                        <div class="col-lg-4 col-md-9 form-group">@Html.ActionLink(" Download", "Download", "GrantRequestForm", new { @FileName = itemProjectFile.NikasaMaagFileUpload }, new { @class = "fa fa-download" })</div>
+                    }
+
+
+        }*@
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr style="background-color:#0991f3; color:white;">
+                                        <th>क्रस</th>
+                                        <th>प्रकार</th>
+                                        <th>फाइल नाम</th>
+                                        <th>डाउनलोड</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int serial = 1;
+
+                                        foreach (var item in Model.QuadrimesterReportsDetailViewModelList)
+                                        {
+                                            // Use array of object[] instead of tuples
+                                            var files = new List<object[]>
+                                                {
+                                                    new object[] { "प्रगति विवरण", item.ProjectFileUpload },
+                                                    new object[] { "ठेक्का सूचना", item.ContractNoticeFile },
+                                                    new object[] { "ठेक्का सम्झौता", item.ContractFile },
+                                                    new object[] { "हालसम्मका भुक्तानी भौचर", item.BhuktaniFile },
+                                                    new object[] { "Running Bill (सारांश)", item.RunningBillFile },
+                                                    new object[] { "अन्तिम म्याद थप सूचना", item.TimeExtendedFile },
+                                                    new object[] { "सूचनापाटीको फोटो", item.SuchanaPatiUpload },
+                                                    new object[] { "सार्वजनिक परीक्षण", item.SarbajanikParikchen },
+                                                    new object[] { "सार्वजनिक सुनुवाई", item.SarbajanikSunuwai },
+                                                    new object[] { "विषेश अनुदान अनुसूची ७", item.BiseshAnusuchi7 },
+                                                    new object[] { "समपुरक अनुदान अनुसूची ५", item.SamapurakAnusuchi5 },
+                                                    //new object[] { "साईटको फोटो १", item.PictureOfProjectOne },
+                                                    //new object[] { "साईटको फोटो २", item.PictureOfProjectTwo },
+                                                    //new object[] { "साईटको फोटो ३", item.PictureOfProjectThree }
+                                                };
+
+                                            foreach (var f in files)
+                                            {
+                                                string type = f[0] as string;
+                                                string fileName = f[1] as string;
+
+                                                if (!string.IsNullOrEmpty(fileName))
+                                                {
+                                                    <tr>
+                                                        <td>@serial</td>
+                                                        <td>@type</td>
+                                                        <td>@fileName</td>
+                                                        <td>
+                                                            @Html.ActionLink("Download", "Download", "GrantRequestForm", new { FileName = fileName }, new { @class = "fa fa-download btn btn-sm btn-primary" })
+                                                        </td>
+                                                    </tr>
+                                                    serial++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+
 
                         </div>
 

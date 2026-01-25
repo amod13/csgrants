@@ -52,6 +52,7 @@
         <label style="color:rebeccapurple;font-style:italic;">ठेक्का रकम निकाशा रकम भन्दा धेरै वा बराबरको हुनु पर्दछ ।</label>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12 col-sm-12 form-group">
         <label>कैफियत</label>
@@ -59,10 +60,35 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+        <label>निर्माण कम्पनी वा फर्मको नाम</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.ConductingCompanyName, new { @id = "remarksID", @class = "form-control form-control sm", @required = "required" })
+    </div>
+
+    <div class="col-md-6 col-sm-12 form-group">
+        <label>निर्माण कम्पनी वा फर्मको PAN नं</label>
+        @Html.TextBoxFor(m => m.ObjQuadrimesterReportsDetailViewModel.ConductingCompanyPan, new
+        {
+            @id = "remarksID",
+            @class = "form-control form-control-sm",
+            @required = "required",
+            @maxlength = "9",
+            @pattern = @"\d{9}",
+            @title = "कृपया ९ अंकको PAN नम्बर मात्र प्रविष्ट गर्नुहोस्"
+        })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+        <p> <span>(कृपया प्रगति विवरणका फाईलहरु अपलोड गर्दा .pdf .docx .xlsx extension मा तथा तस्वीरहरु अपलोड गर्दा .jpg, .jpeg, .png, .webp extension/format मा गर्नुहोला तथा सबै स्थानमा फरक फरक फाईल राख्नुहोला । धन्यवाद ।)</span> </p>
+    </div>
+</div>
+
+<div class="row">
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (*)</label>
+            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile)
 
@@ -72,7 +98,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (*)</label>
+            <label style="color:red;">प्रगति विवरण (फाईल अपलोड) (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile, new { type = "file", required = "required", @id = "prptFile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.ProjectFileUploadFile)
 
@@ -82,7 +108,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">ठेक्का सूचना (फाईल अपलोड)(*)</label>
+            <label style="color:red;">ठेक्का सूचना (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile)
 
@@ -92,7 +118,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">ठेक्का सूचना  (फाईल अपलोड)(*)</label>
+            <label style="color:red;">ठेक्का सूचना (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile, new { type = "file", required = "required", @id = "ctnoticefile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppContractNoticeFile)
 
@@ -101,7 +127,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">ठेक्का सम्झौता (फाईल अपलोड)(*)</label>
+            <label style="color:red;">ठेक्का सम्झौता (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppcontractFile)
 
@@ -111,7 +137,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">ठेक्का सम्झौता (फाईल अपलोड)(*)</label>
+            <label style="color:red;">ठेक्का सम्झौता (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppcontractFile, new { type = "file", required = "required", @id = "cctFile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppcontractFile)
 
@@ -121,7 +147,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (फाईल अपलोड)(*)</label>
+            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile)
 
@@ -131,7 +157,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (फाईल अपलोड)(*)</label>
+            <label style="color:red;">हालसम्मका भुक्तानी भैाचर प्रतिलिपि (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile, new { type = "file", required = "required", @id = "tilldatebills" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppBhuktaniVoucherFile)
 
@@ -141,7 +167,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label>Running Bill (सारांश) प्रतिलिप (फाईल अपलोड)</label>
+            <label>Running Bill (सारांश) प्रतिलिप (FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile)
 
@@ -151,7 +177,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label>Running Bill (सारांश) प्रतिलिप (फाईल अपलोड)</label>
+            <label>Running Bill (सारांश) प्रतिलिप (FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppRunningBillsDetailFile)
 
@@ -161,7 +187,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label>अन्तिम म्याद थप सूचना (फाईल अपलोड)</label>
+            <label>अन्तिम म्याद थप सूचना (FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile)
         </div>
@@ -169,7 +195,7 @@
     else
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label>अन्तिम म्याद थप सूचना (फाईल अपलोड)</label>
+            <label>अन्तिम म्याद थप सूचना (FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.AppTimeExtendedFile)
 
@@ -180,7 +206,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (*)</label>
+            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (* PHOTO)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
 
@@ -190,7 +216,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (*)</label>
+            <label style="color:red;">आयोजना वा कार्यक्रम जानकारी सूचनापाटीको फोटो (* PHOTO)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile, new { type = "file", required = "required", @id = "prptFile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SuchanaPatiUploadFile)
 
@@ -201,8 +227,8 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">सार्वजनिक परीक्षण (*)</label>
-            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file" })
+            <label style="color:red;">सार्वजनिक परीक्षण (* FILE)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file" , accept = ".pdf,.doc,.docx,.xls,.xlsx" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile)
 
         </div>
@@ -211,8 +237,8 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">सार्वजनिक परीक्षण (*)</label>
-            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file", required = "required", @id = "prptFile" })
+            <label style="color:red;">सार्वजनिक परीक्षण (* FILE)</label>
+            @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile, new { type = "file", required = "required", @id = "prptFile" , accept = ".pdf,.doc,.docx,.xls,.xlsx" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikParikchenFile)
 
         </div>
@@ -221,7 +247,7 @@
     @if (ViewBag.Mode == "Edit")
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">सार्वजनिक सुनुवाई (*)</label>
+            <label style="color:red;">सार्वजनिक सुनुवाई (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile)
 
@@ -231,7 +257,7 @@
 
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">सार्वजनिक सुनुवाई (*)</label>
+            <label style="color:red;">सार्वजनिक सुनुवाई (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile, new { type = "file", required = "required", @id = "prptFile" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SarbajanikSunuwaiFile)
 
@@ -243,7 +269,7 @@
         == 1)
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">विषेश अनुदान अनुसूची ७ बमोजिम (*)</label>
+            <label style="color:red;">विषेश अनुदान अनुसूची ७ बमोजिम (* FILE) </label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.BiseshAnusuchi7File)
         </div>
@@ -252,7 +278,7 @@
     else if (Model.ViewbagGrantTypeId == 2)
     {
         <div class="col-md-3 col-sm-4 form-group">
-            <label style="color:red;">समपुरक अनुदान अनुसूची ५ बमोजिम (*)</label>
+            <label style="color:red;">समपुरक अनुदान अनुसूची ५ बमोजिम (* FILE)</label>
             @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File, new { type = "file" })
             @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.SamapurakAnusuchi5File)
         </div>
@@ -260,19 +286,19 @@
 
 
     <div class="col-md-3 col-sm-4 form-group">
-        <label style="color:red;">साईटको फोटो १ (फाईल अपलोड)(*)</label>
+        <label style="color:red;">साईटको फोटो १ (* PHOTO)</label>
         @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile, new { type = "file", required = "required", @id = "sitePhoto1" })
         @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectOneFile)
 
     </div>
     <div class="col-md-3 col-sm-4 form-group">
-        <label>साईटको फोटो २ (फाईल अपलोड)</label>
+        <label>साईटको फोटो २ (PHOTO)</label>
         @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile, new { type = "file" })
         @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectTwoFile)
 
     </div>
     <div class="col-md-3 col-sm-4 form-group">
-        <label>साईटको फोटो ३ (फाईल अपलोड)</label>
+        <label>साईटको फोटो ३ (PHOTO)</label>
         @Html.TextBoxFor(m => Model.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile, new { type = "file" })
         @Html.ValidationMessageFor(m => m.ObjQuadrimesterReportsDetailViewModel.PictureOfProjectThreeFile)
 

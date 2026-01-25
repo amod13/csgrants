@@ -1706,6 +1706,8 @@ namespace GrantApp.Services
             new SqlParameter("@SarbajanikSunuwaiFile", model.SarbajanikSunuwai ?? string.Empty),
             new SqlParameter("@SamapurakAnusuchi5File", model.SamapurakAnusuchi5 ?? string.Empty),
             new SqlParameter("@BisehsAnusuchi7File", model.BiseshAnusuchi7 ?? string.Empty),
+              new SqlParameter("@ConductingCompanyName", model.ConductingCompanyName ?? string.Empty),
+               new SqlParameter("@ConductingCompanyPan", model.ConductingCompanyPan ?? string.Empty),
 
             new SqlParameter
             {
@@ -1761,6 +1763,8 @@ namespace GrantApp.Services
                 @SarbajanikSunuwaiFile = @SarbajanikSunuwaiFile,
                 @SamapurakAnusuchi5File = @SamapurakAnusuchi5File,
                 @BisehsAnusuchi7File = @BisehsAnusuchi7File,
+                @ConductingCompanyName = @ConductingCompanyName,
+                @ConductingCompanyPan = @ConductingCompanyPan,
                 @Message = @Message OUTPUT",
                     parameters
                 );
