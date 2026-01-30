@@ -11,6 +11,7 @@ using System.Data.Entity;
 using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNet.Identity;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using System.Web.WebPages;
 
 namespace GrantApp.Areas.VDCMUNLevel.Controllers
 {
@@ -2394,14 +2395,14 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 RequestGrantAmountService rgservices = new RequestGrantAmountService();
 
                 RequestGrantAmountModel rgm = new RequestGrantAmountModel();
-                rgm = rgservices.PopulateGrantRequestAmountDetail(model.OfficeId, model.SubProgramId, 16).SingleOrDefault(x => x.ProgramId == model.SubProgramId);
+                rgm = rgservices.PopulateGrantRequestAmountDetail(model.OfficeId, model.SubProgramId, 18).SingleOrDefault(x => x.ProgramId == model.SubProgramId);
                 if (rgm == null)
                 {
                     rgm = new RequestGrantAmountModel();
                 }
                 rgm.ProgramId = model.SubProgramId;
                 rgm.OfficeId = model.OfficeId;
-                rgm.FiscalYearId = 17;//request amount fiscal year id
+                rgm.FiscalYearId = 18;//request amount fiscal year id
                 rgm.ProgramTimeDuration = 3;
                 rgm.AmountFirst = 0;
                 rgm.AmountSecond = 0;
@@ -3336,6 +3337,11 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             }
             else if (model.CompletionStatusId == 1)//सम्पन्न
             {
+                if (model.PurnaAmsikSampanaMiti.IsEmpty())
+                {
+                    ViewBag.ErrorMessage = "कृपया सम्पन्नताको मिति प्रविष्ट गर्नुहोस् । ";
+                    return View(model);
+                }
                 if (model.ApplicationCompletionStatusId > 0)
                 {
                     string UploadFileUrlForCompletionStr = model.UploadFileUrlForCompletion == null ? string.Empty : model.UploadFileUrlForCompletion.FileName;

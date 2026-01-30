@@ -97,7 +97,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 {
                     //ProfileUpdates pu = new ProfileUpdates();
                     ProfileUpdates pu = db.ProfileUpdates.FirstOrDefault(x => x.OfficeId == model.OfficeId && x.FiscalYearId == 6);
-                    pu = db.ProfileUpdates.FirstOrDefault(x => x.OfficeId == model.OfficeId && x.FiscalYearId == 6);
+                    //pu = db.ProfileUpdates.FirstOrDefault(x => x.OfficeId == model.OfficeId && x.FiscalYearId == 6);
                     if (pu != null)
                     {
                         pu.UpdatedDate = DateTime.Now;
@@ -108,6 +108,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                     }
                     else
                     {
+
 
                         pu = new ProfileUpdates();
                         //save

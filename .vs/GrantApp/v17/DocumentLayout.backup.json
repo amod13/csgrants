@@ -3,35 +3,39 @@
   "WorkspaceRootPath": "Z:\\prjct\\from-laptop\\csgrants\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addmissingdocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addmissingdocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\controllers\\grantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\controllers\\grantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\controllers\\subprogramsetupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\controllers\\grantreportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\controllers\\grantreportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\controllers\\subprogramsetupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\controllers\\subprogramsetupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addprogressdetailbyfy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addprogressdetailbyfy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\services\\subprogramservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\services\\subprogramservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\models\\subprogrammaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\models\\subprogrammaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\models\\subprogrammaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\applicationstatusdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\applicationstatusdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\adminresources\\css\\style.default.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\adminresources\\css\\style.default.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\controllers\\vdcmunhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\controllers\\vdcmunhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdetailprogressreportforclient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdetailprogressreportforclient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdetailprogressreportforclient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
@@ -39,7 +43,23 @@
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\_createeditquadrimesterreports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\missingdocumentmanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addmissingdocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addmissingdocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addprogressdetailbyfy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\addprogressdetailbyfy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\viewdocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\adminresources\\css\\style.default.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\adminresources\\css\\style.default.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|Z:\\prjct\\from-laptop\\csgrants\\grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\missingdocumentmanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A7F17504-9230-42A6-B8ED-E6E1C984AD9F}|GrantApp\\GrantApp.csproj|solutionrelative:grantapp\\areas\\vdcmunlevel\\views\\subprogramsetup\\missingdocumentmanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
@@ -58,89 +78,135 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AddMissingDocument.cshtml",
-              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
-              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
-              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
-              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAAIcAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T11:07:40.974Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "style.default.css",
-              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\AdminResources\\css\\style.default.css",
-              "RelativeDocumentMoniker": "GrantApp\\AdminResources\\css\\style.default.css",
-              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\AdminResources\\css\\style.default.css",
-              "RelativeToolTip": "GrantApp\\AdminResources\\css\\style.default.css",
-              "ViewState": "AgIAAF0BAAAAAAAAAAAAAH4BAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-25T10:24:13.741Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SubProgramMaster.cs",
-              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Models\\SubProgramMaster.cs",
-              "RelativeDocumentMoniker": "GrantApp\\Models\\SubProgramMaster.cs",
-              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Models\\SubProgramMaster.cs",
-              "RelativeToolTip": "GrantApp\\Models\\SubProgramMaster.cs",
-              "ViewState": "AgIAALIBAAAAAAAAAAAuwO8BAAAzAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "GrantReportsController.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Controllers\\GrantReportsController.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Controllers\\GrantReportsController.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Controllers\\GrantReportsController.cs",
+              "RelativeToolTip": "GrantApp\\Controllers\\GrantReportsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T09:40:30.432Z",
+              "WhenOpened": "2026-01-28T11:03:07.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Controllers\\HomeController.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "GrantApp\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAADMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T11:02:25.634Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "SubProgramServices.cs",
-              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Services\\SubProgramServices.cs",
-              "RelativeDocumentMoniker": "GrantApp\\Services\\SubProgramServices.cs",
-              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Services\\SubProgramServices.cs",
-              "RelativeToolTip": "GrantApp\\Services\\SubProgramServices.cs",
-              "ViewState": "AgIAACwEAAAAAAAAAAAiwEwEAABSAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T14:29:31.417Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "SubProgramSetupController.cs",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\SubProgramSetupController.cs",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\SubProgramSetupController.cs",
               "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\SubProgramSetupController.cs",
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\SubProgramSetupController.cs",
-              "ViewState": "AgIAALQIAAAAAAAAAAAAAMIIAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAAAIwMAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T14:16:31.55Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GrantController.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\GrantController.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\GrantController.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\GrantController.cs",
+              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\GrantController.cs",
+              "ViewState": "AgIAAMcFAAAAAAAAAAAAANMFAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T06:05:29.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationStatusDetails.cshtml",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ApplicationStatusDetails.cshtml",
+              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ApplicationStatusDetails.cshtml",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ApplicationStatusDetails.cshtml",
+              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ApplicationStatusDetails.cshtml",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAADIAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-26T05:34:25.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VDCMUNHomeController.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\VDCMUNHomeController.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\VDCMUNHomeController.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Controllers\\VDCMUNHomeController.cs",
+              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Controllers\\VDCMUNHomeController.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAswGsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T05:03:06.828Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "ViewDetailProgressReportForClient.cshtml",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
+              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
+              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
+              "ViewState": "AgIAALoAAAAAAAAAAAAAANgAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T09:30:06.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SubProgramMaster.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Models\\SubProgramMaster.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Models\\SubProgramMaster.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Models\\SubProgramMaster.cs",
+              "RelativeToolTip": "GrantApp\\Models\\SubProgramMaster.cs",
+              "ViewState": "AgIAAOUBAAAAAAAAAAA5wPkBAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T09:40:30.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SubProgramServices.cs",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Services\\SubProgramServices.cs",
+              "RelativeDocumentMoniker": "GrantApp\\Services\\SubProgramServices.cs",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Services\\SubProgramServices.cs",
+              "RelativeToolTip": "GrantApp\\Services\\SubProgramServices.cs",
+              "ViewState": "AgIAAFICAAAAAAAAAAAiwFoCAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-24T14:29:31.417Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "_CreateEditQuadrimesterReports.cshtml",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\_CreateEditQuadrimesterReports.cshtml",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\_CreateEditQuadrimesterReports.cshtml",
               "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\_CreateEditQuadrimesterReports.cshtml",
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\_CreateEditQuadrimesterReports.cshtml",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAEsAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-24T14:39:38.957Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T14:39:38.957Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "ViewDocuments.cshtml",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDocuments.cshtml",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDocuments.cshtml",
@@ -148,12 +214,11 @@
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDocuments.cshtml",
               "ViewState": "AgIAAGIAAAAAAAAAAAAAAHsAAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-24T15:08:16.609Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T15:08:16.609Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "AddProgressDetailByFY.cshtml",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddProgressDetailByFY.cshtml",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddProgressDetailByFY.cshtml",
@@ -161,25 +226,35 @@
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddProgressDetailByFY.cshtml",
               "ViewState": "AgIAAEUAAAAAAAAAAAAAAFAAAACKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-24T14:38:48.188Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T14:38:48.188Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ViewDetailProgressReportForClient.cshtml",
-              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
-              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
-              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
-              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ViewDetailProgressReportForClient.cshtml",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAEoAAABOAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "style.default.css",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\AdminResources\\css\\style.default.css",
+              "RelativeDocumentMoniker": "GrantApp\\AdminResources\\css\\style.default.css",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\AdminResources\\css\\style.default.css",
+              "RelativeToolTip": "GrantApp\\AdminResources\\css\\style.default.css",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAAAH4BAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-25T10:24:13.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AddMissingDocument.cshtml",
+              "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
+              "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
+              "ToolTip": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
+              "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\AddMissingDocument.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAIcAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T09:30:06.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-25T11:07:40.974Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "MissingDocumentManagement.cshtml",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\MissingDocumentManagement.cshtml",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\MissingDocumentManagement.cshtml",
@@ -187,12 +262,11 @@
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\MissingDocumentManagement.cshtml",
               "ViewState": "AgIAAFEAAAAAAAAAAAAAwGEAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-24T14:17:47.771Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T14:17:47.771Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "ProgressDetailList.cshtml",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ProgressDetailList.cshtml",
               "RelativeDocumentMoniker": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ProgressDetailList.cshtml",
@@ -200,12 +274,11 @@
               "RelativeToolTip": "GrantApp\\Areas\\VDCMUNLevel\\Views\\SubProgramSetup\\ProgressDetailList.cshtml",
               "ViewState": "AgIAACsBAAAAAAAAAAAAAFABAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-24T14:47:58.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T14:47:58.5Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "Web.config",
               "DocumentMoniker": "Z:\\prjct\\from-laptop\\csgrants\\GrantApp\\Web.config",
               "RelativeDocumentMoniker": "GrantApp\\Web.config",

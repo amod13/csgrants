@@ -338,8 +338,6 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                 SubProgramMaster mdl = new SubProgramMaster();
           
                 mdl.ViewbagGrantTypeId = id;
-                
-            
                 mdl.ViewBagCurrentOfficeType = GrantApp.Areas.Admin.FunctionClass.GetMetroSubMetroTypeByOfficeId(CurrentLoginUserOfficeId);//VDCmun or MetroSubMetro
                 mdl.ViewBagCurrentLoginUserUserTypeId = GrantApp.CommontUtilities.GetCurrentLoginUserUserTypeByOfficeId(CurrentLoginUserOfficeId);
                 mdl.SubProgramMasterListNotSubmited = services.SP_GetSubmitedProgramListbyType(id, 1, CurrentPhaseNumber, CurrentLoginUserOfficeId).ToList();

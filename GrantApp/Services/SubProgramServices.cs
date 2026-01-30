@@ -467,19 +467,13 @@ namespace GrantApp.Services
             new SqlParameter("@ProbableBenefitedPopulation", _Model.ProbableBenefitedPopulation < 0 ? 0 : _Model.ProbableBenefitedPopulation),
             new SqlParameter("@TimeDurationYear", _Model.TimeDurationYear < 0 ? 0 : _Model.TimeDurationYear),
             new SqlParameter("@GrantTypeId", _Model.GrantTypeId),
-
             new SqlParameter("@AmountProvinceVdc", _Model.AmountProvinceVdc ?? 0),
             new SqlParameter("@NGOINGOAmount", _Model.NGOINGOAmount ?? 0),
             new SqlParameter("@GovnNepalAmount", _Model.GovnNepalAmount ?? 0),
-
             new SqlParameter("@CreatedDate", DateTime.Now),
-         
-         
-
             new SqlParameter("@CreatedBy", 1),
-               new SqlParameter("@ProgramPriority", _Model.ProgramPirority),
+            new SqlParameter("@ProgramPriority", _Model.ProgramPirority),
             new SqlParameter("@Status", _Model.Status),
-         
             new SqlParameter("@TermsAndCondtions", !string.IsNullOrEmpty(_Model.FinalDocumentsUrl)), // Simplified boolean condition
             new SqlParameter("@FinalDocumentsUrl", _Model.FinalDocumentsUrl ?? string.Empty),
             new SqlParameter("@BudgetForFirstYear", _Model.BudgetForFirstYear < 0 ? 0 : _Model.BudgetForFirstYear),
