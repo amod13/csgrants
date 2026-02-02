@@ -14,7 +14,7 @@ namespace GrantApp.Areas.Admin.Controllers
     [Authorize]
     public class AdminHomeController : Controller
     {
-        int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber()-1;
+        int CurrentPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();//-1;
 
         // GET: Admin/AdminHome
         public ActionResult Index()
@@ -166,7 +166,7 @@ namespace GrantApp.Areas.Admin.Controllers
             AdminReport model = new AdminReport();
             DashboardServices services = new DashboardServices();
             model.DashboardNewProgramListViewModelList = services.DashboradPopulateRequestedAmountList(id, id1, id2);
-            model.ViewNewProgramProvinceWiseStatusVMList = services.SP_AdminDashboardNewRequestedProgramStatus(16, 0);//rga fiscal yearid, granttypeid
+            model.ViewNewProgramProvinceWiseStatusVMList = services.SP_AdminDashboardNewRequestedProgramStatus(18, 0);//rga fiscal yearid, granttypeid
             model.ProvinceId = id2;
             return View(model);
         }

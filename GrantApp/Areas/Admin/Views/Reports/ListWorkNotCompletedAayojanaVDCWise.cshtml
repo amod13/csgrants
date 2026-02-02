@@ -60,11 +60,11 @@
                                             @Html.DropDownListFor(model => model.VdcmunIdSearch, GrantApp.Areas.Admin.FunctionClass.GetRuralMunicipalitybyDistrictDDDefault(Model.DistrictIdSearch.ToString()), new { @class = "form-control form-control-sm", id = "dll_vdcmun" })
 
                                         </div>
-                                        @*<div class="col-md-3 col-sm-6 form-group">
-                                                <label>अनुदान प्रकार</label>
-                                                @Html.DropDownListFor(m => m.ViewBagGrantTypeId, GrantApp.Areas.Admin.FunctionClass.GetGrantType(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId", @onchange = "ShowHideSearchDiv()" })
+                                        <div class="col-md-3 col-sm-6 form-group">
+                                                <label>आर्थिक बर्ष</label>
+                                                @Html.DropDownListFor(m => m.ViewFiscalYearId, GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDD(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId", @onchange = "ShowHideSearchDiv()" })
 
-                                            </div>*@
+                                        </div>
 
 
 

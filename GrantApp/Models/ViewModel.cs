@@ -60,6 +60,7 @@ namespace GrantApp.Models
         public int DistrictIdSearch { get; set; }
         public int VdcmunIdSearch { get; set; }
         public int ViewBagGrantTypeId { get; set; }
+        public int ViewFiscalYearId { get; set; }
 
         public List<ApplicationCompletionStatusVM> ApplicationCompletionStatusVMList { get; set; }
     }

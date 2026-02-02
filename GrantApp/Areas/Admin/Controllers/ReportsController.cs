@@ -1559,14 +1559,45 @@ namespace GrantApp.Areas.Admin.Controllers
 
 
 
+        //[HttpPost]
+        //public ActionResult ViewAllDetailsProvinceWise(ReportModel model)
+        //{
+        //    // Get the full list from SP
+        //    var allRecords = services.SP_GetAllDetailsOfIndividualOffice(model.ProgramPhaseNumber, model.ProvinceIdSearch);
+
+
+
+        //    model.ViewAllDetailsOfOfficeViewModelList = services.SP_GetAllDetailsOfIndividualOffice(model.ProgramPhaseNumber, model.ProvinceIdSearch);//1 is not submited, 2 is submited
+        //    model.ViewBagProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+        //    return PartialView("_ViewAllDetailsProvinceWise", model);
+
+        //}
+
         [HttpPost]
         public ActionResult ViewAllDetailsProvinceWise(ReportModel model)
         {
-            model.ViewAllDetailsOfOfficeViewModelList = services.SP_GetAllDetailsOfIndividualOffice(model.ProgramPhaseNumber, model.ProvinceIdSearch);//1 is not submited, 2 is submited
-            model.ViewBagProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
-            return PartialView("_ViewAllDetailsProvinceWise", model);
+            var allRecords = services.SP_GetAllDetailsOfIndividualOffice(model.ProgramPhaseNumber, model.ProvinceIdSearch);
 
+            // Filter based on selection, skip if value is 0
+            var filteredRecords = allRecords.AsQueryable();
+
+            if (model.ViewBagGrantTypeId > 0)
+            {
+                filteredRecords = filteredRecords.Where(x => x.GrantTypeId == model.ViewBagGrantTypeId);
+            }
+
+            if (model.ApprovedOrRejectedStatusId > 0)
+            {
+                bool status = model.ApprovedOrRejectedStatusId == 1; // 1 = Approved(true), 2 = Rejected(false)
+                filteredRecords = filteredRecords.Where(x => x.ApprovedStatus == status);
+            }
+
+            model.ViewAllDetailsOfOfficeViewModelList = filteredRecords.ToList();
+            model.ViewBagProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
+
+            return PartialView("_ViewAllDetailsProvinceWise", model);
         }
+
 
 
 
@@ -1594,7 +1625,15 @@ namespace GrantApp.Areas.Admin.Controllers
             {
 
                 model.OfficeIdSearch = FunctionClass.GetOfficeIdFromVDCMUNCODE(model.VDCMUNIdSearch);
-                model.ViewAllDetailsOfOfficeViewModelList = services.SP_GetAllDetailsOfIndividualOfficeUpdated(model.ProgramPhaseNumber, model.OfficeIdSearch, model.ApprovedOrRejectedStatusId, model.DistrictIdSearch);//1 is not submited, 2 is submited
+                //model.ViewAllDetailsOfOfficeViewModelList = services.SP_GetAllDetailsOfIndividualOfficeUpdated(model.ProgramPhaseNumber, model.OfficeIdSearch, model.ApprovedOrRejectedStatusId, model.DistrictIdSearch);//1 is not submited, 2 is submited
+                var allRecords = services.SP_GetAllDetailsOfIndividualOfficeUpdated(model.ProgramPhaseNumber, model.OfficeIdSearch, model.ApprovedOrRejectedStatusId, model.DistrictIdSearch);
+                var filteredRecords = allRecords.AsQueryable();
+
+                if (model.ViewBagGrantTypeId > 0)
+                {
+                    filteredRecords = filteredRecords.Where(x => x.GrantTypeId == model.ViewBagGrantTypeId);
+                }
+                model.ViewAllDetailsOfOfficeViewModelList = filteredRecords.ToList();
                 model.ViewBagProgramPhaseNumber = CommontUtilities.GetCurrentProgramPhaseNumber();
 
                 return PartialView("_ViewAllDetailsVDCWise", model);
@@ -1792,7 +1831,7 @@ namespace GrantApp.Areas.Admin.Controllers
             model.ApplicationCompletionStatusVMList = new List<ApplicationCompletionStatusVM>();
             int notCompletedRequestAgain = (int)AayojanaCompletionStatusEnum.notCompleted;
             int localLevel = (int)ProvinceOrLocalLevel.localLevel;
-            model.ApplicationCompletionStatusVMList = cp.SPUP_GetApplicationCompletionStatus(notCompletedRequestAgain, 0, 0, localLevel, model.ProvinceIdSearch,model.DistrictIdSearch, model.VdcmunIdSearch);//1 is complete
+            model.ApplicationCompletionStatusVMList = cp.SPUP_GetApplicationCompletionStatus(notCompletedRequestAgain, 0, model.ViewFiscalYearId, localLevel, model.ProvinceIdSearch,model.DistrictIdSearch, model.VdcmunIdSearch);//1 is complete
             return PartialView("_ListWorkNotCompletedAayojanaVDCWise", model);
         }
 

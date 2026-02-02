@@ -63,6 +63,13 @@
                                         @Html.DropDownListFor(model => model.VDCMUNIdSearch, GrantApp.Areas.Admin.FunctionClass.GetRuralMunicipalitybyDistrictDD(Model.DistrictIdSearch), new { @class = "form-control form-control-sm", id = "dll_vdcmun" })
 
                                     </div>
+
+                                    <div class="col-md-3 col-sm-6 form-group">
+                                        <label>अनुदान प्रकार</label>
+                                        @Html.DropDownListFor(m => m.ViewBagGrantTypeId, GrantApp.Areas.Admin.FunctionClass.GetGrantTypeWithDefaultValue(), new { @class = "form-control form-control sm", @id = "GrantTypeDDDivId", @onchange = "ShowHideSearchDiv()" })
+
+                                    </div>
+
                                     <div class="col-md-3 col-sm-6 form-group">
                                         <label>स्वीकृत अवस्था</label>
                                         @Html.DropDownListFor(model => model.ApprovedOrRejectedStatusId, GrantApp.Areas.Admin.FunctionClass.ApprovedOrRejectedDDWithAll(), new { @class = "form-control form-control-sm", id = "dll_vdcmun" })
