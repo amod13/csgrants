@@ -17,6 +17,44 @@
         border-color: #4cae4c;
     }
 </style>
+<style>
+   .dashboard-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .dashboard-table th {
+        background-color: #2c3e50;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .dashboard-table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .group-new {
+        background-color: #e3f2fd;
+        font-weight: 600;
+    }
+
+    .group-old {
+        background-color: #fdecea;
+        font-weight: 600;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .dashboard-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+</style>
 <section class="dashboard-counts section-padding">
 
     <div class="publicInfo" style="display:flex;justify-content:flex-end">
@@ -42,115 +80,93 @@
             </div>
             <div class="row">
 
-                <div class="col-xl-3 col-md-4 col-6">
-                    <div class="info-box">
-                        <div class="wrapper count-title d-flex">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>कार्यक्रम प्रकार</th>
+                            <th>जम्मा</th>
+                            <th>प्रदेशबाट माग संख्या</th>
+                            <th>स्था.तहबाट माग  संख्या</th>
+                            <th>प्रदेश माग रकम</th>
+                            <th>स्था.तह माग रकम</th>
+                            <th>स्वीकृत प्रदेश</th>
+                            <th>स्वीकृत स्था.तह</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                            <div class="name">
-                                <strong class="text-uppercase">नयाँ आयोजना/कार्यक्रम </strong>
-                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.GetTotalProgramCountPhaseWise(4)</strong></div>
+                        <!-- नयाँ आयोजना -->
+                        <tr class="group-new">
+                            <td>नयाँ आयोजना/कार्यक्रम</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.GetTotalProgramCountPhaseWise(Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(2, Model.ProgramPhaseNumber)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(4, Model.ProgramPhaseNumber)</td>
+                        </tr>
 
-                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4)</div>
+                        <!-- विशेष अनुदान -->
+                        <tr class="group-new">
+                            <td>विशेष अनुदान</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.GetTotalProgramCountPhaseAndGrantTypeWise(Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, Model.ProgramPhaseNumber, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, Model.ProgramPhaseNumber, 1)</td>
+                        </tr>
 
-                                <div class="count-number">स्था.तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4)</div>
-                                <div class="count-number">प्रदेश रकम माग: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4)</div>
+                        <!-- समपुरक अनुदान -->
+                        <tr class="group-new">
+                            <td>समपुरक अनुदान</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.GetTotalProgramCountPhaseAndGrantTypeWise(Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, Model.ProgramPhaseNumber, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, Model.ProgramPhaseNumber, 2)</td>
+                        </tr>
 
-                                <div class="count-number">स्था.तह रकम मागः  @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>
+                        <!-- क्रमागत आयोजना -->
+                        <tr class="group-old">
+                            <td>क्रमागत आयोजना/कार्यक्रम (विषेश)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(1, 0, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(2, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(4, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(2, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 1)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(4, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 1)</td>
+                            <td class="text-right">-</td>
+                            <td class="text-right">-</td>
+                        </tr>
+                        <!-- क्रमागत आयोजना -->
+                        <tr class="group-old">
+                            <td>क्रमागत आयोजना/कार्यक्रम (समपुरक)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(2, 0, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(2, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(4, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(2, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 2)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(4, Model.ProgramPhaseNumber, Model.RGAFiscalYearId, 2)</td>
+                            <td class="text-right">-</td>
+                            <td class="text-right">-</td>
+                        </tr>
+                        <!-- क्रमागत आयोजना -->
+                        <tr class="group-old">
+                            <td>कुल क्रमागत आयोजना/कार्यक्रम</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(0, 0, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(2, 4, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(4, 4, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(2, 4, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">@GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(4, 4, Model.RGAFiscalYearId)</td>
+                            <td class="text-right">-</td>
+                            <td class="text-right">-</td>
+                        </tr>
 
-                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(2, 4)</div>
-                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeWise(4, 4)</div>
-                                @*<div class="count-number">स्वीकृत रकम प्र.तर्फ: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>
-                                    <div class="count-number">स्वीकृत रकम स्था.तह तर्फ: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4)</div>*@
-
-
-
-                                <div>
-                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 0, @id1 = 4 })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Count item widget-->
-                <div class="col-xl-3 col-md-4 col-6">
-                    <div class="info-box">
-                        <div class="wrapper count-title d-flex">
-
-                            <div class="name">
-                                <strong class="text-uppercase"> विशेष अनुदान तर्फ</strong>
-                                <div class="count-number"><strong>जम्मा: @GrantApp.CommontUtilities.TotalSpecialProgramCount(1) </strong></div>
-                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4, 1)</div>
-
-                                <div class="count-number">स्था.तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4, 1)</div>
-                                <div class="count-number">प्रदेश रकम मागः @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4, 1)</div>
-
-                                <div class="count-number">स्था.रकम मागः @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4, 1)</div>
-                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, 4, 1)</div>
-                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, 4, 1)</div>
-
-
-
-                                <div>
-                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 1, @id1 = 4 })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Count item widget-->
-                <div class="col-xl-3 col-md-4 col-6">
-                    <div class="info-box">
-                        <div class="wrapper count-title d-flex">
-
-                            <div class="name">
-                                <strong class="text-uppercase"> समपुरक अनुदान तर्फ</strong>
-                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.TotalComplementryProgramCount(1) </strong></div>
-                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(2, 4, 2)</div>
-
-                                <div class="count-number">स्था.तह तर्फ: @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWise(4, 4, 2)</div>
-                                <div class="count-number">प्रदेश रकम माग: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(2, 4, 2)</div>
-
-                                <div class="count-number">स्था.तह रकम: @GrantApp.CommontUtilities.TotalNewProgramBudgetOfficeTypeWise(4, 4, 2)</div>
-                                <div class="count-number">स्वीकृत आयोजना प्र.तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(2, 4, 2)</div>
-                                <div class="count-number">स्वीकृत आयोजना स्था.तह तर्फः @GrantApp.CommontUtilities.TotalProgramApprovedOfficeGrantTypeWise(4, 4, 2)</div>
-
-                                <div>
-                                    @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 2, @id1 = 4 })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xl-3 col-md-4 col-6">
-                    <div class="info-box">
-                        <div class="wrapper count-title d-flex">
-
-                            <div class="name">
-                                <strong class="text-uppercase">क्रमागत आयोजना/कार्यक्रम</strong>
-                                <div class="count-number"><strong>जम्मा : @GrantApp.CommontUtilities.DashboradCountTotalRequestGrantAmount(0, 0, 14) </strong></div>
-                                <div class="count-number">विशेष अनुदानः @GrantApp.CommontUtilities.TotalRequestAmountGrantTypeWise(14, 1)</div>
-                                <div class="count-number">समपुरक अनुदानः @GrantApp.CommontUtilities.TotalRequestAmountGrantTypeWise(14, 2)</div>
-                                <div class="count-number">प्रदेश तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(2, 4, 14)</div>
-                                <div class="count-number">स्थानिय तह तर्फः @GrantApp.CommontUtilities.TotalNewProgramOfficeTypeWiseRGA(4, 4, 14)</div>
-
-                                <div class="count-number">प्रदेश रकम: @GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(2, 4, 14)</div>
-                                <div class="count-number">स्थानिय रकम: @GrantApp.CommontUtilities.TotalRequestAmountOfficeTypeWiseRGA(4, 4, 14)</div>
-
-                                <div>
-                                    @Html.ActionLink("विवरण", "ViewDashboardRequestAmountList", new { @id = 0, @id1 = 14 })
-                                </div>
-                                @*<div>
-                                        @Html.ActionLink("विवरण", "ViewDashboardNewProgramList", new { @id = 2, @id1 = 4 })
-                                    </div>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                    </tbody>
+                </table>
 
 
             </div>

@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Nepali Political History 3D Museum - Realistic Room";
+}
+
+<h2>Enter the History Museum</h2>
+<p>Click the door to open it!</p>
+
+
+
+<script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
+
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xaaaaaa);
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 20, 150);
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(50, 80, 50);
+    scene.add(dirLight);
+
+    // Load textures
+    const loader = new THREE.TextureLoader();
+    const floorTex = loader.load('https://threejs.org/examples/textures/hardwood2_diffuse.jpg');
+    floorTex.wrapS = floorTex.wrapT = THREE.RepeatWrapping;
+    floorTex.repeat.set(4, 4);
+
+    const wallTex = loader.load('https://threejs.org/examples/textures/brick_diffuse.jpg');
+    wallTex.wrapS = wallTex.wrapT = THREE.RepeatWrapping;
+    wallTex.repeat.set(2, 2);
+
+    // Floor
+    const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(400, 400),
+        new THREE.MeshPhongMaterial({ map: floorTex })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    scene.add(floor);
+
+    // Ceiling
+    const ceiling = new THREE.Mesh(
+        new THREE.PlaneGeometry(400, 400),
+        new THREE.MeshPhongMaterial({ color: 0xffffff })
+    );
+    ceiling.position.y = 80;
+    ceiling.rotation.x = Math.PI / 2;
+    scene.add(ceiling);
+
+    // Walls
+    function createWall(w, h, map) {
+        return new THREE.Mesh(
+            new THREE.PlaneGeometry(w, h),
+            new THREE.MeshPhongMaterial({ map })
+        );
+    }
+
+    // Back wall (with door)
+    const backWall = createWall(200, 80, wallTex);
+    backWall.position.set(0, 40, -100);
+    scene.add(backWall);
+
+    // Left wall
+    const leftWall = createWall(200, 80, wallTex);
+    leftWall.position.set(-100, 40, 0);
+    leftWall.rotation.y = Math.PI / 2;
+    scene.add(leftWall);
+
+    // Right wall
+    const rightWall = createWall(200, 80, wallTex);
+    rightWall.position.set(100, 40, 0);
+    rightWall.rotation.y = -Math.PI / 2;
+    scene.add(rightWall);
+
+    // Door (wood)
+    const doorTex = loader.load('https://threejs.org/examples/textures/door.jpg');
+    const doorMat = new THREE.MeshPhongMaterial({ map: doorTex });
+    const doorGeo = new THREE.BoxGeometry(20, 40, 2);
+    const door = new THREE.Mesh(doorGeo, doorMat);
+    door.position.set(0, 20, -99); // slightly in front of wall
+    door.userData.isOpen = false;
+
+    // Pivot for door rotation
+    const doorPivot = new THREE.Object3D();
+    doorPivot.position.set(-10, 0, -99); // hinge on left
+    doorPivot.add(door);
+    door.position.set(10, 20, 0); // relative to pivot
+    scene.add(doorPivot);
+
+    // Raycaster for interaction
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects([door]);
+        if (intersects.length > 0 && !door.userData.isOpen) {
+            door.userData.isOpen = true;
+            gsap.to(doorPivot.rotation, { y: -Math.PI / 2, duration: 1.5 });
+            gsap.to(camera.position, { x: 0, y: 20, z: -50, duration: 2, delay: 1.5, onUpdate: () => camera.lookAt(0, 20, 0) });
+        }
+    }
+    window.addEventListener('click', onClick);
+
+    // Animate
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Responsive
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>

@@ -103,6 +103,7 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
                         pu.UpdatedDate = DateTime.Now;
                         db.Entry(pu).State = EntityState.Modified;
                         db.SaveChanges();
+                        return RedirectToAction("ProgressDetailList", "SubProgramSetup");
 
                         //update
                     }

@@ -2718,10 +2718,15 @@ namespace GrantApp.Areas.VDCMUNLevel.Controllers
             {
                 try
                 {
-                    string path = Path.Combine(Server.MapPath("~/RequiredDocs"),
-                                               Path.GetFileName(file.FileName));
+
+                    string fileName = $"{model.ProgramId}_kramagat_{System.IO.Path.GetFileName(file.FileName)}";
+                    string path = System.IO.Path.Combine(Server.MapPath("~/RequiredDocs"), fileName);
+                    // Save file
+
+                    //string path = Path.Combine(Server.MapPath("~/RequiredDocs"),
+                    //                           Path.GetFileName(file.FileName));
                     file.SaveAs(path);
-                    RequestDocParam = file.FileName;
+                    RequestDocParam = fileName;
                     model.RequestReasonDoc = RequestDocParam;
                     //ViewBag.Message = "File uploaded successfully";
                 }

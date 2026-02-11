@@ -906,6 +906,22 @@ namespace GrantApp.Areas.Admin
         }
 
 
+        public static List<SelectListItem> GetOfficeTypeListWithDefault()
+        {
+            // Hard-coded example; ideally fetch from OfficeType table if dynamic
+            var list = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "All Office Types" },  // Default option
+            new SelectListItem { Value = "2", Text = "Province" },
+            new SelectListItem { Value = "4", Text = "Municipality" },
+         
+
+        };
+
+            return list;
+        }
+
+
 
         public static SelectList GetFiscalYearListDD()
         {

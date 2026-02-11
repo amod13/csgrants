@@ -237,7 +237,7 @@ namespace GrantApp
             {
                 Total = db.Database.SqlQuery<int>(@"select  count (*) as Total From RequestGrantAmount rga
                 inner join OfficeDetails OD on OD.OfficeId=rga.OfficeId
-                where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>1 and OD.UserType='" + UserTypeId + "'").FirstOrDefault();
+                where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>0 and OD.UserType='" + UserTypeId + "'").FirstOrDefault();
                 return GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Total.ToString());
             }
 
@@ -252,7 +252,7 @@ namespace GrantApp
                 Total = db.Database.SqlQuery<int>(@"select  count (*) as Total From RequestGrantAmount rga
                 inner join OfficeDetails OD on OD.OfficeId=rga.OfficeId
 				left join SubProgramMaster SPM on SPM.SubProgramId=rga.ProgramId
-                where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>1 and OD.UserType='" + UserTypeId + "' and SPM.GrantTypeId='" + GrantTypeId + "'").FirstOrDefault();
+                where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>0 and OD.UserType='" + UserTypeId + "' and SPM.GrantTypeId='" + GrantTypeId + "'").FirstOrDefault();
                 return GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Total.ToString());
             }
 
@@ -267,6 +267,21 @@ namespace GrantApp
                 Total = db.Database.SqlQuery<decimal>(@"select  isnull(sum(rga.AmountSecond),0) as Total From RequestGrantAmount rga
                 inner join OfficeDetails OD on OD.OfficeId=rga.OfficeId				
                 where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>1 and OD.UserType='" + UserTypeId + "'").FirstOrDefault();
+                return GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Total.ToString());
+            }
+
+        }
+
+        public static string TotalRequestAmountOfficeTypeWiseRGA(int UserTypeId, int CurrentPhaseNumber, int RGAFYID, int GrantTypeId)
+        {
+            decimal Total = 0;
+
+            using (GrantAppDBEntities db = new GrantAppDBEntities())
+            {
+                Total = db.Database.SqlQuery<decimal>(@"select  isnull(sum(rga.AmountSecond),0) as Total From RequestGrantAmount rga
+                inner join SubProgramMaster spm on spm.SubProgramId=rga.ProgramId
+                inner join OfficeDetails OD on OD.OfficeId=rga.OfficeId				
+                where rga.FiscalYearId='" + RGAFYID + "' and rga.AmountSecond>1 and OD.UserType='" + UserTypeId + "' and spm.GrantTypeId='" + GrantTypeId + "'").FirstOrDefault();
                 return GrantApp.Areas.Admin.FunctionClass.EnglishToNepaliNumber(Total.ToString());
             }
 
@@ -297,8 +312,8 @@ namespace GrantApp
             using (GrantAppDBEntities db = new GrantAppDBEntities())
             {
                 Total = db.Database.SqlQuery<int>(@"select count(*) as Total from RequestGrantAmount RGA
-inner join SubProgramMaster SPM on SPM.SubProgramId = RGA.ProgramId
-where SPM.ApprovedStatus = 1 AND RGA.AmountSecond>1 and RGA.FiscalYearId='" + FiscalYearId + "' and SPM.GrantTypeId = '" + GrantTypeId + "'").FirstOrDefault();
+                                inner join SubProgramMaster SPM on SPM.SubProgramId = RGA.ProgramId
+                                where SPM.ApprovedStatus = 1 AND RGA.AmountSecond>1 and RGA.FiscalYearId='" + FiscalYearId + "' and SPM.GrantTypeId = '" + GrantTypeId + "'").FirstOrDefault();
                 return Total;
             }
 

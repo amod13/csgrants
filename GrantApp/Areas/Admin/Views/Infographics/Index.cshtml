@@ -1,0 +1,224 @@
+﻿@model GrantApp.Areas.Admin.Models.DashboardFilterVM
+
+@{
+    ViewBag.Title = "Infographics Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">ईन्फोग्राफिक्स</li>
+        </ul>
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+
+            <h1 class="h3 display">ईन्फोग्राफिक्स</h1>
+
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+
+                        <!-- Grant Type Filter -->
+                        <div class="col-md-3 col-sm-6 form-group">
+                            <label>अनुदान प्रकार</label>
+                            @Html.DropDownListFor(
+                                m => m.GrantTypeId,
+                                GrantApp.Areas.Admin.FunctionClass.GetGrantTypeWithDefaultValue(),
+                                new { @class = "form-control form-control-sm", @id = "GrantTypeDDDivId", @onchange = "loadDashboard()" }
+                            )
+                        </div>
+
+                        <!-- Phase Filter -->
+                        <div class="col-md-3 col-sm-6 form-group">
+                            <label>Phase</label>
+                            @Html.DropDownListFor(
+                                m => m.ProgramPhaseNumber,
+                                GrantApp.Areas.Admin.FunctionClass.GetProgramPhaseListDDDefault(),
+                                new { @class = "form-control form-control-sm", @id = "dll_phaseNumber", @onchange = "loadDashboard()" }
+                            )
+                        </div>
+
+                        <!-- Office Type / User Type Filter -->
+                        <div class="col-md-3 col-sm-6 form-group">
+                            <label>Office Type</label>
+                            @Html.DropDownListFor(
+                                m => m.UserTypeId,
+                                GrantApp.Areas.Admin.FunctionClass.GetOfficeTypeListWithDefault(),
+                                new { @class = "form-control form-control-sm", @id = "ddl_userType", @onchange = "loadDashboard()" }
+                            )
+                        </div>
+
+                        <!-- Filter Button -->
+                        <div class="col-md-3 col-sm-6 form-group d-flex align-items-end">
+                            <button class="btn btn-primary w-100" onclick="loadDashboard()">Filter</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="card-body">
+
+                    <!-- KPI Cards -->
+                    <div class="row" id="kpiCards"></div>
+
+                    <!-- Charts -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <canvas id="newKramagatChart"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="provinceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <canvas id="mainSectionChart"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="moneyRangeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <canvas id="phaseCompareChart"></canvas>
+                        </div>
+                    </div>
+
+
+                </div>
+
+          
+                </div>
+            </div>
+        </div>
+ 
+</section>
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function loadDashboard() {
+        var grantType = $("#GrantTypeDDDivId").val();
+        var phase = $("#dll_phaseNumber").val();
+        var userType = $("#ddl_userType").val();
+
+        $.post('@Url.Action("GetInsights", "Infographics")',
+        {
+            grantTypeId: grantType,
+            phaseStatus: phase,
+            userType: userType
+        }, function (res) {
+
+            // --- Render KPI Cards ---
+            $("#kpiCards").empty();
+            if (res.Summary) {
+                var kpis = [
+                    { title: "माग भएको कुल आयोजना", value: res.Summary.TotalPrograms },
+                    { title: "स्विकृत", value: res.Summary.Approved },
+                  /*  { title: "Pending", value: res.Summary.Pending }*/
+                ];
+                kpis.forEach(function(kpi) {
+                    var cardHtml = `
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-center shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">${kpi.title}</h5>
+                                    <p class="card-text display-6">${kpi.value}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                    $("#kpiCards").append(cardHtml);
+                });
+            }
+
+            // --- New vs Kramagat Chart ---
+            if (window.newKramagatChartInstance) window.newKramagatChartInstance.destroy();
+            var labelsNK = res.NewVsKramagat.map(x => x.Category);
+            var dataNK = res.NewVsKramagat.map(x => x.Total);
+            var ctxNK = document.getElementById("newKramagatChart").getContext("2d");
+            window.newKramagatChartInstance = new Chart(ctxNK, {
+                type: "bar",
+                data: {
+                    labels: labelsNK,
+                    datasets: [{ label: "नँया आयोजना vs क्रमागत आयोजना", data: dataNK, backgroundColor: ["#007bff", "#28a745"] }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: "नँया आयोजना vs क्रमागत आयोजना" }
+                    }
+                }
+            });
+
+            // --- Province Chart ---
+            if (window.provinceChartInstance) window.provinceChartInstance.destroy();
+            var labelsProvince = res.Provinces.map(x =>  x.Name);
+            var dataProvince = res.Provinces.map(x => x.TotalPrograms);
+            var ctxProvince = document.getElementById("provinceChart").getContext("2d");
+            window.provinceChartInstance = new Chart(ctxProvince, {
+                type: "pie",
+                data: { labels: labelsProvince, datasets: [{ data: dataProvince, backgroundColor: ["#007bff","#28a745","#ffc107","#dc3545","#6f42c1","#fd7e14","#20c997"] }] },
+                options: { responsive: true, plugins: { title: { display: true, text: "Programs by Province" } } }
+            });
+
+            // --- Main Section Chart ---
+            if (window.mainSectionChartInstance) window.mainSectionChartInstance.destroy();
+            var labelsMain = res.MainSections.map(x => "Section " + x.SectionName);
+            var dataMain = res.MainSections.map(x => x.TotalPrograms);
+            var ctxMain = document.getElementById("mainSectionChart").getContext("2d");
+            window.mainSectionChartInstance = new Chart(ctxMain, {
+                type: "bar",
+                data: { labels: labelsMain, datasets: [{ label: "प्रकार", data: dataMain, backgroundColor: "#17a2b8" }] },
+                options: { responsive: true, plugins: { title: { display: true, text: "प्रकार अनुसार" } } }
+            });
+
+            // --- Money Range Chart ---
+            if (window.moneyRangeChartInstance) window.moneyRangeChartInstance.destroy();
+            var labelsMoney = res.MoneyRanges.map(x => x.RangeCategory);
+            var dataMoney = res.MoneyRanges.map(x => x.TotalSubPrograms);
+            var ctxMoney = document.getElementById("moneyRangeChart").getContext("2d");
+            window.moneyRangeChartInstance = new Chart(ctxMoney, {
+                type: "bar",
+                data: { labels: labelsMoney, datasets: [{ label: "Programs", data: dataMoney, backgroundColor: "#ffc107" }] },
+                options: { responsive: true, plugins: { title: { display: true, text: "रकम माग अनुसार" } } }
+            });
+
+            // --- Phase Compare Chart ---
+            if (window.phaseCompareChartInstance) window.phaseCompareChartInstance.destroy();
+            var labelsPhase = res.PhaseCompare.map(x => "Phase " + x.Phase);
+            var dataPhase = res.PhaseCompare.map(x => x.TotalPrograms);
+            var ctxPhase = document.getElementById("phaseCompareChart").getContext("2d");
+            window.phaseCompareChartInstance = new Chart(ctxPhase, {
+                type: "line",
+                data: { labels: labelsPhase, datasets: [{ label: "Programs", data: dataPhase, borderColor: "#dc3545", backgroundColor: "#dc354533" }] },
+                options: { responsive: true, plugins: { title: { display: true, text: "Phase Comparison" } } }
+            });
+
+        });
+    }
+
+    $(document).ready(function () {
+        loadDashboard(); // Load default dashboard on page load
+    });
+</script>

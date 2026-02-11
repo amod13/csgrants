@@ -9,6 +9,18 @@
 
 }
 
+<style>
+    .edits {
+        color: #0026ff !important;
+        font-size: 24px !important;
+    }
+
+    .Update {
+        color: red;
+        font-size: 24px !important;
+    }
+</style>
+
 
 <link href="~/Content/toastr.min.css" rel="stylesheet" />
 <div class="breadcrumb-holder">
@@ -150,7 +162,7 @@
                                                 {
 
                                                     <td>
-                                                        @Html.ActionLink(" ", "ReqestGrantAmount", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
+                                                        @Html.ActionLink(" ", "ReqestGrantAmount", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "Update fa fa-file", data_toggle = "tooltip", data_placement = "top", @title = "अनुदान रकम राख्नुहोस" })
                                                     </td>
                                                
 
@@ -160,7 +172,7 @@
                                                     <td> - </td>
                                                 }
 
-                                            <td>@Html.ActionLink(" ", "CancleForThisFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "edits fa fa-window-close", data_toggle = "tooltip", data_placement = "top", @title = "रकम चाहिदैन" })</td>
+                                            <td>@Html.ActionLink(" ", "CancleForThisFY", new { @id = item.SubProgramId, @id1 = item.GrantTypeId }, new { @class = "Update fa fa-window-close", data_toggle = "tooltip", data_placement = "top", @title = "रकम चाहिदैन" })</td>
                                             }
                                             else
                                                             {

@@ -1497,5 +1497,65 @@ namespace GrantApp.Services
         }
 
 
+        public InsightsDashboardVM GetInsights(int phaseStatus, int grantTypeId = 0, int userType = 0)
+        {
+            using (GrantAppDBEntities db = new GrantAppDBEntities())
+            {
+                InsightsDashboardVM dashboard = new InsightsDashboardVM();
+
+                // 1️⃣ Summary
+                dashboard.Summary = db.Database.SqlQuery<SummaryModel>(
+                    "sp_GetInsightsSummary @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).FirstOrDefault();
+
+                // 2️⃣ New vs Kramagat
+                dashboard.NewVsKramagat = db.Database.SqlQuery<CategoryModel>(
+                    "sp_GetInsightsNewVsKramagat @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).ToList();
+
+                // 3️⃣ Provincial Division
+                dashboard.Provinces = db.Database.SqlQuery<ProvinceModel>(
+                    "sp_GetInsightsProvinces @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).ToList();
+
+                // 4️⃣ MainSection wise
+                dashboard.MainSections = db.Database.SqlQuery<MainSectionModel>(
+                    "sp_GetInsightsMainSections @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).ToList();
+
+                // 5️⃣ Money Range / Total Budget
+                dashboard.MoneyRanges = db.Database.SqlQuery<MoneyRangeModel>(
+                    "sp_GetInsightsMoneyRanges @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).ToList();
+
+                // 6️⃣ Phase Comparison
+                dashboard.PhaseCompare = db.Database.SqlQuery<PhaseCompareModel>(
+                    "sp_GetInsightsPhaseCompare @PhaseStatus,@GrantTypeId,@UserType",
+                    new SqlParameter("@PhaseStatus", phaseStatus),
+                    new SqlParameter("@GrantTypeId", grantTypeId),
+                    new SqlParameter("@UserType", userType)
+                ).ToList();
+
+                return dashboard;
+            }
+        }
+
+
+
     }
 }

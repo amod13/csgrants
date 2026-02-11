@@ -294,6 +294,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminFileUploadsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InfographicsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AjaxRequestController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrantRequestFormController.cs" />
@@ -1283,6 +1284,8 @@
     <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ViewDocuments.cshtml" />
     <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\ApplicationStatusView.cshtml" />
     <Content Include="Areas\VDCMUNLevel\Views\SubProgramSetup\AddMissingDocument.cshtml" />
+    <Content Include="Areas\Admin\Views\Infographics\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Infographics\Test.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GrantApp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -88,4 +88,64 @@ namespace GrantApp.Areas.Admin.Models
     }
 
 
+    ///
+
+    public class DashboardFilterVM
+    {
+        public int GrantTypeId { get; set; }
+        public int ProgramPhaseNumber { get; set; }
+        public int UserTypeId { get; set; }
+    }
+    public class InsightsDashboardVM
+    {
+        public SummaryModel Summary { get; set; }
+        public List<CategoryModel> NewVsKramagat { get; set; }
+        public List<ProvinceModel> Provinces { get; set; }
+        public List<MainSectionModel> MainSections { get; set; }
+        public List<MoneyRangeModel> MoneyRanges { get; set; }
+        public List<PhaseCompareModel> PhaseCompare { get; set; }
+    }
+
+    public class SummaryModel
+    {
+        public int TotalPrograms { get; set; }
+        public int Approved { get; set; }
+        public int Pending { get; set; }
+    }
+
+    public class CategoryModel
+    {
+        public string Category { get; set; }
+        public int Total { get; set; }
+    }
+
+    public class ProvinceModel
+    {
+        public string Name { get; set; }
+        public int TotalPrograms { get; set; }
+    }
+
+    public class MainSectionModel
+    {
+
+        public string SectionName { get; set; }
+        public int TotalPrograms { get; set; }
+    }
+
+    public class MoneyRangeModel
+    {
+        public string RangeCategory { get; set; }
+        public int TotalSubPrograms { get; set; }
+        public decimal TotalBudget { get; set; }
+    }
+
+    public class PhaseCompareModel
+    {
+        public int Phase { get; set; }
+        public int TotalPrograms { get; set; }
+    }
+
+    ///
+
+
 }

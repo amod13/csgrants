@@ -62,11 +62,14 @@ namespace GrantApp.Areas.Admin.Controllers
             model.DashboardModelList = services.PopulateSectionWiseProgramCount(0, CurrentPhaseNumber);
             model.DashboardModelListSpecialGrant = services.PopulateSectionWiseProgramCount(1, CurrentPhaseNumber);
             model.DashboardModelListComplemnetryGrant = services.PopulateSectionWiseProgramCount(2, CurrentPhaseNumber);
-            int PreviousPhaseNumber = CurrentPhaseNumber - 1;
+            int PreviousPhaseNumber = CurrentPhaseNumber-1;
             model.ObjAdminDashboardNewprojectCountListViewModel = services.AdminDashboardNewprojectCountList(PreviousPhaseNumber);
             model.SecionWiseProgramCountViewModelList = new List<SecionWiseProgramCountViewModel>();
             model.SecionWiseProgramCountViewModelList = services.AdminDashboardCountMainSectionWise(CurrentPhaseNumber);
-            model.ProgramPhaseNumberStr = FunctionClass.GetPhaseTitleBYPhaseNumber(4);
+            model.ProgramPhaseNumberStr = FunctionClass.GetPhaseTitleBYPhaseNumber(8);
+            model.ProgramPhaseNumber = CurrentPhaseNumber;
+            int RGAFYID = FunctionClass.GetRGAFiscalYearByPhaseNumber(CurrentPhaseNumber);
+            model.RGAFiscalYearId = RGAFYID;
             return View(model);
 
         }
